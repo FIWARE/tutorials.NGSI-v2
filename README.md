@@ -24,8 +24,8 @@ directly or programmatically.
 To download the full set of tutorials, simply clone this repository:
 
 ```console
-git clone https://github.com/FIWARE/tutorials.Step-by-Step.git
-cd tutorials.Step-by-Step/
+git clone https://github.com/FIWARE/tutorials.NGSI-v2.git
+cd tutorials.NGSI-v2/
 git submodule update --init --recursive
 ```
 
