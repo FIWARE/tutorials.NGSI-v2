@@ -72,7 +72,7 @@ the concept of a project object model (POM), Maven can manage a project's build,
 central piece of information. Maven can be used to define and download our dependencies and to build and package Java or
 Scala code into a JAR file.
 
-## Tutorials List
+## Tutorials List [<img src="https://img.shields.io/badge/NGSI-v2-5dc0cf.svg" width="90"  align="left" />]("https://fiware-ges.github.io/orion/api/v2/stable/)
 
 ### Core Context Management: NGSI-v2 Fundamentals
 
