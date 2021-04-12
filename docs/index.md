@@ -91,8 +91,8 @@ Scala code into a JAR file.
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"> [Smart Data Models](https://smartdatamodels.org)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent"> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent"> [Smart Data Models](https://smartdatamodels.org)
 
 ## List of Tutorials
 
