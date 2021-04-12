@@ -87,6 +87,13 @@ the concept of a project object model (POM), Maven can manage a project's build,
 central piece of information. Maven can be used to define and download our dependencies and to build and package Java or
 Scala code into a JAR file.
 
+## Data models
+
+The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
+
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"> [Smart Data Models](https://smartdatamodels.org)
+
 ## List of Tutorials
 
 <h3 style="box-shadow: 0px 4px 0px 0px #233c68;">Core Context Managment: The NGSI-v2 Interface</h3>
