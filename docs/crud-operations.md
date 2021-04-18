@@ -780,7 +780,7 @@ This example updates the value of the price attribute of the Entity with `id=urn
 
 ```bash
 curl -iX PUT \
-  --url 'http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs/price/value' \
+  --url 'http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs/price/value?type=Product' \
   --header 'Content-Type: text/plain' \
   --data 89
 ```
@@ -797,7 +797,7 @@ This example simultaneously updates the values of both the price and name attrib
 
 ```bash
 curl -iX PATCH \
-  --url 'http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs' \
+  --url 'http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001/attrs?type=Product' \
   --header 'Content-Type: application/json' \
   --data ' {
       "price":{"type":"Integer", "value": 89},
