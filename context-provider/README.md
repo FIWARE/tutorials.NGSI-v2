@@ -119,7 +119,7 @@ The mapping path element is assumes that mappings are defined in the path as fol
     -   `windSpeed` NGSI attribute maps to `wind_speed` attribute on the API data
 
 For the full guidelines see the
-[FIWARE Data Models](https://fiware-datamodels.readthedocs.io/en/latest/guidelines/index.html)
+[Smart Data Models](https://smartdatamodels.org/)
 
 ## Health Check Endpoints
 

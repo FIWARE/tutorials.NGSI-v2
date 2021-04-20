@@ -82,7 +82,7 @@ described below:
 
 -   The [**Store** model](https://fiware.github.io/tutorials.Step-by-Step/schema/Store/) is now based on and extends the
     FIWARE
-    [**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html). This
+    [**Building** model](https://github.com/smart-data-models/dataModel.Building). This
     ensures that it offers standard properties for `name`, `address` and category.
     -   A Building will hold `furniture` this is a 1-many relationship.
         -   Building ➡ Shelf.
@@ -348,8 +348,8 @@ computer readable JSON-LD `@context` Data Models is included in the request.
 
 ### Display all Buildings
 
-The Stores of the supermarket have been created using the FIWARE
-[**Building** model](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html) and the
+The Stores of the supermarket have been created using the Smart data
+[**Building** model](https://github.com/smart-data-models/dataModel.Building) and the
 enumerated value of this type is `fiware:Building` which expands to `https://uri.fiware.org/ns/datamodels%23Building`.
 It is therefore possible to request all building entities without supplying a known context.
 

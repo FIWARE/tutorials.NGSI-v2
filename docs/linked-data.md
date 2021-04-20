@@ -71,7 +71,7 @@ JSON-LD introduces the concept of the `@context` element which provides addition
 interpret the rest of the data with more clarity and depth.
 
 Furthermore the JSON-LD specification enables you to define a unique `@type` associating a well-defined
-[data model](https://fiware-datamodels.readthedocs.io/en/latest/guidelines/index.html) to the data itself.
+[data model](https://smartdatamodels.org/) to the data itself.
 
 ### Video: What is JSON-LD?
 
@@ -118,7 +118,7 @@ Once again, _entity_ can be considered to be the core element. Every entity must
 often a [URN](https://en.wikipedia.org/wiki/Uniform_resource_name), there is also a `type`, used to define the structure
 of the data held, which must also be a URI. This URI should correspond to a well-defined data model which can be found
 on the web. For example the URI `https://uri.fiware.org/ns/data-models#Building` is used to define common data model for
-a [Building](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html).
+a [Building](https://github.com/smart-data-models/dataModel.Building).
 
 _Entities_ can have _properties_ and _relationships_. Ideally the name of each _property_ should also be a well defined
 URI which corresponds to a common concept found across the web (e.g. `http://schema.org/address` is a common URI for the
@@ -284,7 +284,7 @@ from multiple sources and remove ambiguity when comparing data coming from diffe
 
 Creating linked data using fully qualified names throughout would be painful, as each attribute would need to be a URI,
 so JSON-LD introduces the idea of an `@context` attribute which can hold pointers to context definitions. To add a
-FIWARE [Building](https://fiware-datamodels.readthedocs.io/en/latest/Building/Building/doc/spec/index.html) data entity,
+FIWARE [Building](https://github.com/smart-data-models/dataModel.Building) data entity,
 the following `@context` would be required
 
 ```json
@@ -293,7 +293,7 @@ the following `@context` would be required
     "type": "Building",
     ...  other data attributes
     "@context": [
-        "https://fiware.github.io/data-models/context.jsonld",
+        "https://smartdatamodels.org/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
     ]
 }
@@ -306,11 +306,11 @@ refers to the Core `@context` of NGSI-LD, this defines element such as `id` and 
 entities, as well as defining terms such as `Property` and `Relationship`. The core context is so fundamental to
 NGSI-LD, that it is added by default to any `@context` sent to a request.
 
-### FIWARE Data Models
+### Smart Data Models
 
-[https://fiware.github.io/data-models/context.jsonld](https://fiware.github.io/data-models/context.jsonld) refers to the
-definition of standard data models supplied by FIWARE. Adding this to the `@context` will load the definitions of all
-the [data models](https://fiwaredata-models.readthedocs.io) defined by the FIWARE Foundation in collaboration with other
+[https://smartdatamodels.org/context.jsonld](https://smartdatamodels.org/context.jsonld) refers to the
+definition of standard data models supplied by the Smart Data Models project. Adding this to the `@context` will load the definitions of all
+the [data models](https://smartdatamodels.org/) defined by the FIWARE Foundation in collaboration with other
 organizations such as [GSMA](https://www.gsma.com/) and [TM Forum](https://www.tmforum.org/). A summary of the FQNs
 related to **Building** can be seen below:
 
@@ -372,7 +372,7 @@ curl -iX POST \
         "value": "Bösebrücke Einkauf"
     },
     "@context": [
-        "https://fiware.github.io/data-models/context.jsonld",
+        "https://smartdatamodels.org/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
     ]
 }'
@@ -381,7 +381,7 @@ curl -iX POST \
 The first request will take some time, as the context broker must navigate and load all of the files mentioned in the
 `@context`.
 
-> **Note**: if `https://fiware.github.io/data-models/context.jsonld` is unavailable for some reason the request will
+> **Note**: if `https://smartdatamodels.org/context.jsonld` is unavailable for some reason the request will
 > fail
 >
 > For a working production system it is essential that the `@context` files are always available to ensure third parties
@@ -428,7 +428,7 @@ curl -iX POST \
         "value": "Checkpoint Markt"
     },
     "@context": [
-        "https://fiware.github.io/data-models/context.jsonld",
+        "https://smartdatamodels.org/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
     ]
 }'
@@ -638,7 +638,7 @@ A [`Link` header](https://www.w3.org/wiki/LinkHeader) must be supplied to associ
 with the FQN `https://uri.fiware.org/ns/data-models#Building`. The full link header syntax can be seen below:
 
 ```text
-Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json
+Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json
 ```
 
 The standard HTTP `Link` header allows metadata (in this case the `@context`) to be passed in without actually touching
@@ -649,7 +649,7 @@ the resource in question. In the case of NGSI-LD, the metadata is a file in `app
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     'http://localhost:1026/ngsi-ld/v1/entities' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
@@ -679,7 +679,7 @@ used as the `@context` returned in the response.
             "type": "Point",
             "coordinates": [13.3986, 52.5547]
         },
-        "@context": "https://fiware.github.io/data-models/context.jsonld"
+        "@context": "https://smartdatamodels.org/context.jsonld"
     },
     {
         "id": "urn:ngsi-ld:Building:store002",
@@ -696,7 +696,7 @@ used as the `@context` returned in the response.
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
         },
-        "@context": "https://fiware.github.io/data-models/context.jsonld"
+        "@context": "https://smartdatamodels.org/context.jsonld"
     }
 ]
 ```
@@ -712,7 +712,7 @@ the `q` parameter - if a string has spaces in it, it can be URL encoded and held
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=name==%22Checkpoint%20Markt%22' \
@@ -721,12 +721,12 @@ curl -G -X GET \
 
 #### Response:
 
-The `Link` header `https://fiware.github.io/data-models/context.jsonld` holds an array of `@context` as shown:
+The `Link` header `https://smartdatamodels.org/context.jsonld` holds an array of `@context` as shown:
 
 ```json
 {
     "@context": [
-        "https://fiware.github.io/data-models/context.jsonld",
+        "https://smartdatamodels.org/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.3.jsonld"
     ]
 }
@@ -754,7 +754,7 @@ JSON-LD as shown:
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
         },
-        "@context": "https://fiware.github.io/data-models/context.jsonld"
+        "@context": "https://smartdatamodels.org/context.jsonld"
     }
 ]
 ```
@@ -770,7 +770,7 @@ done using the `q` parameter, comma separating the acceptable values.
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=category==%22commercial%22,%22office%22 \
@@ -798,7 +798,7 @@ The response is returned in JSON-LD format with short form attribute names:
             "type": "Point",
             "coordinates": [13.3986, 52.5547]
         },
-        "@context": "https://fiware.github.io/data-models/context.jsonld"
+        "@context": "https://smartdatamodels.org/context.jsonld"
     },
     {
         "id": "urn:ngsi-ld:Building:store002",
@@ -815,7 +815,7 @@ The response is returned in JSON-LD format with short form attribute names:
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
         },
-        "@context": "https://fiware.github.io/data-models/context.jsonld"
+        "@context": "https://smartdatamodels.org/context.jsonld"
     }
 ]
 ```
@@ -832,7 +832,7 @@ Filtering can be done using the `q` parameter - sub-attributes are annotated usi
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=address[addressLocality]==%22Kreuzberg%22' \
@@ -860,7 +860,7 @@ Use of the `Link` header and the `options=keyValues` parameter reduces the respo
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
         },
-        "@context": "https://fiware.github.io/data-models/context.jsonld"
+        "@context": "https://smartdatamodels.org/context.jsonld"
     }
 ]
 ```
@@ -878,7 +878,7 @@ This supersedes the `mq` parameter from NGSI v2.
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     -H 'Accept: application/json' \
     -d 'type=Building' \
     -d 'q=address.verified==true' \
@@ -942,7 +942,7 @@ If another attribute is to be used, an additional `geoproperty` parameter is req
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-  -H 'Link: <https://fiware.github.io/data-models/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/json"'
+  -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/json"'
   -H 'Accept: application/json' \
   -d 'type=Building' \
   -d 'geometry=Point' \

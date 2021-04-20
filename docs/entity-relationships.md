@@ -320,9 +320,9 @@ As you can see there are currently three additional property attributes present 
 In databases, foreign keys are often used to designate a one-to-many relationship - for example every shelf is found in
 a single store and a single store can hold many shelving units. In order to remember this information we need to add an
 association relationship similar to a foreign key. Batch processing can again be used to amend the existing the
-**Shelf** entities to add a `refStore` attribute holding the relationship to each store. According to the FIWARE Data
-Modelling Guidelines on
-[linked data](https://fiware-datamodels.readthedocs.io/en/latest/guidelines/index.html#modelling-linked-data), when an
+**Shelf** entities to add a `refStore` attribute holding the relationship to each store. According to the Smart Data
+Models Guidelines on
+[linked data](https://smartdatamodels.org/), when an
 entity attribute is used as a link to other entities it should be named with the prefix `ref` plus the name of the
 target (linked) entity type.
 
