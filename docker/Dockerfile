@@ -1,6 +1,6 @@
 ARG NODE_VERSION=14
 ARG GITHUB_ACCOUNT=fiware
-ARG GITHUB_REPOSITORY=tutorials.Step-by-Step
+ARG GITHUB_REPOSITORY=tutorials.NGSI-v2
 ARG DOWNLOAD=latest
 ARG SOURCE_BRANCH=master
 ARG SOURCE_COMMIT=unknown
@@ -112,8 +112,8 @@ LABEL "org.opencontainers.image.authors"="https://www.fiware.org/contact-us/"
 LABEL "org.opencontainers.image.documentation"="http://fiware-tutorials.rtfd.io/"
 LABEL "org.opencontainers.image.vendor"="FIWARE Foundation"
 LABEL "org.opencontainers.image.licenses"="MIT"
-LABEL "org.opencontainers.image.title"="FIWARE Step-by-Step Tutorials"
-LABEL "org.opencontainers.image.description"="Simple Node.js express application for use with the FIWARE Step-by-Step tutorials"
+LABEL "org.opencontainers.image.title"="FIWARE NGSI-v2 Tutorials"
+LABEL "org.opencontainers.image.description"="Simple Node.js express application for use with the FIWARE NGSI-v2 tutorials"
 LABEL "org.opencontainers.image.source"=https://github.com/${GITHUB_ACCOUNT}/${GITHUB_REPOSITORY}
 LABEL "org.nodejs.version"=${NODE_VERSION}
 
