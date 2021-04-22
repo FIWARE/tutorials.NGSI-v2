@@ -391,6 +391,10 @@ curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
 }'
 ```
 
+> **Note** that `properties` is defined in the 1.1.1 NGSI-LD core context. In 1.3.1, it is due to be replaced with
+>  two separate attributes -  `propertyNames` and `relationshipNames` - this change has been made in order to offer 
+>  full GeoJSON-LD support. Your context broker may or may not support the updated core context
+
 ### Read Registration Details
 
 Retrieving the registration details can be made by sending a GET request to the `/ngsi-ld/v1/csourceRegistrations/`
