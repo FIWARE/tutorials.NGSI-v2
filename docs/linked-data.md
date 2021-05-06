@@ -335,8 +335,8 @@ If we include this context definition, it means that we will be able to use shor
 It should be noted that According to the [JSON-LD Spec](https://www.w3.org/TR/json-ld/#the-context) : _"a context is
 used to map terms to IRIs."_ - An IRI (Internationalized Resource Identifier) is not necessarily a URL - see
 [here](https://fusion.cs.uni-jena.de/fusion/blog/2016/11/18/iri-uri-url-urn-and-their-differences/) and therefore it is
-not unexpected if elements such as `https://uri.etsi.org/ngsi-ld/name` do not actually resolve to a web-page. However
-many IRIs within JSON-LD `@context` files, such as `http://schema.org/address` do indeed return web-pages with more
+not unexpected if elements such as `https://uri.etsi.org/ngsi-ld/name` do not actually resolve to a web page. However
+many IRIs within JSON-LD `@context` files, such as `http://schema.org/address` do indeed return web pages with more
 information about themselves.
 
 If you take the NGSI-LD [Core @context](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld)
