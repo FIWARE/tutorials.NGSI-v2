@@ -318,11 +318,11 @@ related to **Building** can be seen below:
 {
     "@context": {
         "Building": "https://uri.fiware.org/ns/data-models#Building",
-        ... etc
+...
         "address": "http://schema.org/address",
         "category": "https://uri.fiware.org/ns/data-models#category",
         "location": "http://uri.etsi.org/ngsi-ld/location",
-        ...etc
+...
     }
 }
 ```
@@ -360,10 +360,6 @@ You can see that any unresolved short-name for an attribute will be mapped onto 
 -   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`
 
 And unsurprisingly these default-context IRIs don't exist as valid web pages either.
-
-To create a valid **Building** data entity in the context broker, make a POST request to the
-`http://localhost:1026/ngsi-ld/v1/entities` endpoint as shown below. It is essential that the appropriate
-`Content-Type: application/ld+json` is also used, so that the data entity is recognized as Linked data.
 
 To create a valid **Building** data entity in the context broker, make a POST request to the
 `http://localhost:1026/ngsi-ld/v1/entities` endpoint as shown below. It is essential that the appropriate
