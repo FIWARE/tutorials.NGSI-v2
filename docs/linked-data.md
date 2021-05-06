@@ -330,6 +330,41 @@ related to **Building** can be seen below:
 If we include this context definition, it means that we will be able to use short names for `Building`, `address`,
 `location` for our entities, but computers will also be able to read the FQNs when comparing with other sources.
 
+#### Context terms are IRIs not URLs
+
+It should be noted that According to the [JSON-LD Spec](https://www.w3.org/TR/json-ld/#the-context) : _"a context is
+used to map terms to IRIs."_ - An IRI (Internationalized Resource Identifier) is not necessarily a URL - see
+[here](https://fusion.cs.uni-jena.de/fusion/blog/2016/11/18/iri-uri-url-urn-and-their-differences/) and therefore it is
+not unexpected if elements such as `https://uri.etsi.org/ngsi-ld/name` do not actually resolve to a web-page. However
+many IRIs within JSON-LD `@context` files, such as `http://schema.org/address` do indeed return web-pages with more
+information about themselves.
+
+If you take the NGSI-LD [Core @context](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld)
+
+```jsonld
+{
+  "@context": {
+
+    "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",
+    "geojson": "https://purl.org/geojson/vocab#",
+    "id": "@id",
+    "type": "@type",
+...
+    "@vocab": "https://uri.etsi.org/ngsi-ld/default-context/"
+  }
+}
+```
+
+You can see that any unresolved short-name for an attribute will be mapped onto the default context i.e.:
+
+-   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`
+
+And unsurprisingly these default-context IRIs don't exist as valid webpages either.
+
+To create a valid **Building** data entity in the context broker, make a POST request to the
+`http://localhost:1026/ngsi-ld/v1/entities` endpoint as shown below. It is essential that the appropriate
+`Content-Type: application/ld+json` is also used, so that the data entity is recognized as Linked data.
+
 To create a valid **Building** data entity in the context broker, make a POST request to the
 `http://localhost:1026/ngsi-ld/v1/entities` endpoint as shown below. It is essential that the appropriate
 `Content-Type: application/ld+json` is also used, so that the data entity is recognized as Linked data.
