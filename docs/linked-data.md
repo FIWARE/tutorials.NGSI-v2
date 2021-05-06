@@ -359,7 +359,7 @@ You can see that any unresolved short-name for an attribute will be mapped onto 
 
 -   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`
 
-And unsurprisingly these default-context IRIs don't exist as valid webpages either.
+And unsurprisingly these default-context IRIs don't exist as valid web pages either.
 
 To create a valid **Building** data entity in the context broker, make a POST request to the
 `http://localhost:1026/ngsi-ld/v1/entities` endpoint as shown below. It is essential that the appropriate
