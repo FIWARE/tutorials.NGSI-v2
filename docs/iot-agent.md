@@ -487,8 +487,8 @@ reading `c` with the context attribute `count` (which is defined as an `Integer`
 
 > Static attributes are useful as additional data on an entity to enable querying using the `q` parameter. For example the Smart Data Models [Device](https://github.com/smart-data-models/dataModel.Device/blob/master/Device/doc/spec.md) model defines attributes such as `category` or `controlledProperty` which enable queries to be made like:
 >
->  -  _Which **Actuators** currently have a low `batteryLevel`?_
->  -  _Which **Devices** measuring `fillingLevel` were installed before January 2020?_
+> -  _Which **Actuators** currently have a low `batteryLevel`?_
+> -  _Which **Devices** measuring `fillingLevel` were installed before January 2020?_
 >
 >  Obviously static data can be extended as necessary and can also include additional data such as a unique `name` or `serialNumber` for each device should the entity ID be too inflexible for queries.
 >
