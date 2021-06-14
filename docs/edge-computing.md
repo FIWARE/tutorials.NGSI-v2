@@ -1,9 +1,9 @@
 [![FIWARE Context processing, analysis and visualisation](https://nexus.lab.fiware.org/static/badges/chapters/processing.svg)](https://github.com/FIWARE/catalogue/blob/master/processing/README.md)
 
-**Description:** This is an introductory tutorial for [FIWARE FogFlow](https://fogflow.readthedocs.io/en/latest/) that allows its users
-to dynamically orchestrate the processing flows on edges. It explains how to enable FogFlow on a distributed or a single
-node system, register user defined workload patterns and orchestrate them on the edges in the form of running tasks. For
-better understanding, examples have been included in the tutorial.
+**Description:** This is an introductory tutorial for [FIWARE FogFlow](https://fogflow.readthedocs.io/en/latest/) that
+allows its users to dynamically orchestrate the processing flows on edges. It explains how to enable FogFlow on a
+distributed or a single node system, register user defined workload patterns and orchestrate them on the edges in the
+form of running tasks. For better understanding, examples have been included in the tutorial.
 
 <hr class="processing"/>
 
@@ -569,10 +569,9 @@ other FIWARE GEs.
     [tutorial](https://fogflow.readthedocs.io/en/latest/quantumleapIntegration.html).
 
 -   **Integrate FogFlow with WireCloud**: FogFlow has pitched in with different and versatile edge platform technology.
-    WireCloud builds on cutting-edge end user development, RIA and semantic technologies to offer a next-generation
-    end user centred web application mashup platform aimed at leveraging the long tail of the Internet of Services. For
-    more on Fogflow and WireCloud, follow the
-    [tutorial](https://fogflow.readthedocs.io/en/latest/wirecloudIntegration.html).
+    WireCloud builds on cutting-edge end user development, RIA and semantic technologies to offer a next-generation end
+    user centred web application mashup platform aimed at leveraging the long tail of the Internet of Services. For more
+    on Fogflow and WireCloud, follow the [tutorial](https://fogflow.readthedocs.io/en/latest/wirecloudIntegration.html).
 
 ---
 

@@ -805,7 +805,7 @@ function userCredentialGrant(req, res) {
     const email = req.body.email;
     const password = req.body.password;
 
-    oa.getOAuthPasswordCredentials(email, password).then(results => {
+    oa.getOAuthPasswordCredentials(email, password).then((results) => {
         req.session.access_token = results.access_token;
         return;
     });
@@ -1047,11 +1047,11 @@ const DUMMY_DEVICE_HTTP_HEADERS = { "Content-Type": "text/plain" };
 function initSecureDevices() {
     Security.oa
         .getOAuthPasswordCredentials(process.env.DUMMY_DEVICES_USER, process.env.DUMMY_DEVICES_PASSWORD)
-        .then(results => {
+        .then((results) => {
             DUMMY_DEVICE_HTTP_HEADERS["X-Auth-Token"] = results.access_token;
             return;
         })
-        .catch(error => {
+        .catch((error) => {
             debug(error);
             return;
         });
@@ -1069,7 +1069,7 @@ const options = {
     body: state
 };
 
-request(options, error => {
+request(options, (error) => {
     if (error) {
         debug(debugText + " " + error.code);
     }
@@ -1178,16 +1178,16 @@ curl -X POST \
 
 ### IoT Agent - provisioning a trusted service group
 
-The Access token (also known as a Trust Token) must be added to the service group. The `resource` and `apikey` correspond
-to the values set-up within the service group provisioning stage. In this case the Motion sensor group had been provisioned
-as shown:
+The Access token (also known as a Trust Token) must be added to the service group. The `resource` and `apikey`
+correspond to the values set-up within the service group provisioning stage. In this case the Motion sensor group had
+been provisioned as shown:
 
 ```json
 {
-     "apikey":      "1068318794",
-     "cbroker":     "http://orion:1026",
-     "entity_type": "Motion",
-     "resource":    "/iot/d",
+    "apikey": "1068318794",
+    "cbroker": "http://orion:1026",
+    "entity_type": "Motion",
+    "resource": "/iot/d"
 }
 ```
 
@@ -1206,7 +1206,6 @@ curl -iX PUT \
 ```
 
 The Motion sensor requests are now sent via the `orion-proxy` and identify themselves using the generated trust token.
-
 
 ### IoT Agent - provisioning a sensor
 

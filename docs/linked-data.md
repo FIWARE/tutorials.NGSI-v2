@@ -284,8 +284,8 @@ from multiple sources and remove ambiguity when comparing data coming from diffe
 
 Creating linked data using fully qualified names throughout would be painful, as each attribute would need to be a URI,
 so JSON-LD introduces the idea of an `@context` attribute which can hold pointers to context definitions. To add a
-FIWARE [Building](https://github.com/smart-data-models/dataModel.Building) data entity,
-the following `@context` would be required
+FIWARE [Building](https://github.com/smart-data-models/dataModel.Building) data entity, the following `@context` would
+be required
 
 ```json
 {
@@ -308,9 +308,9 @@ NGSI-LD, that it is added by default to any `@context` sent to a request.
 
 ### Smart Data Models
 
-[https://smartdatamodels.org/context.jsonld](https://smartdatamodels.org/context.jsonld) refers to the
-definition of standard data models supplied by the Smart Data Models project. Adding this to the `@context` will load the definitions of all
-the [data models](https://smartdatamodels.org/) defined by the FIWARE Foundation in collaboration with other
+[https://smartdatamodels.org/context.jsonld](https://smartdatamodels.org/context.jsonld) refers to the definition of
+standard data models supplied by the Smart Data Models project. Adding this to the `@context` will load the definitions
+of all the [data models](https://smartdatamodels.org/) defined by the FIWARE Foundation in collaboration with other
 organizations such as [GSMA](https://www.gsma.com/) and [TM Forum](https://www.tmforum.org/). A summary of the FQNs
 related to **Building** can be seen below:
 
@@ -412,8 +412,7 @@ curl -iX POST \
 The first request will take some time, as the context broker must navigate and load all of the files mentioned in the
 `@context`.
 
-> **Note**: if `https://smartdatamodels.org/context.jsonld` is unavailable for some reason the request will
-> fail
+> **Note**: if `https://smartdatamodels.org/context.jsonld` is unavailable for some reason the request will fail
 >
 > For a working production system it is essential that the `@context` files are always available to ensure third parties
 > can read the context. High availability infrastructure has not been considered for this tutorial to keep the

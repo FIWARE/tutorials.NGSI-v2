@@ -2,8 +2,8 @@
 [![NGSI v2](https://img.shields.io/badge/NGSI-v2-5dc0cf.svg)](https://fiware-ges.github.io/orion/api/v2/stable/)
 
 **Description:** This tutorial is an introduction to
-[FIWARE QuantumLeap](https://quantumleap.readthedocs.io/en/latest/) - a generic enabler which is used to persist
-context data into a **CrateDB** database. The tutorial activates the IoT sensors connected in the
+[FIWARE QuantumLeap](https://quantumleap.readthedocs.io/en/latest/) - a generic enabler which is used to persist context
+data into a **CrateDB** database. The tutorial activates the IoT sensors connected in the
 [previous tutorial](iot-agent.md) and persists measurements from those sensors into the database. To retrieve time-based
 aggregations of such data, users can either use **QuantumLeap** query API or connect directly to the **CrateDB** HTTP
 endpoint. Results are visualised on a graph or via the **Grafana** time series analytics tool.
@@ -970,7 +970,7 @@ The basic processing consists of two-step - retrieval and attribute mapping, sam
 
 ```javascript
 function readCrateLampLuminosity(id, aggMethod) {
-    return new Promise(function(resolve, reject) {
+    return new Promise(function (resolve, reject) {
         const sqlStatement =
             "SELECT DATE_FORMAT (DATE_TRUNC ('minute', time_index)) AS minute, " +
             aggMethod +
@@ -1000,7 +1000,7 @@ function crateToTimeSeries(crateResponse, aggMethod, hexColor) {
     const color = [];
 
     if (crateResponse && crateResponse.rows && crateResponse.rows.length > 0) {
-        _.forEach(crateResponse.rows, element => {
+        _.forEach(crateResponse.rows, (element) => {
             const date = moment(element[0]);
             data.push({ t: date, y: element[1] });
             labels.push(date.format("HH:mm"));

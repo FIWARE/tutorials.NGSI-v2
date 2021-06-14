@@ -759,11 +759,10 @@ Context data for a specified entity type can be retrieved by making a GET reques
 supplying the `type` parameter. Combine this with `options=count` and `attrs=__NONE` to return the `id` attributes of
 the given `type`.
 
-> **Note:** The NGSIv2 specification specifies that `attrs=` has to be a "comma-separated list of attribute names
-> whose data are to be included in the response". `id` and `type` are not allowed to be used as attribute names. If you
+> **Note:** The NGSIv2 specification specifies that `attrs=` has to be a "comma-separated list of attribute names whose
+> data are to be included in the response". `id` and `type` are not allowed to be used as attribute names. If you
 > specify a name that does not exist in attributes, such as `__NONE` to the `attrs=` parameter, No attribute will match
 > and you will always retrieve only the `id` and `type` of the entity.
-
 
 ## Update Operations
 

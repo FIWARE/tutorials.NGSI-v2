@@ -1,8 +1,8 @@
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
 
-**Description:** The tutorial explains how to create applications, and how to assign roles and permissions to them. It takes the users
-and organizations created in the [previous tutorial](identity-management.md) and
-ensures that only legitimate users will have access to resources.
+**Description:** The tutorial explains how to create applications, and how to assign roles and permissions to them. It
+takes the users and organizations created in the [previous tutorial](identity-management.md) and ensures that only
+legitimate users will have access to resources.
 
 The tutorial demonstrates examples of interactions using the **Keyrock** GUI, as well [cUrl](https://ec.haxx.se/)
 commands used to access the **Keyrock** REST API -
@@ -19,10 +19,9 @@ commands used to access the **Keyrock** REST API -
 >
 > — Paulo Coelho (The Alchemist)
 
-Authorization is the function of specifying access rights/privileges to resources related to information
-security. More formally, "to authorize" is to define an access policy. With identity
-management controlled via the FIWARE **Keyrock** Generic Enabler, User access is granted based on permissions assigned
-to a role.
+Authorization is the function of specifying access rights/privileges to resources related to information security. More
+formally, "to authorize" is to define an access policy. With identity management controlled via the FIWARE **Keyrock**
+Generic Enabler, User access is granted based on permissions assigned to a role.
 
 Every application secured by the **Keyrock** generic enabler can define a set of permissions - i.e. a set of things that
 can be done within the application. For example within the application, the ability to send a command to unlock a Smart
@@ -135,9 +134,9 @@ The `keyrock` container is a web application server listening on two ports:
 -   Port `3005` has been exposed for HTTP traffic so we can display the web page and interact with the REST API.
 -   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
-> **Note** HTTPS should be used throughout for any secured application, but to do this properly,
-> **Keyrock** requires a trusted SSL certificate - the default certificate is self-certified and available for testing
-> purposes. The certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
+> **Note** HTTPS should be used throughout for any secured application, but to do this properly, **Keyrock** requires a
+> trusted SSL certificate - the default certificate is self-certified and available for testing purposes. The
+> certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
 >
 > In a production environment, all access should occur over HTTPS, to avoid sending any sensitive information using
 > plain-text. Alternatively HTTP can be used within a private network behind a configured HTTPS Reverse Proxy
@@ -159,10 +158,9 @@ The `keyrock` container is driven by environment variables as shown:
 | IDM_HTTPS_ENABLED | `true`                  | Whether to offer HTTPS Support - this will use the self-signed certs unless overridden                                       |
 | IDM_HTTPS_PORT    | `3443`                  | Port used by the **Keyrock** App Server for HTTP traffic this has been altered from the default 443                          |
 
-> **Note** that this example has secured the MySQL password using **Docker Secrets** By using
-> `IDM_DB_PASS` with the `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as
-> an `ENV` variable in plain-text - either in the `Dockerfile` Image or as an injected variable which could be read
-> using `docker inspect`.
+> **Note** that this example has secured the MySQL password using **Docker Secrets** By using `IDM_DB_PASS` with the
+> `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as an `ENV` variable in
+> plain-text - either in the `Dockerfile` Image or as an injected variable which could be read using `docker inspect`.
 >
 > The following list of variables (where used) should be set via secrets with the `_FILE` suffix in a Production System:
 >
@@ -279,10 +277,9 @@ Two organizations have also been set up by Alice:
 | Security   | Security Group for Store Detectives | `security-team-0000-0000-000000000000` |
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
-To save time, the data creating users and organizations from the
-[previous tutorial](identity-management.md) has been downloaded and is automatically
-persisted to the MySQL database on start-up, so the assigned UUIDs do not change, and the data does not need to be
-entered again
+To save time, the data creating users and organizations from the [previous tutorial](identity-management.md) has been
+downloaded and is automatically persisted to the MySQL database on start-up, so the assigned UUIDs do not change, and
+the data does not need to be entered again
 
 To refresh your memory about how to create users and organizations, you can log in at `http://localhost:3005/idm` using
 the account `alice-the-admin@test.com` with a password of `test`.
@@ -413,18 +410,18 @@ The response will return the details of the associated user. As you can see Bob 
 
 ```json
 {
-  "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
-  "expires": "2026-07-30T12:38:13.000Z",
-  "valid": true,
-  "User": {
-    "scope": [],
-    "id": "bbbbbbbb-good-0000-0000-000000000000",
-    "username": "bob",
-    "email": "bob-the-manager@test.com",
-    "date_password": "2018-07-30T11:41:14.000Z",
-    "enabled": true,
-    "admin": false
-  }
+    "access_token": "bbbbbbbb-bbbb-bbbb-bbbb-bbbbbbbbbbbb",
+    "expires": "2026-07-30T12:38:13.000Z",
+    "valid": true,
+    "User": {
+        "scope": [],
+        "id": "bbbbbbbb-good-0000-0000-000000000000",
+        "username": "bob",
+        "email": "bob-the-manager@test.com",
+        "date_password": "2018-07-30T11:41:14.000Z",
+        "enabled": true,
+        "admin": false
+    }
 }
 ```
 
@@ -512,7 +509,6 @@ The response includes a Client ID and Secret which can be used to secure the app
         "scope": null
     }
 }
-
 ```
 
 Copy the Application Client ID to be used for all other application requests - in the case above the ID is
@@ -564,7 +560,6 @@ curl -X GET \
         }
     }
 }
-
 ```
 
 ### List all Applications
@@ -651,7 +646,7 @@ The response lists the fields which have been updated, note that the `redirect_u
         "response_type": "code",
         "token_types": "permanent,bearer,bearer",
         "scope": ""
-   }
+    }
 }
 ```
 
@@ -732,7 +727,7 @@ The response returns the details of the newly created permission.
         "resource": "/price-change",
         "is_regex": false,
         "oauth_client_id": "6632bb2e-c8e5-418f-ba5b-c269d8a53dd2"
-  }
+    }
 }
 ```
 
@@ -1298,9 +1293,9 @@ The response returns all roles assigned to the user.
 
 ### Revoke a Role from a User
 
-Similarly to organizations, to revoke a user role using the REST API makes a DELETE request as shown, including
-the `<application-id>`, `<user-id>` and `<role-id>` in the URL path and identifying themselves using an `X-Auth-Token`
-in the header.
+Similarly to organizations, to revoke a user role using the REST API makes a DELETE request as shown, including the
+`<application-id>`, `<user-id>` and `<role-id>` in the URL path and identifying themselves using an `X-Auth-Token` in
+the header.
 
 #### 26 Request:
 
@@ -1380,4 +1375,3 @@ that users of an organization granted access are not listed.
     ]
 }
 ```
-

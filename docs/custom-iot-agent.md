@@ -377,7 +377,7 @@ This means that attributes from the XML request can be accessed using the square
 
 ```javascript
 function checkMandatoryParams(queryPayload) {
-    return function(req, res, next) {
+    return function (req, res, next) {
         var notFoundParams = [],
             error;
 
@@ -681,7 +681,7 @@ function createCommandPayload(device, command, attributes) {
     if (typeof attributes === "object") {
         let payload = "<" + command + '  device="' + device.id + '">';
 
-        Object.keys(attributes).forEach(function(key, value) {
+        Object.keys(attributes).forEach(function (key, value) {
             payload = payload + "<" + key + ">" + value + "</" + key + ">";
         });
         payload = payload + "</" + command + ">";

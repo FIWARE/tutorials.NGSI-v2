@@ -4,8 +4,7 @@
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Step-by-Step.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
 [![Docker](https://img.shields.io/docker/pulls/fiware/tutorials.context-provider.svg)](https://hub.docker.com/r/fiware/tutorials.context-provider/)
-<br>
-[![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
+<br> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 [![CI](https://github.com/FIWARE/tutorials.Step-by-Step/workflows/CI/badge.svg)](https://github.com/FIWARE/tutorials.Step-by-Step/actions?query=workflow%3ACI)
 
 This is a collection of tutorials for the FIWARE ecosystem designed for **NGSI-v2** developers. Each tutorial consists
@@ -13,9 +12,8 @@ of a series of exercises to demonstrate the correct use of individual FIWARE com
 data within a simple Smart Solution either by connecting to a series of dummy IoT devices or manipulating the context
 directly or programmatically.
 
-| :books: [NGSI-v2<br>Documentation](https://fiware-tutorials.rtfd.io) | <img src="https://assets.getpostman.com/common-share/postman-logo-stacked.svg" align="center" height="25"> [Postman<br>Collections](https://explore.postman.com/team/3mM5EY6ChBYp9D) |  [![Docker Hub](https://nexus.lab.fiware.org/repository/raw/public/badges/docker/fiware.svg)](https://hub.docker.com/u/fiware) <br> [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/fiware)](https://artifacthub.io/packages/search?repo=fiware) |  <img src="https://fiware.github.io/catalogue/img/fiware-emoji.png" height="20px" width="20px"/><br/> [**developer&ZeroWidthSpace;.fiware.org**](https://www.fiware.org/developers/) |
-| --------------------------------------------------------- | --------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-
+| :books: [NGSI-v2<br>Documentation](https://fiware-tutorials.rtfd.io) | <img src="https://assets.getpostman.com/common-share/postman-logo-stacked.svg" align="center" height="25"> [Postman<br>Collections](https://explore.postman.com/team/3mM5EY6ChBYp9D) | [![Docker Hub](https://nexus.lab.fiware.org/repository/raw/public/badges/docker/fiware.svg)](https://hub.docker.com/u/fiware) <br> [![Artifact Hub](https://img.shields.io/endpoint?url=https://artifacthub.io/badge/repository/fiware)](https://artifacthub.io/packages/search?repo=fiware) | <img src="https://fiware.github.io/catalogue/img/fiware-emoji.png" height="20px" width="20px"/><br/> [**developer&ZeroWidthSpace;.fiware.org**](https://www.fiware.org/developers/) |
+| -------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 
 🇯🇵 このチュートリアルは[日本語](https://fiware-tutorials.letsfiware.jp/)でもご覧いただけます。<br/>
 
@@ -23,9 +21,10 @@ directly or programmatically.
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"> [Smart Data Models](https://smartdatamodels.org)
-
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25">
+    [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25">
+    [Smart Data Models](https://smartdatamodels.org)
 
 ## Install
 

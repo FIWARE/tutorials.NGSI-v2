@@ -426,10 +426,9 @@ Amend the coordinates setting as shown below and click accept.
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-to-poi-settings.png)
 
-According to the Smart Data Models
-[Guidelines](https://smartdatamodels.org/) an attribute
-called `location` should be used for geographical coordinates. Coordinates should be encoded using GeoJSON. Since this
-convention has been used for the tutorial data, the widget knows how to extract a location from the `Store` entity.
+According to the Smart Data Models [Guidelines](https://smartdatamodels.org/) an attribute called `location` should be
+used for geographical coordinates. Coordinates should be encoded using GeoJSON. Since this convention has been used for
+the tutorial data, the widget knows how to extract a location from the `Store` entity.
 
 ### Open Layers Map Widget
 
@@ -463,5 +462,5 @@ Clicking on the POIs retrieves additional data from each stores.
 
 Currently the data is displayed as unformatted JSON. This is because the `Store` context data entities with the tutorial
 example are not using a standard FIWARE data model. If a standard data model such as
-[Building](https://github.com/smart-data-models/dataModel.Building) had been used the
-data would be formatted in an appropriate manner and a **Building** specific icon would be used.
+[Building](https://github.com/smart-data-models/dataModel.Building) had been used the data would be formatted in an
+appropriate manner and a **Building** specific icon would be used.
