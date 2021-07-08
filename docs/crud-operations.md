@@ -112,7 +112,8 @@ command-line initialization should be self explanatory.
 All services can be initialised from the command-line by running the bash script provided within the repository. Please
 clone the repository and create the necessary images by running the commands as shown below:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.CRUD-Operations.git
 cd tutorials.CRUD-Operations
 

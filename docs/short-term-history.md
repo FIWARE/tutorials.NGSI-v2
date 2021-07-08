@@ -134,7 +134,8 @@ The specific architecture of both the _minimal_ and _formal_ configurations is d
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Short-Term-History.git
 cd tutorials.Short-Term-History
 

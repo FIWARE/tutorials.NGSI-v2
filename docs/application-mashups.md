@@ -176,7 +176,7 @@ The `wirecloud` container is connecting to **Keyrock** and is driven by environm
 
 To start the installation, do the following:
 
-```console
+```bash
 git clone https://github.com/FIWARE/tutorials.Application-Mashup.git
 cd tutorials.Application-Mashup
 
@@ -189,15 +189,15 @@ Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Application-Mashup/blob/master/services) Bash script provided within the
 repository:
 
-```console
+```bash
 ./services start
 ```
 
 Then go to your browser and open **Wirecloud** using the URL: `http://localhost:8000/`
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```console
+> ```
 > ./services stop
 > ```
 

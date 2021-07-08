@@ -139,7 +139,8 @@ The overall architecture can be seen below:
 Before you start, you should ensure that you have obtained or built the necessary Docker images locally. Please clone
 the repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Time-Series-Data.git
 cd tutorials.Time-Series-Data
 
@@ -551,7 +552,7 @@ This example shows minimum `luminosity` values from `Lamp:001` over each minute.
 
 > You need QuantumLeap **version >= 0.4.1**. You can check your version with a simple GET like:
 
-> ```bash
+> ```
 > curl -X GET \
 >   'http://localhost:8668/version' \
 >   -H 'Accept: application/json'
@@ -616,7 +617,7 @@ This example shows the latest four sampled `luminosity` values of lamps that are
 `52°33'16.9"N 13°23'55.0"E` (Bornholmer Straße 65, Berlin, Germany). If you have turned on all the lamps available on
 the device monitor page, you should be able to see data for `Lamp:001` and `Lamp:004`.
 
-> :information_source: **Note:** Geographical queries are only available starting from version `0.5` of QuantumLeap
+> **Note:** Geographical queries are only available starting from version `0.5` of QuantumLeap
 > which implements the full set of queries detailed in the Geographical Queries section of the
 > [NGSI v2 specification](http://fiware.github.io/specifications/ngsiv2/stable/).
 

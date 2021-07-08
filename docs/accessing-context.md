@@ -221,7 +221,8 @@ It has been described in a [previous tutorial](context-providers.md)
 All services can be initialized from the command-line by running the bash script provided within the repository. Please
 clone the repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Accessing-Context.git
 cd tutorials.Accessing-Context
 

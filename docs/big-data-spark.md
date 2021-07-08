@@ -143,7 +143,8 @@ Before you start, you should ensure that you have obtained or built the necessar
 the repository and create the necessary images by running the commands shown below. Note that you might need to run some
 of the commands as a privileged user:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Big-Data-Spark.git
 cd tutorials.Big-Data-Spark
 checkout NGSI-v2
@@ -158,9 +159,9 @@ To start the system, run the following command:
 ./services start
 ```
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```bash
+> ```
 > ./services stop
 > ```
 

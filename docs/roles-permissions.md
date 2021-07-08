@@ -213,7 +213,8 @@ The `mysql-db` container is driven by environment variables as shown:
 
 To start the installation, do the following:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Roles-Permissions.git
 cd tutorials.Roles-Permissions
 git checkout NGSI-v2

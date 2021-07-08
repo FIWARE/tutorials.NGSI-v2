@@ -116,7 +116,8 @@ The specific architecture of each section of the tutorial is discussed below.
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Historic-Context-Flume.git
 cd tutorials.Historic-Context-Flume
 
@@ -634,7 +635,7 @@ The response will look similar to the following:
 >
 > -   To check that a docker container is running try
 >
-> ```bash
+> ```
 > docker ps
 > ```
 >

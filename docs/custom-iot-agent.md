@@ -247,7 +247,8 @@ The `iot-agent` container is driven by environment variables as shown:
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Custom-IoT-Agent.git
 cd tutorials.Custom-IoT-Agent
 
@@ -262,9 +263,9 @@ repository:
 ./services start
 ```
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```bash
+> ```
 > ./services stop
 > ```
 

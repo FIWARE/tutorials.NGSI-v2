@@ -106,7 +106,7 @@ The specific architecture of each section of the tutorial is discussed below.
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-```console
+```bash
 git clone https://github.com/FIWARE/tutorials.Historic-Context-NIFI.git
 cd tutorials.Historic-Context-NIFI
 
@@ -117,16 +117,16 @@ Thereafter, all services can be initialized from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Historic-Context-NIFI/blob/master/services) Bash script provided within
 the repository:
 
-```console
+```bash
 ./services <command>
 ```
 
 Where `<command>` will vary depending upon the databases we wish to activate. This command will also import seed data
 from the previous tutorials and provision the dummy IoT sensors on startup.
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```console
+> ```
 > ./services stop
 > ```
 
@@ -180,7 +180,7 @@ The `draco` container is listening on two ports:
 
 To start the system with a **MongoDB** database only, run the following command:
 
-```console
+```bash
 ./services mongodb
 ```
 
@@ -203,7 +203,7 @@ on another port.
 
 #### 1 Request:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:9090/nifi-api/system-diagnostics'
 ```
@@ -255,7 +255,7 @@ The response will look similar to the following:
 >
 > -   To check that a docker container is running try
 >
-> ```bash
+> ```
 > docker ps
 > ```
 >
@@ -285,7 +285,7 @@ This is done by making a POST request to the `/v2/subscription` endpoint of the 
 
 #### 2 Request:
 
-```console
+```bash
 curl -iX POST \
   'http://localhost:1026/v2/subscriptions' \
   -H 'Content-Type: application/json' \
@@ -317,7 +317,7 @@ If a subscription has been created, you can check to see if it is firing by maki
 
 #### 3 Request:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:1026/v2/subscriptions/' \
   -H 'fiware-service: openiot' \
@@ -376,7 +376,7 @@ Finally, check that the `status` of the subscription is `active` - an expired su
 To read MongoDB data from the command-line, we will need access to the `mongo` tool run an interactive instance of the
 `mongo` image as shown to obtain a command-line prompt:
 
-```console
+```bash
 docker run -it --network fiware_default  --entrypoint /bin/bash mongo
 ```
 
@@ -497,11 +497,11 @@ db["sth_/_Motion:001_Motion"].find({attrName: "count"},{_id: 0, attrType: 0, att
 
 To leave the MongoDB client and leave interactive mode, run the following:
 
-```console
+```bash
 exit
 ```
 
-```console
+```bash
 exit
 ```
 
@@ -548,7 +548,7 @@ The `postgres-db` container is driven by environment variables as shown:
 | POSTGRES_USER     | `postgres` | Username for the PostgreSQL database user |
 | POSTGRES_DB       | `postgres` | The name of the PostgreSQL database       |
 
-> :information_source: **Note:** Passing the Username and Password in plain text environment variables like this is a
+> **Note:** Passing the Username and Password in plain text environment variables like this is a
 > security risk. Whereas this is acceptable practice in a tutorial, for a production environment, you can avoid this
 > risk by applying [Docker Secrets](https://blog.docker.com/2017/02/docker-secrets-management/)
 
@@ -579,7 +579,7 @@ The `draco` container is listening on two ports:
 
 To start the system with a **PostgreSQL** database run the following command:
 
-```console
+```bash
 ./services postgres
 ```
 
@@ -624,7 +624,7 @@ on another port.
 
 #### 4 Request:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:9090/nifi-api/system-diagnostics'
 ```
@@ -676,7 +676,7 @@ The response will look similar to the following:
 >
 > -   To check that a docker container is running try
 >
-> ```bash
+> ```
 > docker ps
 > ```
 >
@@ -705,7 +705,7 @@ This is done by making a POST request to the `/v2/subscription` endpoint of the 
 
 #### 5 Request:
 
-```console
+```bash
 curl -iX POST \
   'http://localhost:1026/v2/subscriptions' \
   -H 'Content-Type: application/json' \
@@ -738,7 +738,7 @@ To read PostgreSQL data from the command-line, we will need access to the `postg
 interactive instance of the `postgresql-client` image supplying the connection string as shown to obtain a command-line
 prompt:
 
-```console
+```bash
 docker run -it --rm  --network fiware_default jbergknoff/postgresql-client \
    postgresql://postgres:password@postgres-db:5432/postgres
 ```
@@ -872,7 +872,7 @@ SELECT recvtime, attrvalue FROM openiot.motion_001_motion WHERE attrname ='count
 
 To leave the Postgres client and leave interactive mode, run the following:
 
-```console
+```bash
 \q
 ```
 
@@ -908,7 +908,7 @@ mysql-db:
         - "MYSQL_ROOT_HOST=%"
 ```
 
-> :information_source: **Note:** Using the default `root` user and displaying the password in an environment variables
+> **Note:** Using the default `root` user and displaying the password in an environment variables
 > like this is a security risk. Whereas this is acceptable practice in a tutorial, for a production environment, you can
 > avoid this risk by setting up another user and applying
 > [Docker Secrets](https://blog.docker.com/2017/02/docker-secrets-management/)
@@ -952,7 +952,7 @@ The `draco` container is listening on two ports:
 
 To start the system with a **MySQL** database run the following command:
 
-```console
+```bash
 ./services mysql
 ```
 
@@ -995,7 +995,7 @@ port.
 
 #### 6 Request:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:9090/system-diagnostics'
 ```
@@ -1047,7 +1047,7 @@ The response will look similar to the following:
 >
 > -   To check that a docker container is running try
 >
-> ```bash
+> ```
 > docker ps
 > ```
 >
@@ -1076,7 +1076,7 @@ This is done by making a POST request to the `/v2/subscription` endpoint of the 
 
 #### 7 Request:
 
-```console
+```bash
 curl -iX POST \
   'http://localhost:1026/v2/subscriptions' \
   -H 'Content-Type: application/json' \
@@ -1108,7 +1108,7 @@ same for each database. The response will be **201 - Created**
 To read MySQL data from the command-line, we will need access to the `mysql` client, to do this, run an interactive
 instance of the `mysql` image supplying the connection string as shown to obtain a command-line prompt:
 
-```console
+```bash
 docker exec -it  db-mysql mysql -h mysql-db -P 3306  -u root -p123
 ```
 
@@ -1245,7 +1245,7 @@ SELECT recvtime, attrvalue FROM openiot.Motion_001_Motion WHERE attrname ='count
 
 To leave the MySQL client and leave interactive mode, run the following:
 
-```console
+```bash
 \q
 ```
 
@@ -1290,7 +1290,7 @@ The `draco` container is listening on two ports:
 
 To start the system with **multiple** databases run the following command:
 
-```console
+```bash
 ./services multiple
 ```
 
@@ -1316,7 +1316,7 @@ port.
 
 #### 8 Request:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:9090/nifi-api/system-diagnostics'
 ```
@@ -1368,7 +1368,7 @@ The response will look similar to the following:
 >
 > -   To check that a docker container is running try
 >
-> ```bash
+> ```
 > docker ps
 > ```
 >
@@ -1397,7 +1397,7 @@ This is done by making a POST request to the `/v2/subscription` endpoint of the 
 
 #### 9 Request:
 
-```console
+```bash
 curl -iX POST \
   'http://localhost:1026/v2/subscriptions' \
   -H 'Content-Type: application/json' \

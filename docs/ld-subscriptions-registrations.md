@@ -108,7 +108,8 @@ All services can be initialised from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations/blob/master/services) Bash script provided
 within the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations.git
 cd tutorials.LD-Subscriptions-Registrations
 

@@ -181,7 +181,8 @@ The other `tutorial` container configuration values described in the YAML file h
 
 To start the installation, do the following:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Securing-Access-OpenID-Connect.git
 cd tutorials.Securing-Access-OpenID-Connect
 
@@ -200,9 +201,9 @@ within the repository:
 
 Where `<command>` will vary depending upon the exercise we wish to activate.
 
-> :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
+> **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```bash
+> ```
 > ./services stop
 > ```
 

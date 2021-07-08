@@ -199,7 +199,8 @@ environment, but production deployment is beyond the scope of this tutorial.
 
 To start the installation, do the following:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Securing-Access.git
 cd tutorials.Securing-Access
 

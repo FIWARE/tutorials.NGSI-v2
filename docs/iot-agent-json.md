@@ -292,7 +292,8 @@ The `iot-agent` container is driven by environment variables as shown:
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.IoT-Agent-JSON.git
 cd tutorials.IoT-Agent
 
@@ -355,7 +356,7 @@ The response will look similar to the following:
 >
 > -   To check that the docker containers are running try the following:
 >
-> ```bash
+> ```
 > docker ps
 > ```
 >
@@ -366,14 +367,14 @@ The response will look similar to the following:
 >     [Virtual Box](https://www.virtualbox.org/), the context broker, IoT Agent and Dummy Device docker containers may
 >     be running from another IP address - you will need to retrieve the virtual host IP as shown:
 >
-> ```bash
+> ```
 > curl -X GET \
 >  'http://$(docker-machine ip default):4041/version'
 > ```
 >
 > Alternatively run all your curl commands from within the container network:
 >
-> ```bash
+> ```
 > docker run --network fiware_default --rm appropriate/curl -s \
 >  -X GET 'http://iot-agent:4041/iot/about'
 > ```

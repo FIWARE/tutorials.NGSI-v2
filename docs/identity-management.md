@@ -206,7 +206,8 @@ The `mysql-db` container is driven by environment variables as shown:
 
 To start the installation, do the following:
 
-```bash
+``` bash
+#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
 
