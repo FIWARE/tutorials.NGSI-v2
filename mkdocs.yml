@@ -9,7 +9,7 @@ theme: readthedocs
 markdown_extensions:
   - fenced_code
   - codehilite:
-      guess_lang: false
+      guess_lang: true
 google_analytics:
   - UA-83719923-1
   - fiware-tutorials.readthedocs.io
