@@ -342,7 +342,7 @@ information about themselves.
 
 If you take the NGSI-LD [Core @context](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context.jsonld)
 
-```jsonld
+```json
 {
   "@context": {
 
