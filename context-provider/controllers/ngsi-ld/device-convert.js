@@ -47,7 +47,7 @@ function convertAttributeToLD(attr) {
             obj.value = { '@type': attr.type, '@value': attr.value };
     }
 
-    if (obj.value === null){
+    if (obj.value === null) {
         obj.value = { '@type': 'Intangible', '@value': null };
     }
 

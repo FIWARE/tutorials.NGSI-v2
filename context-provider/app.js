@@ -20,13 +20,10 @@ const MONGO_DB = process.env.MONGO_URL || 'mongodb://localhost:27017';
 
 const connectWithRetry = () => {
     mongoose
-        .connect(
-            MONGO_DB + '/session',
-            {
-                useNewUrlParser: true,
-                useUnifiedTopology: true
-            }
-        )
+        .connect(MONGO_DB + '/session', {
+            useNewUrlParser: true,
+            useUnifiedTopology: true
+        })
         .then(() => {
             debug('MongoDB is connected.');
         })
@@ -78,7 +75,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(bodyParser.json({ type: 'application/*+json' }));
 
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     res.locals.session = req.session;
     next();
 });
@@ -107,13 +104,13 @@ app.use('/health', healthRouter);
 app.use('/', indexRouter);
 
 // catch 404 and forward to error handler
-app.use(function(req, res, next) {
+app.use(function (req, res, next) {
     next(createError(404));
 });
 
 // error handler
 // eslint-disable-next-line no-unused-vars
-app.use(function(err, req, res, next) {
+app.use(function (err, req, res, next) {
     // set locals, only providing error in development
     res.locals.message = err.message;
     res.locals.error = req.app.get('env') === 'development' ? err : {};
