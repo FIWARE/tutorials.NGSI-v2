@@ -6,17 +6,12 @@
 
 // Initialization - first require the NGSI v2 npm library and set
 // the client instance
-const NgsiV2 = require('ngsi_v2');
-const defaultClient = NgsiV2.ApiClient.instance;
+const ngsiV2 = require('../../lib/ngsi-v2');
 const debug = require('debug')('tutorial:ngsi-v2');
 const monitor = require('../../lib/monitoring');
 
 debug('Store is retrieved using NGSI-v2');
 
-// The basePath must be set - this is the location of the Orion
-// context broker. It is best to do this with an environment
-// variable (with a fallback if necessary)
-defaultClient.basePath = process.env.CONTEXT_BROKER || 'http://localhost:1026/v2';
 
 function setAuthHeaders(req) {
     const headers = {};
@@ -54,29 +49,33 @@ function mapTileUrl(zoom, location) {
 //   curl -X GET \
 //     'http://{{orion}}/v2/entities/?type=Store&options=keyValues'
 //
-function displayStore(req, res) {
+async function displayStore(req, res) {
     debug('displayStore');
     // If the user is not authorized, display the main page.
     if (!res.locals.authorized) {
         req.flash('error', 'Access Denied');
         return res.redirect('/');
     }
-    monitor('NGSI', 'retrieveEntity ' + req.params.storeId);
-    return retrieveEntity(req.params.storeId, { options: 'keyValues', type: 'Store' }, setAuthHeaders(req))
-        .then((store) => {
-            // If a store has been found display it on screen
-            store.mapUrl = mapTileUrl(15, store.location);
-            return res.render('store', { title: store.name, store, ngsi: 'ngsi-v2' });
-        })
-        .catch((error) => {
-            debug(error);
-            // If no store has been found, display an error screen
-            return res.render('store-error', {
-                title: 'Error',
-                error,
-                ngsi: 'ngsi-v2'
-            });
+    monitor('NGSI', 'readEntity ' + req.params.storeId);
+    try {
+        monitor('NGSI', 'readEntity ' + req.params.storeId);
+        const store = await ngsiV2.readEntity(
+            req.params.storeId,
+            { options: 'keyValues' },
+            ngsiV2.setHeaders(req.session.access_token)
+        );
+        // If a store has been found display it on screen
+        store.mapUrl = mapTileUrl(15, store.location);
+        return res.render('store', { title: store.name, store, ngsi: 'ngsi-v2' });
+    } catch (error) {
+        debug(error);
+        // If no store has been found, display an error screen
+        return res.render('store-error', {
+            title: 'Error',
+            error,
+            ngsi: 'ngsi-v2'
         });
+    }
 }
 
 // This function receives all products and a set of inventory items
@@ -93,14 +92,14 @@ function displayTillInfo(req, res) {
     monitor('NGSI', 'listEntities type=Product');
     monitor('NGSI', 'listEntities type=InventoryItem refStore=' + req.params.storeId);
     Promise.all([
-        listEntities(
+         ngsiV2.listEntities(
             {
                 options: 'keyValues',
                 type: 'Product'
             },
             setAuthHeaders(req)
         ),
-        listEntities(
+        ngsiV2.listEntities(
             {
                 q: 'refStore==' + req.params.storeId,
                 options: 'keyValues',
@@ -147,8 +146,8 @@ function displayTillInfo(req, res) {
 // left to a function on the router.
 async function buyItem(req, res) {
     debug('buyItem');
-    monitor('NGSI', 'retrieveEntity ' + req.params.inventoryId);
-    const inventory = await retrieveEntity(
+    monitor('NGSI', 'readEntity ' + req.params.inventoryId);
+    const inventory = await ngsiV2.readEntity(
         req.params.inventoryId,
         {
             options: 'keyValues',
@@ -158,15 +157,12 @@ async function buyItem(req, res) {
     );
     const count = inventory.shelfCount - 1;
 
-    monitor('NGSI', 'updateExistingEntityAttributes ' + req.params.inventoryId, {
+    monitor('NGSI', 'updateAttribute ' + req.params.inventoryId, {
         shelfCount: { type: 'Integer', value: count }
     });
-    await updateExistingEntityAttributes(
+    await  ngsiV2.updateAttribute(
         req.params.inventoryId,
         { shelfCount: { type: 'Integer', value: count } },
-        {
-            type: 'InventoryItem'
-        },
         setAuthHeaders(req)
     );
     res.redirect(`/app/store/${inventory.refStore}/till`);
@@ -202,41 +198,6 @@ function orderStock(req, res) {
     return res.render('order-stock', { title: 'Order Stock' });
 }
 
-// This is a promise to make an HTTP PATCH request to the /v2/entities/<entity-id>/attr end point
-function updateExistingEntityAttributes(entityId, body, opts, headers = {}) {
-    return new Promise((resolve, reject) => {
-        defaultClient.defaultHeaders = headers;
-        const apiInstance = new NgsiV2.EntitiesApi();
-        apiInstance.updateExistingEntityAttributes(entityId, body, opts, (error, data, response) => {
-            debug('updateExistingEntityAttributes returns: ' + response.statusCode);
-            return error ? reject(error) : resolve(data);
-        });
-    });
-}
-
-// This is a promise to make an HTTP GET request to the /v2/entities/<entity-id> end point
-function retrieveEntity(entityId, opts, headers = {}) {
-    return new Promise((resolve, reject) => {
-        defaultClient.defaultHeaders = headers;
-        const apiInstance = new NgsiV2.EntitiesApi();
-        apiInstance.retrieveEntity(entityId, opts, (error, data, response) => {
-            debug('retrieveEntity returns: ' + response.statusCode);
-            return error ? reject(error) : resolve(data);
-        });
-    });
-}
-
-// This is a promise to make an HTTP GET request to the /v2/entities end point
-function listEntities(opts, headers = {}) {
-    return new Promise((resolve, reject) => {
-        defaultClient.defaultHeaders = headers;
-        const apiInstance = new NgsiV2.EntitiesApi();
-        apiInstance.listEntities(opts, (error, data, response) => {
-            debug('listEntities returns: ' + response.statusCode);
-            return error ? reject(error) : resolve(data);
-        });
-    });
-}
 
 module.exports = {
     buyItem,

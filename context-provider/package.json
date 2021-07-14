@@ -38,7 +38,6 @@
     "mongoose": "^5.9.26",
     "morgan": "^1.10.0",
     "mqtt": "^4.1.0",
-    "ngsi_v2": "0.1.0",
     "node-cache": "^5.1.2",
     "parse-links": "^0.1.0",
     "pug": "3.0.1",
