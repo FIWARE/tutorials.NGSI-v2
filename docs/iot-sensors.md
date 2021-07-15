@@ -514,7 +514,7 @@ the name of the command (`lock`) to invoke on the device.
 The response returns the command and the result of the action.
 
 ```text
-urn:ngsi-ld:Door:001@close| close OK
+urn:ngsi-ld:Door:001@lock| lock OK
 ```
 
 Once the door is locked, no further customers may enter. The **Motion Sensor** will report no further movement detected,
