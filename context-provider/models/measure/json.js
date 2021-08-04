@@ -92,7 +92,7 @@ class JSONMeasure {
         MQTT_CLIENT.publish(topic, ultralightToJSON(state));
     }
 
-     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
+    // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
         // TODO --- Add IOTA --- //
         const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';

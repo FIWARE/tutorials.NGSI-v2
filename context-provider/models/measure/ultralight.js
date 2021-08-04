@@ -83,11 +83,26 @@ class UltralightMeasure {
         MQTT_CLIENT.publish(topic, state);
     }
 
-     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
+    // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
         // TODO --- Add IOTA --- //
-        const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
-         IOTA_CLIENT.publish(topic, state);
+        const topic = 'fiware/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+        /*const messageId = await IOTA_CLIENT.message()
+        .index(topic)
+        .data(state)
+        .submit();
+            console.log(messageId);*/
+
+        console.log(topic);
+
+        const topicX = 'fiware/1234/attrs'
+        IOTA_CLIENT.message()
+            .index(topicX)
+            .data(state)
+            .submit()
+            .then((messageId) => {
+                //console.log(messageId);
+            });
     }
 }
 

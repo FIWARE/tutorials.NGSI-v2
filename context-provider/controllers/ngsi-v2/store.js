@@ -12,7 +12,6 @@ const monitor = require('../../lib/monitoring');
 
 debug('Store is retrieved using NGSI-v2');
 
-
 function setAuthHeaders(req) {
     const headers = {};
     if (req.session.access_token) {
@@ -92,7 +91,7 @@ function displayTillInfo(req, res) {
     monitor('NGSI', 'listEntities type=Product');
     monitor('NGSI', 'listEntities type=InventoryItem refStore=' + req.params.storeId);
     Promise.all([
-         ngsiV2.listEntities(
+        ngsiV2.listEntities(
             {
                 options: 'keyValues',
                 type: 'Product'
@@ -160,7 +159,7 @@ async function buyItem(req, res) {
     monitor('NGSI', 'updateAttribute ' + req.params.inventoryId, {
         shelfCount: { type: 'Integer', value: count }
     });
-    await  ngsiV2.updateAttribute(
+    await ngsiV2.updateAttribute(
         req.params.inventoryId,
         { shelfCount: { type: 'Integer', value: count } },
         setAuthHeaders(req)
@@ -197,7 +196,6 @@ function orderStock(req, res) {
     // Render the stock taking page (Managers only)
     return res.render('order-stock', { title: 'Order Stock' });
 }
-
 
 module.exports = {
     buyItem,
