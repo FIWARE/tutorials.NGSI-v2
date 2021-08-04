@@ -33,6 +33,7 @@ function hashCode(str) {
 
 /* global SOCKET_IO */
 /* global MQTT_CLIENT */
+/* global IOTA_CLIENT */
 
 // This processor sends XML payloads northbound to
 // the southport of the IoT Agent and sends measures
@@ -83,6 +84,12 @@ class XMLMeasure {
     sendAsMQTT(deviceId, state) {
         const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
         MQTT_CLIENT.publish(topic, state);
+    }
+    // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
+    sendAsIOTA(deviceId, state) {
+        // TODO --- Add IOTA --- //
+        const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+        IOTA_CLIENT.publish(topic, state);
     }
 }
 

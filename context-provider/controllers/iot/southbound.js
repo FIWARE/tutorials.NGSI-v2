@@ -74,5 +74,15 @@ module.exports = {
         const mqttBrokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://mosquitto';
         SOCKET_IO.emit('mqtt', mqttBrokerUrl + topic + '  ' + message);
         Command.processMqttMessage(topic, message);
+    },
+
+    // The device monitor will display all IOTA messages on screen.
+    // cmd topics are consumed by the actuators (bell, lamp and door)
+    processIotaMessage(topic, message) {
+        debug('processIotaMessage');
+        const iotaBrokerUrl = process.env.IOTA_BROKER_URL || 'iota-tangle';
+        SOCKET_IO.emit('iota', iotaBrokerUrl + topic + '  ' + message);
+        // TODO --- Add IOTA --- //
+        Command.processIotaMessage(topic, message);
     }
 };

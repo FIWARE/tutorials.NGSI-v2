@@ -3,9 +3,11 @@ const express = require('express');
 const Southbound = require('./controllers/iot/southbound');
 const debug = require('debug')('tutorial:iot-device');
 const mqtt = require('mqtt');
+const iotaClient = require('iota'); // TODO --- Add IOTA --- //
 const logger = require('morgan');
 
 /* global MQTT_CLIENT */
+/* global IOTA_CLIENT */
 const DEVICE_TRANSPORT = process.env.DUMMY_DEVICES_TRANSPORT || 'HTTP';
 
 // The motion sensor offers no commands, hence it does not need an endpoint.
@@ -28,6 +30,11 @@ iot.use(rawBody);
 
 const mqttBrokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://mosquitto';
 global.MQTT_CLIENT = mqtt.connect(mqttBrokerUrl);
+
+// TODO --- Add IOTA --- //
+const iotaBrokerUrl = process.env.IOTA_BROKER_URL || 'mqtt://mosquitto';
+global.IOTA_CLIENT = mqtt.connect(iotaBrokerUrl);
+
 
 // If the Ultralight Dummy Devices are configured to use the HTTP transport, then
 // listen to the command endpoints using HTTP
@@ -73,5 +80,29 @@ if (DEVICE_TRANSPORT === 'MQTT') {
 iot.use(function (req, res) {
     res.status(404).send(new createError.NotFound());
 });
+
+// If the IoT Devices are configured to use the IOTA tangle, then
+// subscribe to the assoicated topics for each device.
+if (DEVICE_TRANSPORT === 'IOTA') {
+    const apiKeys = process.env.DUMMY_DEVICES_API_KEYS || process.env.DUMMY_DEVICES_API_KEY || '1234';
+
+    // TODO --- Add IOTA --- //
+    IOTA_CLIENT.on('connect', () => {
+        apiKeys.split(',').forEach((apiKey) => {
+            const topic = '/' + apiKey + '/#';
+            debug('Subscribing to MQTT Broker: ' + mqttBrokerUrl + ' ' + topic);
+            IOTA_CLIENT.subscribe(topic);
+            IOTA_CLIENT.subscribe(topic + '/#');
+        });
+    });
+
+    iota.connect(iotaBrokerUrl);
+
+    IOTA_CLIENT.on('message', function (topic, message) {
+        // message is a buffer. The IoT devices will be listening and
+        // responding to commands going southbound.
+        Southbound.processIotaMessage(topic.toString(), message.toString());
+    });
+}
 
 module.exports = iot;
