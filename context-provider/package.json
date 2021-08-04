@@ -23,6 +23,7 @@
     "node": ">=8.6"
   },
   "dependencies": {
+    "@iota/client": "^0.6.5",
     "body-parser": "^1.19.0",
     "connect-flash": "^0.1.1",
     "connect-mongo": "^3.2.0",

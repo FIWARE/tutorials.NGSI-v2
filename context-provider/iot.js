@@ -3,7 +3,7 @@ const express = require('express');
 const Southbound = require('./controllers/iot/southbound');
 const debug = require('debug')('tutorial:iot-device');
 const mqtt = require('mqtt');
-const iotaClient = require('iota'); // TODO --- Add IOTA --- //
+const iotaClient = require('@iota/client'); 
 const logger = require('morgan');
 
 /* global MQTT_CLIENT */
@@ -32,8 +32,10 @@ const mqttBrokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://mosquitto';
 global.MQTT_CLIENT = mqtt.connect(mqttBrokerUrl);
 
 // TODO --- Add IOTA --- //
-const iotaBrokerUrl = process.env.IOTA_BROKER_URL || 'mqtt://mosquitto';
-global.IOTA_CLIENT = mqtt.connect(iotaBrokerUrl);
+const iotaNodeUrl = process.env.IOTA_NODE || 'https://api.lb-0.testnet.chrysalis2.com';
+global.IOTA_CLIENT = new iotaClient.ClientBuilder()
+    .node(iotaNodeUrl)
+    .build();
 
 
 // If the Ultralight Dummy Devices are configured to use the HTTP transport, then
@@ -86,7 +88,11 @@ iot.use(function (req, res) {
 if (DEVICE_TRANSPORT === 'IOTA') {
     const apiKeys = process.env.DUMMY_DEVICES_API_KEYS || process.env.DUMMY_DEVICES_API_KEY || '1234';
 
+    IOTA_CLIENT.getInfo().then(console.log).catch(console.error)
+
+
     // TODO --- Add IOTA --- //
+    /*
     IOTA_CLIENT.on('connect', () => {
         apiKeys.split(',').forEach((apiKey) => {
             const topic = '/' + apiKey + '/#';
@@ -102,7 +108,7 @@ if (DEVICE_TRANSPORT === 'IOTA') {
         // message is a buffer. The IoT devices will be listening and
         // responding to commands going southbound.
         Southbound.processIotaMessage(topic.toString(), message.toString());
-    });
+    });*/
 }
 
 module.exports = iot;
