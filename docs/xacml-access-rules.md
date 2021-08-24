@@ -303,7 +303,7 @@ been exposed to upload a pre-configured domain so that a set of XACML access con
 ```yaml
 tutorial:
     image: fiware/tutorials.context-provider
-    hostname: tutorial
+    hostname: iot-sensors
     container_name: fiware-tutorial
     networks:
         default:

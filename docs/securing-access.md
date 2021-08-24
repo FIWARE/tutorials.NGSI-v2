@@ -145,7 +145,7 @@ The necessary configuration information for adding security to the **Stock Manag
 ```yaml
 tutorial:
     image: fiware/tutorials.context-provider
-    hostname: tutorial
+    hostname: iot-sensors
     container_name: fiware-tutorial
     networks:
         default:
