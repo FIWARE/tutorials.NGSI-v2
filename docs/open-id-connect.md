@@ -418,7 +418,14 @@ function getUserFromIdToken(req, idToken) {
 }
 ```
 
-The decoded json is return as shown:
+The decoded json is returned as shown:
+
+```json
+{
+  "alg": "HS256",
+  "typ": "JWT"
+}
+```
 
 ```json
 {
@@ -440,6 +447,17 @@ The decoded json is return as shown:
     "iat": 1516239022
 }
 ```
+
+To decode the JWT yourself, you can paste the token into the [JWT Website](https://jwt.io/) - The signature used to sign the token is `59de900a973fa2e0` and can be pasted into the website to verify that the encoded identity came from Keyrock
+
+```text
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  59de900a973fa2e0
+)
+```
+
 
 ### Authorization Code - Running the Example
 
