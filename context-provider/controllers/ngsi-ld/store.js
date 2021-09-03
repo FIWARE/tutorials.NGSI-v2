@@ -13,8 +13,10 @@ let orders = 1;
 
 debug('Store is retrieved using NGSI-LD');
 
+const dataModelContext =
+    process.env.IOTA_JSON_LD_CONTEXT || 'https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld';
 const LinkHeader =
-    '<https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json">';
+    '<' + dataModelContext + '>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json">';
 
 function mapTileUrl(zoom, location) {
     const tilesPerRow = Math.pow(2, zoom);
@@ -149,7 +151,9 @@ async function displayTillInfo(req, res) {
 
         if (req.session.extra) {
             req.session.products = {};
-            _.each(productsInStore, element => {req.session.products[element.id] = element.name});
+            _.each(productsInStore, (element) => {
+                req.session.products[element.id] = element.name;
+            });
         }
 
         return res.render('till', {
@@ -194,41 +198,44 @@ async function buyItem(req, res) {
         numberOfItems: { type: 'Property', value: count }
     });
     await ngsiLD.updateAttribute(shelf[0].id, { numberOfItems: { type: 'Property', value: count } }, headers);
-    
+
     if (req.session.extra) {
-        const orderId = "urn:ngsi-ld:CustomerOrder:" + String(orders).padStart(3, '0');
+        const orderId = 'urn:ngsi-ld:CustomerOrder:' + String(orders).padStart(3, '0');
         const body = {
             id: orderId,
-            type: "CustomerOrder",
+            type: 'CustomerOrder',
             location: {
-              "type": "GeoProperty", 
-              "value": req.session.location
+                type: 'GeoProperty',
+                value: req.session.location
             },
-            pickUp: {
-              "type": "GeoProperty", 
-              "value": req.session.location
+            pickUpFrom: {
+                type: 'GeoProperty',
+                value: req.session.location
             },
             deliverTo: {
-              "type": "GeoProperty", 
-              "value": {
-                     "type": "Point",
-                     "coordinates": [13.3505, 52.5144]
+                type: 'GeoProperty',
+                value: {
+                    type: 'Point',
+                    coordinates: req.session.extra.location
                 }
             },
-            description: {type: "Property", value: "Customer " +  req.session.username + " has ordered some " + req.session.products[req.body.productId] },
-            iota_id: {type: "Property", value: req.session.extra.iota_id},
-            refProductId: {type: "Relationship", object: req.body.productId},
-            refStoreId: {type: "Relationship", object: req.body.storeId},
+            description: {
+                type: 'Property',
+                value:
+                    'Customer ' + req.session.username + ' has ordered some ' + req.session.products[req.body.productId]
+            },
+            iota_id: { type: 'Property', value: req.session.extra.iota_id },
+            refProductId: { type: 'Relationship', object: req.body.productId },
+            refStoreId: { type: 'Relationship', object: req.body.storeId },
             orderDate: {
-              "type": "Property", 
-              "value": { "@type": "DateTime", "@value": moment.utc().format()}
+                type: 'Property',
+                value: { '@type': 'DateTime', '@value': moment.utc().format() }
             }
         };
-        await ngsiLD.createEntity(body,headers);
+        await ngsiLD.createEntity(body, headers);
         monitor('NGSI', 'createEntity ' + orderId);
         orders++;
     }
-
 
     res.redirect(`/app/store/${req.body.storeId}/till`);
 }
