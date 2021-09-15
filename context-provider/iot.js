@@ -41,6 +41,7 @@ if (DEVICE_TRANSPORT === 'HTTP') {
     iotRouter.post('/iot/bell:id', Southbound.bellHttpCommand);
     iotRouter.post('/iot/door:id', Southbound.doorHttpCommand);
     iotRouter.post('/iot/lamp:id', Southbound.lampHttpCommand);
+    iotRouter.post('/iot/robot:id', Southbound.robotHttpCommand);
     // Dummy ISOBUS/ISOXML endpoint.
     iotRouter.post('/iot/isoxml', Southbound.isobusHttpCommand);
 

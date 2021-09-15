@@ -9,6 +9,7 @@ const monitor = require('../../lib/monitoring');
 const ngsiLD = require('../../lib/ngsi-ld');
 const moment = require('moment');
 const _ = require('lodash');
+const robotEnabled = process.env.ROBOT_ENABLED || false;
 let orders = 1;
 
 debug('Store is retrieved using NGSI-LD');
@@ -149,7 +150,7 @@ async function displayTillInfo(req, res) {
             return e;
         });
 
-        if (req.session.extra) {
+        if (robotEnabled && req.session.extra) {
             req.session.products = {};
             _.each(productsInStore, (element) => {
                 req.session.products[element.id] = element.name;
@@ -199,7 +200,7 @@ async function buyItem(req, res) {
     });
     await ngsiLD.updateAttribute(shelf[0].id, { numberOfItems: { type: 'Property', value: count } }, headers);
 
-    if (req.session.extra) {
+    if (robotEnabled && req.session.extra) {
         const orderId = 'urn:ngsi-ld:CustomerOrder:' + String(orders).padStart(3, '0');
         const body = {
             id: orderId,
