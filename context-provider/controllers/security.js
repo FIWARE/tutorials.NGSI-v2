@@ -55,7 +55,7 @@ function logUser(req, user, message) {
     req.flash('success', user.username + ' ' + message);
     req.session.username = user.username;
 
-    if (user.extra){
+    if (user.extra) {
         req.session.extra = user.extra;
     }
 }
@@ -128,7 +128,7 @@ function implicitGrant(req, res) {
 function implicitGrantCallback(req, res) {
     debug('implicitGrantCallback');
     // With the implicit grant, an access token is included in the response
-    logAccessToken(req, {access_token: req.query.token});
+    logAccessToken(req, { access_token: req.query.token });
 
     return getUserFromAccessToken(req, req.query.token)
         .then((user) => {
@@ -331,7 +331,7 @@ function implicitOICGrantCallback(req, res) {
 
     debug('Id Token received ' + req.query.id_token);
     // With the implicit grant, an access token is included in the response
-    logAccessToken(req, {jwt: req.query.id_token});
+    logAccessToken(req, { jwt: req.query.id_token });
 
     return getUserFromIdToken(req, req.query.id_token)
         .then((user) => {
@@ -394,7 +394,7 @@ function authenticate(req, res, next) {
     if (!SECURE_ENDPOINTS) {
         res.locals.authorized = true;
     } else {
-        res.locals.authorized = (!!req.session.access_token || !! req.session.jwt);
+        res.locals.authorized = !!req.session.access_token || !!req.session.jwt;
     }
     return next();
 }
@@ -402,8 +402,8 @@ function authenticate(req, res, next) {
 // By Default always allow access if security is disabled.
 // If security is enabled and no session tokens are found, always deny access.
 function bypassAuthorization(req, res) {
-    debug('bypassAuthorization');
     if (!SECURE_ENDPOINTS) {
+        debug('bypassAuthorization');
         res.locals.authorized = true;
         return true;
     } else if (req.session.access_token === undefined && req.session.jwt === undefined) {
@@ -501,7 +501,7 @@ function logOut(req, res) {
     req.session.access_token = undefined;
     req.session.refresh_token = undefined;
     req.session.username = undefined;
-    req.session.jwt = undefined
+    req.session.jwt = undefined;
     req.session.extra = undefined;
     return res.redirect('/');
 }
