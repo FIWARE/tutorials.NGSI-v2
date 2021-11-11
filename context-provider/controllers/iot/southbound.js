@@ -59,6 +59,12 @@ module.exports = {
         debug('lampHttpCommand');
         return Command.actuateLamp(req, res);
     },
+    // The robot can be directed to move from A to B.
+    // The box can also  be unlocked on command.
+    robotHttpCommand(req, res) {
+        debug('robotHttpCommand');
+        return Command.actuateRobot(req, res);
+    },
 
     // The dummy ISOBUS will just return success.
     isobusHttpCommand(req, res) {

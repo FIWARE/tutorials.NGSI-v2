@@ -28,8 +28,50 @@ const MOTION_DETECTED = 'c|1';
 const VALID_COMMANDS = {
     door: ['open', 'close', 'lock', 'unlock'],
     lamp: ['on', 'off'],
-    bell: ['ring']
+    bell: ['ring'],
+    robot: ['move', 'unlock', 'empty']
 };
+
+const robotEnabled = process.env.ROBOT_ENABLED || false;
+
+// Change the state of a dummy IoT device based on the command received.
+function addRobotGoal(deviceId, command, param1, param2) {
+    debug('addRobotGoal: ' + deviceId + ' ' + command);
+    const state = getDeviceState(deviceId);
+    console.log(state);
+    if (command === 'fill' && state.s === 'IDLE') {
+        state.l = 'FULL';
+        setDeviceState(deviceId, toUltraLight(state), true);
+        return true;
+    }
+    if (command === 'unlock' && state.s === 'UNLOADING') {
+        state.s = 'IDLE';
+        state.l = 'EMPTY';
+        setDeviceState(deviceId, toUltraLight(state), true);
+        return true;
+    }
+    if (command === 'move') {
+        const goalsState = getDeviceState(deviceId + 'goal');
+        let currentGoals = goalsState.t || '';
+        if (param1) {
+            currentGoals = currentGoals + ',' + param1;
+        }
+        if (param2) {
+            currentGoals = currentGoals + ',' + param2;
+        }
+        if (currentGoals.startsWith(',')) {
+            currentGoals = currentGoals.substring(1);
+        }
+        goalsState.t = currentGoals;
+        setDeviceState(deviceId + 'goal', toUltraLight(goalsState), false);
+        if (state.s === 'IDLE') {
+            state.s = 'ACTIVE';
+            setDeviceState(deviceId, toUltraLight(state), true);
+        }
+        return true;
+    }
+    return false;
+}
 
 // Change the state of a dummy IoT device based on the command received.
 function actuateDevice(deviceId, command) {
@@ -85,8 +127,13 @@ function initDevices() {
     // Every second, update the state of the dummy devices in a
     // semi-random fashion.
     setInterval(activateDevices, 997);
+    if (robotEnabled) {
+        // Every second, move the robot closer to the next goal.
+        setInterval(moveRobot, 997);
+    }
 }
 
+let isRobotActive = false;
 let isDoorActive = false;
 let isDevicesActive = false;
 let devicesInitialized = false;
@@ -110,6 +157,69 @@ myCache.set('motion001', NO_MOTION_DETECTED);
 myCache.set('motion002', NO_MOTION_DETECTED);
 myCache.set('motion003', NO_MOTION_DETECTED);
 myCache.set('motion004', NO_MOTION_DETECTED);
+
+if (robotEnabled) {
+    myCache.set('robot001', 's|ACTIVE|l|EMPTY|gps|13.300,52.480');
+    myCache.set('robot001goal', 't|13.350,52.510');
+}
+
+// Move the robot closer to a target
+function moveRobot() {
+    if (isRobotActive) {
+        return;
+    }
+
+    isRobotActive = true;
+    const deviceIds = myCache.keys();
+
+    _.forEach(deviceIds, (deviceId) => {
+        if (deviceId.replace(/\d/g, '') === 'robot') {
+            const state = getDeviceState(deviceId);
+            const goalState = getDeviceState(deviceId + 'goal');
+            const gps = (state.gps || '').split(',');
+            const target = (goalState.t || '').split(',');
+            const nextLong = target.length ? target[0] : undefined;
+            const nextLat = target.length ? target[1] : undefined;
+            const isSensor = nextLong && nextLat;
+
+            if (isSensor) {
+                if (Math.abs(gps[0] - target[0]) < 0.003 && Math.abs(gps[1] - target[1]) < 0.003) {
+                    state.gps = target[0] + ',' + target[1];
+                    target.shift();
+                    target.shift();
+                    goalState.t = target.join(',');
+                    setDeviceState(deviceId + 'goal', toUltraLight(goalState), false);
+
+                    if (target.length === 0) {
+                        if (state.l === 'EMPTY') {
+                            state.s = 'IDLE';
+                        } else {
+                            state.s = 'UNLOADING';
+                        }
+                    } else {
+                        state.l = 'FULL';
+                    }
+                } else {
+                    if (Math.abs(gps[0] - target[0]) >= 0.003 && getRandom() > 7) {
+                        gps[0] = addAndTrim(gps[0], gps[0] < nextLong);
+                    }
+                    if (Math.abs(gps[1] - target[1]) >= 0.003 && getRandom() > 7) {
+                        gps[1] = addAndTrim(gps[1], gps[1] < nextLat);
+                    }
+                    state.gps = gps.join(',');
+                }
+                console.log(toUltraLight(state));
+                setDeviceState(deviceId, toUltraLight(state), isSensor);
+            }
+        }
+    });
+    isRobotActive = false;
+}
+
+function addAndTrim(value, add) {
+    const newValue = add ? parseFloat(value) + 0.003 : parseFloat(value) - 0.003;
+    return Math.round(newValue * 1000) / 1000;
+}
 
 // Open and shut an unlocked door
 function activateDoor() {
@@ -323,6 +433,7 @@ function isUnknownCommand(device, command) {
 module.exports = {
     actuateDevice,
     fireMotionSensor,
+    addRobotGoal,
     notFound,
     isUnknownCommand
 };

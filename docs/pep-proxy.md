@@ -645,7 +645,7 @@ additional `access_token` header.
 ```yaml
 tutorial-app:
     image: fiware/tutorials.context-provider
-    hostname: tutorial-app
+    hostname: iot-sensors-app
     container_name: tutorial-app
     depends_on:
         - orion-proxy
@@ -655,7 +655,7 @@ tutorial-app:
         default:
             ipv4_address: 172.18.1.7
             aliases:
-                - iot-sensors
+                - tutorial
     expose:
         - "3000"
         - "3001"
@@ -930,7 +930,7 @@ requests to a second **Wilma** PEP Proxy in front of the **IoT Agent**.
 ```yaml
 tutorial-app:
     image: fiware/tutorials.context-provider
-    hostname: tutorial-app
+    hostname: iot-sensors-app
     container_name: tutorial-app
     depends_on:
         - orion-proxy
@@ -940,7 +940,7 @@ tutorial-app:
         default:
             ipv4_address: 172.18.1.7
             aliases:
-                - iot-sensors
+                - tutorial
     expose:
         - "3000"
         - "3001"

@@ -388,7 +388,7 @@ curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
             ]
         }
     ],
-    "endpoint": "http://context-provider:3000/static/tweets"
+    "endpoint": "http://tutorial:3000/static/tweets"
 }'
 ```
 
@@ -417,7 +417,7 @@ returned, along with the `@context`.
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:ContextSourceRegistration:5e6242179c26be5aef9991d4",
         "type": "ContextSourceRegistration",
-        "endpoint": "http://context-provider:3000/static/tweets",
+        "endpoint": "http://tutorial:3000/static/tweets",
         "information": [
             {
                 "entities": [
@@ -455,7 +455,7 @@ curl -iX GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:sto
 #### Response:
 
 The response now holds an additional `tweets` Property, which returns the values obtained from
-`http://context-provider:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
+`http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
 endpoint.
 
 ```json
@@ -590,7 +590,7 @@ curl -L -X PATCH 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ng
 #### 9 Request:
 
 If the regisitered attribute is requested from the context broker, it returns the _updated_ values obtained from
-`http://context-provider:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
+`http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
 endpoint.
 
 ```bash

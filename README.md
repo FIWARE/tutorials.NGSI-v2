@@ -21,10 +21,8 @@ directly or programmatically.
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25">
-    [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25">
-    [Smart Data Models](https://smartdatamodels.org)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Smart Data Models](https://smartdatamodels.org)
 
 ## Install
 
@@ -57,7 +55,7 @@ docker-compose -v
 docker version
 ```
 
-Please ensure that you are using Docker version 18.03 or higher and Docker Compose 1.21 or higher and upgrade if
+Please ensure that you are using Docker version 20.10 or higher and Docker Compose 1.29 or higher and upgrade if
 necessary.
 
 ### Postman <img src="https://www.postman.com/favicon-32x32.png" align="left"  height="30" width="30">

@@ -635,7 +635,7 @@ curl -L -X POST 'http://localhost:4041/iot/devices' \
       "entity_type": "Bell",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "HTTP",
-      "endpoint": "http://context-provider:3001/iot/bell002",
+      "endpoint": "http://iot-sensors:3001/iot/bell002",
       "attributes": [
           {
           "name":"ring",

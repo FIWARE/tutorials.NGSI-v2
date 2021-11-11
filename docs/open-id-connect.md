@@ -133,7 +133,7 @@ The necessary configuration information for adding security to the **Stock Manag
 ```yaml
 tutorial:
     image: fiware/tutorials.context-provider
-    hostname: tutorial
+    hostname: iot-sensors
     container_name: fiware-tutorial
     networks:
         default:
@@ -181,7 +181,7 @@ The other `tutorial` container configuration values described in the YAML file h
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Securing-Access-OpenID-Connect.git
 cd tutorials.Securing-Access-OpenID-Connect
@@ -418,7 +418,14 @@ function getUserFromIdToken(req, idToken) {
 }
 ```
 
-The decoded json is return as shown:
+The decoded json is returned as shown:
+
+```json
+{
+    "alg": "HS256",
+    "typ": "JWT"
+}
+```
 
 ```json
 {
@@ -439,6 +446,17 @@ The decoded json is return as shown:
     "exp": 1516238462,
     "iat": 1516239022
 }
+```
+
+To decode the JWT yourself, you can paste the token into the [JWT site](https://jwt.io/) - The signature used to sign
+the token is `59de900a973fa2e0` and can be pasted into the site to verify that the encoded identity came from Keyrock
+
+```text
+HMACSHA256(
+  base64UrlEncode(header) + "." +
+  base64UrlEncode(payload),
+  59de900a973fa2e0
+)
 ```
 
 ### Authorization Code - Running the Example

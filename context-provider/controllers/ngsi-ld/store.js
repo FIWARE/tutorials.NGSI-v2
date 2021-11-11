@@ -7,12 +7,17 @@
 const debug = require('debug')('tutorial:ngsi-ld');
 const monitor = require('../../lib/monitoring');
 const ngsiLD = require('../../lib/ngsi-ld');
+const moment = require('moment');
 const _ = require('lodash');
+const robotEnabled = process.env.ROBOT_ENABLED || false;
+let orders = 1;
 
 debug('Store is retrieved using NGSI-LD');
 
+const dataModelContext =
+    process.env.IOTA_JSON_LD_CONTEXT || 'https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld';
 const LinkHeader =
-    '<https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json">';
+    '<' + dataModelContext + '>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json">';
 
 function mapTileUrl(zoom, location) {
     const tilesPerRow = Math.pow(2, zoom);
@@ -45,6 +50,7 @@ async function displayStore(req, res) {
     // If the user is not authorized, display the main page.
     if (!res.locals.authorized) {
         req.flash('error', 'Access Denied');
+        req.session.location = undefined;
         return res.redirect('/');
     }
     try {
@@ -56,6 +62,7 @@ async function displayStore(req, res) {
         );
         // If a store has been found display it on screen
         store.mapUrl = mapTileUrl(15, store.location);
+        req.session.location = store.location;
         return res.render('store', { title: store.name, store, ngsi: 'ngsi-ld' });
     } catch (error) {
         debug(error);
@@ -143,6 +150,13 @@ async function displayTillInfo(req, res) {
             return e;
         });
 
+        if (robotEnabled && req.session.extra) {
+            req.session.products = {};
+            _.each(productsInStore, (element) => {
+                req.session.products[element.id] = element.name;
+            });
+        }
+
         return res.render('till', {
             products: productsInStore,
             inventory,
@@ -185,6 +199,45 @@ async function buyItem(req, res) {
         numberOfItems: { type: 'Property', value: count }
     });
     await ngsiLD.updateAttribute(shelf[0].id, { numberOfItems: { type: 'Property', value: count } }, headers);
+
+    if (robotEnabled && req.session.extra) {
+        const orderId = 'urn:ngsi-ld:CustomerOrder:' + String(orders).padStart(3, '0');
+        const body = {
+            id: orderId,
+            type: 'CustomerOrder',
+            location: {
+                type: 'GeoProperty',
+                value: req.session.location
+            },
+            pickUpFrom: {
+                type: 'GeoProperty',
+                value: req.session.location
+            },
+            deliverTo: {
+                type: 'GeoProperty',
+                value: {
+                    type: 'Point',
+                    coordinates: req.session.extra.location
+                }
+            },
+            description: {
+                type: 'Property',
+                value:
+                    'Customer ' + req.session.username + ' has ordered some ' + req.session.products[req.body.productId]
+            },
+            iota_id: { type: 'Property', value: req.session.extra.iota_id },
+            refProductId: { type: 'Relationship', object: req.body.productId },
+            refStoreId: { type: 'Relationship', object: req.body.storeId },
+            orderDate: {
+                type: 'Property',
+                value: { '@type': 'DateTime', '@value': moment.utc().format() }
+            }
+        };
+        await ngsiLD.createEntity(body, headers);
+        monitor('NGSI', 'createEntity ' + orderId);
+        orders++;
+    }
+
     res.redirect(`/app/store/${req.body.storeId}/till`);
 }
 

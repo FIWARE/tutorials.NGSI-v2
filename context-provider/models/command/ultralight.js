@@ -97,6 +97,33 @@ class UltralightCommand {
         return res.status(200).send(result + OK);
     }
 
+    // The robot can be directed to move from A to B.
+    // The box can also  be unlocked on command.
+    actuateRobot(req, res) {
+        const keyValuePairs = req.body.split('|') || [''];
+        const command = getUltralightCommand(keyValuePairs[0]);
+        const deviceId = 'robot' + req.params.id;
+        const result = keyValuePairs[0] + '| ' + command;
+        let param1;
+        let param2;
+
+        if (keyValuePairs.length > 1) {
+            param1 = keyValuePairs[1];
+        }
+        if (keyValuePairs.length > 2) {
+            param2 = keyValuePairs[2];
+        }
+
+        if (IoTDevices.notFound(deviceId)) {
+            return res.status(404).send(result + NOT_OK);
+        } else if (IoTDevices.isUnknownCommand('robot', command)) {
+            return res.status(422).send(result + NOT_OK);
+        }
+        // Update device state
+        const success = IoTDevices.addRobotGoal(deviceId, command, param1, param2);
+        return res.status(200).send(result + (success ? OK : NOT_OK));
+    }
+
     // cmd topics are consumed by the actuators (bell, lamp and door)
     processMqttMessage(topic, message) {
         const path = topic.split('/');

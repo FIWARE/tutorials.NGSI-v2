@@ -81,6 +81,15 @@ class XMLCommand {
         return res.status(200).send(getResult(OK, command, deviceId));
     }
 
+    // The robot can be directed to move from A to B.
+    // The box can also  be unlocked on command.
+    actuateRobot(req, res) {
+        const data = xmlParser(req.body);
+        const deviceId = data.root.attributes.device;
+        const command = data.root.name;
+        return res.status(200).send(getResult(OK, command, deviceId));
+    }
+
     // cmd topics are consumed by the actuators (bell, lamp and door)
     processMqttMessage(topic, message) {
         const path = topic.split('/');
