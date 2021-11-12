@@ -2,6 +2,7 @@
 
 const request = require('request');
 const debug = require('debug')('tutorial:ultralight');
+let count = 0;
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
 
@@ -93,16 +94,20 @@ class UltralightMeasure {
         .submit();
             console.log(messageId);*/
 
-        console.log(topic);
+        const topicX = 'fiware'; //'fiware/1234'
+        const stateX = 'c|' + count;
 
-        const topicX = 'fiware/1234/attrs'
+        console.log(topicX);
+        console.log('message:' + stateX);
         IOTA_CLIENT.message()
             .index(topicX)
-            .data(state)
+            .data(stateX)
             .submit()
-            .then((messageId) => {
-                //console.log(messageId);
+            .then((message) => {
+                console.log(message.messageId);
             });
+
+        count++;
     }
 }
 

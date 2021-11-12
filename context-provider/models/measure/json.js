@@ -95,7 +95,9 @@ class JSONMeasure {
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
         // TODO --- Add IOTA --- //
-        const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+        //const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+
+        const topic = 'fiware';
         IOTA_CLIENT.publish(topic, ultralightToJSON(state));
     }
 }

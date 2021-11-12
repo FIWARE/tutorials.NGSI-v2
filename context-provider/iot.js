@@ -32,7 +32,13 @@ const mqttBrokerUrl = process.env.MQTT_BROKER_URL || 'mqtt://mosquitto';
 global.MQTT_CLIENT = mqtt.connect(mqttBrokerUrl);
 
 // TODO --- Add IOTA --- //
-const iotaNodeUrl = process.env.IOTA_NODE || 'https://api.lb-0.testnet.chrysalis2.com:443';
+const iotaNodeUrl = process.env.IOTA_NODE || 'https://api.thin-hornet-1.h.chrysalis-devnet.iota.cafe';
+
+/// 'https://node.tanglebay.com'
+
+/// 'https://api.thin-hornet-1.h.chrysalis-devnet.iota.cafe'
+
+// 'https://api.lb-0.h.chrysalis-devnet.iota.cafe:443' // https://api.lb-0.testnet.chrysalis2.com:443';
 global.IOTA_CLIENT = new iotaClient.ClientBuilder().node(iotaNodeUrl).build();
 
 // If the Ultralight Dummy Devices are configured to use the HTTP transport, then
@@ -81,6 +87,8 @@ iot.use(function (req, res) {
     res.status(404).send(new createError.NotFound());
 });
 
+console.error('xxx');
+
 // If the IoT Devices are configured to use the IOTA tangle, then
 // subscribe to the assoicated topics for each device.
 if (DEVICE_TRANSPORT === 'IOTA') {
@@ -89,23 +97,22 @@ if (DEVICE_TRANSPORT === 'IOTA') {
     IOTA_CLIENT.getInfo()
         .then(() => {
             debug('connected to IOTA Tangle');
-            const topics = [];
+            let topics = [];
             apiKeys.split(',').forEach((apiKey) => {
-                const topic = 'messages/indexation/fiware/' + apiKey ;
+                const topic = 'messages/indexation/fiware/' + apiKey;
                 debug('Subscribing to IOTA Node: ' + iotaNodeUrl + ' ' + topic);
                 topics.push(topic);
                 topics.push(topic + '/attrs');
                 topics.push(topic + '/cmd');
                 topics.push(topic + '/cmdExe');
-
             });
 
             console.log(topics);
 
-            IOTA_CLIENT.subscriber()
+            /*IOTA_CLIENT.subscriber()
                 .topics(topics)
                 .subscribe((err, data) => {
-                    //console.log(data);
+                    console.log(data);
                     // To get the message id from messages `client.getMessageId(data.payload)` can be used
                     const messageId = IOTA_CLIENT.getMessageId(data.payload);
 
@@ -114,9 +121,31 @@ if (DEVICE_TRANSPORT === 'IOTA') {
                         console.log('message_data:', payload);
                     })
 
+                });*/
+
+            IOTA_CLIENT.subscriber()
+                .topics(['messages/indexation/fiware'])
+                .subscribe((err, data) => {
+                    console.log(data);
+
+                    if (data) {
+                        const messageId = IOTA_CLIENT.getMessageId(data.payload);
+
+                        IOTA_CLIENT.getMessage()
+                            .data(messageId)
+                            .then((message_data) => {
+                                const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
+                                console.log('message_data:', payload);
+                            })
+                            .catch((err) => {
+                                console.error('zzz');
+                                console.error(err);
+                            });
+                    }
                 });
         })
         .catch((err) => {
+            console.error('yyy');
             console.error(err);
         });
 
