@@ -92,12 +92,13 @@ console.error('xxx');
 // If the IoT Devices are configured to use the IOTA tangle, then
 // subscribe to the assoicated topics for each device.
 if (DEVICE_TRANSPORT === 'IOTA') {
+    // eslint-disable-next-line no-unused-vars
     const apiKeys = process.env.DUMMY_DEVICES_API_KEYS || process.env.DUMMY_DEVICES_API_KEY || '1234';
 
     IOTA_CLIENT.getInfo()
         .then(() => {
             debug('connected to IOTA Tangle');
-            let topics = [];
+            /*const topics = [];
             apiKeys.split(',').forEach((apiKey) => {
                 const topic = 'messages/indexation/fiware/' + apiKey;
                 debug('Subscribing to IOTA Node: ' + iotaNodeUrl + ' ' + topic);
@@ -106,40 +107,27 @@ if (DEVICE_TRANSPORT === 'IOTA') {
                 topics.push(topic + '/cmd');
                 topics.push(topic + '/cmdExe');
             });
+            console.log(topics);*/
 
-            console.log(topics);
-
-            /*IOTA_CLIENT.subscriber()
-                .topics(topics)
-                .subscribe((err, data) => {
-                    console.log(data);
-                    // To get the message id from messages `client.getMessageId(data.payload)` can be used
-                    const messageId = IOTA_CLIENT.getMessageId(data.payload);
-
-                    IOTA_CLIENT.getMessage().data(messageId).then(message_data => {
-                        const payload = Buffer.from(message_data.message.payload.data, 'hex').toString("utf8")
-                        console.log('message_data:', payload);
-                    })
-
-                });*/
-
+            debug("Subscribing to 'messages/indexation/fiware'");
             IOTA_CLIENT.subscriber()
                 .topics(['messages/indexation/fiware'])
                 .subscribe((err, data) => {
-                    console.log(data);
+                    //console.log(data);
 
                     if (data) {
                         const messageId = IOTA_CLIENT.getMessageId(data.payload);
 
                         IOTA_CLIENT.getMessage()
                             .data(messageId)
+                            // eslint-disable-next-line camelcase
                             .then((message_data) => {
+                                // eslint-disable-next-line camelcase
                                 const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
-                                console.log('message_data:', payload);
+                                debug('message_data received from Tangle:', payload);
                             })
                             .catch((err) => {
-                                console.error('zzz');
-                                console.error(err);
+                                debug(err);
                             });
                     }
                 });
@@ -148,25 +136,7 @@ if (DEVICE_TRANSPORT === 'IOTA') {
             console.error('yyy');
             console.error(err);
         });
-
     // TODO --- Add IOTA --- //
-    /*
-    IOTA_CLIENT.on('connect', () => {
-        apiKeys.split(',').forEach((apiKey) => {
-            const topic = '/' + apiKey + '/#';
-            debug('Subscribing to MQTT Broker: ' + mqttBrokerUrl + ' ' + topic);
-            IOTA_CLIENT.subscribe(topic);
-            IOTA_CLIENT.subscribe(topic + '/#');
-        });
-    });
-
-    iota.connect(iotaBrokerUrl);
-
-    IOTA_CLIENT.on('message', function (topic, message) {
-        // message is a buffer. The IoT devices will be listening and
-        // responding to commands going southbound.
-        Southbound.processIotaMessage(topic.toString(), message.toString());
-    });*/
 }
 
 module.exports = iot;

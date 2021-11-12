@@ -85,26 +85,24 @@ class UltralightMeasure {
     }
 
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
+
+    // eslint-disable-next-line no-unused-vars
     sendAsIOTA(deviceId, state) {
         // TODO --- Add IOTA --- //
-        const topic = 'fiware/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
-        /*const messageId = await IOTA_CLIENT.message()
-        .index(topic)
-        .data(state)
-        .submit();
-            console.log(messageId);*/
+        //const topic = 'fiware/' + getAPIKey(deviceId);
 
-        const topicX = 'fiware'; //'fiware/1234'
+        const topicX = 'fiware'; // HARD CODING A STRING - would like this to be fiware/1234
         const stateX = 'c|' + count;
 
-        console.log(topicX);
-        console.log('message:' + stateX);
         IOTA_CLIENT.message()
             .index(topicX)
             .data(stateX)
             .submit()
             .then((message) => {
-                console.log(message.messageId);
+                debug('Sent MessageId: ' + message.messageId + ' to Tangle: ' + stateX + " on '" + topicX + "'");
+            })
+            .catch((err) => {
+                debug(err);
             });
 
         count++;
