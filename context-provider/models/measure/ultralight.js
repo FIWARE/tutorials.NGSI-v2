@@ -91,21 +91,24 @@ class UltralightMeasure {
         // TODO --- Add IOTA --- //
         //const topic = 'fiware/' + getAPIKey(deviceId);
 
-        const topicX = 'fiware'; // HARD CODING A STRING - would like this to be fiware/1234
-        const stateX = 'c|' + count;
+        const topicX = 'fiware/attrs'; // HARD CODING A STRING - would like this to be fiware/1234
+        //const stateX = 'c|' + count;
+        // count++;
+
+        const payload =
+            'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '&t=' + new Date().toISOString();
 
         IOTA_CLIENT.message()
-            .index(topicX)
-            .data(stateX)
+            .index('fiware/attrs')
+            .data(payload)
             .submit()
             .then((message) => {
-                debug('Sent MessageId: ' + message.messageId + ' to Tangle: ' + stateX + " on '" + topicX + "'");
+                //debug('Sent MessageId: ' + message.messageId + ' to Tangle: ' + payload + " on '" + topicX + "'");
+                SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
             })
             .catch((err) => {
                 debug(err);
             });
-
-        count++;
     }
 }
 

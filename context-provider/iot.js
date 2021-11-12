@@ -87,8 +87,6 @@ iot.use(function (req, res) {
     res.status(404).send(new createError.NotFound());
 });
 
-console.error('xxx');
-
 // If the IoT Devices are configured to use the IOTA tangle, then
 // subscribe to the assoicated topics for each device.
 if (DEVICE_TRANSPORT === 'IOTA') {
@@ -109,14 +107,14 @@ if (DEVICE_TRANSPORT === 'IOTA') {
             });
             console.log(topics);*/
 
-            debug("Subscribing to 'messages/indexation/fiware'");
+            debug("Subscribing to 'messages/indexation/fiware/attrs'");
             IOTA_CLIENT.subscriber()
-                .topics(['messages/indexation/fiware'])
+                .topics(['messages/indexation/fiware/attrs'])
                 .subscribe((err, data) => {
                     //console.log(data);
 
                     if (data) {
-                        const messageId = IOTA_CLIENT.getMessageId(data.payload);
+                        const messageId = getMessageId(data.payload);
 
                         IOTA_CLIENT.getMessage()
                             .data(messageId)
@@ -137,6 +135,16 @@ if (DEVICE_TRANSPORT === 'IOTA') {
             console.error(err);
         });
     // TODO --- Add IOTA --- //
+}
+
+function getMessageId(payload) {
+    let messageId = null;
+    try {
+        messageId = IOTA_CLIENT.getMessageId(payload);
+    } catch (e) {
+        messageId = getMessageId(payload);
+    }
+    return messageId;
 }
 
 module.exports = iot;

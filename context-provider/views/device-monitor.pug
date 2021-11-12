@@ -115,6 +115,16 @@ block content
           }
       });
 
+      socket.on( 'IOTA-tangle', function(msg){
+          // If we receive a northbound notification, list it on screen
+           const htmlString = '<li>' + moment().format('LTS') + ' ' +
+           '<code>'  + msg +  '</code>';
+          $('#northbound').append(htmlString);
+          if($('#northbound li').size() > 5){
+              $('#northbound li').first().remove();
+          }
+      });
+
       socket.on( 'mqtt', function(msg){
         moment().format('LTS')
           // If we receive a northbound notification, list it on screen
