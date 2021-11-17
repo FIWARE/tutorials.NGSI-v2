@@ -5,6 +5,7 @@ const debug = require('debug')('tutorial:ultralight');
 let count = 0;
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';
 
 const IOT_AGENT_URL =
     'http://' +
@@ -88,22 +89,13 @@ class UltralightMeasure {
 
     // eslint-disable-next-line no-unused-vars
     sendAsIOTA(deviceId, state) {
-        // TODO --- Add IOTA --- //
-        //const topic = 'fiware/' + getAPIKey(deviceId);
-
-        const topicX = 'fiware/attrs'; // HARD CODING A STRING - would like this to be fiware/1234
-        //const stateX = 'c|' + count;
-        // count++;
-
-        const payload =
-            'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '&t=' + new Date().toISOString();
+        const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state;
 
         IOTA_CLIENT.message()
-            .index('fiware/attrs')
+            .index(IOTA_ATTRS_TOPIC)
             .data(payload)
             .submit()
             .then((message) => {
-                //debug('Sent MessageId: ' + message.messageId + ' to Tangle: ' + payload + " on '" + topicX + "'");
                 SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
             })
             .catch((err) => {

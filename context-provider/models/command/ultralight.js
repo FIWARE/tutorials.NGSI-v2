@@ -2,6 +2,7 @@
 
 const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const debug = require('debug')('tutorial:ultralight');
 
 // A series of constants used by our set of devices
 const OK = ' OK';
@@ -139,6 +140,14 @@ class UltralightCommand {
                 MQTT_CLIENT.publish(topic, result + OK);
             }
         }
+    }
+
+    processIOTAMessage(apiKey, deviceId, message) {
+        const keyValuePairs = message.split('|') || [''];
+        const command = getUltralightCommand(keyValuePairs[0]);
+        const result = keyValuePairs[0] + '| ' + command;
+
+        debug(apiKey, deviceId, command, result);
     }
 }
 

@@ -4,6 +4,7 @@ const request = require('request');
 const debug = require('debug')('tutorial:xml');
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';
 
 const IOT_AGENT_URL =
     'http://' +
@@ -83,13 +84,30 @@ class XMLMeasure {
     // measures sent over MQTT are posted as topics (motion sensor, lamp and door)
     sendAsMQTT(deviceId, state) {
         const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
-        MQTT_CLIENT.publish(topic, state);
+        MQTT_CLIENT.publish(topic, ultralightToXML(DEVICE_API_KEY, deviceId, state));
     }
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
-        // TODO --- Add IOTA --- //
-        const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
-        IOTA_CLIENT.publish(topic, state);
+        const payload =
+            'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + ultralightToXML(DEVICE_API_KEY, deviceId, state);
+
+        IOTA_CLIENT.message()
+            .index(IOTA_ATTRS_TOPIC)
+            .data(payload)
+            .submit()
+            .then((message) => {
+                SOCKET_IO.emit(
+                    'IOTA-tangle',
+                    '<b>' +
+                        message.messageId +
+                        '</b> ' +
+                        '<br/> ' +
+                        payload.replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/\n/g, '<br/>')
+                );
+            })
+            .catch((err) => {
+                debug(err);
+            });
     }
 }
 

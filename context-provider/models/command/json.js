@@ -2,6 +2,7 @@
 
 const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const debug = require('debug')('tutorial:json');
 
 // A series of constants used by our set of devices
 const OK = 'OK';
@@ -119,6 +120,12 @@ class JSONCommand {
                 MQTT_CLIENT.publish(topic, getResult(command, OK));
             }
         }
+    }
+
+    processIOTAMessage(apiKey, deviceId, message) {
+        const command = getJSONCommand(message);
+        const result = getResult(command, OK);
+        debug(apiKey, deviceId, command, result);
     }
 }
 

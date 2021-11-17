@@ -36,6 +36,16 @@ switch (DEVICE_PAYLOAD.toLowerCase()) {
         break;
 }
 
+function unmarshall(payload) {
+    const parts = payload.split('&');
+    const obj = {};
+    parts.forEach((elem) => {
+        keyValues = elem.split('=');
+        obj[keyValues[0]] = keyValues[1];
+    });
+    return obj;
+}
+
 module.exports = {
     // The bell will respond to the "ring" command.
     // this will briefly set the bell to on.
@@ -84,11 +94,11 @@ module.exports = {
 
     // The device monitor will display all IOTA messages on screen.
     // cmd topics are consumed by the actuators (bell, lamp and door)
-    processIotaMessage(topic, message) {
-        debug('processIotaMessage');
-        const iotaBrokerUrl = process.env.IOTA_BROKER_URL || 'iota-tangle';
-        SOCKET_IO.emit('iota', iotaBrokerUrl + topic + '  ' + message);
+    processIOTAMessage(messageId, payload) {
+        debug('processIOTAMessage');
+        SOCKET_IO.emit('IOTA-tangle', '<b>' + messageId + '</b> ' + payload);
         // TODO --- Add IOTA --- //
-        Command.processIotaMessage(topic, message);
+        const data = unmarshall(payload);
+        Command.processIOTAMessage(data.k, data.i, data.d);
     }
 };

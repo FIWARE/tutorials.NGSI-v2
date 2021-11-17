@@ -4,6 +4,7 @@ const request = require('request');
 const debug = require('debug')('tutorial:json');
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';
 
 const IOT_AGENT_URL =
     'http://' +
@@ -94,11 +95,19 @@ class JSONMeasure {
 
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
-        // TODO --- Add IOTA --- //
-        //const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+        const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + ultralightToJSON(state);
 
-        const topic = 'fiware';
-        IOTA_CLIENT.publish(topic, ultralightToJSON(state));
+        IOTA_CLIENT.message()
+            .index(IOTA_ATTRS_TOPIC)
+            .data(payload)
+            .submit()
+            .then((message) => {
+                //debug('Sent MessageId: ' + message.messageId + ' to Tangle: ' + payload + " on '" + topicX + "'");
+                SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
+            })
+            .catch((err) => {
+                debug(err);
+            });
     }
 }
 
