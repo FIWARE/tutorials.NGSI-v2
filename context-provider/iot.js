@@ -107,26 +107,6 @@ if (DEVICE_TRANSPORT === 'IOTA') {
                             debug('Command error from Tangle: ', err);
                         });
                 });
-            debug("Subscribing to '" + IOTA_MESSAGE_INDEX + "/attrs'");
-            IOTA_CLIENT.subscriber()
-                .topic(IOTA_MESSAGE_INDEX + '/attrs')
-                .subscribe((err, data) => {
-                    if (err) {
-                        return debug('IOTA Tangle Subscription Error ', err);
-                    }
-                    const messageId = getMessageId(data.payload);
-                    IOTA_CLIENT.getMessage()
-                        .data(messageId)
-                        // eslint-disable-next-line camelcase
-                        .then((message_data) => {
-                            // eslint-disable-next-line camelcase
-                            const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
-                            debug('Measure sent to Tangle:', payload);
-                        })
-                        .catch((err) => {
-                            debug('Measure error from Tangle: ', err);
-                        });
-                });
         })
         .catch((err) => {
             debug('IOTA Tangle Connection Error' + err);

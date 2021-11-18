@@ -2,6 +2,7 @@
 
 const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const IOTA_CMD_EXE_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/cmdexe';
 const debug = require('debug')('tutorial:json');
 
 // A series of constants used by our set of devices
@@ -115,17 +116,31 @@ class JSONCommand {
             const deviceId = path.pop();
 
             if (!IoTDevices.notFound(deviceId)) {
-                IoTDevices.actuateDevice(deviceId, command);
                 const topic = '/' + DEVICE_API_KEY + '/' + deviceId + '/cmdexe';
                 MQTT_CLIENT.publish(topic, getResult(command, OK));
+                IoTDevices.actuateDevice(deviceId, command);
             }
         }
     }
 
     processIOTAMessage(apiKey, deviceId, message) {
         const command = getJSONCommand(message);
-        const result = getResult(command, OK);
-        debug(apiKey, deviceId, command, result);
+
+        if (!IoTDevices.notFound(deviceId)) {
+            const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + getResult(command, OK);
+
+            IOTA_CLIENT.message()
+                .index(IOTA_CMD_EXE_TOPIC)
+                .data(responsePayload)
+                .submit()
+                .then((response) => {
+                    SOCKET_IO.emit('IOTA-tangle', '<b>' + response.messageId + '</b> ' + responsePayload);
+                    IoTDevices.actuateDevice(deviceId, command);
+                })
+                .catch((err) => {
+                    debug(err);
+                });
+        }
     }
 }
 

@@ -2,6 +2,7 @@
 
 const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const IOTA_CMD_EXE_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/cmdexe';
 const debug = require('debug')('tutorial:ultralight');
 
 // A series of constants used by our set of devices
@@ -135,9 +136,9 @@ class UltralightCommand {
             const result = keyValuePairs[0] + '| ' + command;
 
             if (!IoTDevices.notFound(deviceId)) {
-                IoTDevices.actuateDevice(deviceId, command);
                 const topic = '/' + DEVICE_API_KEY + '/' + deviceId + '/cmdexe';
                 MQTT_CLIENT.publish(topic, result + OK);
+                IoTDevices.actuateDevice(deviceId, command);
             }
         }
     }
@@ -147,7 +148,24 @@ class UltralightCommand {
         const command = getUltralightCommand(keyValuePairs[0]);
         const result = keyValuePairs[0] + '| ' + command;
 
-        debug(apiKey, deviceId, command, result);
+        if (!IoTDevices.notFound(deviceId)) {
+            const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + result + OK;
+
+            debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
+            IOTA_CLIENT.message()
+                .index(IOTA_CMD_EXE_TOPIC)
+                .data(responsePayload)
+                .submit()
+                .then((response) => {
+                    SOCKET_IO.emit('IOTA-tangle', '<b>' + response.messageId + '</b> ' + responsePayload);
+                    debug('command response sent to ' + IOTA_CMD_EXE_TOPIC);
+                    debug(response.messageId);
+                    setTimeout(IoTDevices.actuateDevice, 500, deviceId, command);
+                })
+                .catch((err) => {
+                    debug(err);
+                });
+        }
     }
 }
 

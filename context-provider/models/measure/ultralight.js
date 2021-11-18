@@ -97,6 +97,8 @@ class UltralightMeasure {
             .submit()
             .then((message) => {
                 SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
+                debug('measure sent to ' + IOTA_ATTRS_TOPIC);
+                debug(message.messageId);
             })
             .catch((err) => {
                 debug(err);
