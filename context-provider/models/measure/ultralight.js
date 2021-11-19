@@ -2,6 +2,7 @@
 
 const request = require('request');
 const debug = require('debug')('tutorial:ultralight');
+const async = require('async');
 let count = 0;
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
@@ -13,6 +14,23 @@ const IOT_AGENT_URL =
     ':' +
     (process.env.IOTA_HTTP_PORT || 7896) +
     (process.env.IOTA_DEFAULT_RESOURCE || '/iot/d');
+
+const queue = async.queue((payload, callback) => {
+    IOTA_CLIENT.message()
+        .index(IOTA_ATTRS_TOPIC)
+        .data(payload)
+        .submit()
+        .then((message) => {
+            SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
+            debug('measure sent to ' + IOTA_ATTRS_TOPIC);
+            debug(message.messageId);
+            callback();
+        })
+        .catch((err) => {
+            debug(err);
+            callback(err);
+        });
+});
 
 function getAPIKey(deviceId) {
     return process.env.DUMMY_DEVICES_API_KEY ? DEVICE_API_KEY : hashCode(deviceId.replace(/[0-9]/gi, ''));
@@ -89,20 +107,9 @@ class UltralightMeasure {
 
     // eslint-disable-next-line no-unused-vars
     sendAsIOTA(deviceId, state) {
-        const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state;
-
-        IOTA_CLIENT.message()
-            .index(IOTA_ATTRS_TOPIC)
-            .data(payload)
-            .submit()
-            .then((message) => {
-                SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
-                debug('measure sent to ' + IOTA_ATTRS_TOPIC);
-                debug(message.messageId);
-            })
-            .catch((err) => {
-                debug(err);
-            });
+        const payload =
+            'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '&t=' + new Date().toISOString();
+        queue.push(payload);
     }
 }
 
