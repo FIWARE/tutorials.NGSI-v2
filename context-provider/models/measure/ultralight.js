@@ -109,7 +109,10 @@ class UltralightMeasure {
     sendAsIOTA(deviceId, state) {
         const payload =
             'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '&t=' + new Date().toISOString();
-        queue.push(payload);
+        // The tutorial app is emulating multiple devices, limit the queue to avoid memory issues.
+        if (queue.length() < 8) {
+            queue.push(payload);
+        }
     }
 }
 

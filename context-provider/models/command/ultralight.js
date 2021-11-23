@@ -172,21 +172,6 @@ class UltralightCommand {
             const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + result + OK;
 
             queue.push({ responsePayload, deviceId, command });
-            /*
-            debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
-            IOTA_CLIENT.message()
-                .index(IOTA_CMD_EXE_TOPIC)
-                .data(responsePayload)
-                .submit()
-                .then((response) => {
-                    SOCKET_IO.emit('IOTA-tangle', '<b>' + response.messageId + '</b> ' + responsePayload);
-                    debug('command response sent to ' + IOTA_CMD_EXE_TOPIC);
-                    debug(response.messageId);
-                    setTimeout(IoTDevices.actuateDevice, 500, deviceId, command);
-                })
-                .catch((err) => {
-                    debug(err);
-                });*/
         }
     }
 }

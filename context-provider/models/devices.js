@@ -32,7 +32,8 @@ const VALID_COMMANDS = {
     robot: ['move', 'unlock', 'empty']
 };
 
-const robotEnabled = process.env.ROBOT_ENABLED || false;
+const ROBOT_ENABLED = process.env.ROBOT_ENABLED || false;
+const RATE_OF_MEASURE = process.env.DUMMY_DEVICES_RATE || 1000;
 
 // Change the state of a dummy IoT device based on the command received.
 function addRobotGoal(deviceId, command, param1, param2) {
@@ -123,13 +124,13 @@ function initDevices() {
 
     // Every few seconds, update the state of the dummy devices in a
     // semi-random fashion.
-    setInterval(activateDoor, 4999);
+    setInterval(activateDoor, 4 * RATE_OF_MEASURE);
     // Every second, update the state of the dummy devices in a
     // semi-random fashion.
-    setInterval(activateDevices, 997);
-    if (robotEnabled) {
+    setInterval(activateDevices, RATE_OF_MEASURE);
+    if (ROBOT_ENABLED) {
         // Every second, move the robot closer to the next goal.
-        setInterval(moveRobot, 997);
+        setInterval(moveRobot, RATE_OF_MEASURE);
     }
 }
 
@@ -158,7 +159,7 @@ myCache.set('motion002', NO_MOTION_DETECTED);
 myCache.set('motion003', NO_MOTION_DETECTED);
 myCache.set('motion004', NO_MOTION_DETECTED);
 
-if (robotEnabled) {
+if (ROBOT_ENABLED) {
     myCache.set('robot001', 's|ACTIVE|l|EMPTY|gps|13.300,52.480');
     myCache.set('robot001goal', 't|13.350,52.510');
 }
