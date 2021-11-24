@@ -22,7 +22,7 @@ const queue = async.queue((data, callback) => {
         .catch((err) => {
             debug(err);
             callback(err);
-        });
+        }, 8);
 }, 1);
 
 // A series of constants used by our set of devices
@@ -170,7 +170,6 @@ class UltralightCommand {
 
         if (!IoTDevices.notFound(deviceId)) {
             const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + result + OK;
-
             queue.push({ responsePayload, deviceId, command });
         }
     }

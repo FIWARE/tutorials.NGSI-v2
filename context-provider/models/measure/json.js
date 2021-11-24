@@ -95,15 +95,18 @@ class JSONMeasure {
 
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
-        const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + ultralightToJSON(state);
+        measure = ultralightToJSON(state);
+        measure.t = new Date().toISOString();
+        const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + measure;
 
         IOTA_CLIENT.message()
             .index(IOTA_ATTRS_TOPIC)
             .data(payload)
             .submit()
             .then((message) => {
-                //debug('Sent MessageId: ' + message.messageId + ' to Tangle: ' + payload + " on '" + topicX + "'");
                 SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
+                debug('measure sent to ' + IOTA_ATTRS_TOPIC);
+                debug(message.messageId);
             })
             .catch((err) => {
                 debug(err);
