@@ -113,7 +113,16 @@ router.get('/version', function (req, res) {
 
 // Render the monitoring page
 router.get('/device/monitor', function (req, res) {
-    const traffic = TRANSPORT === 'HTTP' ? 'Northbound Traffic' : 'MQTT Messages';
+    let traffic = 'Northbound Traffic';
+    switch (TRANSPORT) {
+        case 'MQTT':
+            traffic = 'MQTT Messages';
+            break;
+        case 'IOTA':
+            traffic = 'IOTA Tangle';
+            break;
+    }
+
     const title = 'IoT Devices (' + DEVICE_PAYLOAD + ' over ' + TRANSPORT + ')';
     const securityEnabled = SECURE_ENDPOINTS;
     const oidcEnabled = OIDC_ENABLED;

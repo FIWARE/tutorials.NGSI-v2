@@ -4,6 +4,7 @@ const request = require('request');
 const debug = require('debug')('tutorial:json');
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';
 
 const IOT_AGENT_URL =
     'http://' +
@@ -33,6 +34,7 @@ function hashCode(str) {
 
 /* global SOCKET_IO */
 /* global MQTT_CLIENT */
+/* global IOTA_CLIENT */
 
 // This processor sends ultralight payload northbound to
 // the southport of the IoT Agent and sends measures
@@ -89,6 +91,26 @@ class JSONMeasure {
     sendAsMQTT(deviceId, state) {
         const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
         MQTT_CLIENT.publish(topic, ultralightToJSON(state));
+    }
+
+    // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
+    sendAsIOTA(deviceId, state) {
+        measure = ultralightToJSON(state);
+        measure.t = new Date().toISOString();
+        const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + measure;
+
+        IOTA_CLIENT.message()
+            .index(IOTA_ATTRS_TOPIC)
+            .data(payload)
+            .submit()
+            .then((message) => {
+                SOCKET_IO.emit('IOTA-tangle', '<b>' + message.messageId + '</b> ' + payload);
+                debug('measure sent to ' + IOTA_ATTRS_TOPIC);
+                debug(message.messageId);
+            })
+            .catch((err) => {
+                debug(err);
+            });
     }
 }
 

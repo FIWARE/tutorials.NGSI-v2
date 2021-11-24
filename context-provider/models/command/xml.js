@@ -3,6 +3,7 @@
 const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
 const xmlParser = require('xml-parser');
+const debug = require('debug')('tutorial:xml');
 
 // A series of constants used by our set of devices
 const OK = 'success';
@@ -104,6 +105,10 @@ class XMLCommand {
                 MQTT_CLIENT.publish(topic, getResult(OK, command, deviceId));
             }
         }
+    }
+
+    processIOTAMessage(apiKey, deviceId, message) {
+        debug('not implemented');
     }
 }
 

@@ -75,5 +75,9 @@ module.exports = {
             debug('sendMQTTMeasure: ' + deviceId);
             Measure.sendAsMQTT(deviceId, state);
         }
+        if (DEVICE_TRANSPORT === 'IOTA') {
+            debug('sendIOTAMeasure: ' + deviceId);
+            Measure.sendAsIOTA(deviceId, state);
+        }
     }
 };
