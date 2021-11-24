@@ -40,7 +40,7 @@ function unmarshall(payload) {
     const parts = payload.split('&');
     const obj = {};
     parts.forEach((elem) => {
-        keyValues = elem.split('=');
+        const keyValues = elem.split('=');
         obj[keyValues[0]] = keyValues[1];
     });
     return obj;

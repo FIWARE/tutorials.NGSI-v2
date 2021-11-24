@@ -3,7 +3,6 @@
 const request = require('request');
 const debug = require('debug')('tutorial:ultralight');
 const async = require('async');
-let count = 0;
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
 const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';

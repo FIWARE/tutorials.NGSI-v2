@@ -1,10 +1,17 @@
 // Connect to an IoT Agent and use fallback values if necessary
 
+/* global IOTA_CLIENT */
+/* global MQTT_CLIENT */
+/* global SOCKET_IO */
+
 const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
 const IOTA_CMD_EXE_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/cmdexe';
 const debug = require('debug')('tutorial:ultralight');
 const async = require('async');
+// A series of constants used by our set of devices
+const OK = ' OK';
+const NOT_OK = ' NOT OK';
 
 const queue = async.queue((data, callback) => {
     debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
@@ -24,12 +31,6 @@ const queue = async.queue((data, callback) => {
             callback(err);
         }, 8);
 }, 1);
-
-// A series of constants used by our set of devices
-const OK = ' OK';
-const NOT_OK = ' NOT OK';
-
-/* global MQTT_CLIENT */
 
 //
 // Splits the deviceId from the command sent.
