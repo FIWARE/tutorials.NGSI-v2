@@ -9,7 +9,9 @@ const debug = require('debug')('tutorial:json');
 const OK = 'OK';
 const NOT_OK = 'NOT OK';
 
+/* global IOTA_CLIENT */
 /* global MQTT_CLIENT */
+/* global SOCKET_IO */
 
 //
 // Splits the deviceId from the command sent.

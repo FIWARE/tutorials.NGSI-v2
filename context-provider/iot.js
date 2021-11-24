@@ -95,17 +95,19 @@ if (DEVICE_TRANSPORT === 'IOTA') {
                         return debug('IOTA Tangle Subscription Error', err);
                     }
                     const messageId = getMessageId(data.payload);
-                    IOTA_CLIENT.getMessage()
-                        .data(messageId)
-                        // eslint-disable-next-line camelcase
-                        .then((message_data) => {
+                    return (
+                        IOTA_CLIENT.getMessage()
+                            .data(messageId)
                             // eslint-disable-next-line camelcase
-                            const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
-                            Southbound.processIOTAMessage(messageId, payload);
-                        })
-                        .catch((err) => {
-                            debug('Command error from Tangle: ', err);
-                        });
+                            .then((message_data) => {
+                                // eslint-disable-next-line camelcase
+                                const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
+                                Southbound.processIOTAMessage(messageId, payload);
+                            })
+                            .catch((err) => {
+                                debug('Command error from Tangle: ', err);
+                            })
+                    );
                 });
         })
         .catch((err) => {

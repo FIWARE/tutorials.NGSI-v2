@@ -95,7 +95,7 @@ class JSONMeasure {
 
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
     sendAsIOTA(deviceId, state) {
-        measure = ultralightToJSON(state);
+        const measure = ultralightToJSON(state);
         measure.t = new Date().toISOString();
         const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + measure;
 

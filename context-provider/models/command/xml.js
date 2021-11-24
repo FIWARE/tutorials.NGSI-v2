@@ -107,6 +107,7 @@ class XMLCommand {
         }
     }
 
+    /* eslint-disable-next-line  no-unused-vars */
     processIOTAMessage(apiKey, deviceId, message) {
         debug('not implemented');
     }

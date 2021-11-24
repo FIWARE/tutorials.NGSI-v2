@@ -79,12 +79,12 @@ function deleteAttribute(entityId, headers = {}) {
 // /ngsi-ld/v1/entities end point
 function createEntity(body, headers = {}) {
     return request({
-    url: BASE_PATH + '/entities/',
-    method: 'POST',
-    body,
-    headers,
-    json: true,
-  });
+        url: BASE_PATH + '/entities/',
+        method: 'POST',
+        body,
+        headers,
+        json: true
+    });
 }
 
 // This is a promise to make an HTTP PATCH request to the
