@@ -95,10 +95,9 @@ if (DEVICE_TRANSPORT === 'IOTA') {
                     if (err) {
                         return debug('IOTA Tangle Subscription Error', err);
                     }
-                    process.nextTick(() => {
+                    return process.nextTick(() => {
                         readFromTangle(data);
                     });
-                    return;
                 });
         })
         .catch((err) => {
