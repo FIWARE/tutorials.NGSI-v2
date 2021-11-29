@@ -69,6 +69,7 @@ if (DEVICE_TRANSPORT === 'MQTT') {
     MQTT_CLIENT.on('message', function (topic, message) {
         // message is a buffer. The IoT devices will be listening and
         // responding to commands going southbound.
+        debug('received message on', topic.toString());
         Southbound.processMqttMessage(topic.toString(), message.toString());
     });
 }
@@ -94,24 +95,29 @@ if (DEVICE_TRANSPORT === 'IOTA') {
                     if (err) {
                         return debug('IOTA Tangle Subscription Error', err);
                     }
-                    const messageId = getMessageId(data.payload);
-                    return (
-                        IOTA_CLIENT.getMessage()
-                            .data(messageId)
-                            // eslint-disable-next-line camelcase
-                            .then((message_data) => {
-                                // eslint-disable-next-line camelcase
-                                const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
-                                Southbound.processIOTAMessage(messageId, payload);
-                            })
-                            .catch((err) => {
-                                debug('Command error from Tangle: ', err);
-                            })
-                    );
+                    process.nextTick(() => {
+                        readFromTangle(data);
+                    });
+                    return;
                 });
         })
         .catch((err) => {
             debug('IOTA Tangle Connection Error' + err);
+        });
+}
+
+function readFromTangle(data) {
+    const messageId = getMessageId(data.payload);
+    IOTA_CLIENT.getMessage()
+        .data(messageId)
+        // eslint-disable-next-line camelcase
+        .then((message_data) => {
+            // eslint-disable-next-line camelcase
+            const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
+            Southbound.processIOTAMessage(messageId, payload);
+        })
+        .catch((err) => {
+            debug('Command error from Tangle: ', err);
         });
 }
 

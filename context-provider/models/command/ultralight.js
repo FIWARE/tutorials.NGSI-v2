@@ -23,7 +23,9 @@ const queue = async.queue((data, callback) => {
             SOCKET_IO.emit('IOTA-tangle', '<b>' + response.messageId + '</b> ' + data.responsePayload);
             debug('command response sent to ' + IOTA_CMD_EXE_TOPIC);
             debug(response.messageId);
-            setTimeout(IoTDevices.actuateDevice, 500, data.deviceId, data.command);
+            setImmediate(() => {
+                IoTDevices.actuateDevice(data.deviceId, data.command);
+            });
             callback();
         })
         .catch((err) => {
