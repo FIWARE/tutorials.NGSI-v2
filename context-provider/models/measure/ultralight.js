@@ -27,6 +27,10 @@ const queue = async.queue((payload, callback) => {
         })
         .catch((err) => {
             debug(err);
+            setTimeout(() => {
+                debug('resending measure to ' + IOTA_ATTRS_TOPIC);
+                queue.push(payload);
+            }, 1000);
             callback(err);
         }, 8);
 });

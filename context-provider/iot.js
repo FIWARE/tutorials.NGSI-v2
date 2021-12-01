@@ -69,7 +69,7 @@ if (DEVICE_TRANSPORT === 'MQTT') {
     MQTT_CLIENT.on('message', function (topic, message) {
         // message is a buffer. The IoT devices will be listening and
         // responding to commands going southbound.
-        debug('received message on', topic.toString());
+        debug('MQTT message received on', topic.toString());
         Southbound.processMqttMessage(topic.toString(), message.toString());
     });
 }
@@ -107,12 +107,13 @@ if (DEVICE_TRANSPORT === 'IOTA') {
 
 function readFromTangle(data) {
     const messageId = getMessageId(data.payload);
+    debug('IOTA Tangle message received: ', messageId);
     IOTA_CLIENT.getMessage()
         .data(messageId)
         // eslint-disable-next-line camelcase
-        .then((message_data) => {
+        .then((messageData) => {
             // eslint-disable-next-line camelcase
-            const payload = Buffer.from(message_data.message.payload.data, 'hex').toString('utf8');
+            const payload = Buffer.from(messageData.message.payload.data, 'hex').toString('utf8');
             Southbound.processIOTAMessage(messageId, payload);
         })
         .catch((err) => {

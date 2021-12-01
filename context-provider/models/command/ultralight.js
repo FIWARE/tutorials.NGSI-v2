@@ -14,7 +14,6 @@ const OK = ' OK';
 const NOT_OK = ' NOT OK';
 
 const queue = async.queue((data, callback) => {
-    debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
     IOTA_CLIENT.message()
         .index(IOTA_CMD_EXE_TOPIC)
         .data(data.responsePayload)
@@ -30,9 +29,13 @@ const queue = async.queue((data, callback) => {
         })
         .catch((err) => {
             debug(err);
+            setTimeout(() => {
+                debug('resending command response to ' + IOTA_CMD_EXE_TOPIC);
+                queue.push(data);
+            }, 1000);
             callback(err);
         }, 8);
-}, 1);
+});
 
 //
 // Splits the deviceId from the command sent.
@@ -173,7 +176,10 @@ class UltralightCommand {
 
         if (!IoTDevices.notFound(deviceId)) {
             const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + result + OK;
-            queue.push({ responsePayload, deviceId, command });
+            process.nextTick(() => {
+                debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
+                queue.push({ responsePayload, deviceId, command });
+            });
         }
     }
 }
