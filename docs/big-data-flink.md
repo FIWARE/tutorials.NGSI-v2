@@ -311,7 +311,7 @@ curl -iX POST 'http://localhost:1026/v2/subscriptions/' \
   },
   "notification": {
     "http": {
-      "url": "http://jobmanager:9001"
+      "url": "http://taskmanager:9001"
     }
   }
 }'
