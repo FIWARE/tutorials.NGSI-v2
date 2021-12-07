@@ -143,7 +143,7 @@ Before you start, you should ensure that you have obtained or built the necessar
 the repository and create the necessary images by running the commands shown below. Note that you might need to run some
 of the commands as a privileged user:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Big-Data-Spark.git
 cd tutorials.Big-Data-Spark
@@ -376,7 +376,7 @@ Sensor(Motion,6)
 
 ### Logger - Analyzing the Code
 
-```scala
+```java
 package org.fiware.cosmos.tutorial
 
 import org.apache.spark.SparkConf
@@ -427,7 +427,7 @@ together the entity objects of all the NGSI Events received in a period of time.
 Within each iteration, we create a custom object with the property we need: the sensor `type`. For this purpose, we can
 define a case class as shown:
 
-```scala
+```java
 case class Sensor(device: String)
 ```
 
@@ -436,7 +436,7 @@ Thereafter can count the created objects by the type of device (`countByValue()`
 
 After the processing, the results are output to the console:
 
-```scala
+```java
 processedDataStream.print()
 ```
 
@@ -446,7 +446,7 @@ The same example is provided for data in the NGSI-LD format (`LoggerLD.scala`). 
 NGSILDReceiver provided by the Orion Spark Connector in order to receive messages in the NGSI-LD format. The only part
 of the code that changes is the declaration of the receiver:
 
-```scala
+```java
 ...
 import org.fiware.cosmos.orion.spark.connector.NGSILDReceiver
 ...
@@ -524,7 +524,7 @@ on directly
 
 ### Feedback Loop - Analyzing the Code
 
-```scala
+```java
 package org.fiware.cosmos.tutorial
 
 import org.apache.spark.SparkConf

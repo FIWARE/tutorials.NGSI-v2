@@ -163,7 +163,7 @@ Before you start, you should ensure that you have obtained or built the necessar
 the repository and create the necessary images by running the commands shown below. Note that you might need to run some
 of the commands as a privileged user:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Big-Data-Flink.git
 cd tutorials.Big-Data-Flink
@@ -399,7 +399,7 @@ Sensor(Motion,6)
 
 ### Logger - Analyzing the Code
 
-```scala
+```java
 package org.fiware.cosmos.tutorial
 
 import org.apache.flink.streaming.api.scala.{StreamExecutionEnvironment, _}
@@ -448,7 +448,7 @@ together the entity objects of all the NGSI Events received in a period of time.
 Within each iteration, we create a custom object with the properties we need: the sensor `type` and the increment of
 each notification. For this purpose, we can define a case class as shown:
 
-```scala
+```java
 case class Sensor(device: String, sum: Int)
 ```
 
@@ -457,7 +457,7 @@ Therefter can group the created objects by the type of device (`keyBy("device")`
 
 After the processing, the results are output to the console:
 
-```scala
+```java
 processedDataStream.print().setParallelism(1)
 ```
 
@@ -467,7 +467,7 @@ The same example is provided for data in the NGSI LD format (`LoggerLD.scala`). 
 NGSILDSource provided by the Orion Flink Connector in order to receive messages in the NGSI LD format. The only part of
 the code that changes is the declaration of the source:
 
-```scala
+```java
 ...
 import org.fiware.cosmos.orion.flink.connector.NGSILDSource
 ...
@@ -558,7 +558,7 @@ on directly
 
 ### Feedback Loop - Analyzing the Code
 
-```scala
+```java
 package org.fiware.cosmos.tutorial
 
 
