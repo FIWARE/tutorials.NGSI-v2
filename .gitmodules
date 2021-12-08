@@ -123,3 +123,7 @@
 	path = tutorials.Big-Data-Spark
 	url = https://github.com/FIWARE/tutorials.Big-Data-Spark
 	branch = NGSI-v2
+[submodule "tutorials.IoT-over-IOTA"]
+	path = tutorials.IoT-over-IOTA
+	url = https://github.com/FIWARE/tutorials.IoT-over-IOTA
+	branch = NGSI-v2

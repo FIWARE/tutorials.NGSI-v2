@@ -21,8 +21,10 @@ directly or programmatically.
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Smart Data Models](https://smartdatamodels.org)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/>
+    [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/>
+    [Smart Data Models](https://smartdatamodels.org)
 
 ## Install
 
@@ -92,9 +94,10 @@ Scala code into a JAR file.
 
 &nbsp; 201. [Introduction to IoT Sensors](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)<br/> &nbsp; 202.
 [Provisioning an IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent/tree/NGSI-v2)<br/> &nbsp; 203.
-[IoT over MQTT](https://github.com/FIWARE/tutorials.IoT-over-MQTT/tree/NGSI-v2)<br/> &nbsp; 204.
+[IoT over an MQTT Transport](https://github.com/FIWARE/tutorials.IoT-over-MQTT/tree/NGSI-v2)<br/> &nbsp; 204.
 [Using an alternative IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent-JSON/tree/NGSI-v2)<br/> &nbsp; 205.
-[Creating a Custom IoT Agent](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/NGSI-v2)<br/> &nbsp; 250.
+[Creating a Custom IoT Agent](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/NGSI-v2)<br/> &nbsp; 206.
+[IoT over an IOTA Tangle Transport](https://github.com/FIWARE/tutorials.IoT-over-IOTA/tree/NGSI-v2)<br/>&nbsp; 250.
 [Introduction to Fast-RTPS and Micro-RTPS](https://github.com/FIWARE/tutorials.Fast-RTPS-Micro-RTPS/tree/NGSI-v2)
 
 ### Core Context Management: Manipulating Context Data and Persisting Historic Data
