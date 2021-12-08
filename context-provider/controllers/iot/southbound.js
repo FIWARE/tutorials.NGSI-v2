@@ -97,7 +97,6 @@ module.exports = {
     processIOTAMessage(messageId, payload) {
         debug('processIOTAMessage');
         SOCKET_IO.emit('IOTA-tangle', '<b>' + messageId + '</b> ' + payload);
-        // TODO --- Add IOTA --- //
         const data = unmarshall(payload);
         Command.processIOTAMessage(data.k, data.i, data.d);
     }

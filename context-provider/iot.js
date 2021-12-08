@@ -50,6 +50,7 @@ if (DEVICE_TRANSPORT === 'HTTP') {
 
     iot.use('/', iotRouter);
 }
+
 // If the IoT Devices are configured to use the MQTT transport, then
 // subscribe to the assoicated topics for each device.
 if (DEVICE_TRANSPORT === 'MQTT') {
@@ -82,9 +83,10 @@ iot.use(function (req, res) {
 // If the IoT Devices are configured to use the IOTA tangle, then
 // subscribe to the assoicated topics for each device.
 if (DEVICE_TRANSPORT === 'IOTA') {
-    // eslint-disable-next-line no-unused-vars
-    const apiKeys = process.env.DUMMY_DEVICES_API_KEYS || process.env.DUMMY_DEVICES_API_KEY || '1234';
-
+    // IOTA node(s) provides a Message Queuing Telemetry Transport (MQTT) layer, if enabled, which
+    // provides information about events that is being triggered by the IOTA network.
+    //
+    // see https://wiki.iota.org/iota.rs/libraries/nodejs/examples#listening-to-mqtt
     IOTA_CLIENT.getInfo()
         .then(() => {
             debug('connected to IOTA Tangle: ' + IOTA_NODE_URL);
@@ -105,22 +107,8 @@ if (DEVICE_TRANSPORT === 'IOTA') {
         });
 }
 
-function readFromTangle(data) {
-    const messageId = getMessageId(data.payload);
-    debug('IOTA Tangle message received: ', messageId);
-    IOTA_CLIENT.getMessage()
-        .data(messageId)
-        // eslint-disable-next-line camelcase
-        .then((messageData) => {
-            // eslint-disable-next-line camelcase
-            const payload = Buffer.from(messageData.message.payload.data, 'hex').toString('utf8');
-            Southbound.processIOTAMessage(messageId, payload);
-        })
-        .catch((err) => {
-            debug('Command error from Tangle: ', err);
-        });
-}
-
+// Recursive function to ensure that a IOTA Tangle messageId is received.
+// It will repeat on failure.
 function getMessageId(payload) {
     let messageId = null;
     try {
@@ -129,6 +117,24 @@ function getMessageId(payload) {
         messageId = getMessageId(payload);
     }
     return messageId;
+}
+
+// An IOTA message is the encapsulating data structure that is being actually broadcasted
+// across the network. It is an atomic unit that is accepted/rejected as a whole.
+//
+// see https://wiki.iota.org/iota.rs/libraries/nodejs/examples#messages
+function readFromTangle(data) {
+    const messageId = getMessageId(data.payload);
+    debug('IOTA Tangle message received: ', messageId);
+    IOTA_CLIENT.getMessage()
+        .data(messageId)
+        .then((messageData) => {
+            const payload = Buffer.from(messageData.message.payload.data, 'hex').toString('utf8');
+            Southbound.processIOTAMessage(messageId, payload);
+        })
+        .catch((err) => {
+            debug('Command error from Tangle: ', err);
+        });
 }
 
 module.exports = iot;

@@ -4,10 +4,44 @@ const IoTDevices = require('../devices');
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
 const IOTA_CMD_EXE_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/cmdexe';
 const debug = require('debug')('tutorial:json');
+const async = require('async');
 
 // A series of constants used by our set of devices
 const OK = 'OK';
 const NOT_OK = 'NOT OK';
+
+// Queue used for command acknowledgements in the form of IOTA messages.
+// An IOTA message is the encapsulating data structure that is being actually broadcasted
+// across the network. It is an atomic unit that is accepted/rejected as a whole.
+// Queuing ensures that responses are not lost.
+//
+// see https://wiki.iota.org/iota.rs/libraries/nodejs/examples#messages
+const queue = async.queue((data, callback) => {
+    IOTA_CLIENT.message()
+        .index(IOTA_CMD_EXE_TOPIC)
+        .data(data.responsePayload)
+        .submit()
+        .then((response) => {
+            SOCKET_IO.emit('IOTA-tangle', '<b>' + response.messageId + '</b> ' + data.responsePayload);
+            debug('command response sent to ' + IOTA_CMD_EXE_TOPIC);
+            debug(response.messageId);
+            setImmediate(() => {
+                // In a real device actuation would be completed before the command acknowledgement is sent.
+                // The simulator switches this round to ensure the commandExe is received
+                // before any status update is sent.
+                IoTDevices.actuateDevice(data.deviceId, data.command);
+            });
+            callback();
+        })
+        .catch((err) => {
+            debug(err);
+            setTimeout(() => {
+                debug('resending command response to ' + IOTA_CMD_EXE_TOPIC);
+                queue.push(data);
+            }, 1000);
+            callback(err);
+        }, 8);
+});
 
 /* global IOTA_CLIENT */
 /* global MQTT_CLIENT */
@@ -41,7 +75,7 @@ function getResult(cmd, status) {
 // At the moment the API key and timestamp are unused by the simulator.
 
 class JSONCommand {
-    // The bell will respond to the "ring" command.
+    // The HTTP bell will respond to the "ring" command.
     // this will briefly set the bell to on.
     // The bell  is not a sensor - it will not report state northbound
     actuateBell(req, res) {
@@ -54,12 +88,12 @@ class JSONCommand {
             return res.status(422).send(getResult(command, NOT_OK));
         }
 
-        // Update device state
+        // Update device state and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(getResult(command, OK));
     }
 
-    // The door responds to "open", "close", "lock" and "unlock" commands
+    // The HTTP door responds to "open", "close", "lock" and "unlock" commands
     // Each command alters the state of the door. When the door is unlocked
     // it can be opened and shut by external events.
     actuateDoor(req, res) {
@@ -72,12 +106,12 @@ class JSONCommand {
             return res.status(422).send(getResult(command, NOT_OK));
         }
 
-        // Update device state
+        // Update device state and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(getResult(command, OK));
     }
 
-    // The lamp can be "on" or "off" - it also registers luminosity.
+    // The HTTP lamp can be "on" or "off" - it also registers luminosity.
     // It will slowly dim as time passes (provided no movement is detected)
     actuateLamp(req, res) {
         const command = getJSONCommand(req.body);
@@ -89,7 +123,7 @@ class JSONCommand {
             return res.status(422).send(getResult(command, NOT_OK));
         }
 
-        // Update device state
+        // Update device state  and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(getResult(command, OK));
     }
@@ -105,12 +139,12 @@ class JSONCommand {
         } else if (IoTDevices.isUnknownCommand('lamp', command)) {
             return res.status(422).send(getResult(command, NOT_OK));
         }
-        // Update device state
+        // Update device state and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(getResult(command, OK));
     }
 
-    // cmd topics are consumed by the actuators (bell, lamp and door)
+    // For the MQTT transport, cmd topics are consumed by the actuators (bell, lamp and door)
     processMqttMessage(topic, message) {
         const path = topic.split('/');
         if (path.pop() === 'cmd') {
@@ -118,6 +152,8 @@ class JSONCommand {
             const deviceId = path.pop();
 
             if (!IoTDevices.notFound(deviceId)) {
+                // Respond to the IOTA Tangle command with an acknowledgement. In a real device
+                // this asynchronous response would be the callback after the actuation has completed
                 const topic = '/' + DEVICE_API_KEY + '/' + deviceId + '/cmdexe';
                 MQTT_CLIENT.publish(topic, getResult(command, OK));
                 IoTDevices.actuateDevice(deviceId, command);
@@ -125,23 +161,18 @@ class JSONCommand {
         }
     }
 
+    // For the IOTA Tangle transport, cmd topics are consumed by the actuators (bell, lamp and door)
     processIOTAMessage(apiKey, deviceId, message) {
         const command = getJSONCommand(message);
 
         if (!IoTDevices.notFound(deviceId)) {
+            // Respond to the IOTA Tangle command with an acknowledgement. In a real device
+            // this asynchronous response would be the callback after the actuation has completed
             const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + getResult(command, OK);
-
-            IOTA_CLIENT.message()
-                .index(IOTA_CMD_EXE_TOPIC)
-                .data(responsePayload)
-                .submit()
-                .then((response) => {
-                    SOCKET_IO.emit('IOTA-tangle', '<b>' + response.messageId + '</b> ' + responsePayload);
-                    IoTDevices.actuateDevice(deviceId, command);
-                })
-                .catch((err) => {
-                    debug(err);
-                });
+            process.nextTick(() => {
+                debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
+                queue.push({ responsePayload, deviceId, command });
+            });
         }
     }
 }

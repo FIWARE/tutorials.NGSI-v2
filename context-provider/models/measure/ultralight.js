@@ -5,8 +5,11 @@ const debug = require('debug')('tutorial:ultralight');
 const async = require('async');
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
+
+// Message Topic for Devices using the IOTA Tangle transport
 const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';
 
+// URL for Devices using the HTTP transport
 const IOT_AGENT_URL =
     'http://' +
     (process.env.IOTA_HTTP_HOST || 'localhost') +
@@ -14,6 +17,16 @@ const IOT_AGENT_URL =
     (process.env.IOTA_HTTP_PORT || 7896) +
     (process.env.IOTA_DEFAULT_RESOURCE || '/iot/d');
 
+/* global SOCKET_IO */
+/* global MQTT_CLIENT */
+/* global IOTA_CLIENT */
+
+// Processing queue for the IOTA Tangle Devices. Measures are sent in the form of IOTA messages.
+// An IOTA message is the encapsulating data structure that is being actually broadcasted
+// across the network. It is an atomic unit that is accepted/rejected as a whole.
+// Queuing ensures that responses are not lost.
+//
+// see https://wiki.iota.org/iota.rs/libraries/nodejs/examples#messages
 const queue = async.queue((payload, callback) => {
     IOTA_CLIENT.message()
         .index(IOTA_ATTRS_TOPIC)
@@ -35,6 +48,23 @@ const queue = async.queue((payload, callback) => {
         }, 8);
 });
 
+// This processor sends ultralight payload northbound to
+// the southport of the IoT Agent and sends measures
+// for the motion sensor, door and lamp.
+
+// Ultralight 2.0 is a lightweight text based protocol aimed to constrained
+// devices and communications
+// where the bandwidth and device memory may be limited resources.
+//
+// A device can report new measures to the IoT Platform using an HTTP GET request to the /iot/d path with the following query parameters:
+//
+//  i (device ID): Device ID (unique for the API Key).
+//  k (API Key): API Key for the service the device is registered on.
+//  t (timestamp): Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
+//  d (Data): Ultralight 2.0 payload.
+//
+// At the moment the API key is not checked by the simulator. Timestamp is used by IOTA only.
+
 function getAPIKey(deviceId) {
     return process.env.DUMMY_DEVICES_API_KEY ? DEVICE_API_KEY : hashCode(deviceId.replace(/[0-9]/gi, ''));
 }
@@ -53,27 +83,6 @@ function hashCode(str) {
     }
     return Math.abs(hash);
 }
-
-/* global SOCKET_IO */
-/* global MQTT_CLIENT */
-/* global IOTA_CLIENT */
-
-// This processor sends ultralight payload northbound to
-// the southport of the IoT Agent and sends measures
-// for the motion sensor, door and lamp.
-
-// Ultralight 2.0 is a lightweight text based protocol aimed to constrained
-// devices and communications
-// where the bandwidth and device memory may be limited resources.
-//
-// A device can report new measures to the IoT Platform using an HTTP GET request to the /iot/d path with the following query parameters:
-//
-//  i (device ID): Device ID (unique for the API Key).
-//  k (API Key): API Key for the service the device is registered on.
-//  t (timestamp): Timestamp of the measure. Will override the automatic IoTAgent timestamp (optional).
-//  d (Data): Ultralight 2.0 payload.
-//
-// At the moment the API key and timestamp are unused by the simulator.
 
 class UltralightMeasure {
     constructor(headers) {
@@ -106,12 +115,13 @@ class UltralightMeasure {
         MQTT_CLIENT.publish(topic, state);
     }
 
-    // measures sent over IOTA are posted as topics (motion sensor, lamp and door)
-
-    // eslint-disable-next-line no-unused-vars
+    // Measures sent over IOTA are posted as topics (motion sensor, lamp and door)
+    // Note that pushing data to the IOTA Tangle may take some time, so a queue is used.
     sendAsIOTA(deviceId, state) {
         const payload =
             'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '|t|' + new Date().toISOString();
+        // To avoid overloading the app the number of measures in process in the queue is throttled
+        // This should not be necessary in a real device.
         if (queue.length() < 8) {
             queue.push(payload);
         }

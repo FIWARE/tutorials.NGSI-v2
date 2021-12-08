@@ -13,6 +13,12 @@ const async = require('async');
 const OK = ' OK';
 const NOT_OK = ' NOT OK';
 
+// Queue used for command acknowledgements in the form of IOTA messages.
+// An IOTA message is the encapsulating data structure that is being actually broadcasted
+// across the network. It is an atomic unit that is accepted/rejected as a whole.
+// Queuing ensures that responses are not lost.
+//
+// see https://wiki.iota.org/iota.rs/libraries/nodejs/examples#messages
 const queue = async.queue((data, callback) => {
     IOTA_CLIENT.message()
         .index(IOTA_CMD_EXE_TOPIC)
@@ -23,11 +29,15 @@ const queue = async.queue((data, callback) => {
             debug('command response sent to ' + IOTA_CMD_EXE_TOPIC);
             debug(response.messageId);
             setImmediate(() => {
+                // In a real device actuation would be completed before the command acknowledgement is sent.
+                // The simulator switches this round to ensure the commandExe is received
+                // before any status update is sent.
                 IoTDevices.actuateDevice(data.deviceId, data.command);
             });
             callback();
         })
         .catch((err) => {
+            // If a failure occurs, re-queue the acknowledgement
             debug(err);
             setTimeout(() => {
                 debug('resending command response to ' + IOTA_CMD_EXE_TOPIC);
@@ -66,7 +76,7 @@ function getUltralightCommand(string) {
 // At the moment the API key and timestamp are unused by the simulator.
 
 class UltralightCommand {
-    // The bell will respond to the "ring" command.
+    // The HTTP bell will respond to the "ring" command.
     // this will briefly set the bell to on.
     // The bell  is not a sensor - it will not report state northbound
     actuateBell(req, res) {
@@ -81,12 +91,12 @@ class UltralightCommand {
             return res.status(422).send(result + NOT_OK);
         }
 
-        // Update device state
+        // Update device state and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(result + OK);
     }
 
-    // The door responds to "open", "close", "lock" and "unlock" commands
+    // The HTTP door responds to "open", "close", "lock" and "unlock" commands
     // Each command alters the state of the door. When the door is unlocked
     // it can be opened and shut by external events.
     actuateDoor(req, res) {
@@ -101,12 +111,12 @@ class UltralightCommand {
             return res.status(422).send(result + NOT_OK);
         }
 
-        // Update device state
+        // Update device state and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(result + OK);
     }
 
-    // The lamp can be "on" or "off" - it also registers luminosity.
+    // The HTTP lamp can be "on" or "off" - it also registers luminosity.
     // It will slowly dim as time passes (provided no movement is detected)
     actuateLamp(req, res) {
         const keyValuePairs = req.body.split('|') || [''];
@@ -120,12 +130,12 @@ class UltralightCommand {
             return res.status(422).send(result + NOT_OK);
         }
 
-        // Update device state
+        // Update device state and respond to the HTTP command
         IoTDevices.actuateDevice(deviceId, command);
         return res.status(200).send(result + OK);
     }
 
-    // The robot can be directed to move from A to B.
+    // The HTTP robot can be directed to move from A to B.
     // The box can also  be unlocked on command.
     actuateRobot(req, res) {
         const keyValuePairs = req.body.split('|') || [''];
@@ -147,12 +157,12 @@ class UltralightCommand {
         } else if (IoTDevices.isUnknownCommand('robot', command)) {
             return res.status(422).send(result + NOT_OK);
         }
-        // Update device state
+        // Update device state and respond to the HTTP command
         const success = IoTDevices.addRobotGoal(deviceId, command, param1, param2);
         return res.status(200).send(result + (success ? OK : NOT_OK));
     }
 
-    // cmd topics are consumed by the actuators (bell, lamp and door)
+    // For the MQTT transport, cmd topics are consumed by the actuators (bell, lamp and door)
     processMqttMessage(topic, message) {
         const path = topic.split('/');
         if (path.pop() === 'cmd') {
@@ -162,6 +172,8 @@ class UltralightCommand {
             const result = keyValuePairs[0] + '| ' + command;
 
             if (!IoTDevices.notFound(deviceId)) {
+                // Respond to the MQTT command with an acknowledgement. In a real device
+                // this asynchronous response would be the callback after the actuation has completed
                 const topic = '/' + DEVICE_API_KEY + '/' + deviceId + '/cmdexe';
                 MQTT_CLIENT.publish(topic, result + OK);
                 IoTDevices.actuateDevice(deviceId, command);
@@ -169,12 +181,15 @@ class UltralightCommand {
         }
     }
 
+    // For the IOTA Tangle transport, cmd topics are consumed by the actuators (bell, lamp and door)
     processIOTAMessage(apiKey, deviceId, message) {
         const keyValuePairs = message.split('|') || [''];
         const command = getUltralightCommand(keyValuePairs[0]);
         const result = keyValuePairs[0] + '| ' + command;
 
         if (!IoTDevices.notFound(deviceId)) {
+            // Respond to the IOTA Tangle command with an acknowledgement. In a real device
+            // this asynchronous response would be the callback after the actuation has completed
             const responsePayload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + result + OK;
             process.nextTick(() => {
                 debug('sending command response to ' + IOTA_CMD_EXE_TOPIC);
