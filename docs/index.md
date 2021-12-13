@@ -49,8 +49,10 @@ docker-compose -v
 docker version
 ```
 
-Please ensure that you are using Docker version 20.10 or higher and Docker Compose 1.29 or higher and upgrade if
-necessary.
+> **Important** In recent versions, `docker-compose` is already included as part of of the main `docker` client, Please
+> ensure that you are using Docker version 20.10 or higher and Docker Compose 1.29 or higher and upgrade if necessary.
+> If you are unable to upgrade and stuck using an older version you can still run the tutorials by adding a `legacy`
+> parameter at the end the `./services` script commands e.g. `services start legacy`
 
 If using a linux distro with an outdated docker-compose, the files can be installed directly as shown:
 
