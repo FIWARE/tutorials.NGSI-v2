@@ -20,7 +20,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": ">=12"
+    "node": ">=16"
   },
   "dependencies": {
     "@iota/client": "^2.2.3",

@@ -1,6 +1,6 @@
 {
 	"name": "tutorials.step-by-step",
-	"description": "A series of NGSI-v2 tutorials using IWARE Components",
+	"description": "A series of NGSI-v2 tutorials using FIWARE Components",
 	"repository": {
 		"type": "git",
 		"url": "git+https://github.com/fiware/tutorials.ngsi-v2.git"
@@ -20,7 +20,7 @@
 	"private": true,
 	"license": "MIT",
 	"engines": {
-		"node": ">=12"
+		"node": ">=16"
 	},
 	"devDependencies": {
 		"eslint": "^8.9.0",
