@@ -21,8 +21,8 @@ directly or programmatically.
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
-- <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
-- <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Smart Data Models](https://smartdatamodels.org)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Smart Data Models](https://smartdatamodels.org)
 
 ## Install
 
