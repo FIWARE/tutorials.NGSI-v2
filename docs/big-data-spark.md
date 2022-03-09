@@ -59,36 +59,36 @@ Both the Orion Context Broker and the IoT Agent rely on open source [MongoDB](ht
 keep persistence of the information they hold. We will also be using the dummy IoT devices created in the
 [previous tutorial](iot-agent.md).
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   Two **FIWARE Generic Enablers** as independent microservices:
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
-        using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+        using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
     -   The FIWARE [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will
         receive northbound measurements from the dummy IoT devices in
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         format and convert them to [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests for the
-        context broker to alter the state of the context entities
+        context broker to alter the state of the context entities.
 -   An [Apache Spark cluster](https://spark.apache.org/docs/latest/cluster-overview.html) consisting of a single
     **ClusterManager** and **Worker Nodes**
     -   The FIWARE [Cosmos Orion Spark Connector](https://fiware-cosmos-spark.readthedocs.io/en/latest/) will be
         deployed as part of the dataflow which will subscribe to context changes and make operations on them in
-        real-time
--   One [MongoDB](https://www.mongodb.com/) **database** :
+        real-time.
+-   One [MongoDB](https://www.mongodb.com/) **database**:
     -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions and
-        registrations
-    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
+        registrations.
+    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
 -   Three **Context Providers**:
     -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         protocol running over HTTP.
     -   The **Stock Management Frontend** is not used in this tutorial. It does the following:
-        -   Display store information and allow users to interact with the dummy IoT devices
-        -   Show which products can be bought at each store
+        -   Display store information and allow users to interact with the dummy IoT devices.
+        -   Show which products can be bought at each store.
         -   Allow users to "buy" products and reduce the stock count.
     -   The **Context Provider NGSI** proxy is not used in this tutorial. It does the following:
-        -   receive requests using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
-        -   makes requests to publicly available data sources using their own APIs in a proprietary format
+        -   receive requests using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2);
+        -   makes requests to publicly available data sources using their own APIs in a proprietary format;
         -   returns context data back to the Orion Context Broker in
             [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) format.
 
@@ -129,19 +129,19 @@ spark-worker-1:
 
 The `spark-master` container is listening on three ports:
 
--   Port `8080` is exposed so we can see the web frontend of the Apache Spark-Master Dashboard.
+-   Port `8080` is exposed, so we can see the web frontend of the Apache Spark-Master Dashboard.
 -   Port `7070` is used for internal communications.
 
 The `spark-worker-1` container is listening on one port:
 
 -   Port `9001` is exposed so that the installation can receive context data subscriptions.
--   Ports `8081` is exposed so we can see the web frontend of the Apache Spark-Worker-1 Dashboard.
+-   Ports `8081` is exposed, so we can see the web frontend of the Apache Spark-Worker-1 Dashboard.
 
 ## Start Up
 
 Before you start, you should ensure that you have obtained or built the necessary Docker images locally. Please clone
 the repository and create the necessary images by running the commands shown below. Note that you might need to run some
-of the commands as a privileged user:
+commands as a privileged user:
 
 ```bash
 #!/bin/bash
@@ -183,9 +183,9 @@ which are then processed by the Spark engine to generate the final stream of res
 
 This means that to create a streaming data flow we must supply the following:
 
--   A mechanism for reading Context data as a **Source Operator**
--   Business logic to define the transform operations
--   A mechanism for pushing Context data back to the context broker as a **Sink Operator**
+-   A mechanism for reading Context data as a **Source Operator**.
+-   Business logic to define the transform operations.
+-   A mechanism for pushing Context data back to the context broker as a **Sink Operator**.
 
 The **Cosmos Spark** connector - `orion.spark.connector-1.2.2.jar` offers both **Source** and **Sink** operators. It
 therefore only remains to write the necessary Scala code to connect the streaming dataflow pipeline operations together.
@@ -199,7 +199,7 @@ Further Spark processing examples can be found on
 
 ### Compiling a JAR file for Spark
 
-An existing `pom.xml` file has been created which holds the necessary prerequisites to build the examples JAR file
+An existing `pom.xml` file has been created which holds the necessary prerequisites to build the examples JAR file.
 
 In order to use the Orion Spark Connector we first need to manually install the connector JAR as an artifact using
 Maven:
@@ -215,7 +215,7 @@ mvn install:install-file \
   -Dpackaging=jar
 ```
 
-Thereafter the source code can be compiled by running the `mvn package` command within the same directory
+Thereafter, the source code can be compiled by running the `mvn package` command within the same directory
 (`cosmos-examples`):
 
 ```bash
@@ -229,7 +229,7 @@ A new JAR file called `cosmos-examples-1.2.2.jar` will be created within the `co
 For the purpose of this tutorial, we must be monitoring a system in which the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Big-Data-Spark/img/door-open.gif)
@@ -267,7 +267,7 @@ inform **Spark** of changes in context.
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 
 -   The notification `url` must match the one our Spark program is listening to.
 
@@ -348,14 +348,14 @@ curl -X GET \
 ```
 
 Within the `notification` section of the response, you can see several additional `attributes` which describe the health
-of the subscription
+of the subscription.
 
 If the criteria of the subscription have been met, `timesSent` should be greater than `0`. A zero value would indicate
 that the `subject` of the subscription is incorrect or the subscription has created with the wrong `fiware-service-path`
-or `fiware-service` header
+or `fiware-service` header.
 
 The `lastNotification` should be a recent timestamp - if this is not the case, then the devices are not regularly
-sending data. Remember to unlock the **Smart Door** and switch on the **Smart Lamp**
+sending data. Remember to unlock the **Smart Door** and switch on the **Smart Lamp**.
 
 The `lastSuccess` should match the `lastNotification` date - if this is not the case then **Cosmos** is not receiving
 the subscription properly. Check that the hostname and port are correct.
@@ -420,7 +420,7 @@ these objects can be found within the
 [Orion-Spark Connector documentation](https://github.com/ging/fiware-cosmos-orion-spark-connector/blob/master/README.md#orionreceiver).
 
 The stream processing consists of five separate steps. The first step (`flatMap()`) is performed in order to put
-together the entity objects of all the NGSI Events received in a period of time. Thereafter the code iterates over them
+together the entity objects of all the NGSI Events received in a period of time. Thereafter, the code iterates over them
 (with the `map()` operation) and extracts the desired attributes. In this case, we are interested in the sensor `type`
 (`Door`, `Motion`, `Bell` or `Lamp`).
 
@@ -431,7 +431,7 @@ define a case class as shown:
 case class Sensor(device: String)
 ```
 
-Thereafter can count the created objects by the type of device (`countByValue()`) and perform operations such as
+Thereafter, can count the created objects by the type of device (`countByValue()`) and perform operations such as
 `window()` on them.
 
 After the processing, the results are output to the console:
@@ -470,7 +470,7 @@ In order to run this job, you need to user the spark-submit command again, speci
 The second example switches on a lamp when its motion sensor detects movement.
 
 The dataflow stream uses the `OrionReceiver` operator in order to receive notifications and filters the input to only
-respond to motion senseors and then uses the `OrionSink` to push processed context back to the Context Broker. You can
+respond to motion sensors and then uses the `OrionSink` to push processed context back to the Context Broker. You can
 find the source code of the example in
 [org/fiware/cosmos/tutorial/Feedback.scala](https://github.com/ging/fiware-cosmos-orion-spark-connector-tutorial/blob/master/cosmos-examples/src/main/scala/org/fiware/cosmos/tutorial/Feedback.scala)
 
@@ -574,9 +574,9 @@ the Context Broker through the **`OrionSink`**.
 
 The arguments of the **`OrionSinkObject`** are:
 
--   **Message**: `"{\n \"on\": {\n \"type\" : \"command\",\n \"value\" : \"\"\n }\n}"`. We send 'on' command
+-   **Message**: `"{\n \"on\": {\n \"type\" : \"command\",\n \"value\" : \"\"\n }\n}"`. We send 'on' command.
 -   **URL**: `"http://localhost:1026/v2/entities/Lamp:"+node.id.takeRight(3)+"/attrs"`. TakeRight(3) gets the number of
-    the room, for example '001')
+    the room, for example '001').
 -   **Content Type**: `ContentType.Plain`.
 -   **HTTP Method**: `HTTPMethod.POST`.
 -   **Headers**: `Map("fiware-service" -> "openiot","fiware-servicepath" -> "/","Accept" -> "*/*")`. Optional parameter.

@@ -85,9 +85,9 @@ repository:
 
     -   **my_hostip**: Public IP address of the FogFlow cloud node.
     -   **site_id**: Unique string-based ID to identify the node in FogFlow system.
-    -   **physical_location**: The geo-location of the node.
+    -   **physical_location**: The geolocation of the node.
     -   **worker.capacity**: It means the maximal number of docker containers that the FogFlow node can invoke. By
-        default its value is "8"
+        default, its value is "8".
 
 ```json
 {
@@ -197,7 +197,7 @@ repository:
 ## Connect IoT Devices to FogFlow
 
 When data flow from a sensor device towards broker, it is called Northbound Flow, whereas it is Southbound Flow, when
-data flow from broker towards the actuator devices. FogFlow relies on this bi-directional data flow to realize the
+data flow from broker towards the actuator devices. FogFlow relies on this bidirectional data flow to realize the
 actual idea behind it.
 
 To receive data from the sensor devices, refer
@@ -224,9 +224,9 @@ Before moving further, users must have a look at the following:
 FogFlow enables serverless edge computing, i.e., the developers can define and submit a fog function along with the
 processing logic (or operator) and then the rest will be done by FogFlow automatically, including:
 
--   triggering the submitted fog function when its input data are available
--   deciding how many instances are to be created according to the defined granularity
--   deciding where to deploy the created instances or processing flows
+-   triggering the submitted fog function when its input data are available;
+-   deciding how many instances are to be created according to the defined granularity;
+-   deciding where to deploy the created instances or processing flows.
 
 ### Register the Task Operators
 
@@ -240,11 +240,11 @@ Python, Java and JavaScript templates to write an operator can be found
 
 For the current tutorial, refer the steps mentioned below.
 
-The following steps are required to register an operator in Fogflow.
+The following steps are required to register an operator in FogFlow.
 
 1.  **Register an Operator** means to define what would be the name of Operator and what input parameters it would need.
 
-To register Operator, open fogflow dashboard. Select Operator Registry Tab from horizontal bar, select operator from
+To register Operator, open FogFlow dashboard. Select Operator Registry Tab from horizontal bar, select operator from
 menu on left and then click register button. Right click on workspace and select operator from drop down list and enter
 details as shown and at last click on submit.
 
@@ -267,11 +267,11 @@ registration.
 The form is explained as the following.
 
 -   **Image:** the name of your operator docker image, must be consistent with the one you publish to
-    [Docker Hub](https://hub.docker.com/)
--   **Tag:** the tag you used to publish your operator docker image; by default it is "latest"
--   **Hardware Type:** the hardware type that your docker image supports, including x86 or ARM (e.g. Raspberry Pi)
--   **OS Type:** the operating system type that your docker image supports; currently this is only limited to Linux
--   **Operator:** the operator name, which must be unique and will be used when defining a service topology
+    [Docker Hub](https://hub.docker.com/).
+-   **Tag:** the tag you used to publish your operator docker image; by default it is "latest".
+-   **Hardware Type:** the hardware type that your docker image supports, including x86 or ARM (e.g. Raspberry Pi).
+-   **OS Type:** the operating system type that your docker image supports; currently this is only limited to Linux.
+-   **Operator:** the operator name, which must be unique and will be used when defining a service topology.
 -   **Prefetched:** if this is checked, that means all edge nodes will start to fetch this docker image in advance;
     otherwise, the operator docker image is fetched on demand, only when edge nodes need to run a scheduled task
     associated with this operator.
@@ -292,7 +292,7 @@ Choose "Task", a Task element will be placed on the design board, as shown below
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-2.png)
 
-Click the configuration button on the top-right corner of the task element, as illustrated in the following figure.
+Click the configuration button in the top-right corner of the task element, as illustrated in the following figure.
 Specify the name of the Task and choose an operator out of a list of some pre-registered operators.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-3.png)
@@ -319,7 +319,7 @@ here, as is the entity type of input data for the "dummy" fog function.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-5.png)
 
-There can be multiple EntityStreams for a Task and they must be connected to the Task as shown below.
+There can be multiple EntityStreams for a Task, and they must be connected to the Task as shown below.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-6.png)
 
@@ -335,13 +335,13 @@ One way is to register a "Temperature" sensor device as shown below.
 
 Go to Device menu in System Status tab. Provide the following information.
 
--   **Device ID**: to specify a unique entity ID
--   **Device Type**: use "Temperature" as the entity type
--   **Location**: to place a location on the map
+-   **Device ID**: to specify a unique entity ID.
+-   **Device Type**: use "Temperature" as the entity type.
+-   **Location**: to place a location on the map.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/device-registration.png)
 
-Once the device profile is registered, a new "Temperature" sensor entity will be created and it will trigger the "dummy"
+Once the device profile is registered, a new "Temperature" sensor entity will be created, and it will trigger the "dummy"
 fog function automatically.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-triggering-device.png)
@@ -383,11 +383,11 @@ curl -iX POST \
 
 Verify whether the fog function is triggered or not in the following way.
 
--   check the task instance of this fog function, as shown in the following picture
+-   check the task instance of this fog function, as shown in the following picture:
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-task-running.png)
 
--   check the result generated by its running task instance, as shown in the following picture
+-   check the result generated by its running task instance, as shown in the following picture:
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-streams.png)
 
@@ -446,10 +446,10 @@ topology in the following way using FogFlow Topology Editor.
 
 As seen in the picture, the following important information must be provided.
 
-1.  define topology profile, including
+1.  define topology profile, including:
 
-    -   topology name: the unique name of your topology
-    -   service description: some text to describe what this service is about
+    -   topology name: the unique name of your topology;
+    -   service description: some text to describe what this service is about.
 
 2.  draw the graph of data processing flows within the service topology with a right click at some place of the design
     board, choose either task or input streams or shuffle to define your data processing flows according to the design
@@ -466,7 +466,7 @@ As seen in the picture, the following important information must be provided.
 
 Service Topology can be triggered in two steps:
 
--   Sending a high level intent object which breaks the service topology into separate tasks
+-   Sending a high level intent object which breaks the service topology into separate tasks.
 -   Providing Input Streams to the tasks of that service topology.
 
 The intent object is sent using the FogFlow dashboard with the following properties:
@@ -547,13 +547,13 @@ For additional material to understand how FogFlow works, visit
 other FIWARE GEs.
 
 -   **Integrate FogFlow with NGSI-LD Broker**: FogFlow has evolved into a robust platform that supports cloud and edge
-    nodes. The main concept of having distributed edges for edge-computation has evolved with the interaction of Fogflow
+    nodes. The main concept of having distributed edges for edge-computation has evolved with the interaction of FogFlow
     and other NGSI-LD brokers. NGSI-LD technology is the new horizon of data communication and data representation.
-    Fogflow is now a NGSI_LD compliant broker. For detailed information, please refer this
+    FogFlow is now a NGSI_LD compliant broker. For detailed information, please refer this
     [tutorial](https://fogflow.readthedocs.io/en/latest/scorpioIntegration.html).
 
--   **Integrate FogFlow with Monitoring Tools**: FogFlow has a distributed architecture and therefore it generates a
-    need to monitor the distributed components of Fogflow from a platform. For this cause Fogflow has integrated grafana
+-   **Integrate FogFlow with Monitoring Tools**: FogFlow has a distributed architecture, and therefore it generates a
+    need to monitor the distributed components of FogFlow from a platform. For this cause FogFlow has integrated grafana
     and elastisearch, to monitor various components like memory utilisation, CPU utilisation and services current state
     etc.. To have more details over this topic, follow this
     [tutorial](https://fogflow.readthedocs.io/en/latest/system_monitoring.html).
@@ -572,7 +572,7 @@ other FIWARE GEs.
 -   **Integrate FogFlow with WireCloud**: FogFlow has pitched in with different and versatile edge platform technology.
     WireCloud builds on cutting-edge end user development, RIA and semantic technologies to offer a next-generation end
     user centred web application mashup platform aimed at leveraging the long tail of the Internet of Services. For more
-    on Fogflow and WireCloud, follow the [tutorial](https://fogflow.readthedocs.io/en/latest/wirecloudIntegration.html).
+    on FogFlow and WireCloud, follow the [tutorial](https://fogflow.readthedocs.io/en/latest/wirecloudIntegration.html).
 
 ---
 

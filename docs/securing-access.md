@@ -28,7 +28,7 @@ In order to secure access to application resources, it is necessary to know two 
 request and secondly is the requestor permitted to access the resource? The FIWARE **Keyrock** generic enabler uses
 [OAuth2](https://oauth.net/2/) to enable third-party applications to obtain limited access to services. **OAuth2** is
 the open standard for access delegation to grant access rights. It allows notifying a resource provider (e.g. the
-Knowage Generic Enabler) that the resource owner (e.g. you) grants permission to a third-party (e.g. a Knowage
+Wirecloud Generic Enabler) that the resource owner (e.g. you) grants permission to a third-party (e.g. a Wirecloud
 Application) access to their information (e.g. the list of entities).
 
 <!-- textlint-disable -->
@@ -45,19 +45,19 @@ There are several common OAuth 2.0 grant flows, the details of which can be foun
 -   [Refresh Token](https://oauth.net/2/grant-types/refresh-token)
 
 The primary concept is that both **Users** and **Applications** must first identify themselves using a standard OAuth2
-Challenge-Response mechanism. Thereafter a user is assigned a token which they append to every subsequent request. This
+Challenge-Response mechanism. Thereafter, a user is assigned a token which they append to every subsequent request. This
 token identifies the user, the application and the rights the user is able to exercise. **Keyrock** can then be used
 with other enablers can be used to limit and lock-down access. The details of the access flows are discussed below and
 in subsequent tutorials.
 
 The reasoning behind OAuth2 is that you never need to expose your own username and password to a third party to give
 them full access - you merely permit the relevant access which can be either Read-Only or Read-Write and such access can
-be defined down to a granular level. Furthermore there is provision for revoking access at any time, leaving the
+be defined down to a granular level. Furthermore, there is provision for revoking access at any time, leaving the
 resource owner in control of who can access what.
 
 Once the application is able to authenticate users, it is also possible to lock down access using access control
 mechanisms. Access control requires having an access policy - in other words defining who can do what. We have already
-defined roles and permisions within the [previous tutorial](roles-permissions.md), and now need to programatically
+defined roles and permissions within the [previous tutorial](roles-permissions.md), and now need to programmatically
 enforce this policy by adding in a simple Policy Decision Point (PDP) – which evaluates and issues authorization
 decisions, and then secure access by enforcing the decision using a Policy Enforcement Point (PEP).
 
@@ -65,22 +65,22 @@ decisions, and then secure access by enforcing the decision using a Policy Enfor
 
 The following common objects are found with the **Keyrock** Identity Management database:
 
--   **User** - Any signed up user able to identify themselves with an eMail and password. Users can be assigned rights
-    individually or as a group
--   **Application** - Any securable FIWARE application consisting of a series of microservices
+-   **User** - Any signed-up user able to identify themselves with an eMail and password. Users can be assigned rights
+    individually or as a group.
+-   **Application** - Any securable FIWARE application consisting of a series of microservices.
 -   **Organization** - A group of users who can be assigned a series of rights. Altering the rights of the organization
-    effects the access of all users of that organization
+    effects the access of all users of that organization.
 -   **OrganizationRole** - Users can either be members or admins of an organization - Admins are able to add and remove
     users from their organization, members merely gain the roles and permissions of an organization. This allows each
-    organization to be responsible for their members and removes the need for a super-admin to administer all rights
+    organization to be responsible for their members and removes the need for a super-admin to administer all rights.
 -   **Role** - A role is a descriptive bucket for a set of permissions. A role can be assigned to either a single user
-    or an organization. A signed-in user gains all the permissions from all of their own roles plus all of the roles
-    associated to their organization
--   **Permission** - An ability to do something on a resource within the system
+    or an organization. A signed-in user gains all the permissions from all of their own roles plus all the roles
+    associated to their organization.
+-   **Permission** - An ability to do something on a resource within the system.
 
-Additionally two further non-human application objects can be secured within a FIWARE application:
+Additionally, two further non-human application objects can be secured within a FIWARE application:
 
--   **IoTAgent** - a proxy between IoT Sensors and the Context Broker
+-   **IoTAgent** - a proxy between IoT Sensors and the Context Broker.
 -   **PEPProxy** - a middleware for use between generic enablers challenging the rights of a user.
 
 The relationship between the objects can be seen below - the entities marked in red are used directly within this
@@ -94,8 +94,8 @@ tutorial:
 
 This application adds OAuth2-driven security into the existing Stock Management and Sensors-based application created in
 [previous tutorials](iot-agent.md) by using the data created in the first [security tutorial](identity-management.md)
-and reading it programatically. It will make use of three FIWARE components - the
-[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/),the
+and reading it programmatically. It will make use of three FIWARE components - the
+[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), the
 [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) and integrates the use of the
 [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Generic enabler. Usage of the Orion Context Broker is sufficient
 for an application to qualify as _“Powered by FIWARE”_.
@@ -104,30 +104,30 @@ Both the Orion Context Broker and the IoT Agent rely on open source [MongoDB](ht
 keep persistence of the information they hold. We will also be using the dummy IoT devices created in the
 [previous tutorial](iot-sensors.md). **Keyrock** uses its own [MySQL](https://www.mysql.com/) database.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+    [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
 -   The FIWARE [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will receive
     southbound requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert them to
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-    commands for the devices
+    commands for the devices.
 -   FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) offer a complement Identity Management System
     including:
-    -   An OAuth2 authentication system for Applications and Users
-    -   A site graphical frontend for Identity Management Administration
-    -   An equivalent REST API for Identity Management via HTTP requests
+    -   An OAuth2 authentication system for Applications and Users.
+    -   A site graphical frontend for Identity Management Administration.
+    -   An equivalent REST API for Identity Management via HTTP requests.
 -   The underlying [MongoDB](https://www.mongodb.com/) database :
     -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions and
-        registrations
-    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
+        registrations.
+    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
 -   A [MySQL](https://www.mysql.com/) database :
-    -   Used to persist user identities, applications, roles and permissions
+    -   Used to persist user identities, applications, roles and permissions.
 -   The **Stock Management Frontend** does the following:
-    -   Displays store information
-    -   Shows which products can be bought at each store
+    -   Displays store information.
+    -   Shows which products can be bought at each store.
     -   Allows users to "buy" products and reduce the stock count.
-    -   Allows authorized users into restricted areas
+    -   Allows authorized users into restricted areas.
 -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     protocol running over HTTP - access to certain resources is restricted.
@@ -169,14 +169,14 @@ tutorial:
 
 The `tutorial` container is listening on two ports:
 
--   Port `3000` is exposed so we can see the web page displaying the Dummy IoT devices.
+-   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
 -   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make UltraLight commands without
     being part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                   | Value                                  | Description                                                                                    |
-| --------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+|-----------------------|----------------------------------------|------------------------------------------------------------------------------------------------|
 | DEBUG                 | `tutorial:*`                           | Debug flag used for logging                                                                    |
 | WEB_APP_PORT          | `3000`                                 | Port used by web-app which displays the login screen & etc.                                    |
 | KEYROCK_URL           | `http://localhost`                     | This is URL of the **Keyrock** Web frontend itself, used for redirection when forwarding users |
@@ -186,12 +186,13 @@ The `tutorial` container is driven by environment variables as shown:
 | KEYROCK_CLIENT_SECRET | `tutorial-dckr-site-0000-clientsecret` | The Client Secret defined by Keyrock for this application                                      |
 | CALLBACK_URL          | `http://localhost:3000/login`          | The callback URL used by Keyrock when a challenge has succeeded.                               |
 
-The other `tutorial` container configuration values described in the YAML file have been described in previous tutorials
+The other `tutorial` container configuration values described in the YAML file have been described in previous
+tutorials.
 
 The separate `KEYROCK_URL` and `KEYROCK_IP_ADDRESS` are only necessary because of the simplified Docker containerization
 used within the tutorial. The `KEYROCK_URL` variable with the value `localhost` is referring to the location externally
 exposed by the container, the `KEYROCK_IP_ADDRESS` variable refers to the same location but accessed from within the
-Docker network. Similarly the `CALLBACK_URL` contains `localhost` as it is assumed that the browser will be accessed
+Docker network. Similarly, the `CALLBACK_URL` contains `localhost` as it is assumed that the browser will be accessed
 from the same machine. All of these values should be replaced with appropriate proxies and DNS settings for a production
 environment, but production deployment is beyond the scope of this tutorial.
 
@@ -227,9 +228,9 @@ Where `<command>` will vary depending upon the exercise we wish to activate.
 
 <h3>Dramatis Personae</h3>
 
-The following people at `test.com` legitimately have accounts within the Application
+The following people at `test.com` legitimately have accounts within the Application:
 
--   Alice, she will be the Administrator of the **Keyrock** Application
+-   Alice, she will be the Administrator of the **Keyrock** Application.
 -   Bob, the Regional Manager of the supermarket chain - he has several store managers under him:
     -   Manager1
     -   Manager2
@@ -238,7 +239,7 @@ The following people at `test.com` legitimately have accounts within the Applica
     -   Detective2
 
 | Name       | eMail                       | Password |
-| ---------- | --------------------------- | -------- |
+|------------|-----------------------------|----------|
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -247,14 +248,14 @@ The following people at `test.com` legitimately have accounts within the Applica
 | detective1 | `detective1@test.com`       | `test`   |
 | detective2 | `detective2@test.com`       | `test`   |
 
-The following people at `example.com` have signed up for accounts, but have no reason to be granted access
+The following people at `example.com` have signed up for accounts, but have no reason to be granted access:
 
--   Eve - Eve the Eavesdropper
--   Mallory - Mallory the malicious attacker
--   Rob - Rob the Robber
+-   Eve - Eve the Eavesdropper.
+-   Mallory - Mallory the malicious attacker.
+-   Rob - Rob the Robber.
 
 | Name    | eMail                 | Password |
-| ------- | --------------------- | -------- |
+|---------|-----------------------|----------|
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -262,14 +263,14 @@ The following people at `example.com` have signed up for accounts, but have no r
 Two organizations have also been set up by Alice:
 
 | Name       | Description                         | UUID                                   |
-| ---------- | ----------------------------------- | -------------------------------------- |
+|------------|-------------------------------------|----------------------------------------|
 | Security   | Security Group for Store Detectives | `security-team-0000-0000-000000000000` |
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
 One application, with appropriate roles and permissions has also been created:
 
 | Key           | Value                                  |
-| ------------- | -------------------------------------- |
+|---------------|----------------------------------------|
 | Client ID     | `tutorial-dckr-site-0000-xpresswebapp` |
 | Client Secret | `tutorial-dckr-site-0000-clientsecret` |
 | URL           | `http://localhost:3000`                |
@@ -279,9 +280,9 @@ To save time, the data creating users and organizations from the [previous tutor
 downloaded and is automatically persisted to the MySQL database on start-up so the assigned UUIDs do not change and the
 data does not need to be entered again.
 
-The **Keyrock** MySQL database deals with all aspects of application security including storing users, passwords etc;
+The **Keyrock** MySQL database deals with all aspects of application security including storing users, passwords etc.;
 defining access rights and dealing with OAuth2 authorization protocols. The complete database relationship diagram can
-be found [here](https://fiware.github.io/tutorials.Securing-Access/img/keyrock-db.png)
+be found [here](https://fiware.github.io/tutorials.Securing-Access/img/keyrock-db.png).
 
 To refresh your memory about how to create users and organizations and applications, you can log in at
 `http://localhost:3005/idm` using the account `alice-the-admin@test.com` with a password of `test`.
@@ -314,21 +315,21 @@ your own use case.
 The [User Credentials](https://tools.ietf.org/html/rfc6749#section-1.3.3) grant flow, also known as the _resource owner
 password credentials grant_ or password grant should only be used when:
 
--   A User wants to log into an application via a web-app client
--   The web-app client is absolutely trusted
+-   A User wants to log into an application via a web-app client.
+-   The web-app client is absolutely trusted.
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/user-credentials.png)
 
-This is the most appropriate usage within the Supermarket Tutorial Application, as the Web-App has been written by us
+This is the most appropriate usage within the Supermarket Tutorial Application, as the Web-App has been written by us,
 and we can trust it to pass on credentials to an instance of **Keyrock** also owned by us. As you can see from the
-diagram, the user must type their own password into the web-app client itself
+diagram, the user must type their own password into the web-app client itself.
 
 ### Logging-in with a Password
 
 #### 1 Request
 
 To log in using the user-credentials flow send a POST request to the `oauth2/token` endpoint with the
-`grant_type=password`
+`grant_type=password`.
 
 ```bash
 curl -iX POST \
@@ -355,7 +356,7 @@ The response returns an access code to identify the user:
 ### Retrieving User Details from an Access Token
 
 The access code can then be used with a GET request to the `/user` endpoint to obtain user details, for example, taking
-the `access_token` from the response above
+the `access_token` from the response above:
 
 #### 2 Request
 
@@ -452,7 +453,7 @@ GitHub.
 ### Authorization Code - Sample Code
 
 A user must first be redirected to **Keyrock**, requesting a `code`, `oa.getAuthorizeUrl()` is returning a URL of the
-form `/oauth/authorize?response_type=code&client_id={{client-id}}&state=xyz&redirect_uri={{callback_url}}`
+form `/oauth/authorize?response_type=code&client_id={{client-id}}&state=xyz&redirect_uri={{callback_url}}`.
 
 ```javascript
 function authCodeGrant(req, res) {
@@ -461,8 +462,8 @@ function authCodeGrant(req, res) {
 }
 ```
 
-The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, a
-interim access code is received from **Keyrock** and second request must be made to obtain a usable `access_token`.
+The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, 
+an interim access code is received from **Keyrock** and second request must be made to obtain a usable `access_token`.
 
 ```javascript
 function authCodeGrantCallback(req, res) {
@@ -480,13 +481,13 @@ function authCodeGrantCallback(req, res) {
 ### Authorization Code - Running the Example
 
 It is possible to invoke the User Credentials grant flow programmatically, by bringing up the page
-`http://localhost:3000/` and clicking on the Authorization Code Button
+`http://localhost:3000/` and clicking on the Authorization Code Button.
 
-The user is initially redirected to **Keyrock**, and must log in
+The user is initially redirected to **Keyrock**, and must log in:
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/keyrock-log-in.png)
 
-The user must then authorize the request
+The user must then authorize the request:
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/keyrock-authorize.png)
 
@@ -500,14 +501,14 @@ The response displays the user on the top right of the screen, details of the to
 
 The [Implicit](https://tools.ietf.org/html/rfc6749#section-1.3.2) grant flow is a simplified form of the Authorization
 grant flow where **Keyrock** returns an `access_token` directly rather than returning an interim access-code. This is
-less secure than the Authcode flow but can be used in some client-side applications
+less secure than the Authcode flow but can be used in some client-side applications:
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/implicit-flow.png)
 
 ### Implicit Grant - Sample Code
 
 A user must first be redirected to **Keyrock**, requesting a `token`, `oa.getAuthorizeUrl()` is returning a URL of the
-form `/oauth/authorize?response_type=token&client_id={{client-id}}&state=xyz&redirect_uri={{callback_url}}`
+form `/oauth/authorize?response_type=token&client_id={{client-id}}&state=xyz&redirect_uri={{callback_url}}`.
 
 ```javascript
 function implicitGrant(req, res) {
@@ -516,8 +517,8 @@ function implicitGrant(req, res) {
 }
 ```
 
-The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, a
-usable access token is received from **Keyrock**
+The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, 
+a usable access token is received from **Keyrock**:
 
 ```javascript
 function implicitGrantCallback(req, res) {
@@ -530,13 +531,13 @@ function implicitGrantCallback(req, res) {
 ### Implicit Grant - Running the Example
 
 It is possible to invoke the Implicit grant flow programmatically, by bringing up the page `http://localhost:3000/` and
-clicking on the Implicit Grant Button
+clicking on the Implicit Grant Button.
 
-The user is initially redirected to **Keyrock**, and must log in
+The user is initially redirected to **Keyrock**, and must log in:
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/keyrock-log-in.png)
 
-The user must then authorize the request
+The user must then authorize the request:
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/keyrock-authorize.png)
 
@@ -557,7 +558,7 @@ been included for completeness.
 ### Logging in as an Application
 
 To log in using the client credentials flow send a POST request to the `oauth2/token` endpoint with the
-`grant_type=client_credentials`
+`grant_type=client_credentials`.
 
 #### 3 Request:
 
@@ -597,7 +598,7 @@ function clientCredentialGrant(req, res) {
 ### Client Credentials Grant - Running the Example
 
 It is possible to invoke the Client Credentials grant flow programmatically, by bringing up the page
-`http://localhost:3000/` and clicking on the Client Credentials Button
+`http://localhost:3000/` and clicking on the Client Credentials Button.
 
 The response displays the details of the token. No User is involved.
 
@@ -614,7 +615,7 @@ appropriate for all grant types.
 #### 4 Request
 
 Check to see if Refresh Token flow is available, merely log in using one of the other grant types, for example to log in
-using the user-credentials flow send a POST request to the `oauth2/token` endpoint with the `grant_type=password`
+using the user-credentials flow send a POST request to the `oauth2/token` endpoint with the `grant_type=password`.
 
 ```bash
 curl -iX POST \
@@ -627,7 +628,7 @@ curl -iX POST \
 
 #### Response
 
-Along with the `access_token` identifying the user, the response returns an `refresh_token`
+Along with the `access_token` identifying the user, the response returns an `refresh_token`:
 
 ```json
 {
@@ -642,7 +643,7 @@ Along with the `access_token` identifying the user, the response returns an `ref
 
 The `refresh_token=05e386edd9f95ed0e599c5004db8573e86dff874` from the response above is stored for later use. To obtain
 a new `access_token` (for example once the previous one has expired) the `refresh_token` is used in the OAuth2 refresh
-token flow and a `grant_type=refresh_token`
+token flow and a `grant_type=refresh_token`:
 
 #### 5 Request
 
@@ -696,15 +697,15 @@ The response displays the user on the top right of the screen, details of the to
 
 ![](https://fiware.github.io/tutorials.Securing-Access/img/tutorial-reponse.png)
 
-Pressing the **Refresh Token** button invokes returns a new `access_token` and `refresh_token` for the logged in user.
+Pressing the **Refresh Token** button invokes returns a new `access_token` and `refresh_token` for the logged-in user.
 
 ## PDP - Access Control
 
 There are three Levels of PDP Access Control:
 
--   Level 1: Authentication Access - Allow all actions to every signed in user and no actions to an anonymous user.
--   Level 2: Basic Authorization - Check which resources and verbs the currently logged in user should have access to
--   Level 3: Advanced Authorization - Fine grained control through [XACML](https://en.wikipedia.org/wiki/XACML)
+-   Level 1: Authentication Access - Allow all actions to every signed-in user and no actions to an anonymous user.
+-   Level 2: Basic Authorization - Check which resources and verbs the currently logged-in user should have access to.
+-   Level 3: Advanced Authorization - Fine grained control through [XACML](https://en.wikipedia.org/wiki/XACML).
 
 **Keyrock** can be used to offer a simple Level 1 and 2 PDP on its own, and can offer level 3 combined with additional
 generic enablers. This tutorial will only be concerned with the logged in site itself. Securing other services in
@@ -713,7 +714,7 @@ conjunction with a [PEP Proxy](https://fiware-pep-proxy.readthedocs.io/en/latest
 ### Authentication Access
 
 If **Keyrock** (or any other OAuth2 provider) has successfully logged in, an `access_token` has been provided saying
-that the user exists. This information is sufficient to **authenticate** a User
+that the user exists. This information is sufficient to **authenticate** a User.
 
 Level 1 PDP can be used in conjunction with any OAuth2 provider using any flow.
 
@@ -771,8 +772,8 @@ extended to include resource permissions. Using this information it is possible 
 resources.
 
 As a reminder, **Keyrock** permissions are based on `resource` (e.g. URL) and `action` (which can be mapped to an HTTP
-verb). We can retrieve extended user details including access permisions by adding additional parameters to a `/user`
-GET request
+verb). We can retrieve extended user details including access permissions by adding additional parameters to a `/user`
+GET request.
 
 #### 7 Request
 
@@ -783,17 +784,17 @@ GET request
 
 Where :
 
--   `{{access-token}}` is the current access token of a logged in user e.g. `6c1f1ac938f644c655b9c46c67d9f8b068345e89`
--   `{{action}}` is an HTTP Verb e.g. `GET`
--   `{{resource}}` is a secured endpoint e.g. `/app/price-change`
--   `{{app-id}}`
+-   `{{access-token}}` is the current access token of a logged in user e.g. `6c1f1ac938f644c655b9c46c67d9f8b068345e89`;
+-   `{{action}}` is an HTTP Verb e.g. `GET`;
+-   `{{resource}}` is a secured endpoint e.g. `/app/price-change`;
+-   `{{app-id}}`.
 
 #### Response
 
 The response include an `authorization_decision` attribute which permits or denies access.
 
 In the example below the access token used belonged to Bob the manager, and he has been granted access to the
-`/app/price-change` endpoint within the `tutorial-dckr-site-0000-xpresswebapp`
+`/app/price-change` endpoint within the `tutorial-dckr-site-0000-xpresswebapp`.
 
 ```json
 {
@@ -863,7 +864,7 @@ function priceChange(req, res) {
 }
 ```
 
-Similarly a secured command can fail fast and return an error code if the user is not authorized, this is another
+Similarly, a secured command can fail fast and return an error code if the user is not authorized, this is another
 example of a Policy Enforcement Point (PEP):
 
 ```javascript
@@ -880,10 +881,10 @@ function sendCommand(req, res) {
 
 > **Note** Only four resources have been secured at level 2:
 >
-> -   sending the unlock door command
-> -   sending the ring bell command
-> -   access to the price-change area
-> -   access to the order-stock area
+> -   sending the unlock door command;
+> -   sending the ring bell command;
+> -   access to the price-change area;
+> -   access to the order-stock area.
 
 #### Anonymous Access
 
@@ -891,16 +892,16 @@ function sendCommand(req, res) {
 
 ##### Level 1 : Authentication Access
 
--   Click on any store page - access is **denied** for anonymous access
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Switch on the lamp - access is **denied** for anonymous access
+-   Click on any store page - access is **denied** for anonymous access.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Switch on the lamp - access is **denied** for anonymous access.
 
 ##### Level 2 : Authorization Access
 
--   Click on the restricted access links at `http://localhost:3000` - access is **denied**
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Unlock a door - access is **denied**
-    -   Ring a bell - access is **denied**
+-   Click on the restricted access links at `http://localhost:3000` - access is **denied**.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Unlock a door - access is **denied**.
+    -   Ring a bell - access is **denied**.
 
 #### Eve the Eavesdropper
 
@@ -909,57 +910,57 @@ Eve has an account, but no roles in the application.
 > **Note** As Eve has a recognized account, she gains full authentication access, even though her account has no roles
 > attached.
 
--   From `http://localhost:3000`, log in as `eve@example.com` with the password `test`
+-   From `http://localhost:3000`, log in as `eve@example.com` with the password `test`.
 
 ##### Level 1 : Authentication Access
 
--   Click on any store page - access is **permitted** for any logged in users
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Switch on the lamp - access is **permitted** for any logged in users
+-   Click on any store page - access is **permitted** for any logged-in users.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Switch on the lamp - access is **permitted** for any logged-in users.
 
 ##### Level 2 : Authorization Access
 
--   Click on the restricted access links at `http://localhost:3000` - access is **denied**
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Unlock a door - access is **denied**
-    -   Ring a bell - access is **denied**
+-   Click on the restricted access links at `http://localhost:3000` - access is **denied**.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Unlock a door - access is **denied**.
+    -   Ring a bell - access is **denied**.
 
 #### Bob The Regional Manager
 
-Bob has the **management** role
+Bob has the **management** role:
 
--   From `http://localhost:3000`, log in as `bob-the-manager@test.com` with the password `test`
+-   From `http://localhost:3000`, log in as `bob-the-manager@test.com` with the password `test`.
 
 ##### Level 1 : Authentication Access
 
--   Click on any store page - access is **permitted** for any logged in users
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Switch on the lamp - access is **permitted** for any logged in users
+-   Click on any store page - access is **permitted** for any logged-in users.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Switch on the lamp - access is **permitted** for any logged-in users.
 
 ##### Level 2 : Authorization Access
 
 -   Click on the restricted access links at `http://localhost:3000` - access is **permitted** - This is a management
-    only permission
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Unlock a door - access is **denied**. - This is a security only permission
-    -   Ring a bell - access is **permitted** - This is permitted to management users
+    only permission.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Unlock a door - access is **denied**. - This is a security only permission.
+    -   Ring a bell - access is **permitted** - This is permitted to management users.
 
 #### Charlie the Security Manager
 
-Charlie has the **security** role
+Charlie has the **security** role:
 
--   From `http://localhost:3000`, log in as `charlie-security@test.com` with the password `test`
+-   From `http://localhost:3000`, log in as `charlie-security@test.com` with the password `test`.
 
 ##### Level 1 : Authentication Access
 
--   Click on any store page - access is **permitted** for any logged in users
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Switch on the lamp - access is **permitted** for any logged in users
+-   Click on any store page - access is **permitted** for any logged-in users.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Switch on the lamp - access is **permitted** for any logged-in users.
 
 ##### Level 2: Authorization Access
 
 -   Click on the restricted access links at `http://localhost:3000` - access is **denied** - This is a management only
-    permission
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Unlock a door - access is **permitted** - This is a security only permission
-    -   Ring a bell - access is **permitted** - This is permitted to security users
+    permission.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Unlock a door - access is **permitted** - This is a security only permission.
+    -   Ring a bell - access is **permitted** - This is permitted to security users.

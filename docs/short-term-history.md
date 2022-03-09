@@ -31,7 +31,7 @@ platform offers a generic enabler ([STH-Comet](https://fiware-sth-comet.readthed
 issue of persisting and interpreting time series data persisted into MongoDB. **STH-Comet** itself can be used in two
 modes:
 
--   In _minimal_ mode, **STH-Comet** is responsible for both data collection and interpreting the data when requested
+-   In _minimal_ mode, **STH-Comet** is responsible for both data collection and interpreting the data when requested.
 -   In _formal_ mode, the collection of data is delegated to **Cygnus**, **STH-Comet** merely reads from an existing
     database.
 
@@ -39,7 +39,7 @@ Of the two modes of operation, the _formal_ mode is more flexible, but _minimal_
 The key differences between the two are summarized in the table below:
 
 |                                                        | _minimal_ mode                                    | _formal_ mode                                                   |
-| ------------------------------------------------------ | ------------------------------------------------- | --------------------------------------------------------------- |
+|--------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------------|
 | Is the system easy to set-up properly?                 | Only one configuration supported - Easy to set up | Highly configurable - Complex to set up                         |
 | Which component is responsible for a data persistence? | **STH-Comet**                                     | **Cygnus**                                                      |
 | What is the role of **STH-Comet**?                     | Reading and writing data                          | Data Read only                                                  |
@@ -87,21 +87,21 @@ use three or four FIWARE components depending on the configuration of the system
 [STH-Comet](https://fiware-cygnus.readthedocs.io/en/latest/) and
 [Cygnus](https://fiware-cygnus.readthedocs.io/en/latest/).
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   Four **FIWARE Generic Enablers**:
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
-        using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+        using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
     -   The FIWARE [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will
         receive northbound measurements from the dummy IoT devices in
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         format and convert them to [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests for the
-        context broker to alter the state of the context entities
+        context broker to alter the state of the context entities.
     -   FIWARE [STH-Comet](https://fiware-sth-comet.readthedocs.io/) will:
-        -   interpret time-based data queries
-        -   subscribe to context changes and persist them into a **MongoDB** database (_minimal_ mode only)
+        -   interpret time-based data queries.
+        -   subscribe to context changes and persist them into a **MongoDB** database (_minimal_ mode only).
     -   FIWARE [Cygnus](https://fiware-cygnus.readthedocs.io/en/latest/) where it will subscribe to context changes and
-        persist them into a **MongoDB** database (_formal_ mode only)
+        persist them into a **MongoDB** database (_formal_ mode only).
 
 > **Note:** **Cygnus** will only be used if **STH-Comet** is configured in _formal_ mode.
 
@@ -109,18 +109,18 @@ Therefore the overall architecture will consist of the following elements:
     information such as data entities, subscriptions and registrations + Used by the **IoT Agent** to hold device
     information such as device URLs and Keys + Used as a data sink to hold time-based historical context data + In
     _minimal_ mode - this is read and populated by **STH-Comet** + In _formal_ mode - this is populated by **Cygnus**
-    and read by **STH-Comet**
+    and read by **STH-Comet**.
 -   Three **Context Providers**:
     -   The **Stock Management Frontend** is not used in this tutorial. It does the following:
-        -   Display store information and allow users to interact with the dummy IoT devices
-        -   Show which products can be bought at each store
+        -   Display store information and allow users to interact with the dummy IoT devices.
+        -   Show which products can be bought at each store.
         -   Allow users to "buy" products and reduce the stock count.
     -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         protocol running over HTTP.
     -   The **Context Provider NGSI** proxy is not used in this tutorial. It does the following:
-        -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
-        -   makes requests to publicly available data sources using their own APIs in a proprietary format
+        -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2);
+        -   makes requests to publicly available data sources using their own APIs in a proprietary format;
         -   returns context data back to the Orion Context Broker in
             [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) format.
 
@@ -207,12 +207,12 @@ sth-comet:
 The `sth-comet` container is listening on one port:
 
 -   The Operations for port for STH-Comet - `8666` is where the service will be listening for notifications from the
-    Orion context broker as well as time based query requests from cUrl or Postman
+    Orion context broker as well as time based query requests from cUrl or Postman.
 
 The `sth-comet` container is driven by environment variables as shown:
 
 | Key          | Value            | Description                                                                                                    |
-| ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------- |
+|--------------|------------------|----------------------------------------------------------------------------------------------------------------|
 | STH_HOST     | `0.0.0.0`        | The address where STH-Comet is hosted - within this container it means all IPv4 addresses on the local machine |
 | STH_PORT     | `8666`           | Operations Port that STH-Comet listens on, it is also used when subscribing to context data changes            |
 | DB_PREFIX    | `sth_`           | The prefix added to each database entity if none is provided                                                   |
@@ -265,7 +265,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Short-Term-History/img/door-open.gif)
@@ -273,7 +273,7 @@ on the same page:
 ## _minimal_ mode - Subscribing STH-Comet to Context Changes
 
 Once a dynamic context system is up and running, under minimal mode, **STH-Comet** needs to be informed of changes in
-context. Therefore we need to set up a subscription in the **Orion Context Broker** to notify **STH-Comet** of these
+context. Therefore, we need to set up a subscription in the **Orion Context Broker** to notify **STH-Comet** of these
 changes. The details of the subscription will differ dependent upon the device being monitored and the sampling rate.
 
 ### STH-Comet - Aggregate Motion Sensor Count Events
@@ -284,10 +284,10 @@ able to aggregate the results.
 This is done by making a POST request to the `/v2/subscription` endpoint of the **Orion Context Broker**.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that **STH-Comet** will be informed of all **Motion Sensor** data
     changes.
--   The notification `url` must match the configured `STH_PORT`
+-   The notification `url` must match the configured `STH_PORT`.
 -   The `attrsFormat=legacy` is required since **STH-Comet** currently only accepts notifications in the older NGSI v1
     format.
 
@@ -330,10 +330,10 @@ This is done by making a POST request to the `/v2/subscription` endpoint of the 
 the `throttling` attribute in the request body.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that **STH-Comet** will be informed of all **Smart Lamp** data changes
-    only
--   The notification `url` must match the configured `STH_PORT`
+    only.
+-   The notification `url` must match the configured `STH_PORT`.
 -   The `attrsFormat=legacy` is required since **STH-Comet** currently only accepts notifications in the older NGSI v1
     format.
 -   The `throttling` value defines the rate that changes are sampled.
@@ -479,7 +479,7 @@ To obtain the short term history of a context entity attribute, send a GET reque
 `../STH/v1/contextEntities/type/<Entity>/id/<entity-id>/attributes/<attribute>`
 
 the `hLimit` parameter restricts the result to N values. Setting `hOffset` to a non-zero value will start from the Nth
-measurement
+measurement.
 
 #### 6 Request:
 
@@ -757,7 +757,7 @@ To obtain the short term history of a context entity attribute, send a GET reque
 The `aggrMethod` parameter determines the type of aggregation to perform over the time series, the `aggrPeriod` is one
 of `second`, `minute`, `hour` or `day`.
 
-The luminocity of the **Smart Lamp** is continually changing and therefore tracking the minimum value makes sense. The
+The luminosity of the **Smart Lamp** is continually changing and therefore tracking the minimum value makes sense. The
 **Motion Sensor** is not suitable for this as it only offers binary values.
 
 #### 10 Request:
@@ -803,7 +803,8 @@ curl -G -X GET \
                                         "offset": 22,
                                         "samples": 5,
                                         "min": 1855
-                                    }, ..etc
+                                    }, 
+                                    ..etc
                                 ]
                             }
                         ]
@@ -965,12 +966,12 @@ cygnus:
 The `sth-comet` container is listening on one port:
 
 -   The Operations for port for STH-Comet - `8666` is where the service will be listening for time based query requests
-    from cUrl or Postman
+    from cUrl or Postman.
 
 The `sth-comet` container is driven by environment variables as shown:
 
 | Key          | Value            | Description                                                                                                    |
-| ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------- |
+|--------------|------------------|----------------------------------------------------------------------------------------------------------------|
 | STH_HOST     | `0.0.0.0`        | The address where STH-Comet is hosted - within this container it means all IPv4 addresses on the local machine |
 | STH_PORT     | `8666`           | Operations Port that STH-Comet listens on                                                                      |
 | DB_PREFIX    | `sth_`           | The prefix added to each database entity if none is provided                                                   |
@@ -980,14 +981,14 @@ The `sth-comet` container is driven by environment variables as shown:
 The `cygnus` container is listening on two ports:
 
 -   The Subscription Port for Cygnus - `5050` is where the service will be listening for notifications from the Orion
-    context broker
+    context broker.
 -   The Management Port for Cygnus - `5080` is exposed purely for tutorial access - so that cUrl or Postman can make
     provisioning commands without being part of the same network.
 
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                 | Value            | Description                                                                                          |
-| ------------------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
+|---------------------|------------------|------------------------------------------------------------------------------------------------------|
 | CYGNUS_MONGO_HOSTS  | `mongo-db:27017` | Comma separated list of MongoDB servers which Cygnus will contact to persist historical context data |
 | CYGNUS_LOG_LEVEL    | `DEBUG`          | The logging level for Cygnus                                                                         |
 | CYGNUS_SERVICE_PORT | `5050`           | Notification Port that Cygnus listens when subscribing to context data changes                       |
@@ -1062,7 +1063,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Short-Term-History/img/door-open.gif)
@@ -1081,9 +1082,9 @@ able to aggregate the results.
 This is done by making a POST request to the `/v2/subscription` endpoint of the **Orion Context Broker**.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that **Cygnus** will be informed of all **Motion Sensor** data changes.
--   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`
+-   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`.
 
 #### 14 Request:
 
@@ -1127,9 +1128,9 @@ This is done by making a POST request to the `/v2/subscription` endpoint of the 
 the `throttling` attribute in the request body.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
--   The `idPattern` in the request body ensures that **Cygnus** will be informed of all **Smart Lamp** data changes only
--   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`
+    measurements from the attached IoT Sensors.
+-   The `idPattern` in the request body ensures that **Cygnus** will be informed of all **Smart Lamp** data changes only.
+-   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`.
 -   The `throttling` value defines the rate that changes are sampled.
 
 #### 15 Request:
@@ -1177,11 +1178,11 @@ Once the JSON response for a specified time series has been retrieved, displayin
 end user. It must be manipulated to be displayed in a bar chart, line graph or table listing. This is not within the
 domain of **STH-Comet** as it not a graphical tool, but can be delegated to a mashup or dashboard component such as
 [Wirecloud](https://github.com/FIWARE/catalogue/blob/master/processing/README.md#Wirecloud) or
-[Knowage](https://github.com/FIWARE/catalogue/blob/master/processing/README.md#Knowage)
+[Knowage](https://github.com/FIWARE/catalogue/blob/master/processing/README.md#Knowage).
 
 It can also be retrieved and displayed using a third-party graphing tool appropriate to your coding environment - for
 example [chartjs](http://www.chartjs.org/). An example of this can be found within the `history` controller in the
-[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/controllers/history.js)
+[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/controllers/history.js).
 
 The basic processing consists of two-step - retrieval and attribute mapping, sample code can be seen below:
 
@@ -1228,4 +1229,4 @@ function cometToTimeSeries(cometResponse, aggMethod) {
 ```
 
 The modified data is then passed to the frontend to be processed by the third-party graphing tool. The result is shown
-here: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`
+here: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`.

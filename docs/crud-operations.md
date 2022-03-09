@@ -105,7 +105,7 @@ mongo-db:
 Both containers reside on the same network - the Orion Context Broker is listening on port `1026` and MongoDB is
 listening on the default port `27017`. For the sake of this tutorial, we have also made the two ports available from
 outside the network so that cUrl or Postman can access them without having to be run from inside the network. The
-command-line initialization should be self explanatory.
+command-line initialization should be self-explanatory.
 
 ## Start Up
 
@@ -150,11 +150,11 @@ Once an `<entity-id>` is known within the context, individual data entities can 
 
 It is recommended that entity identifiers should be URNs following the
 [NGSI-LD specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf),
-therefore each `id` is a URN which follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This helps making
-every `id` in the context data unique.
+therefore each `id` is a URN which follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This helps to
+make every `id` in the context data unique.
 
 | HTTP Verb  |                                               `/v2/entities`                                               |                                              `/v2/entities/<entity-id>`                                              |
-| ---------- | :--------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
+|------------|:----------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|
 | **POST**   |                                CREATE a new entity and add to the context.                                 |                                 CREATE or UPDATE an attribute of a specified entity.                                 |
 | **GET**    | READ entity data from the context. This will return data from multiple entities. The data can be filtered. | READ entity data from a specified entity. This will return data from a single entity only. The data can be filtered. |
 | **PUT**    |                                                    :x:                                                     |                                                         :x:                                                          |
@@ -171,13 +171,13 @@ pair.
 
 There are three endpoints:
 
--   `/v2/entities/<entity-id>/attrs` is only used for a patch operation to update one or more exisiting attributes.
+-   `/v2/entities/<entity-id>/attrs` is only used for a patch operation to update one or more existing attributes.
 -   `/v2/entities/<entity-id>/attrs/<attribute>` is used to manipulate an attribute as a whole.
 -   `/v2/entities/<entity-id>/attrs/<attribute>/value` is used to read or update the `value` of an attribute, leaving
     the `type` untouched.
 
 | HTTP Verb   |                           `.../attrs`                           |                `.../attrs/<attribute>`                |                              `.../attrs/<attribute>/value`                               |
-| ----------- | :-------------------------------------------------------------: | :---------------------------------------------------: | :--------------------------------------------------------------------------------------: |
+|-------------|:---------------------------------------------------------------:|:-----------------------------------------------------:|:----------------------------------------------------------------------------------------:|
 | **POST**    |                               :x:                               |                          :x:                          |                                           :x:                                            |
 | **GET**     |                               :x:                               |                          :x:                          | READ the value of an attribute from a specified entity. This will return a single field. |
 | **PUT**     |                               :x:                               |                          :x:                          |              UPDATE the value of single attribute from a specified entity.               |
@@ -189,7 +189,7 @@ A complete list of attribute endpoints can be found in the
 
 ## Batch CRUD Operations
 
-Additionally the Orion Context Broker has a convenience batch operation endpoint `/v2/op/update` to manipulate multiple
+Additionally, the Orion Context Broker has a convenience batch operation endpoint `/v2/op/update` to manipulate multiple
 entities in a single operation.
 
 Batch operations are always triggered by a POST request where the payload is an object with two properties:

@@ -20,7 +20,7 @@ container, no HTTP calls are required.
 
 [WebRTC](https://webrtc.org/) is a set of protocols enabling direct peer-to-peer Real-Time Communications (RTC) between
 browsers or mobile applications.- this would allow a user to make a direct video call to a person in another remote
-location. However the type of applications which can be created using direct one-to-one communication are limited, and
+location. However, the type of applications which can be created using direct one-to-one communication are limited, and
 the scope of WebRTC can be enhanced by introducing an intelligent middleware application between the two clients.
 
 The FIWARE **Kurento** generic enabler is a WebRTC Media Server. Each client makes a direct connection to the server,
@@ -64,12 +64,12 @@ The overall architecture will consist of the following elements:
 -   One **FIWARE Generic Enabler**:
 
     -   FIWARE [Kurento](http://kurento.readthedocs.io/) acts as a Media Server which will intercept
-        [WebRTC](https://webrtc.org/) traffic, additional processing will be added as necessary
+        [WebRTC](https://webrtc.org/) traffic, additional processing will be added as necessary.
 
 -   One **Application Server** (Examples) which:
     -   Displays a web-page, allowing a user to switch on their camera and interact.
     -   Sends a [WebRTC](https://webrtc.org/) media stream and displays results (either received processed video or
-        detected events )
+        detected events).
 
 Since all interactions between the services are initiated by HTTP requests, the services can be containerized and run
 from exposed ports.
@@ -95,7 +95,7 @@ kurento:
 
 The `kurento` container is listening on a single port:
 
--   Port `8888` is exposed for Websocket communications - and also so that we can check the connection
+-   Port `8888` is exposed for Websocket communications - and also so that we can check the connection.
 
 ## Application Server Configuration
 
@@ -122,12 +122,12 @@ kurento-examples:
 
 The `kurento-examples` container is a web app server listening on a single port:
 
--   Port `8443` is exposed for HTTPS traffic so we can display the web page
+-   Port `8443` is exposed for HTTPS traffic so we can display the web page.
 
 The `kurento-examples` container is driven by environment variables as shown:
 
 | Key               | Value              | Description                                                                      |
-| ----------------- | ------------------ | -------------------------------------------------------------------------------- |
+|-------------------|--------------------|----------------------------------------------------------------------------------|
 | MEDIA_SERVER_HOST | `kurento`          | Hostname of the Media Server receives the media stream                           |
 | MEDIA_SERVER_PORT | `8888`             | Port used by the Media Server used websocket traffic                             |
 | APP_SERVER_HOST   | `kurento-examples` | Hostname of the App Server to display the web page (and receive event callbacks) |
@@ -172,7 +172,7 @@ Where `<command>` will vary depending upon the exercise we wish to activate.
 Before describing a proper context-related example, we will first examine a minimal set-up "Hello World" example to
 check that we are able to connect to the **Kurento Media Server** and send and receive a video stream. This is a very
 simple [WebRTC](https://webrtc.org/) application implementing a WebRTC loopback. A media stream is generated from a
-web-cam. It is displayed on the browser but also sent to the **Kurento Media server** where it is redirected un-altered
+webcam. It is displayed on the browser but also sent to the **Kurento Media server** where it is redirected un-altered
 back to the client application.
 
 ![](https://fiware.github.io/tutorials.Media-Streams/img/hello-world.png)
@@ -191,14 +191,14 @@ To start the system with the simplest integration of **Kurento**, run the follow
 
 ### Service Health
 
-You can check if the **Kurento Media Server** is running by making an HTTP request to the exposed port `8888`
+You can check if the **Kurento Media Server** is running by making an HTTP request to the exposed port `8888`.
 
 ```bash
 curl -iX GET \
   http://localhost:8888
 ```
 
-The expected response is :
+The expected response is:
 
 ```text
 HTTP/1.1 426 Upgrade Required
@@ -235,7 +235,7 @@ client. Click on the start button and the same video will be displayed in both `
 ![](https://fiware.github.io/tutorials.Media-Streams/img/hello-world-screenshot.png)
 
 Click on the image above to watch a demo of the
-[hello world example](https://www.youtube.com/watch?v=vGEnkSOp_xc "Hello World")
+[hello world example](https://www.youtube.com/watch?v=vGEnkSOp_xc "Hello World").
 
 You can check that the remote stream has been re-directed by bringing down the Media Server:
 
@@ -358,7 +358,7 @@ To operate on the incoming video we will need to create a media pipeline - this 
 generated by one element is used at the input for another. Pipeline elements can be chained together and therefore
 represent a series of operations on the media stream.
 
-In the Hello World example we will need a single `WebRtcEndpoint` that connects back to itself (i.e. in loopback)
+In the Hello World example, we will need a single `WebRtcEndpoint` that connects back to itself (i.e. in loopback).
 
 These functions are called in the `start()` function, which is fired when the `start` message is received:
 
@@ -545,7 +545,7 @@ client. Click on the start button and the modified video will be displayed in on
 
 ![](https://fiware.github.io/tutorials.Media-Streams/img/magic-mirror-screenshot.png)
 
-Click on the link to watch a [demo of the magic mirror](https://www.youtube.com/watch?v=h84HFkvWGgw "Magic Mirror")
+Click on the link to watch a [demo of the magic mirror](https://www.youtube.com/watch?v=h84HFkvWGgw "Magic Mirror").
 
 ## Magic Mirror - Analyzing the Code
 
@@ -554,9 +554,9 @@ example builds on the previous `hello world` example, and much of the common boi
 connections between the web page and the Application Server, and the connections between the Application Server and the
 **Kurento Media Server** remains the same. Please refer to the sections above to refresh your understanding:
 
--   Backend - WebSocket Connection
--   Backend - Connecting to Kurento
--   Frontend - JavaScript on the rendered page
+-   Backend - WebSocket Connection.
+-   Backend - Connecting to Kurento.
+-   Frontend - JavaScript on the rendered page.
 
 ### Backend - Adding a built-in Filter to a Media Pipeline
 
@@ -566,7 +566,7 @@ Server** - it contains the following built-in
 [filters](https://doc-kurento.readthedocs.io/en/latest/features/kurento_api.html#filters):
 
 -   The `ZBarFilter` filter detects QR and bar codes in a video stream. When a code is found, the filter raises a
-    `CodeFoundEvent`
+    `CodeFoundEvent`.
 -   The `FaceOverlayFilter` filter detects faces in a video stream and overlaid it with a configurable image.
 -   The `GStreamerFilter` is a generic filter interface that enables the use of
     [GStreamer](https://gstreamer.freedesktop.org/) filters in **Kurento** Media Pipelines.
@@ -622,13 +622,13 @@ function connectMediaElements(webRtcEndpoint, faceOverlayFilter, callback) {
 ```
 
 The functions called in the `start()` function remain the same - the media streams are connected and now passed through
-a pipeline before being retuned to the web page. The result is that the video stream is now intercepted and altered as
+a pipeline before being returned to the web page. The result is that the video stream is now intercepted and altered as
 demonstrated.
 
 ## Raising Context Events
 
 A media stream can also be analyzed and used to raise context-related events. The final example of this tutorial adds a
-vehicle number plate detector filter element to the WebRTC video communication
+vehicle number plate detector filter element to the WebRTC video communication:
 
 ![](https://fiware.github.io/tutorials.Media-Streams/img/plate-detector.png)
 
@@ -653,7 +653,7 @@ stream (as captured by the local webcam) and the other showing the remote stream
 client. Click on the start button and the same video will be displayed in both `<video>` elements.
 
 Select the image of a Vehicle registration plate from the list below and display it on your phone and see if the plate
-is detected
+is detected:
 
 -   [Argentina](https://fiware.github.io/tutorials.Media-Streams/img/vrn-argentina.jpg)
 -   [Botswana](https://fiware.github.io/tutorials.Media-Streams/img/vrn-botswana.jpg)
@@ -666,7 +666,7 @@ is detected
 -   [Sweden](https://fiware.github.io/tutorials.Media-Streams/img/vrn-sweden.jpg)
 
 Further Vehicle Registration Plate images are available on
-[Wikipedia](https://en.wikipedia.org/wiki/Vehicle_registration_plate)
+[Wikipedia](https://en.wikipedia.org/wiki/Vehicle_registration_plate):
 
 ![](https://fiware.github.io/tutorials.Media-Streams/img/plate-detector-screenshot.png)
 
@@ -680,15 +680,15 @@ The reliability of detection will depend on the camera and filter used.
 
 ## Plate Detector - Analyzing the Code
 
-The code under discussion can be found within the `kurento-platedetector` directory within the Git Repository
+The code under discussion can be found within the `kurento-platedetector` directory within the Git Repository.
 
 Once again, the boilerplate plumbing very similar to the previous examples - the code making the WebSocket connections
 between the web page and the Application Server, and the connections between the Application Server and the **Kurento
-Media Server** are unaltered. Please refer to the sections above to refresh your understanding
+Media Server** are unaltered. Please refer to the sections above to refresh your understanding:
 
--   Backend - WebSocket Connection
--   Backend - Connecting to Kurento
--   Frontend - JavaScript on the rendered page
+-   Backend - WebSocket Connection.
+-   Backend - Connecting to Kurento.
+-   Frontend - JavaScript on the rendered page.
 
 ### Backend - Adding a custom filter to a Media Pipeline
 
@@ -767,7 +767,7 @@ function connectMediaElements(webRtcEndpoint, filter, callback) {
 ### Frontend - JavaScript on the rendered page
 
 In addition to the standard boilerplate from the previous examples, an extra clause is added to the WebSocket processing
-to handle the `plateDectected` event which is raised by the `platedetector.PlateDetectorFilter` :
+to handle the `plateDectected` event which is raised by the `platedetector.PlateDetectorFilter`:
 
 ```javascript
 ws.onmessage = function(message) {

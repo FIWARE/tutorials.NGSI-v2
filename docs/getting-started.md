@@ -177,7 +177,7 @@ The response will look similar to the following:
 
 ## Creating Context Data
 
-At its heart, FIWARE is a system for managing context information, so lets add some context data into the system by
+At its heart, FIWARE is a system for managing context information, so let's add some context data into the system by
 creating two new entities (stores in **Berlin**). Any entity must have a `id` and `type` attributes, additional
 attributes are optional and will depend on the system being described. Each additional attribute should also have a
 defined `type` and a `value` attribute.
@@ -264,7 +264,7 @@ curl -iX POST \
 
 ### Data Model Guidelines
 
-Although the each data entity within your context will vary according to your use case, the common structure within each
+Although the data entity within your context will vary according to your use case, the common structure within each
 data entity should be standardized order to promote reuse. The full FIWARE data model guidelines can be found
 [here](https://smartdatamodels.org/). This tutorial demonstrates the usage of the following recommendations:
 

@@ -32,14 +32,14 @@ publish-subscribe is event-driven and pushes messages to clients. It requires an
 (known as the MQTT broker) which it is in charge of dispatching all messages between the senders and the rightful
 receivers. Each client that publishes a message to the broker, includes a **topic** into the message. The **topic** is
 the routing information for the broker. Each client that wants to receive messages subscribes to a certain **topic** and
-the broker delivers all messages with the matching **topic** to the client. Therefore the clients don’t have to know
+the broker delivers all messages with the matching **topic** to the client. Therefore, the clients don’t have to know
 each other, they only communicate over the **topic**. This architecture enables highly scalable solutions without
 dependencies between the data producers and the data consumers.
 
 A summary of the differences between the two transport protocols can be seen below:
 
 | HTTP Transport                                                                      | MQTT Transport                                                                                |
-| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
 | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/http.png)                  | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/mqtt.png)                            |
 | IoT Agent communicates with IoT devices **directly**                                | IoT Agent communicates with IoT devices **indirectly** via an MQTT Broker                     |
 | [Request-Response](https://en.wikipedia.org/wiki/Request%E2%80%93response) Paradigm | [Publish-Subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Paradigm |
@@ -48,7 +48,7 @@ A summary of the differences between the two transport protocols can be seen bel
 
 The UltraLight 2.0 IoT Agent will only send or interpret messages using the
 [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-syntax, however it can be used to send and receive messages over multiple **transport** mechanisms. Therefore we are
+syntax, however it can be used to send and receive messages over multiple **transport** mechanisms. Therefore, we are
 able to use the same FIWARE generic enabler to connect to a wider range of IoT devices.
 
 <h4>Mosquitto MQTT Broker</h4>
@@ -78,7 +78,7 @@ persistence of the information they hold. We will also be using the dummy IoT de
 [previous tutorial](iot-agent.md) Additionally we will add an instance of the [Mosquitto](https://mosquitto.org/) MQTT
 broker which is open source and available under the EPL/EDL.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
     [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
@@ -168,14 +168,14 @@ tutorial:
 
 The `tutorial` container is listening on two ports:
 
--   Port `3000` is exposed so we can see the web page displaying the Dummy IoT devices.
+-   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
 -   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make UltraLight commands without
     being part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                               |
-| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                               |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                                 |
 | DUMMY_DEVICES_PORT      | `3001`                       | Port used by the dummy IoT devices to receive commands                                                                                    |
@@ -229,7 +229,7 @@ information such as device URLs and Keys. The container is listening on a single
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -295,7 +295,7 @@ using MQTT. This section of the tutorial requires several open terminals.
 
 Eventually once we have wired by the system correctly, IoT Agent will subscribe to all relevant events to listen for
 northbound traffic in the form of sensor measurements. It therefore will need to make a subscription across all topics.
-Similarly an actuator must subscribe to a single topic to receive events which effect itself when commands are sent
+Similarly, an actuator must subscribe to a single topic to receive events which effect itself when commands are sent
 southbound. To check that the lines of communication are open, we can subscribe to a given topic, and see that we are
 able to receive something when a message is published.
 
@@ -419,8 +419,8 @@ The response will look similar to the following:
 
 The IoT Agent acts as a middleware between the IoT devices and the context broker. It therefore needs to be able to
 create context data entities with unique IDs. Once a service has been provisioned and an unknown device makes a
-measurement the IoT Agent add this to the context using the supplied `<device-id>` (unless the device is recognized and
-can be mapped to a known ID.
+measurement, the IoT Agent add this to the context using the supplied `<device-id>`, unless the device is recognized
+and can be mapped to a known ID.
 
 There is no guarantee that every supplied IoT device `<device-id>` will always be unique, therefore all provisioning
 requests to the IoT Agent require two mandatory headers:
@@ -434,7 +434,7 @@ and so on. This would mean that data and devices for each service can be identif
 data would not be siloed - for example data from a **Smart Bin** within a park can be combined with the **GPS Unit** of
 a refuse truck to alter the route of the truck in an efficient manner.
 
-The **Smart Bin** and **GPS Unit** are likely to come from different manufacturers and it cannot be guaranteed that
+The **Smart Bin** and **GPS Unit** are likely to come from different manufacturers, and it cannot be guaranteed that
 there is no overlap within `<device-id>`s used. The use of the `fiware-service` and `fiware-servicepath` headers can
 ensure that this is always the case, and allows the context broker to identify the original source of the context data.
 
@@ -478,7 +478,7 @@ curl -iX POST \
 
 It is common good practice to use URNs following the NGSI-LD
 [specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf) when creating
-entities. Furthermore it is easier to understand meaningful names when defining data attributes. These mappings can be
+entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
 defined by provisioning a device individually.
 
 Three types of measurement attributes can be provisioned:
@@ -643,7 +643,7 @@ curl -iX POST \
 '
 ```
 
-Before we wire-up the context broker, we can test that a command can be send to a device by making a REST request
+Before we wire-up the context broker, we can test that a command can be sent to a device by making a REST request
 directly to the IoT Agent's North Port using the `/v2/op/update` endpoint. It is this endpoint that will eventually be
 invoked by the context broker once we have connected it up. To test the configuration you can run the command directly
 as shown below.
@@ -811,7 +811,7 @@ All the communications leaving and arriving at the North port of the IoT Agent u
 transport protocol used between the IoT devices and the IoT Agent is irrelevant to this layer of communication.
 Effectively the IoT Agent is offering a simplified facade pattern of well-known endpoints to actuate any device.
 
-Therefore this section of registering and invoking commands **duplicates** the instructions found in the
+Therefore, this section of registering and invoking commands **duplicates** the instructions found in the
 [previous tutorial](iot-agent.md)
 
 ### Ringing the Bell

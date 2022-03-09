@@ -9,7 +9,7 @@ data context programmatically. The tutorial extends the knowledge gained from th
 [Node.js](https://nodejs.org/) [Express](https://expressjs.com/) application in order to retrieve and alter context
 data. This removes the need to use the command-line to invoke cUrl commands.
 
-The tutorial is mainly concerned with discussing code written in Node.js, however some of the results can be checked by
+The tutorial is mainly concerned with discussing code written in Node.js, however some results can be checked by
 making [cUrl](https://ec.haxx.se/) commands.
 [Postman documentation](https://fiware.github.io/tutorials.Working-with-Linked-Data) for the same commands is also
 available.
@@ -41,17 +41,17 @@ referencing a context file, and this programmatic definition should guarantee th
 
 Three basic data access scenarios for the supermarket are defined below:
 
--   Reading Data - e.g. Give me all the data for the **Building** entity `urn:ngsi-ld:Building:store001`
+-   Reading Data - e.g. Give me all the data for the **Building** entity `urn:ngsi-ld:Building:store001`.
 -   Aggregation - e.g. Combine the **Products** entities sold in **Building** `urn:ngsi-ld:Building:store001` and
-    display the goods for sale
+    display the goods for sale.
 -   Altering context within the system - e.g. Make a sale of a product:
-    -   Update the daily sales records by the price of the **Product**
-    -   decrement the `numberOfItems` of the **Shelf** entity
-    -   Create a new Transaction Log record showing the sale has occurred
-    -   Raise an alert in the warehouse if less than 10 objects remain on sale
+    -   Update the daily sales records by the price of the **Product**.
+    -   decrement the `numberOfItems` of the **Shelf** entity.
+    -   Create a new Transaction Log record showing the sale has occurred.
+    -   Raise an alert in the warehouse if less than 10 objects remain on sale.
     -   etc.
 
-Further advanced scenarios will be covered in later tutorials
+Further, advanced scenarios will be covered in later tutorials.
 
 ## Linked Data Entities within a stock management system
 
@@ -101,18 +101,18 @@ FIWARE component.
 
 Currently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the context data it holds. To request context data from external sources, a simple Context Provider NGSI
-proxy has also been added. To visualize and interact with the Context we will add a simple Express application
+proxy has also been added. To visualize and interact with the Context we will add a simple Express application.
 
 Therefore, the architecture will consist of three elements:
 
 -   The [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
+    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json).
 -   The underlying [MongoDB](https://www.mongodb.com/) database :
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
-        registrations
+        registrations.
 -   The **Stock Management Frontend** which will:
-    -   Display store information
-    -   Show which products can be bought at each store
+    -   Display store information.
+    -   Show which products can be bought at each store.
     -   Allow users to "buy" products and reduce the stock count.
 
 Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run
@@ -146,7 +146,7 @@ tutorial:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key            | Value                          | Description                                                               |
-| -------------- | ------------------------------ | ------------------------------------------------------------------------- |
+|----------------|--------------------------------|---------------------------------------------------------------------------|
 | DEBUG          | `tutorial:*`                   | Debug flag used for logging                                               |
 | WEB_APP_PORT   | `3000`                         | Port used by the Context Provider NGSI proxy and web-app for viewing data |
 | CONTEXT_BROKER | `http://orion:1026/ngsi-ld/v1` | URL of the context broker to connect to update context                    |
@@ -155,7 +155,7 @@ The other `tutorial` container configuration values described in the YAML file a
 tutorial.
 
 The configuration information for MongoDB and the Orion Context Broker has been described in a
-[previous tutorial](relationships-linked-data.md)
+[previous tutorial](relationships-linked-data.md).
 
 ## Start Up
 
@@ -189,7 +189,7 @@ Supermarket data application.
 ## Reading Linked Data
 
 The code under discussion can be found within the `ngsi-ld/store` controller in the
-[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/controllers/ngsi-ld/store.js)
+[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/controllers/ngsi-ld/store.js).
 
 ### Initializing the library
 
@@ -249,7 +249,7 @@ function setHeaders(accessToken, link, contentType) {
 ```
 
 Within the `lib/ngsi-ld.js` library file, the `BASE_PATH` defines the location of the Orion Context Broker, reading a
-data entity is simply a wrapper around an asynchronous HTTP GET request passing the appropriate headers
+data entity is simply a wrapper around an asynchronous HTTP GET request passing the appropriate headers.
 
 ```javascript
 const BASE_PATH = process.env.CONTEXT_BROKER || "http://localhost:1026/ngsi-ld/v1";
@@ -274,24 +274,54 @@ curl -G -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:s
 -d 'options=keyValues'
 ```
 
+And the response from the broker is:
+
+```json
+{
+  "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+  "id": "urn:ngsi-ld:Building:store001",
+  "type": "Building",
+  "furniture": [
+    "urn:ngsi-ld:Shelf:unit001",
+    "urn:ngsi-ld:Shelf:unit002",
+    "urn:ngsi-ld:Shelf:unit003"
+  ],
+  "category": "commercial",
+  "address": {
+    "streetAddress": "Bornholmer Straße 65",
+    "addressRegion": "Berlin",
+    "addressLocality": "Prenzlauer Berg",
+    "postalCode": "10439"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [
+      13.3986,
+      52.5547
+    ]
+  },
+  "name": "Bösebrücke Einkauf"
+}
+```
+
 ## Aggregating and Traversing Linked Data
 
 To display information at the till, it is necessary to discover information about the products found within a Store.
 From the Data Entity diagram we can ascertain that:
 
--   **Building** entities hold related **Shelf** information within the `furniture` _Relationship_
--   **Shelf** entities hold related **Product** information within the `stocks` _Relationship_
+-   **Building** entities hold related **Shelf** information within the `furniture` _Relationship_.
+-   **Shelf** entities hold related **Product** information within the `stocks` _Relationship_.
 -   Products hold `name` and `price` as _Property_ attributes of the **Product** entity itself.
 
-Therefore the code for the `displayTillInfo()` method will consist of the following steps.
+Therefore, the code for the `displayTillInfo()` method will consist of the following steps.
 
-1.  Make a request to the Context Broker to _find shelves within a known store_
+1.  Make a request to the Context Broker to _find shelves within a known store_.
 2.  Reduce the result to a `id` parameter and make a second request to the Context Broker to _retrieve stocked products
-    from shelves_
+    from shelves_.
 3.  Reduce the result to a `id` parameter and make a third request to the Context Broker to _retrieve product details
-    for selected shelves_
+    for selected shelves_.
 
-To users familiar with database joins, it may seem strange being forced to making a series of requests like this,
+To users familiar with database joins, it may seem strange being forced to make a series of requests like this,
 however it is necessary due to scalability issues/concerns in a large distributed setup. Direct join requests are not
 possible with NGSI-LD.
 
@@ -319,7 +349,22 @@ curl -G -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:s
 -H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/json' \
 -d 'options=keyValues' \
--d 'attrs=furniture' \
+-d 'attrs=furniture'
+```
+
+And the response from the broker is:
+
+```json
+{
+  "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+  "id": "urn:ngsi-ld:Building:store001",
+  "type": "Building",
+  "furniture": [
+    "urn:ngsi-ld:Shelf:unit001",
+    "urn:ngsi-ld:Shelf:unit002",
+    "urn:ngsi-ld:Shelf:unit003"
+  ]
+}
 ```
 
 The response is a JSON Object which includes a `furniture` attribute which can be manipulated further.
@@ -369,7 +414,35 @@ curl -G -X GET 'http://localhost:1026/ngsi-ld/v1/entities/' \
 ```
 
 The response is a JSON Array of **Shelf** entities which includes as `stocks` attribute which can be manipulated
-further. The code below extracts the IDs for later use.
+further.
+
+```json
+[
+  {
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "id": "urn:ngsi-ld:Shelf:unit001",
+    "type": "Shelf",
+    "numberOfItems": 15,
+    "stocks": "urn:ngsi-ld:Product:001"
+  },
+  {
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "id": "urn:ngsi-ld:Shelf:unit002",
+    "type": "Shelf",
+    "numberOfItems": 15,
+    "stocks": "urn:ngsi-ld:Product:003"
+  },
+  {
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "id": "urn:ngsi-ld:Shelf:unit003",
+    "type": "Shelf",
+    "numberOfItems": 15,
+    "stocks": "urn:ngsi-ld:Product:004"
+  }
+]
+```
+
+The code below extracts the IDs for later use.
 
 ```javascript
 const stockedProducts = [];
@@ -412,7 +485,31 @@ curl -G -X GET 'http://localhost:1026/ngsi-ld/v1/entities/' \
 -d 'id=urn:ngsi-ld:Product:001,urn:ngsi-ld:Product:003,urn:ngsi-ld:Product:004'
 ```
 
-The response is a JSON Array of **Product** entities which are then displayed on screen.
+The response is a JSON Array of **Product** entities which are then displayed on screen:
+
+```json
+[
+  {
+    "id": "urn:ngsi-ld:Product:001",
+    "type": "Product",
+    "price": 0.99,
+    "name": "Beer"
+  },
+  {
+    "id": "urn:ngsi-ld:Product:003",
+    "type": "Product",
+    "price": 14.99,
+    "name": "White Wine"
+  },
+  {
+    "id": "urn:ngsi-ld:Product:004",
+    "type": "Product",
+    "price": 50,
+    "name": "Vodka"
+  }
+]
+```
+
 
 ## Updating Linked Data
 
@@ -448,9 +545,51 @@ curl -G -X GET 'http://localhost:1026/ngsi-ld/v1/entities/' \
 -d 'q=numberOfItems%3E0;locatedIn==%22urn:ngsi-ld:Building:store001%22;stocks==%22urn:ngsi-ld:Product:001%22'
 ```
 
+And the response from the broker is the following with nine shelves:
+
+````json
+[
+  {
+    "id": "urn:ngsi-ld:Shelf:unit001",
+    "type": "Shelf",
+    "locatedIn": "urn:ngsi-ld:Building:store001",
+    "maxCapacity": 50,
+    "numberOfItems": 15,
+    "stocks": "urn:ngsi-ld:Product:001",
+    "name": "Corner Unit",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        13.398611,
+        52.554699
+      ]
+    }
+  },
+  {
+    "id": "urn:ngsi-ld:Shelf:unit002",
+    "type": "Shelf",
+    "locatedIn": "urn:ngsi-ld:Building:store001",
+    "maxCapacity": 100,
+    "numberOfItems": 15,
+    "stocks": "urn:ngsi-ld:Product:003",
+    "name": "Wall Unit 1",
+    "location": {
+      "type": "Point",
+      "coordinates": [
+        13.398722,
+        52.554664
+      ]
+    }
+  },
+
+  ... etc.
+  
+]
+````
+
 ### Update the state of a shelf
 
-To update an entity a PATCH request is made using the `id` of the **Shelf** returned in the previous request
+To update an entity, a PATCH request is made using the `id` of the **Shelf** returned in the previous request.
 
 ```javascript
 const count = shelf[0].numberOfItems - 1;
@@ -461,7 +600,7 @@ await ngsiLD.updateAttribute(
 );
 ```
 
-The asynchronous PATCH request is found in the `updateAttribute()` function within the `lib/ngsi-ld.js` library file
+The asynchronous PATCH request is found in the `updateAttribute()` function within the `lib/ngsi-ld.js` library file:
 
 ```javascript
 function updateAttribute(entityId, body, headers = {}) {
@@ -484,10 +623,12 @@ curl -X PATCH 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit0
 -d '{ "numberOfItems": { "type": "Property", "value": 10 } }'
 ```
 
+And the response is an HTTP 204 status code with no data.
+
 ## Interoperability using Linked Data
 
 The introduction of Linked Data concepts to NGSI has so far marginally increased the complexity of all the context
-broker requests and we have not yet demonstrated additional benefit. The idea behind linked data is to improve data
+broker requests, and we have not yet demonstrated additional benefit. The idea behind linked data is to improve data
 interoperability and remove data silos.
 
 As a demonstration of this, imagine we which to incorporate context data entities from another context provider who is
@@ -511,12 +652,12 @@ found for all attribute names used within the tutorials.
 
 #### 1 Request:
 
-When creating a data entity, short names for all of the URIs mapped in the Japanese JSON-LD `@context` can be used
+When creating a data entity, short names for all the URIs mapped in the Japanese JSON-LD `@context` can be used
 freely in the payload of the request.
 
 As can be seen in the example below, attribute names and enumerated values (such as `ビル` = `Building`) can be used
 throughout. The NGSI-LD specification mandates that the attributes defined in the NGSI-LD API (i.e. the core `@context`)
-are used to define the attributes. Therefore elements of the request such as `id` `type` and `Property` remain
+are used to define the attributes. Therefore, elements of the request such as `id` `type` and `Property` remain
 unchanged, although as we will see below this can be circumvented.
 
 Our Japanese context provider can create a new `Building` using the request below, the `Link` header is pointing to the
@@ -547,6 +688,8 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/' \
 }'
 ```
 
+And the response is an HTTP 201 status code with no data.
+
 Note that in this example the name and address have been supplied as simple strings - JSON-LD does support an `@lang`
 definition to allow for internationalization, but this is an advanced topic which will not be discussed here.
 
@@ -556,7 +699,7 @@ Within the context broker the full URIs are used to refer to the attributes and 
 different attribute short names, the Japanese JSON-LD `@context` file agrees with the standard tutorial context about
 the full URIs used for a **Building** entity - effectively it is using the same data model.
 
-Therefore it is possible to request the new **Building** (created using the Japanese data model) and have it return
+Therefore, it is possible to request the new **Building** (created using the Japanese data model) and have it return
 using the short names specified in the standard tutorial JSON-LD `@context`, this is done by supplying the `Link` header
 is pointing to the tutorial JSON-LD `@context` file.
 
@@ -658,8 +801,8 @@ The Within JSON-LD there is a standard mechanism for applying and altering local
 context broker will always be valid NGSI-LD. NGSI-LD is just a structured subset of JSON-LD, so further changes can be
 made to use the data received as JSON.
 
-If we need to overide the core NGSI-LD context, we can apply an additional expansion/compaction operation over the
-response to retrive the data in a fully converted fashion for local use.
+If we need to override the core NGSI-LD context, we can apply an additional expansion/compaction operation over the
+response to retrieve the data in a fully converted fashion for local use.
 
 JSON-LD libraries already exist to do this work.
 
@@ -701,7 +844,7 @@ curl -L -X GET 'http://localhost:3000/japanese/ngsi-ld/v1/entities/urn:ngsi-ld:B
 
 #### Response:
 
-The response after the expansion/compaction operation is data which now uses all of the preferred attribute names - this
+The response after the expansion/compaction operation is data which now uses all the preferred attribute names - this
 is **no longer** valid NGSI-LD, but would be of use if the receiving system requests data in this format.
 
 Note that the reverse expansion/compaction operation could be used to convert this JSON back into a valid NGSI-LD

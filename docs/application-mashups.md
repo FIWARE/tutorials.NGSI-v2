@@ -8,7 +8,7 @@ data. Once the widgets are configured the data is displayed on screen
 
 The tutorial demonstrates examples of interactions using the Wirecloud GUI only. No programming is involved within the
 tutorial itself, as Wirecloud is designed to be usable by all type of user, even those with limited programming skills.
-However the commentary continues to reference various programming principles and standard concepts common to all FIWARE
+However, the commentary continues to reference various programming principles and standard concepts common to all FIWARE
 architectures.
 
 Additional materials covering how to develop and create your own widgets will be the subject of a later tutorial.
@@ -41,10 +41,10 @@ Broadly speaking application mashup tasks can be split into four categories:
 
 -   **Data sources**: These are operators that provide information for consumption elsewhere. For example, an operator
     that retrieves some type of information from an NGSI web service.
--   **Data targets**: The reverse of the above. These operators push information out to an external microservice
+-   **Data targets**: The reverse of the above. These operators push information out to an external microservice.
 -   **Data transformers**: This type of operator manipulates data in order to make it usable by other tasks further down
     the chain within the Wirecloud ecosystem. For example, transposing form list values or renaming attributes to align
-    with an input interface downstream
+    with an input interface downstream.
 -   **Visual Components**: Combinations of HTML and JavaScript which display data on a browser online. Within Wirecloud,
     visual components are known as widgets.
 
@@ -57,7 +57,7 @@ The existing [widget and operator set](https://wirecloud.readthedocs.io/en/stabl
 scenarios, but can be complemented by your own additional widgets. A background in JavaScript and HTML is necessary in
 this case. Creating your own widgets will be the subject of a subsequent tutorial.
 
-Once a mashup has been wired up and created it can be also be shared wholesale with end users. \
+Once a mashup has been wired up and created it can be also be shared wholesale with end users.
 
 ## Architecture
 
@@ -68,46 +68,46 @@ visualisation functionality already found in the tutorial application itself (wh
 JavaScript). The aim is to create an equivalent application without resorting to writing a line of code.
 
 The Users in **Wirecloud** have been created using the standard [identity management](identity-management.md) component,
-**Keyrock**. Overall the system makes make use of four FIWARE components - the
+**Keyrock**. Overall the system makes use of four FIWARE components - the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/),the
 [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/), the
 [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Manager and the newly integrated
 [Wirecloud](https://wirecloud.readthedocs.io/en/stable/) application mashup tool. Usage of the Orion Context Broker is
 sufficient for an application to qualify as _“Powered by FIWARE”_.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+    [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
 -   The FIWARE [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will receive
     southbound requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert them to
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-    commands for the devices
--   The FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Management System
-    -   Used by both the **Stock Management System** and **Wirecloud**
+    commands for the devices.
+-   The FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Management System:
+    -   Used by both the **Stock Management System** and **Wirecloud**.
 -   FIWARE [Wirecloud](https://wirecloud.readthedocs.io/en/stable/) an application mashup tool for displaying NGSI
-    entities
--   Three databases
+    entities.
+-   Three databases:
 
-    -   A [PostgreSQL](https://www.postgresql.org/) database :
-        -   Used by **Wirecloud** to hold mashup state
-    -   A [MySQL](https://www.mysql.com/) database :
-        -   Used by **Keyrock** to persist user identities, applications, roles and permissions
+    -   A [PostgreSQL](https://www.postgresql.org/) database:
+        -   Used by **Wirecloud** to hold mashup state.
+    -   A [MySQL](https://www.mysql.com/) database:
+        -   Used by **Keyrock** to persist user identities, applications, roles and permissions.
     -   A [MongoDB](https://www.mongodb.com/) database:
         -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions
-            and registrations
-        -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
+            and registrations.
+        -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
 
 -   The **Stock Management Frontend** does the following:
-    -   Displays store information
-    -   Shows which products can be bought at each store
+    -   Displays store information.
+    -   Shows which products can be bought at each store.
     -   Allows users to "buy" products and reduce the stock count.
 -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     protocol running over HTTP - access to certain resources is restricted.
 -   Three additional microservices are used by **Wirecloud**:
     -   [Memcache](https://memcached.org), a general-purpose distributed memory caching system.
-    -   [ElasticSearch](https://www.elastic.co/products/elasticsearch), a full-text search engine
+    -   [ElasticSearch](https://www.elastic.co/products/elasticsearch), a full-text search engine.
     -   [NGSI Proxy](https://github.com/conwetlab/ngsi-proxy), a server that is capable of redirecting **Orion**
         notifications to web pages.
 
@@ -155,12 +155,12 @@ image: fiware/wirecloud
 
 The `wirecloud` container is a web application server listening on a single port:
 
--   Port `8000` has been exposed for HTTP traffic so we can display the web page
+-   Port `8000` has been exposed for HTTP traffic so we can display the web page.
 
 The `wirecloud` container is connecting to **Keyrock** and is driven by environment variables as shown:
 
 | Key                       | Value                                  | Description                                                                          |
-| ------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------ |
+|---------------------------|----------------------------------------|--------------------------------------------------------------------------------------|
 | DEFAULT_THEME             | `wirecloud.defaulttheme`               | Which Wirecloud theme to display                                                     |
 | DB_HOST                   | `postgres-db`                          | The name of the Wirecloud database                                                   |
 | DB_PASSWORD               | `wirepass`                             | The password for the Wirecloud database - this should be protected by Docker Secrets |
@@ -193,7 +193,7 @@ repository:
 ./services start
 ```
 
-Then go to your browser and open **Wirecloud** using the URL: `http://localhost:8000/`
+Then go to your browser and open **Wirecloud** using the URL: `http://localhost:8000/`.
 
 > **Note:** If you want to clean up and start over again you can do so with the following command:
 >
@@ -214,9 +214,9 @@ page and sign in to **Keyrock** using `alice-the-admin@test.com` with the passwo
 >
 > The **Wirecloud** application is set up as follows:
 >
-> -   URL: `http://localhost:8000`
-> -   Callback: `http://localhost:8000/complete/fiware/`
-> -   The application has one single role called `admin`
+> -   URL: `http://localhost:8000`.
+> -   Callback: `http://localhost:8000/complete/fiware/`.
+> -   The application has one single role called `admin`.
 > -   The `admin` role has a single blank permission.
 > -   The `admin` role has been assigned to Alice.
 
@@ -233,7 +233,7 @@ To upload resources click on the **My Resources** button:
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/my-resources-button.png)
 
 A series of resources may already be available, however for this tutorial additional widgets and operators are required.
-Click on the **Upload** button
+Click on the **Upload** button.
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/upload-button.png)
 
@@ -245,7 +245,7 @@ Sources of Wirecloud Widgets can be found on the
 [Wirecloud Marketplace](https://wirecloud.readthedocs.io/en/stable/user_guide/#browsing-the-marketplace). Alternatively
 individual Widget binaries (`*.wgt`) can be downloaded directly from available releases on GitHub. A list of common
 widgets and their location can be found in the appendix to the
-[Wirecloud documentation](https://wirecloud.readthedocs.io/en/stable/widgets/)
+[Wirecloud documentation](https://wirecloud.readthedocs.io/en/stable/widgets/).
 
 Navigate to the root of this repository and select all the files found in the `widgets` directory as shown:
 
@@ -277,11 +277,12 @@ The workspace will open. The URL in the browser bar will alter to `http://localh
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/workspace.png)
 
 The workspace will also be added to the list of available workspaces found under the hamburger button. Any available
-workspace can be selected on click
+workspace can be selected on click:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/selecting-a-workspace.png)
 
-You can return to the homepage by selecting the back button
+You can return to the homepage by selecting the back button:
+
 ![.](https://fiware.github.io/tutorials.Application-Mashup/img/back-button.png)
 
 ## Creating Application Mashups
@@ -296,7 +297,7 @@ More complex mashups will consist of a series of widgets and operations linked t
 The _Hello World_ of Wirecloud components involves adding a single browser widget on screen and then configuring it to
 display some context data.
 
-As you would expect, this tutorial relies on context data from the context broeker. To ensure that the IoT devices are
+As you would expect, this tutorial relies on context data from the context broker. To ensure that the IoT devices are
 running, open the tutorial application (`http://localhost:3000/`) in a new browser window. Log in as
 `bob-the-manager@test.com` with the password `test` and click on device monitor. Bob can switch on the lamp to obtain
 some context data for the mashup.
@@ -306,25 +307,25 @@ some context data for the mashup.
 ### Selecting Widgets and Operators
 
 Click the **Edit** button to switch the workspace to edit mode, then click on the **Find Components** button to add a
-widget or operator to the workspace
+widget or operator to the workspace:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/wiring-view.png)
 
-The components sidebar will be displayed
+The components' sidebar will be displayed.
 
 ### NGSI Browser Widget
 
 Since we require a visual component, in the components sidebar select **Widgets** and then scroll down until you find
-the NGSI Browser
+the NGSI Browser:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-browser-widget.png)
 
-Clicking on the **+** button will add an unconfigured NGSI Browser on screen
+Clicking on the **+** button will add an unconfigured NGSI Browser on screen.
 
 > **Note:** the widget can be removed by clicking on the **x** at the top right of the window
 
 The next step is to configure the widget. Click on the wiring button to switch to the wiring view, and select
-**Widgets** from the components sidebar. Scrolling down to the NGSI browser shows an available widget in orange
+**Widgets** from the components sidebar. Scrolling down to the NGSI browser shows an available widget in orange:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-browser-wiring.png)
 
@@ -333,9 +334,10 @@ on settings to configure as shown:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-browser-settings.png)
 
-Then click on **Accept**
+Then click on **Accept**.
 
 Click on the back button to return to the workspace view:
+
 ![.](https://fiware.github.io/tutorials.Application-Mashup/img/back-button.png)
 
 The NGSI browser should be displaying live data as shown:
@@ -344,7 +346,7 @@ The NGSI browser should be displaying live data as shown:
 
 ## Combining Multiple Widgets within a Mashup
 
-The simple widget in the example above give above combines both input and output into a single component, but it is when
+The simple widget in the example above give combines both input and output into a single component, but it is when
 a series of operators and widgets are **combined** that the true power of Wirecloud can be seen. Simple data flows can
 be mapped graphically on screen and a mashup can be created by a user with minimal understanding of the technologies
 used to create the mashup.
@@ -356,7 +358,7 @@ From the workspace page, click on edit and then click on the jigsaw button to br
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/add-components.png)
 
 Then click on add components to bring up the components sidebar. We will require a combination of both **Operators** and
-**Widgets**
+**Widgets**.
 
 Click on the **operators** tab, and select an instance of _NGSI Source_ and an instance of _NGSI-Entity-to-POI_ by
 pressing the **+** button. A green bar will appear below each entry which can be dragged-and-dropped onto the wiring
@@ -366,7 +368,7 @@ Then click on the **Widgets** tab and add an instance of the _Open Layers Map_ W
 view.
 
 | Operators                                                                         | Widgets                                                                               |
-| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
+|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
 | ![](https://fiware.github.io/tutorials.Application-Mashup/img/operators-list.png) | ![](https://fiware.github.io/tutorials.Application-Mashup/img/components-widgets.png) |
 
 The result is a series of unconnected components on screen.
@@ -380,7 +382,7 @@ connect the elements as shown.
 
 You can see that flow of data can be visualized on screen, in the mashup we wish to display Points of Interest (_POIs_)
 on screen. In order to do this we will receive data _entities_ from an NGSI source, the data from each _entity_ will be
-converted into a _POI_. Finally each _POI_ will be inserted onto the _OpenLayers Map_.
+converted into a _POI_. Finally, each _POI_ will be inserted onto the _OpenLayers Map_.
 
 ### NGSI Source Operator
 
@@ -400,11 +402,11 @@ Amend the settings as shown below and click accept.
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-source-settings.png)
 
--   The NGSI server needs to be the location of the Orion Context broker
+-   The NGSI server needs to be the location of the Orion Context Broker.
 -   The NGSI proxy is used to bypass CORS issues when accessing webservices using JavaScript. This is a simple endpoint
     which ensures that the Orion Context Broker is only accessed via a server-side API call.
--   User credentials and workspace credentials should be left unchecked
--   The FIWARE service and service path match the data found within the Orion Context Broker
+-   User credentials and workspace credentials should be left unchecked.
+-   The FIWARE service and service path match the data found within the Orion Context Broker.
 -   ID pattern, Query and Monitored Attributes can be left blank.
 
 ### NGSI Entity to POI Operator
@@ -422,7 +424,7 @@ To configure the component, click on the _NGSI Entity to POI_ hamburger button a
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-to-poi-wiring.png)
 
-Amend the coordinates setting as shown below and click accept.
+Amend the coordinates setting as shown below and click accept:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/ngsi-to-poi-settings.png)
 
@@ -434,20 +436,20 @@ the tutorial data, the widget knows how to extract a location from the `Store` e
 
 The _Open Layers Map_ Widget allows a user to display geographic data onto an [Open Layers](https://openlayers.org/)
 map. It is an example of a visual component. Open Layers is a free, open-source JavaScript library, released under the
-[2-clause BSD License](https://opensource.org/licenses/BSD-2-Clause)
+[2-clause BSD License](https://opensource.org/licenses/BSD-2-Clause).
 
 Full details of the widget documentation can be found within the running application under the **My Resources** screen:
-`http://localhost:8000/wirecloud/home#view=myresources&subview=details&resource=CoNWeT%2Fol3-map%2F1.1.2&tab=Documentation`
+`http://localhost:8000/wirecloud/home#view=myresources&subview=details&resource=CoNWeT%2Fol3-map%2F1.1.2&tab=Documentation`.
 
 To configure the component, click on the _Open Layers Map_ hamburger button and select settings:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/osm-wiring.png)
 
-Amend the settings as shown below and click accept.
+Amend the settings as shown below and click accept:
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/osm-settings.png)
 
-The Store Data is found in Berlin. This city is located at 52.53N 13.4E. The initial location setting is defined in
+The Store Data is found in Berlin. This city is located at 52.53N, 13.4E. The initial location setting is defined in
 Long/Lat format. The other settings help to display the map over the right part of the globe.
 
 The updated mashup can be seen on the workspace tab (refresh the browser if necessary).
@@ -456,11 +458,11 @@ The updated mashup can be seen on the workspace tab (refresh the browser if nece
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/osm-map-result.png)
 
-Clicking on the POIs retrieves additional data from each stores.
+Clicking on the POIs retrieves additional data from each store.
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/osm-map-on-click.png)
 
-Currently the data is displayed as unformatted JSON. This is because the `Store` context data entities with the tutorial
+Currently, the data is displayed as unformatted JSON. This is because the `Store` context data entities with the tutorial
 example are not using a standard FIWARE data model. If a standard data model such as
 [Building](https://github.com/smart-data-models/dataModel.Building) had been used the data would be formatted in an
 appropriate manner and a **Building** specific icon would be used.

@@ -25,7 +25,7 @@ Smart solutions based on FIWARE are architecturally designed around microservice
 scale-up from simple applications (such as the Supermarket tutorial) through to city-wide installations base on a large
 array of IoT sensors and other context data providers.
 
-The massive amount of data involved enventually becomes too much for a single machine to analyse, process and store, and
+The massive amount of data involved eventually becomes too much for a single machine to analyse, process and store, and
 therefore the work must be delegated to additional distributed services. These distributed systems form the basis of
 so-called **Big Data Analysis**. The distribution of tasks allows developers to be able to extract insights from huge
 data sets which would be too complex to be dealt with using traditional methods. and uncover hidden patterns and
@@ -154,14 +154,14 @@ The `taskmanager` container is listening on two ports:
 The containers within the flink cluster are driven by a single environment variable as shown:
 
 | Key                     | Value        | Description                                                           |
-| ----------------------- | ------------ | --------------------------------------------------------------------- |
+|-------------------------|--------------|-----------------------------------------------------------------------|
 | JOB_MANAGER_RPC_ADDRESS | `jobmanager` | URL of the _master_ Job Manager which coordinates the task processing |
 
 ## Start Up
 
 Before you start, you should ensure that you have obtained or built the necessary Docker images locally. Please clone
 the repository and create the necessary images by running the commands shown below. Note that you might need to run some
-of the commands as a privileged user:
+commands as a privileged user:
 
 ```bash
 #!/bin/bash
@@ -463,7 +463,7 @@ processedDataStream.print().setParallelism(1)
 
 ## Logger - NGSI-LD
 
-The same example is provided for data in the NGSI LD format (`LoggerLD.scala`). This example makes use of the
+The same example is provided for data in the NGSI-LD format (`LoggerLD.scala`). This example makes use of the
 NGSILDSource provided by the Orion Flink Connector in order to receive messages in the NGSI LD format. The only part of
 the code that changes is the declaration of the source:
 
@@ -497,7 +497,7 @@ Sensor(Motion,6)
 The second example switches on a lamp when its motion sensor detects movement.
 
 The dataflow stream uses the `OrionSource` operator in order to receive notifications and filters the input to only
-respond to motion senseors and then uses the `OrionSink` to push processed context back to the Context Broker. You can
+respond to motion sensors and then uses the `OrionSink` to push processed context back to the Context Broker. You can
 find the source code of the example in
 [org/fiware/cosmos/tutorial/Feedback.scala](https://github.com/FIWARE/tutorials.Big-Data-Flink/blob/master/cosmos-examples/src/main/scala/org/fiware/cosmos/tutorial/Feedback.scala)
 

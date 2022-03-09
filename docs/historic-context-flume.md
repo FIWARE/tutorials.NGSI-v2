@@ -27,15 +27,15 @@ persistence component - FIWARE **Cygnus**.
 The system so far has been built up to handle the current context, in other words it holds the data entities defining
 the state of the real-world objects at a given moment in time.
 
-From this definition you can see - context is only interested in the **current** state of the system It is not the
-responsibility of any of the existing components to report on the historical state of the system, the context is based
+From this definition you can see - context is only interested in the **current** state of the system - It is not the
+responsibility of the existing components to report on the historical state of the system, the context is based
 on the last measurement each sensor has sent to the context broker.
 
 In order to do this, we will need to extend the existing architecture to persist changes of state into a database
 whenever the context is updated.
 
 Persisting historical context data is useful for big data analysis - it can be used to discover trends, or data can be
-sampled and aggregated to remove the influence of outlying data measurements. However within each Smart Solution, the
+sampled and aggregated to remove the influence of outlying data measurements. However, within each Smart Solution, the
 significance of each entity type will differ and entities and attributes may need to be sampled at different rates.
 
 Since the business requirements for using context data differ from application to application, there is no one standard
@@ -43,10 +43,10 @@ use case for historical data persistence - each situation is unique - it is not 
 Therefore rather than overloading the context broker with the job of historical context data persistence, this role has
 been separated out into a separate, highly configurable component - **Cygnus**.
 
-As you would expect, **Cygnus**, as part of an Open Source platform, is technology agnostic regarding the database to be
+As you would expect, **Cygnus**, as part of an Open Source platform, is technology-agnostic regarding the database to be
 used for data persistence. The database you choose to use will depend upon your own business needs.
 
-However there is a cost to offering this flexibility - each part of the system must be separately configured and
+However, there is a cost to offering this flexibility - each part of the system must be separately configured and
 notifications must be set up to only pass the minimal data required as necessary.
 
 <h4>Device Monitor</h4>
@@ -198,7 +198,7 @@ The `cygnus` container is listening on two ports:
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                 | Value            | Description                                                                                          |
-| ------------------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
+|---------------------|------------------|------------------------------------------------------------------------------------------------------|
 | CYGNUS_MONGO_HOSTS  | `mongo-db:27017` | Comma separated list of MongoDB servers which Cygnus will contact to persist historical context data |
 | CYGNUS_LOG_LEVEL    | `DEBUG`          | The logging level for Cygnus                                                                         |
 | CYGNUS_SERVICE_PORT | `5051`           | Notification Port that Cygnus listens when subscribing to context data changes                       |
@@ -250,7 +250,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/door-open.gif)
@@ -262,9 +262,9 @@ Once a dynamic context system is up and running, we need to inform **Cygnus** of
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 -   The `idPattern` in the request body ensures that Cygnus will be informed of all context data changes.
--   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`
+-   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`.
 -   The `throttling` value defines the rate that changes are sampled.
 
 #### 2 Request:
@@ -294,7 +294,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 > **Note:** if you see errors of the following form within the **Cygnus** log:
 >
@@ -352,14 +352,14 @@ curl -X GET \
 ```
 
 Within the `notification` section of the response, you can see several additional `attributes` which describe the health
-of the subscription
+of the subscription.
 
 If the criteria of the subscription have been met, `timesSent` should be greater than `0`. A zero value would indicate
 that the `subject` of the subscription is incorrect or the subscription has created with the wrong `fiware-service-path`
-or `fiware-service` header
+or `fiware-service` header.
 
 The `lastNotification` should be a recent timestamp - if this is not the case, then the devices are not regularly
-sending data. Remember to unlock the **Smart Door** and switch on the **Smart Lamp**
+sending data. Remember to unlock the **Smart Door** and switch on the **Smart Lamp**.
 
 The `lastSuccess` should match the `lastNotification` date - if this is not the case then **Cygnus** is not receiving
 the subscription properly. Check that the hostname and port are correct.
@@ -404,7 +404,7 @@ sth_openiot    0.000GB
 
 The result include two databases `admin` and `local` which are set up by default by **MongoDB**, along with four
 databases created by the FIWARE platform. The Orion Context Broker has created two separate database instance for each
-`fiware-service`
+`fiware-service`:
 
 -   The Store entities were created without defining a `fiware-service` and therefore are held within the `orion`
     database, whereas the IoT device entities were created using the `openiot` `fiware-service` header and are held
@@ -533,12 +533,12 @@ postgres-db:
 The `postgres-db` container is listening on a single port:
 
 -   Port `5432` is the default port for a PostgreSQL server. It has been exposed so you can also run the `pgAdmin4` tool
-    to display database data if you wish
+    to display database data if you wish.
 
 The `postgres-db` container is driven by environment variables as shown:
 
 | Key               | Value.     | Description                               |
-| ----------------- | ---------- | ----------------------------------------- |
+|-------------------|------------|-------------------------------------------|
 | POSTGRES_PASSWORD | `password` | Password for the PostgreSQL database user |
 | POSTGRES_USER     | `postgres` | Username for the PostgreSQL database user |
 | POSTGRES_DB       | `postgres` | The name of the PostgreSQL database       |
@@ -585,7 +585,7 @@ The `cygnus` container is listening on two ports:
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                            | Value         | Description                                                                    |
-| ------------------------------ | ------------- | ------------------------------------------------------------------------------ |
+|--------------------------------|---------------|--------------------------------------------------------------------------------|
 | CYGNUS_POSTGRESQL_HOST         | `postgres-db` | Hostname of the PostgreSQL server used to persist historical context data      |
 | CYGNUS_POSTGRESQL_PORT         | `5432`        | Port that the PostgreSQL server uses to listen to commands                     |
 | CYGNUS_POSTGRESQL_USER         | `postgres`    | Username for the PostgreSQL database user                                      |
@@ -646,7 +646,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/door-open.gif)
@@ -658,9 +658,9 @@ Once a dynamic context system is up and running, we need to inform **Cygnus** of
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 -   The `idPattern` in the request body ensures that Cygnus will be informed of all context data changes.
--   The notification `url` must match the configured `CYGNUS_POSTGRESQL_SERVICE_PORT`
+-   The notification `url` must match the configured `CYGNUS_POSTGRESQL_SERVICE_PORT`.
 -   The `throttling` value defines the rate that changes are sampled.
 
 #### 5 Request:
@@ -690,7 +690,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 ## PostgreSQL - Reading Data from a database
 
@@ -871,12 +871,12 @@ mysql-db:
 The `mysql-db` container is listening on a single port:
 
 -   Port `3306` is the default port for a MySQL server. It has been exposed so you can also run other database tools to
-    display data if you wish
+    display data if you wish.
 
 The `mysql-db` container is driven by environment variables as shown:
 
 | Key                 | Value. | Description                                                                                                                                                                                           |
-| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | MYSQL_ROOT_PASSWORD | `123`. | specifies a password that is set for the MySQL `root` account.                                                                                                                                        |
 | MYSQL_ROOT_HOST     | `%`    | By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
@@ -919,14 +919,14 @@ cygnus:
 The `cygnus` container is listening on two ports:
 
 -   The Subscription Port for Cygnus - `5050` is where the service will be listening for notifications from the Orion
-    context broker
+    context broker.
 -   The Management Port for Cygnus - `5080` is exposed purely for tutorial access - so that cUrl or Postman can make
     provisioning commands without being part of the same network.
 
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                 | Value      | Description                                                                    |
-| ------------------- | ---------- | ------------------------------------------------------------------------------ |
+|---------------------|------------|--------------------------------------------------------------------------------|
 | CYGNUS_MYSQL_HOST   | `mysql-db` | Hostname of the MySQL server used to persist historical context data           |
 | CYGNUS_MYSQL_PORT   | `3306`     | Port that the MySQL server uses to listen to commands                          |
 | CYGNUS_MYSQL_USER   | `root`     | Username for the MySQL database user                                           |
@@ -981,7 +981,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/door-open.gif)
@@ -993,9 +993,9 @@ Once a dynamic context system is up and running, we need to inform **Cygnus** of
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 -   The `idPattern` in the request body ensures that Cygnus will be informed of all context data changes.
--   The notification `url` must match the configured `CYGNUS_MYSQL_SERVICE_PORT`
+-   The notification `url` must match the configured `CYGNUS_MYSQL_SERVICE_PORT`.
 -   The `throttling` value defines the rate that changes are sampled.
 
 #### 7 Request:
@@ -1025,7 +1025,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 ## MySQL - Reading Data from a database
 
@@ -1178,7 +1178,7 @@ You will then return to the command-line.
 ## Multi-Agent - Persisting Context Data into a multiple Databases
 
 It is also possible to configure Cygnus to populate multiple databases simultaneously. We can combine the architecture
-from the three previous examples and configure cygnus to listen on multiple ports
+from the three previous examples and configure cygnus to listen on multiple ports.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/cygnus-all-three.png)
 
@@ -1225,14 +1225,14 @@ cygnus:
 
 In multi-agent mode, the `cygnus` container is listening on multiple ports:
 
--   The service will be listening on ports `5050-5055` for notifications from the Orion context broker
+-   The service will be listening on ports `5050-5055` for notifications from the Orion context broker.
 -   The Management Ports `5080-5085` are exposed purely for tutorial access - so that cUrl or Postman can make
     provisioning commands without being part of the same network.
 
 The default port mapping can be seen below:
 
 |       sink | port | admin_port |
-| ---------: | ---: | ---------: |
+|-----------:|-----:|-----------:|
 |      mysql | 5050 |       5080 |
 |      mongo | 5051 |       5081 |
 |       ckan | 5052 |       5082 |
@@ -1245,7 +1245,7 @@ Since we are not persisting CKAN, HDFS or CartoDB data, there is no need to open
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                    | Value            | Description                                                                                          |
-| ---------------------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
+|------------------------|------------------|------------------------------------------------------------------------------------------------------|
 | CYGNUS_MULTIAGENT      | `true`           | Whether to persist data into multiple databases.                                                     |
 | CYGNUS_MONGO_HOSTS     | `mongo-db:27017` | Comma separated list of MongoDB servers which Cygnus will contact to persist historical context data |
 | CYGNUS_POSTGRESQL_HOST | `postgres-db`    | Hostname of the PostgreSQL server used to persist historical context data                            |
@@ -1291,7 +1291,7 @@ The response will look similar to the following:
 
 > **Troubleshooting:** What if the response is blank ?
 >
-> -   To check that a docker container is running try
+> -   To check that a docker container is running try:
 >
 > ```
 > docker ps
@@ -1304,7 +1304,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/door-open.gif)
@@ -1316,7 +1316,7 @@ Once a dynamic context system is up and running, we need to inform **Cygnus** of
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that Cygnus will be informed of all context data changes.
 -   The `throttling` value defines the rate that changes are sampled.
 
@@ -1326,7 +1326,7 @@ database.
 The default port mapping can be seen below:
 
 |       sink | port |
-| ---------: | ---: |
+|-----------:|-----:|
 |      mysql | 5050 |
 |      mongo | 5051 |
 |       ckan | 5052 |
@@ -1363,7 +1363,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 ## Multi-Agent - Reading Persisted Data
 
