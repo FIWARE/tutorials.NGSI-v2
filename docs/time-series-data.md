@@ -9,7 +9,7 @@ aggregations of such data, users can either use **QuantumLeap** query API or con
 endpoint. Results are visualised on a graph or via the **Grafana** time series analytics tool.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
-[Postman documentation](https://fiware.github.io/tutorials.Time-Series-Data/)
+[Postman documentation](https://fiware.github.io/tutorials.Time-Series-Data/).
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/d24facc3c430bb5d5aaf)
 
@@ -44,13 +44,13 @@ the actual data. In combination with [PostGIS](https://postgis.net/) extension c
 A summary of the differences can be seen below:
 
 | QuantumLeap                                                                                                      | STH-Comet                                                                                          |
-| ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
+|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
 | Offers an NGSI v2 interface for notifications                                                                    | Offers an NGSI v1 interface for notifications                                                      |
 | Persists Data to CrateDB or TimescaleDB database                                                                 | Persists Data to MongoDB database                                                                  |
 | Offers its own HTTP endpoint for queries (currently for CrateDB), but you can also query CrateDB and TimescaleDB | Offers its own HTTP endpoint for queries, you can also query MongoDB directly                      |
 | QuantumLeap supports complex data queries (thanks to CrateDB and TimescaleDB)                                    | STH-Comet offers a limited set of queries                                                          |
 | QuantumLeap leverage two natives distributed and scalable SQL DBMS                                               | MongoDB is a document based NoSQL database                                                         |
-| QuantumLeap's API is docummented in OpenAPI [here](https://app.swaggerhub.com/apis/smartsdk/ngsi-tsdb)           | STH-Comet's API is explained in its docs [here](https://fiware-sth-comet.readthedocs.io/en/latest) |
+| QuantumLeap's API is documented in OpenAPI [here](https://app.swaggerhub.com/apis/smartsdk/ngsi-tsdb)            | STH-Comet's API is explained in its docs [here](https://fiware-sth-comet.readthedocs.io/en/latest) |
 
 Further details about the differences between the underlying database engines can be found
 [here](https://db-engines.com/en/system/CrateDB%3BMongoDB%3BTimescaleDB).
@@ -84,7 +84,7 @@ state of each device can be seen on the UltraLight device monitor web page found
 #### Device History
 
 Once **QuantumLeap** has started aggregating data, the historical state of each device can be seen on the device history
-web page found at: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`
+web page found at: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`.
 
 ![](https://fiware.github.io/tutorials.Time-Series-Data/img/history-graphs.png)
 
@@ -95,32 +95,32 @@ web page found at: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`
 This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent.md). It will
 use three FIWARE components: the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), the
 [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/), and
-[QuantumLeap](https://smartsdk.github.io/ngsi-timeseries-api/) .
+[QuantumLeap](https://smartsdk.github.io/ngsi-timeseries-api/).
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The **FIWARE Generic Enablers**:
 
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
-        using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+        using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
     -   The FIWARE [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will
         receive northbound measurements from the dummy IoT devices in
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         format and convert them to [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests for the
-        context broker to alter the state of the context entities
+        context broker to alter the state of the context entities.
     -   FIWARE [QuantumLeap](https://smartsdk.github.io/ngsi-timeseries-api/) subscribed to context changes and
-        persisting them into a **CrateDB** database
+        persisting them into a **CrateDB** database.
 
 -   A [MongoDB](https://www.mongodb.com/) database:
 
     -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions and
-        registrations
-    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
+        registrations.
+    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
 
 -   A [CrateDB](https://crate.io/) database:
 
-    -   Used as a data sink to hold time-based historical context data
-    -   offers an HTTP endpoint to interpret time-based data queries
+    -   Used as a data sink to hold time-based historical context data.
+    -   offers an HTTP endpoint to interpret time-based data queries.
 
 -   A **Context Provider**: - A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
     [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
@@ -167,7 +167,7 @@ repository:
 
 In the configuration, **QuantumLeap** listens to NGSI v2 notifications on port `8668` and persists historic context data
 to the **CrateDB**. **CrateDB** is accessible using port `4200` and can either be queried directly or attached to the
-Grafana analytics tool. The rest of the system providing the context data has been described in previous tutorials
+Grafana analytics tool. The rest of the system providing the context data has been described in previous tutorials.
 
 <h3>CrateDB Database Server Configuration</h3>
 
@@ -190,7 +190,7 @@ If CrateDB exits immediately with a
 by running the `sudo sysctl -w vm.max_map_count=262144` command on the host machine. For further information look within
 the CrateDB [documentation](https://crate.io/docs/crate/howtos/en/latest/admin/bootstrap-checks.html#bootstrap-checks)
 and Docker
-[troubleshooting guide](https://crate.io/docs/crate/howtos/en/latest/deployment/containers/docker.html#troubleshooting)
+[troubleshooting guide](https://crate.io/docs/crate/howtos/en/latest/deployment/containers/docker.html#troubleshooting).
 
 <h3>QuantumLeap Configuration</h3>
 
@@ -229,8 +229,8 @@ The `CRATE_HOST` environment variable defines the location where the data will b
 
 The `cratedb` container is listening on two ports:
 
--   The Admin UI is available on port `4200`
--   The transport protocol is available on `port 4300`
+-   The Admin UI is available on port `4200`.
+-   The transport protocol is available on `port 4300`.
 
 The `grafana` container has connected up port `3000` internally with port `3003` externally. This is because the Grafana
 UI is usually available on port `3000`, but this port has already been taken by the dummy devices UI so it has been
@@ -244,7 +244,7 @@ helps you in displaying NGSI v2 entities over a map.
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate command from the
-drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen on
+drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen on
 the same page:
 
 ![](https://fiware.github.io/tutorials.IoT-Sensors/img/door-open.gif)
@@ -267,7 +267,7 @@ able to aggregate the results.
 This is done by making a POST request to the `/v2/subscriptions` endpoint of the **Orion Context Broker**.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that **QuantumLeap** will be informed of all **Motion Sensor** data
     changes.
 -   The `notification` URL must match the exposed port.
@@ -320,7 +320,7 @@ This is done by making a POST request to the `/v2/subscriptions` endpoint of the
 the `throttling` attribute in the request body.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that **QuantumLeap** will be informed of all **Motion Sensor** data
     changes.
 -   The `notification` URL must match the exposed port.
@@ -714,7 +714,7 @@ attribute.
 > -   QuantumLeap can be easily extended to other backends and your app will get compatibility for free.
 > -   If your deployment is distributed, you won't need to expose the ports of your database to the outside.
 
-If your are sure your query is not supported by **QuantumLeap**, you may have to end up querying **CrateDB**, however,
+If you are sure your query is not supported by **QuantumLeap**, you may have to end up querying **CrateDB**, however,
 please open an issue in [QuantumLeap's GitHub repository](https://github.com/smartsdk/ngsi-timeseries-api/issues) so the
 team is aware.
 
@@ -1025,7 +1025,7 @@ here: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`.
 **CrateDB** has been chosen as the time-series data sink for QuantumLeap, because, among
 [many other benefits](https://quantumleap.readthedocs.io/en/latest/), it integrates seamlessly with the
 [Grafana](https://grafana.com/) time series analytics tool. Grafana can be used to display the aggregated sensor data -
-a full tutorial on building dashboards can be found [here](https://www.youtube.com/watch?v=sKNZMtoSHN4). The simpified
+a full tutorial on building dashboards can be found [here](https://www.youtube.com/watch?v=sKNZMtoSHN4). The simplified
 instructions below summarize how to connect and display a graph of the Lamp `luminosity` data.
 
 ### Logging in
@@ -1051,7 +1051,7 @@ Click on the _Save & Test_ button and make sure it says _Database Connection OK_
 ### Configuring a Dashboard
 
 To display a new dashboard, you can either click the **+** button and select **Dashboard** or go directly to
-`http://localhost:3003/dashboard/new?orgId=1`. Thereafter click **Add Query**.
+`http://localhost:3003/dashboard/new?orgId=1`. Thereafter, click **Add Query**.
 
 The following values in **bold text** need to be placed in the graphing wizard
 

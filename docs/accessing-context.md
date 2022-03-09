@@ -119,7 +119,7 @@ try {
 
 As you can see from the examples above, each one uses their own programming paradigm to do the following:
 
--   Create a well formed URL.
+-   Create a well-formed URL.
 -   Make an HTTP GET request.
 -   Retrieve the response.
 -   Check for an error status and throw an exception if necessary.
@@ -198,12 +198,12 @@ Therefore, the architecture will consist of four elements:
 -   The underlying [MongoDB](https://www.mongodb.com/) database :
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
         registrations
--   The **Context Provider NGSI** proxy which will will:
+-   The **Context Provider NGSI** proxy which will:
     -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
     -   makes requests to publicly available data sources using their own APIs in a proprietary format
     -   returns context data back to the Orion Context Broker in
         [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) format.
--   The **Stock Management Frontend** which will will:
+-   The **Stock Management Frontend** which will:
     -   Display store information
     -   Show which products can be bought at each store
     -   Allow users to "buy" products and reduce the stock count.
@@ -242,7 +242,7 @@ This command will also import seed data from the previous [Stock Management exam
 ## Stock Management Frontend
 
 All the code Node.js Express for the demo can be found within the `proxy` folder within the GitHub
-repository.[Stock Management example](https://github.com/FIWARE/tutorials.Step-by-Step/tree/master/context-provider).
+repository.[Stock Management example](context-providers.md).
 The application runs on the following URLs:
 
 -   `http://localhost:3000/app/store/urn:ngsi-ld:Store:001`
@@ -263,7 +263,7 @@ low level HTTP requests and will simplify the code to be written. The methods ex
 the NGSI v2 [CRUD operations](crud-operations.md#what-is-crud) with the following names:
 
 | HTTP Verb  |                                                  `/v2/entities`                                                  |                                               `/v2/entities/<entity>`                                                |
-| ---------- | :--------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
+|------------|:----------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|
 | **POST**   | [`createEntity()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#createEntity) |                                                         :x:                                                          |
 | **GET**    | [`listEntities()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#listEntities) | [`retrieveEntity()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#retrieveEntity) |
 | **PUT**    |                                                       :x:                                                        |                                                         :x:                                                          |
@@ -271,7 +271,7 @@ the NGSI v2 [CRUD operations](crud-operations.md#what-is-crud) with the followin
 | **DELETE** |                                                       :x:                                                        |   [`removeEntity()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#removeEntity)   |
 
 | HTTP Verb   |                                                                     `.../attrs`                                                                      |  `.../attrs/<attribute>`   |                                                     `.../attrs/<attribute>/value`                                                      |
-| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: |
+|-------------|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------:|
 | **POST**    | [`updateOrAppendEntityAttributes()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#updateOrAppendEntityAttributes) |            :x:             |                                                                  :x:                                                                   |
 | **GET**     |       [`retrieveEntityAttributes()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#retrieveEntityAttributes)       |            :x:             |    [`getAttributeValue()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/AttributeValueApi.md#getAttributeValue)    |
 | **PUT**     |                                                                         :x:                                                                          |            :x:             | [`updateAttributeValue()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/AttributeValueApi.md#updateAttributeValue) |
@@ -287,7 +287,7 @@ The code under discussion can be found within the `store` controller in the
 
 <!-- textlint-disable write-good -->
 
-We don't want to reinvent the wheel and spend time writing a unnecessary boilerplate code for HTTP access. Therefore we
+We don't want to reinvent the wheel and spend time writing a unnecessary boilerplate code for HTTP access. Therefore, we
 will use the existing `ngsi_v2` npm library. This needs to be included in the header of the file as shown. The
 `basePath` must also be set - this defines the location of the Orion Context Broker.
 
@@ -527,8 +527,8 @@ function updateExistingEntityAttributes(entityId, body, opts) {
 ```
 
 Care should be taken when amending the context to ensure that changes of state are committed atomically. This is not an
-issue in Node.JS since it is single threaded - each request but will execute each request one by one. However in
-multithreaded environments (such as Java for example) it could be possible to service two buy requests concurrently -
+issue in Node.JS since it is single threaded - each request but will execute each request one by one. However, in
+multithreading environments (such as Java for example), it could be possible to service two buy requests concurrently -
 meaning that the `shelfCount` will only be reduced once if the requests interleave. This issue can be resolved by the
 use of a monitor mechanism.
 

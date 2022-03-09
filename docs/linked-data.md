@@ -8,7 +8,7 @@ are highlighted and discussed. The tutorial is a direct analogue of the original
 calls from the **NGSI-LD** interface.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
-[Postman documentation](https://fiware.github.io/tutorials.Linked-Data/)
+[Postman documentation](https://fiware.github.io/tutorials.Linked-Data/).
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/125db8d3a1ea3dab8e3f)
 
@@ -42,7 +42,7 @@ Whilst humans are able to understand relationship discoverability and how links 
 difficult, and require a well-defined protocol to be able to traverse from one data element to another held in a
 separate location.
 
-Creating a system of readable links for computers requires the use of a well defined data format
+Creating a system of readable links for computers requires the use of a well-defined data format
 ([JSON-LD](http://json-ld.org/)) and assignation of unique IDs
 ([URLs or URNs](https://stackoverflow.com/questions/4913343/what-is-the-difference-between-uri-url-and-urn)) for both
 data entities and the relationships between entities so that semantic meaning can be programmatically retrieved from the
@@ -50,13 +50,13 @@ data itself.
 
 Properly defined linked data can be used to help answer big data questions, and the data relationships can be traversed
 to answer questions like _"Which products are currently available on the shelves of Store X and what prices are they
-sold at?"_
+sold at?"_.
 
 ### Video: What is Linked Data?
 
 [![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=4x_xzT5eF5Q "Introduction")
 
-Click on the image above to watch an introductory video on linked data concepts
+Click on the image above to watch an introductory video on linked data concepts.
 
 JSON-LD is an extension of JSON , it is a standard way of avoiding ambiguity when expressing linked data in JSON so that
 the data is structured in a format which is parsable by machines. It is a method of ensuring that all data attributes
@@ -87,7 +87,7 @@ has been conducted under the ETSI ISG CIM initiative and the updated specificati
 [NGSI-LD](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf). The main constructs
 of NGSI-LD are: _Entity_, _Property_ and _Relationship_. NGSI-LD Entities (instances) can be the subject of Properties
 or Relationships. In terms of the traditional NGSI v2 data model, Properties can be seen as the combination of an
-attribute and its value. Relationships allow to establish associations between instances using linked data.
+attribute and its value. Relationships allow establishing associations between instances using linked data.
 
 ### NGSI v2 Data Model
 
@@ -101,7 +101,7 @@ as `accuracy` - i.e. the accuracy of a `location` reading.
 
 Every _entity_ must have a `type` which defines the sort of thing the entity describes, but giving an NGSI v2 entity the
 `type=Store` is relatively meaningless as no-one is obliged to shape their own **Store** entities in the same fashion.
-Similarly adding an attribute called `name` doesn't suddenly make it hold the same data as someone else's `name`
+Similarly, adding an attribute called `name` doesn't suddenly make it hold the same data as someone else's `name`
 attribute.
 
 Relationships can be defined using NGSI v2, but only so far as giving the attribute an appropriate attribute name
@@ -120,7 +120,7 @@ of the data held, which must also be a URI. This URI should correspond to a well
 on the web. For example the URI `https://uri.fiware.org/ns/data-models#Building` is used to define common data model for
 a [Building](https://github.com/smart-data-models/dataModel.Building).
 
-_Entities_ can have _properties_ and _relationships_. Ideally the name of each _property_ should also be a well defined
+_Entities_ can have _properties_ and _relationships_. Ideally the name of each _property_ should also be a well-defined
 URI which corresponds to a common concept found across the web (e.g. `http://schema.org/address` is a common URI for the
 physical address of an item). The _property_ will also have a value which will reflect the state of that property (e.g
 `name="Checkpoint Markt"`). Finally a property may itself have further properties (a.k.a. _properties-of-properties_)
@@ -130,24 +130,24 @@ _relationships-of-relationships_ etc.) which lead to the following:
 
 An NGSI LD Data Entity (e.g. a supermarket):
 
--   Has an `id` which must be unique. For example `urn:ngsi-ld:Building:store001`,
--   Has `type` which should be a fully qualified URI of a well defined data model. For example
-    `https://uri.fiware.org/ns/data-models#Building`. Authors can also use type names, as short hand strings for types,
+-   Has an `id` which must be unique. For example `urn:ngsi-ld:Building:store001`.
+-   Has `type` which should be a fully qualified URI of a well-defined data model. For example
+    `https://uri.fiware.org/ns/data-models#Building`. Authors can also use type names, as shorthand strings for types,
     mapped to fully qualified URIs through the JSON-LD `@context`.
 -   Has _property_ of the entity, for example, an `address` attribute which holds the address of the store. This can be
     expanded into `http://schema.org/address`, which is known as a fully qualified name
     ([FQN](https://en.wikipedia.org/wiki/Fully_qualified_name)).
 -   The `address`, like any _property_ will have a _value_ corresponding to the _property_ `address` (e.g. _Bornholmer
-    Straße 65, 10439 Prenzlauer Berg, Berlin_
+    Straße 65, 10439 Prenzlauer Berg, Berlin_.
 -   Has a _property-of-a-property_ of the entity, for example a `verified` field for the `address`.
 -   Has a _relationship_ of the entity, for example, a `managedBy` field where the relationship `managedBy` corresponds
-    to another data entity : `urn:ngsi-ld:Person:bob-the-manager`
+    to another data entity : `urn:ngsi-ld:Person:bob-the-manager`.
 -   The relationship `managedBy`, may itself have a _property-of-a-relationship_ (e.g. `since`), this holds the date Bob
-    started working the store
+    started working the store.
 -   The relationship `managedBy`, may itself have a _relationship-of-a-relationship_ (e.g. `subordinateTo`), this holds
     the URN of the area manager above Bob in the hierarchy.
 
-As you can see the knowledge graph is well defined and can be expanded indefinitely.
+As you can see the knowledge graph is well-defined and can be expanded indefinitely.
 
 Relationships will be dealt with in more detail in a subsequent tutorial.
 
@@ -162,10 +162,10 @@ Currently, the Orion Context Broker relies on open source [MongoDB](https://www.
 persistence of the context data it holds. Therefore, the architecture will consist of two elements:
 
 -   The [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
--   The underlying [MongoDB](https://www.mongodb.com/) database :
+    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json).
+-   The underlying [MongoDB](https://www.mongodb.com/) database:
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
-        registrations
+        registrations.
 
 Since all interactions between the two elements are initiated by HTTP requests, the elements can be containerized and
 run from exposed ports.
@@ -211,7 +211,7 @@ mongo-db:
 Both containers are residing on the same network - the Orion Context Broker is listening on Port `1026` and MongoDB is
 listening on the default port `27071`. Both containers are also exposing the same ports externally - this is purely for
 the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line
-initialization should be self explanatory.
+initialization should be self-explanatory.
 
 The only notable difference to the introductory tutorials is that the required image name is currently
 `fiware/orion-ld`.
@@ -222,7 +222,7 @@ All services can be initialised from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Linked-Data/blob/master/services) Bash script provided within the
 repository. Please clone the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Linked-Data.git
 cd tutorials.Linked-Data
@@ -286,7 +286,7 @@ from multiple sources and remove ambiguity when comparing data coming from diffe
 Creating linked data using fully qualified names throughout would be painful, as each attribute would need to be a URI,
 so JSON-LD introduces the idea of an `@context` attribute which can hold pointers to context definitions. To add a
 FIWARE [Building](https://github.com/smart-data-models/dataModel.Building) data entity, the following `@context` would
-be required
+be required:
 
 ```json
 {
@@ -335,8 +335,8 @@ If we include this context definition, it means that we will be able to use shor
 
 It should be noted that According to the [JSON-LD Spec](https://www.w3.org/TR/json-ld/#the-context) : _"a context is
 used to map terms to IRIs."_ - An IRI (Internationalized Resource Identifier) is not necessarily a URL - see
-[here](https://fusion.cs.uni-jena.de/fusion/blog/2016/11/18/iri-uri-url-urn-and-their-differences/) and therefore it is
-not unexpected if elements such as `https://uri.etsi.org/ngsi-ld/name` do not actually resolve to a web page. However
+[here](https://fusion.cs.uni-jena.de/fusion/blog/2016/11/18/iri-uri-url-urn-and-their-differences/), and therefore it is
+not unexpected if elements such as `https://uri.etsi.org/ngsi-ld/name` do not actually resolve to a web page. However,
 many IRIs within JSON-LD `@context` files, such as `http://schema.org/address` do indeed return web pages with more
 information about themselves.
 
@@ -358,7 +358,7 @@ If you take the NGSI-LD [Core @context](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-
 
 You can see that any unresolved short-name for an attribute will be mapped onto the default context i.e.:
 
--   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`
+-   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`.
 
 And unsurprisingly these default-context IRIs don't exist as valid web pages either.
 
@@ -410,7 +410,7 @@ curl -iX POST \
 }'
 ```
 
-The first request will take some time, as the context broker must navigate and load all of the files mentioned in the
+The first request will take some time, as the context broker must navigate and load all the files mentioned in the
 `@context`.
 
 > **Note**: if `https://smartdatamodels.org/context.jsonld` is unavailable for some reason the request will fail
@@ -421,7 +421,7 @@ The first request will take some time, as the context broker must navigate and l
 
 #### 3 Request:
 
-Each subsequent entity must have a unique `id` for the given `type`
+Each subsequent entity must have a unique `id` for the given `type`:
 
 ```bash
 curl -iX POST \
@@ -469,18 +469,18 @@ curl -iX POST \
 
 The attributes `id` and `type` should be familiar to anyone who has used NGSI v2, and these have not changed. As
 mentioned above, the type should refer to an included data model, in this case `Building` is being used as a short name
-for the included URN `https://uri.fiware.org/ns/data-models#Building`. Thereafter each _property_ is defined as a JSON
+for the included URN `https://uri.fiware.org/ns/data-models#Building`. Thereafter, each _property_ is defined as a JSON
 element containing two attributes, a `type` and a `value`.
 
 The `type` of a _property_ attribute must be one of the following:
 
 -   `"GeoProperty"`: `"http://uri.etsi.org/ngsi-ld/GeoProperty"` for locations. Locations should be specified as
     Longitude-Latitude pairs in [GeoJSON format](https://tools.ietf.org/html/rfc7946). The preferred name for the
-    primary location attribute is `location`
+    primary location attribute is `location`.
 -   `"Property"`: `"http://uri.etsi.org/ngsi-ld/Property"` - for everything else.
 -   `"Property"` should also be used for all time-based values, but the property `value` should be Date, Time or
     DateTime strings encoded in the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) - e.g.
-    `YYYY-MM-DDThh:mm:ssZ`
+    `YYYY-MM-DDThh:mm:ssZ`.
 
 > **Note:** that for simplicity, this data entity has no relationships defined. Relationships must be given the
 > `type="Relationship`. Relationships will be discussed in a subsequent tutorial.
@@ -528,10 +528,10 @@ The response returns the Core `@context` by default (`https://uri.etsi.org/ngsi-
 and all attributes are expanded whenever possible.
 
 -   `id`, `type`, `location` and `name` are defined in the core context and are not expanded.
--   `address` has been mapped to `http://schema.org/address`
--   `category` has been mapped to `https://uri.fiware.org/ns/data-models#category`
+-   `address` has been mapped to `http://schema.org/address`.
+-   `category` has been mapped to `https://uri.fiware.org/ns/data-models#category`.
 
-Note that if an attribute has not been not associated to an FQN when the entity was created, the short name will
+Note that if an attribute has not been associated to an FQN when the entity was created, the short name will
 **always** be displayed.
 
 ```json
@@ -607,7 +607,7 @@ Note that if an attribute has not been not associated to an FQN when the entity 
 
 ### Obtain entity data by ID
 
-This example returns the data of `urn:ngsi-ld:Building:store001`
+This example returns the data of `urn:ngsi-ld:Building:store001`.
 
 #### 5 Request:
 
@@ -899,7 +899,7 @@ Use of the `Link` header and the `options=keyValues` parameter reduces the respo
 ### Filter context data by querying metadata
 
 This example returns the data of all `Building` entities with a verified address. The `verified` attribute is an example
-of a _Property-of-a-Property_
+of a _Property-of-a-Property_.
 
 Metadata queries (i.e. Properties of Properties) are annotated using the dot syntax e.g. `q=address.verified==true`.
 This supersedes the `mq` parameter from NGSI v2.

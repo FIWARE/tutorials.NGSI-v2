@@ -4,7 +4,7 @@
 **Description:** This tutorial complements the previous [Securing Access tutorial](securing-access.md). This tutorial
 also secures access to a FIWARE application but using various **OpenID Connect** flows to authenticate users.
 
-# Authenticating Identities (Open-ID)
+# Authenticating Identities (OpenID)
 
 > "Yes, your home is your castle, but it is also your identity and your possibility to be open to others.
 >
@@ -36,9 +36,9 @@ that identifies the user avoiding exposing the username and password. Particular
 Click on the image above to watch a video on OpenID connect and identity.
 
 OAuth2 is a mechanism for granting access - specifically **Authorization** - _Can I do this?_). Technically, within the
-OAuth protocol there is no concept of **Identity** per-se and therefore it is not really designed for **Authentication**
-(_I am User X_) even if it is able to fulfil certain **Authentication** use cases such mobile app log in. OpenID
-provides an extension to OAuth2 enabling applications to obtain user information in a standard manner.
+OAuth protocol there is no concept of **Identity** per se, and therefore it is not really designed for 
+**Authentication** (_I am User X_) even if it is able to fulfil certain **Authentication** use cases such mobile app 
+log in. OpenID provides an extension to OAuth2 enabling applications to obtain user information in a standard manner.
 
 OpenID connect works across multiple entity providers (such as **Keyrock**) and is operated using JSON Web tokens. It
 adds an additional ID token to the response which holds some basic user information, additional user information can be
@@ -48,7 +48,7 @@ OpenID connect requests follow a very similar flow to OAuth2 requests. They are 
 scope when making the initial request. The response contains an encoded JWT token holding elements described below:
 
 | name  | description                                       |
-| ----- | ------------------------------------------------- |
+|-------|---------------------------------------------------|
 | `iss` | Issuer Identifier for the Issuer of the response. |
 | `sub` | Subject Identifier.                               |
 | `aud` | Audience(s) that this ID Token is intended for.   |
@@ -56,7 +56,7 @@ scope when making the initial request. The response contains an encoded JWT toke
 | `iat` | Time at which the JWT was issued.                 |
 
 Other entries may also be added. The full OpenID specification can be found
-[here](https://openid.net/specs/openid-connect-core-1_0.html)
+[here](https://openid.net/specs/openid-connect-core-1_0.html).
 
 ## Standard Concepts of Json Web Tokens
 
@@ -104,21 +104,21 @@ and reading it programmatically. It will make use of one FIWARE component - the
 [MySQL](https://www.mysql.com/) database. This tutorial only focus on granting JWT by the use of OIDC. You can practice
 using the tokens to securely access sensor information in the tutorial [Securing Access tutorial](securing-access.md).
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) offer a complement Identity Management System
     including:
-    -   An OAuth2 authorization system for Applications and Users
-    -   An OIDC authentication system for Applications and Users
-    -   A site graphical frontend for Identity Management Administration
-    -   An equivalent REST API for Identity Management via HTTP requests
+    -   An OAuth2 authorization system for Applications and Users.
+    -   An OIDC authentication system for Applications and Users.
+    -   A site graphical frontend for Identity Management Administration.
+    -   An equivalent REST API for Identity Management via HTTP requests.
 -   A [MySQL](https://www.mysql.com/) database :
-    -   Used to persist user identities, applications, roles and permissions
+    -   Used to persist user identities, applications, roles and permissions.
 -   The **Stock Management Frontend** does the following:
-    -   Displays store information
-    -   Shows which products can be bought at each store
+    -   Displays store information.
+    -   Shows which products can be bought at each store.
     -   Allows users to "buy" products and reduce the stock count.
-    -   Allows authorized users into restricted areas
+    -   Allows authorized users into restricted areas.
 
 Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run
 from exposed ports.
@@ -160,14 +160,14 @@ tutorial:
 
 The `tutorial` container is listening on two ports:
 
--   Port `3000` is exposed so we can see the web page displaying the Dummy IoT devices.
+-   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
 -   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make Ultralight commands without
     being part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                   | Value                                  | Description                                                                  |
-| --------------------- | -------------------------------------- | ---------------------------------------------------------------------------- |
+|-----------------------|----------------------------------------|------------------------------------------------------------------------------|
 | DEBUG                 | `tutorial:*`                           | Debug flag used for logging                                                  |
 | OIDC_ENABLED          | `true`                                 | Enable OpenID Connect in the tutorial                                        |
 | KEYROCK_CLIENT_ID     | `tutorial-dckr-site-0000-xpresswebapp` | The Client ID defined by Keyrock for this application                        |
@@ -175,7 +175,8 @@ The `tutorial` container is driven by environment variables as shown:
 | KEYROCK_JWT_SECRET    | `jsonwebtokenpass`                     | The JWT Secret defined by Keyrock for this application to validate id_tokens |
 | CALLBACK_URL          | `http://localhost:3000/login`          | The callback URL used by Keyrock when a challenge has succeeded.             |
 
-The other `tutorial` container configuration values described in the YAML file have been described in previous tutorials
+The other `tutorial` container configuration values described in the YAML file have been described in previous 
+tutorials.
 
 ## Start Up
 
@@ -209,9 +210,9 @@ Where `<command>` will vary depending upon the exercise we wish to activate.
 
 <h3>Dramatis Personae</h3>
 
-The following people at `test.com` legitimately have accounts within the Application
+The following people at `test.com` legitimately have accounts within the Application:
 
--   Alice, she will be the Administrator of the **Keyrock** Application
+-   Alice, she will be the Administrator of the **Keyrock** Application.
 -   Bob, the Regional Manager of the supermarket chain - he has several store managers under him:
     -   Manager1
     -   Manager2
@@ -219,11 +220,11 @@ The following people at `test.com` legitimately have accounts within the Applica
     -   Detective1
     -   Detective2
 
-The following people at `example.com` have signed up for accounts, but have no reason to be granted access
+The following people at `example.com` have signed up for accounts, but have no reason to be granted access:
 
--   Eve - Eve the Eavesdropper
--   Mallory - Mallory the malicious attacker
--   Rob - Rob the Robber
+-   Eve - Eve the Eavesdropper.
+-   Mallory - Mallory the malicious attacker.
+-   Rob - Rob the Robber.
 
 <details>
   <summary>
@@ -231,7 +232,7 @@ The following people at `example.com` have signed up for accounts, but have no r
   </summary>
 
 | Name       | eMail                       | Password |
-| ---------- | --------------------------- | -------- |
+|------------|-----------------------------|----------|
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -241,7 +242,7 @@ The following people at `example.com` have signed up for accounts, but have no r
 | detective2 | `detective2@test.com`       | `test`   |
 
 | Name    | eMail                 | Password |
-| ------- | --------------------- | -------- |
+|---------|-----------------------|----------|
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -251,14 +252,14 @@ The following people at `example.com` have signed up for accounts, but have no r
 Two organizations have also been set up by Alice:
 
 | Name       | Description                         | UUID                                   |
-| ---------- | ----------------------------------- | -------------------------------------- |
+|------------|-------------------------------------|----------------------------------------|
 | Security   | Security Group for Store Detectives | `security-team-0000-0000-000000000000` |
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
 One application, with appropriate roles and permissions has also been created:
 
 | Key           | Value                                  |
-| ------------- | -------------------------------------- |
+|---------------|----------------------------------------|
 | Client ID     | `tutorial-dckr-site-0000-xpresswebapp` |
 | Client Secret | `tutorial-dckr-site-0000-clientsecret` |
 | JWT Secret    | `jsonwebtokenpass`                     |
@@ -266,13 +267,13 @@ One application, with appropriate roles and permissions has also been created:
 | RedirectURL   | `http://localhost:3000/login`          |
 
 To save time, the data creating users and organizations from the
-[previous tutorial](https://github.com/FIWARE/tutorials.Roles-Permissions) has been downloaded and is automatically
+[previous tutorial](roles-permissions.md) has been downloaded and is automatically
 persisted to the MySQL database on start-up so the assigned UUIDs do not change and the data does not need to be entered
 again.
 
-The **Keyrock** MySQL database deals with all aspects of application security including storing users, password etc;
+The **Keyrock** MySQL database deals with all aspects of application security including storing users, password etc.;
 defining access rights and dealing with OAuth2 authorization protocols. The complete database relationship diagram can
-be found [here](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-db.png)
+be found [here](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-db.png).
 
 To refresh your memory about how to create users and organizations and applications, you can log in at
 `http://localhost:3005/idm` using the account `alice-the-admin@test.com` with a password of `test`.
@@ -380,7 +381,7 @@ form `/oauth/authorize?response_type=code&client_id={{client-id}}&state=oic&redi
 
 The value "openid" is included in the scope parameter of the request to indicate to Keyrock that this is an OIDC
 request. The state value in this tutorial could be "oauth2" and "oic". This value indicates how to manage the answers
-coming from Keyrock
+coming from Keyrock:
 
 ```javascript
 function authCodeOICGrant(req, res) {
@@ -449,7 +450,7 @@ The decoded json is returned as shown:
 ```
 
 To decode the JWT yourself, you can paste the token into the [JWT site](https://jwt.io/) - The signature used to sign
-the token is `59de900a973fa2e0` and can be pasted into the site to verify that the encoded identity came from Keyrock
+the token is `59de900a973fa2e0` and can be pasted into the site to verify that the encoded identity came from Keyrock:
 
 ```text
 HMACSHA256(
@@ -462,13 +463,13 @@ HMACSHA256(
 ### Authorization Code - Running the Example
 
 It is possible to invoke the Authorization Code grant flow programmatically, by bringing up the page
-`http://localhost:3000/` and clicking on the Authorization Code Button
+`http://localhost:3000/` and clicking on the Authorization Code Button.
 
-The user is initially redirected to **Keyrock**, and must log in
+The user is initially redirected to **Keyrock**, and must log in:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-log-in.png)
 
-The user must then authorize the request
+The user must then authorize the request:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-authorize.png)
 
@@ -485,7 +486,7 @@ The response displays the user on the top right of the screen, details of the to
 The [Implicit](https://openid.net/specs/openid-connect-core-1_0.html#ImplicitFlowAuth) flow can also be adapted to
 support authentication mechanisms. As well as in the authorization code grant, OIDC does not modify the flow but changes
 the response_type of the requests. This flow returns an `id_token` directly rather than returning an interim
-access-code. This is less secure than the Authcode flow but can be used in some client-side applications
+access-code. This is less secure than the Authcode flow but can be used in some client-side applications:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/implicit-flow.png)
 
@@ -503,7 +504,7 @@ function implicitOICGrant(req, res) {
 ```
 
 The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, a
-usable access token is received from **Keyrock**
+usable access token is received from **Keyrock**:
 
 ```javascript
 function implicitOICGrantCallback(req, res) {
@@ -519,13 +520,13 @@ section.
 ### Implicit Flow - Running the Example
 
 It is possible to invoke the Implicit grant flow programmatically, by bringing up the page `http://localhost:3000/` and
-clicking on the Implicit Grant Button
+clicking on the Implicit Grant Button.
 
-The user is initially redirected to **Keyrock**, and must log in
+The user is initially redirected to **Keyrock**, and must log in:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-log-in.png)
 
-The user must then authorize the request
+The user must then authorize the request:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-authorize.png)
 
@@ -581,13 +582,13 @@ section.
 ### Hybrid - Running the Example
 
 It is possible to invoke the Hybrid flow programmatically, by bringing up the page `http://localhost:3000/` and clicking
-on the Authorization Code Button
+on the Authorization Code Button.
 
-The user is initially redirected to **Keyrock**, and must log in
+The user is initially redirected to **Keyrock**, and must log in:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-log-in.png)
 
-The user must then authorize the request
+The user must then authorize the request:
 
 ![](https://fiware.github.io/tutorials.Securing-Access-OpenID-Connect/img/keyrock-authorize.png)
 

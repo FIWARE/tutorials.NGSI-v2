@@ -23,7 +23,7 @@ world. For example, a **Store** is a real world bricks and mortar building.
 
 The context data of that entity defines the state of that real-world object at a given moment in time.
 
-In all of the tutorials so far, we are holding all of the context data for our **Store** entities directly within the
+In all the tutorials so far, we are holding all the context data for our **Store** entities directly within the
 Orion Context Broker, for example stores would have attributes such as:
 
 -   A unique identifier for the store e.g. `urn:ngsi-ld:Store:002`
@@ -88,11 +88,11 @@ Therefore, the architecture will consist of three elements:
 
 -   The [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
     [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
--   The underlying [MongoDB](https://www.mongodb.com/) database :
+-   The underlying [MongoDB](https://www.mongodb.com/) database:
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
         registrations
--   The **Context Provider NGSI proxy** which will will:
-    -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+-   The **Context Provider NGSI proxy** which will:
+    -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2),
     -   makes requests to publicly available data sources using their own APIs in a proprietary format
     -   returns context data back to the Orion Context Broker in
         [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) format.
@@ -128,7 +128,7 @@ tutorial:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                               |
-| ----------------------- | ---------------------------- | ------------------------------------------------------------------------- |
+|-------------------------|------------------------------|---------------------------------------------------------------------------|
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                               |
 | WEB_APP_PORT            | `3000`                       | Port used by the Context Provider NGSI proxy and web-app for viewing data |
 | CONTEXT_BROKER          | `http://orion:1026/v2`       | URL of the context broker to connect to update context                    |
@@ -374,7 +374,7 @@ As you can see details of the current temperature and relative humidity are avai
 
 ## Accessing the NGSI v2 op/query Endpoint
 
-Because the `3000` port of the Context Provider has been exposed outside of the Docker container, it is possible for
+Because the `3000` port of the Context Provider has been exposed outside the Docker container, it is possible for
 curl to make requests directly to the Context Provider - this simulates the requests that would have been made by the
 Orion Context Broker. You can also simulate making the requests as part of the docker container network by running the
 `appropriate/curl` Docker image.

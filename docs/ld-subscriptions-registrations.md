@@ -7,7 +7,7 @@ similarities and differences between the equivalent NGSI-v2 and NGSI-LD operatio
 original context-provider and subscriptions tutorials but uses API calls from the **NGSI-LD** interface throughout.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
-[Postman documentation](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/)
+[Postman documentation](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/).
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2c53b7c2bce9fd7b7b47)
 
@@ -29,7 +29,7 @@ broker that additional context information is available from another source.
 
 Both of these operations require that the receiving component fully understands the requests it receives, and is capable
 of creating and interpreting the resultant payloads. The differences here between NGSI-v2 and NGSI-LD operations is
-small, but there has been a minor amendment to facilite the incorporation of linked data concepts, and therefore the
+small, but there has been a minor amendment to facilitate the incorporation of linked data concepts, and therefore, the
 contract between the various components has changed to include minor updates.
 
 <h3>Entities within a stock management system</h3>
@@ -43,7 +43,7 @@ attribute will be supplied by a _Context Provider_. In all other respects this m
 <h3>Stock Management frontend</h3>
 
 The simple Node.js Express application has updated to use NGSI-LD in the previous
-[tutorial](working-with-linked-data.md). We will use the monitor page to watch the status of recent requests, and a two
+[tutorial](working-with-linked-data.md). We will use the monitor page to watch the status of recent requests, and two
 store pages to buy products. Once the services are running these pages can be accessed from the following URLs:
 
 <h4>Event Monitor</h4>
@@ -73,25 +73,25 @@ FIWARE component.
 
 Currently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the context data it holds. To request context data from external sources, a simple Context Provider NGSI
-proxy has also been added. To visualize and interact with the Context we will add a simple Express application
+proxy has also been added. To visualize and interact with the Context we will add a simple Express application.
 
 Therefore, the architecture will consist of four elements:
 
 -   The [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
--   The underlying [MongoDB](https://www.mongodb.com/) database :
+    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json).
+-   The underlying [MongoDB](https://www.mongodb.com/) database:
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
-        registrations
+        registrations.
 -   The **Context Provider NGSI** proxy which will:
-    -   receive requests using
+    -   Receive requests using.
         [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json#/)
-    -   makes requests to publicly available data sources using their own APIs in a proprietary format
-    -   returns context data back to the Orion Context Broker in
+    -   Make requests to publicly available data sources using their own APIs in a proprietary format.
+    -   Return context data back to the Orion Context Broker in
         [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json#/)
         format.
 -   The **Stock Management Frontend** which will:
-    -   Display store information
-    -   Show which products can be bought at each store
+    -   Display store information.
+    -   Show which products can be bought at each store.
     -   Allow users to "buy" products and reduce the stock count.
 
 Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run
@@ -108,7 +108,7 @@ All services can be initialised from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations/blob/master/services) Bash script provided
 within the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations.git
 cd tutorials.LD-Subscriptions-Registrations
@@ -133,23 +133,23 @@ Goto `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001` to display 
 ### Create a Subscription (Store 1) - Low Stock
 
 NGSI-LD subscriptions can be set up using the `/ngsi-ld/v1/subscriptions/` endpoint and in a similar manner to the
-NGSI-v2 `/v2/subscriptions` endpoint. The payload body is slightly different however. Firstly the linked data `@context`
+NGSI-v2 `/v2/subscriptions` endpoint. The payload body is slightly different, however. Firstly the linked data `@context`
 must be present either as an attribute or in the `Link` header. If the `@context` is placed in the body the
 `Context-Type` header must state that the payload is `application/ld+json` - i.e. Linked Data plus JSON. The supplied
 `@context` will also be used when making notifications as part of the notification request.
 
 The `type` of the NGSI-LD subscription request is always `type=Subscription`. The structure of the subscription has
 changed. When setting up a subscription, there is no longer a separate `subject` section to the payload, entities to
-watch and trigger conditions are now set at the same level as the `description` of the subscription.
+watch and trigger conditions are now set at the same level as the `description` of the subscription:
 
--   `condition.attrs` has been moved up a level and renamed to `watchedAttributes`
--   `condition.expression` has been moved up a level and renamed to `q`
+-   `condition.attrs` has been moved up a level and renamed to `watchedAttributes`.
+-   `condition.expression` has been moved up a level and renamed to `q`.
 
 The `notification` section of the body states that once the conditions of the subscription have been met, a POST request
 containing all affected Shelf entities will be sent to the URL `http://tutorial:3000/subscription/low-stock-store001`.
 It is now possible to amend the notification payload by requesting `notification.format=keyValues` and remove the
 `@context` from the notification body by stating `notification.endpoint.accept=application/json`. The `@context` is not
-lost, it is merely passed as a `Link` header. In summary, all of the flags within a subscription work in the same manner
+lost, it is merely passed as a `Link` header. In summary, all the flags within a subscription work in the same manner
 as a GET request to the context broker itself. If no flags are set, a full NGSI-LD response including the `@context` is
 returned by default, and the payload can be reduced and amended by adding in further restrictions.
 
@@ -298,21 +298,21 @@ monitor.
 ![low-stock-ld](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/img/low-stock-monitor-ld.png)
 
 The second subscription has been set up to pass the full normalized NGSI-LD payload along with the `@context`. This has
-been achieved by using the using the `format=normalized` attribute within the subscription itself, as well as setting
+been achieved by using the `format=normalized` attribute within the subscription itself, as well as setting
 `endpoint.accept=application/ld+json`, so that the `@context` is also passed with each entity.
 
 ## Using Registrations with NGSI-LD
 
 Context Registrations allow some (or all) data within an entity to be provided by an external context provider. It could
-be another full context-provider a separate micro-service which only responds to a subset of the NGSI-LD endpoints.
+be another full context-provider a separate microservice which only responds to a subset of the NGSI-LD endpoints.
 However, there needs to be a contract created as to who supplies what.
 
 All registrations can be subdivided into one of two types. Simple registrations where a single context provider is
 responsible for the maintenance of the whole entity, and partial registrations where attributes are spread across
-multiple context providers. For a simple registration, all context requests are forwarded
+multiple context providers. For a simple registration, all context requests are forwarded:
 
 | Request    | Action at **Context Broker**                                                | Action at **Context Provider**                                                                      |
-| ---------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
 | **GET**    | Pass request to **Context Provider**, proxy the response back unaltered.    | Respond to context broker with the result of the GET request based on the entities held internally  |
 | **PATCH**  | Pass request to **Context Provider**, proxy back the HTTP back status code. | Update the entity within the **Context Provider**, Respond to the context broker with a status code |
 | **DELETE** | Pass request to **Context Provider**                                        | Delete the entity within the **Context Provider**, Respond to the context broker with a status code |
@@ -323,10 +323,10 @@ simple registrations such as these are necessary for the operation of federated 
 large scale systems, where there is no concept of "entity exclusiveness", that is no entity is bound to an individual
 broker.
 
-For partial registrations the situation is more complex
+For partial registrations the situation is more complex:
 
 | Request    | Action at **Context Broker**                                                                                                                                                                                                | Action at **Context Provider**                                                                                                       |
-| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
 | **GET**    | Assuming an entity exists locally, pass request for additional proxied attributes to **Context Provider**, concatenate a response back for locally held attributes and additional information from the **Context Provider** | Respond to context broker with the result of the GET request based on the entities held internally                                   |
 | **PATCH**  | Update any locally held attributes, Pass update requests for additional attributes to **Context Provider**, and return **success** or **partial success** HTTP status code dependent upon the overall result.               | Update the requested attributes of the entity held within the **Context Provider**. Respond to the context broker with a status code |
 | **DELETE** | If deleting an entity, remove the complete local instance. If deleting locally held attributes remove them. If deleting attributes held in the **Context Provider**, pass request on to **Context Provider**                | Delete the entity attributes within the **Context Provider**, Respond to the context broker with a status code                       |
@@ -343,12 +343,12 @@ retrieved remotely and this is nonsensical. If such a situation is requested, th
 
 Also, a simple registration for an entity will be rejected if an entity already exists within the context broker, and a
 partial registration for an entity attribute will be rejected if the attribute exists within the context broker (or is
-already subject to a partial registration). The latter may be ovecome with the use of the `datasetId`.
+already subject to a partial registration). The latter may be overcome with the use of the `datasetId`.
 
 Internally the [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header is
 used to avoid circular dependencies where **context broker A** registers an entity with **context broker B** which
 registers an entity with **context broker C** which registers an entity with **context broker A** again. The
-`X-Forwarded-For` Header is removed prior to responding to a client however.
+`X-Forwarded-For` Header is removed prior to responding to a client, however.
 
 With normal operation, the NGSI-LD response does not expose whether data collated from multiple sources is held directly
 within the context broker or whether the information has been retrieved externally. It is only when an error occurs
@@ -364,8 +364,8 @@ request.
 The body of the request is similar to the NGSI-v2 equivalent with the following modifications:
 
 -   The NGSI-v2 `dataProvided` object is now an array called `information`.
--   NGSI-v2 `attrs` have been split into separate arrays of `properties` and `relationships`
--   The NGSI-v2 `provider.url` has moved up to `endpoint`
+-   NGSI-v2 `attrs` have been split into separate arrays of `properties` and `relationships`.
+-   The NGSI-v2 `provider.url` has moved up to `endpoint`.
 
 #### 4 Request:
 
@@ -529,7 +529,7 @@ also contain an `attrs` parameter in the query string.
 Dependent upon the use case of the context-provider, it may or may not need to be able to interpret JSON-LD `@context` -
 in this case a request is merely returning the full `tweets` attribute.
 
-The same request is made by the context broker itself when querying for registered attributes
+The same request is made by the context broker itself when querying for registered attributes:
 
 #### 7 Request:
 
@@ -589,7 +589,7 @@ curl -L -X PATCH 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ng
 
 #### 9 Request:
 
-If the regisitered attribute is requested from the context broker, it returns the _updated_ values obtained from
+If the registered attribute is requested from the context broker, it returns the _updated_ values obtained from
 `http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
 endpoint.
 

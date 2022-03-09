@@ -14,7 +14,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Understanding Entities and Relationships
 
-Within the FIWARE platform, the context of an entity represents the state of a physical or conceptural object which
+Within the FIWARE platform, the context of an entity represents the state of a physical or conceptual object which
 exists in the real world.
 
 <h3>Entities within a stock management system</h3>
@@ -25,14 +25,14 @@ defined as shown:
 ![](https://fiware.github.io/tutorials.Entity-Relationships/img/entities.png)
 
 -   A store is a real world bricks and mortar building. **Store** entities would have properties such as: + A name of
-    the store e.g. "Checkpoint Markt" + An address "Friedrichstraße 44, 10969 Kreuzberg, Berlin" + A phyiscal location
+    the store e.g. "Checkpoint Markt" + An address "Friedrichstraße 44, 10969 Kreuzberg, Berlin" + A physical location
     e.g. _52.5075 N, 13.3903 E_
 -   A shelf is a real world device to hold objects which we wish to sell. Each **Shelf** entity would have properties
-    such as: + A name of the shelf e.g. "Wall Unit" + A phyiscal location e.g. _52.5075 N, 13.3903 E_ + A maximum
+    such as: + A name of the shelf e.g. "Wall Unit" + A physical location e.g. _52.5075 N, 13.3903 E_ + A maximum
     capacity + An association to the store in which the shelf is present
--   A product is defined as something that we sell - it is conceptural object. **Product** entities would have
+-   A product is defined as something that we sell - it is conceptual object. **Product** entities would have
     properties such as: + A name of the product e.g. "Vodka" + A price e.g. 13.99 Euros + A size e.g. Small
--   An inventory item is another conceptural entity, used to assocate products, stores, shelves and physical objects.
+-   An inventory item is another conceptual entity, used to associate products, stores, shelves and physical objects.
     **Inventory Item** entities would have properties such as: + An association to the product being sold + An
     association to the store in which the product is being sold + An association to the shelf where the product is being
     displayed + A stock count of the quantity of the product available in the warehouse + A stock count of the quantity
@@ -106,7 +106,7 @@ mongo-db:
 Both containers are residing on the same network - the Orion Context Broker is listening on Port `1026` and MongoDB is
 listening on the default port `27071`. Both containers are also exposing the same ports externally - this is purely for
 the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line
-initialization should be self explanatory.
+initialization should be self-explanatory.
 
 ## Start Up
 
@@ -138,12 +138,12 @@ This command will also import seed data from the previous [Store Finder tutorial
 
 In the previous tutorial, we created each **Store** entity individually,
 
-Lets create five shelf units at the same time. This request uses the convenience batch processing endpoint to create
+Let's create five shelf units at the same time. This request uses the convenience batch processing endpoint to create
 five shelf entities. Batch processing uses the `/v2/op/update` endpoint with a payload with two attributes -
 `actionType=APPEND` means we will overwrite existing entities if they exist whereas the `entities` attribute holds an
 array of entities we wish to update.
 
-To differenciate **Shelf** Entities from **Store** Entities, each shelf has been assigned `type=Shelf`. Real-world
+To differentiate **Shelf** Entities from **Store** Entities, each shelf has been assigned `type=Shelf`. Real-world
 properties such as `name` and `location` have been added as properties to each shelf.
 
 #### 1 Request:
@@ -497,7 +497,7 @@ Can be interpreted as request for _Give me the names of all shelves in `urn:ngsi
 ## Creating many-to-many Relationships
 
 Bridge Tables are often used to relate many-to-many relationships. For example, every store will sell a different range
-of products, and each product is sold in many different stores.
+of products, and each product is sold in many stores.
 
 In order to hold the context information to "place a product onto a shelf in a given store" we will need to create a new
 data entity **InventoryItem** which exists to associate data from other entities. It has a foreign key relationship to
@@ -562,7 +562,7 @@ curl -G -X GET \
 [["urn:ngsi-ld:Product:001"]]
 ```
 
-Similarly we can request _Which stores are selling `urn:ngsi-ld:Product:001`?_ by altering the request as shown:
+Similarly, we can request _Which stores are selling `urn:ngsi-ld:Product:001`?_ by altering the request as shown:
 
 #### 11 Request:
 
@@ -584,8 +584,8 @@ curl -G -X GET \
 ## Data Integrity
 
 Context data relationships should only be set up and maintained between entities that exist - in other words the URN
-`urn:ngsi-ld:<entity-type>:<entity-id>` should link to another existing entity within the context. Therefore we must
-take care when deleting an entity that no dangling references remain. Imagine `urn:ngsi-ld:Store:001` is deleted - what
+`urn:ngsi-ld:<entity-type>:<entity-id>` should link to another existing entity within the context. Therefore, we must
+take care when deleting an entity that no dangling references remains. Imagine `urn:ngsi-ld:Store:001` is deleted - what
 should happen to the associated the **Shelf** entities?
 
 It is possible to make a request to see if any remaining entity relationship exists prior to deletion by making a

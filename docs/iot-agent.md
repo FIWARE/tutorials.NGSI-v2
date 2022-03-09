@@ -22,7 +22,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 >
 > — John le Carré (A Perfect Spy)
 
-An IoT Agent is a component that lets a group of devices send their data to and be managed from a Context Broker using
+An IoT Agent is a component that lets a group of devices sends their data to and be managed from a Context Broker using
 their own native protocols. IoT Agents should also be able to deal with security aspects of the FIWARE platform
 (authentication and authorization of the channel) and provide other common services to the device programmer.
 
@@ -44,7 +44,7 @@ the following:
     [Lightweight M2M](https://www.omaspecworks.org/what-is-oma-specworks/iot/lightweight-m2m-lwm2m/) protocol and NGSI
 -   [IoTAgent-UL](https://fiware-iotagent-ul.readthedocs.io/en/latest) - a bridge between HTTP/MQTT messaging (with an
     UltraLight2.0 payload) and NGSI
--   [IoTagent-LoRaWAN](https://fiware-lorawan.readthedocs.io/en/latest) - a bridge between the
+-   [IoTAgent-LoRaWAN](https://fiware-lorawan.readthedocs.io/en/latest) - a bridge between the
     [LoRaWAN](https://www.thethingsnetwork.org/docs/lorawan/) protocol and NGSI
 
 ## Southbound Traffic (Commands)
@@ -133,7 +133,7 @@ the Orion Context Broker and the IoT Agent rely on open source [MongoDB](https:/
 persistence of the information they hold. We will also be using the dummy IoT devices created in the
 [previous tutorial](iot-sensors.md)
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
     [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
@@ -193,14 +193,14 @@ tutorial:
 
 The `tutorial` container is listening on two ports:
 
--   Port `3000` is exposed so we can see the web page displaying the Dummy IoT devices.
+-   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
 -   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make UltraLight commands without
     being part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                               |
-| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                               |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                                 |
 | IOTA_HTTP_HOST          | `iot-agent`                  | The hostname of the IoT Agent for UltraLight 2.0 - see below                                                                              |
@@ -248,7 +248,7 @@ iot-agent:
         - IOTA_PROVIDER_URL=http://iot-agent:4041
 ```
 
-The `iot-agent` container relies on the precence of the Orion Context Broker and uses a MongoDB database to hold device
+The `iot-agent` container relies on the presence of the Orion Context Broker and uses a MongoDB database to hold device
 information such as device URLs and Keys. The container is listening on two ports:
 
 -   Port `7896` is exposed to receive Ultralight measurements over HTTP from the Dummy IoT devices
@@ -258,7 +258,7 @@ information such as device URLs and Keys. The container is listening on two port
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -385,7 +385,7 @@ and so on. This would mean that data and devices for each service can be identif
 data would not be siloed - for example data from a **Smart Bin** within a park can be combined with the **GPS Unit** of
 a refuse truck to alter the route of the truck in an efficient manner.
 
-The **Smart Bin** and **GPS Unit** are likely to come from different manufacturers and it cannot be guaranteed that
+The **Smart Bin** and **GPS Unit** are likely to come from different manufacturers, and it cannot be guaranteed that
 there is no overlap within `<device-id>`s used. The use of the `fiware-service` and `fiware-servicepath` headers can
 ensure that this is always the case, and allows the context broker to identify the original source of the context data.
 
@@ -433,7 +433,7 @@ Which should be familiar UltraLight 2.0 syntax from the [previous tutorial](iot-
 
 When a measurement from an IoT device is received on the resource URL it needs to be interpreted and passed to the
 context broker. The `entity_type` attribute provides a default `type` for each device which has made a request (in this
-case anonymous devices will be known as `Thing` entities. Furthermore the location of the context broker (`cbroker`) is
+case anonymous devices will be known as `Thing` entities. Furthermore, the location of the context broker (`cbroker`) is
 needed, so that the IoT Agent can pass on any measurements received to the correct location. `cbroker` is an optional
 attribute - if it is not provided, the IoT Agent uses the context broker URL as defined in the configuration file,
 however it has been included here for completeness.
@@ -442,7 +442,7 @@ however it has been included here for completeness.
 
 It is common good practice to use URNs following the NGSI-LD
 [specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf) when creating
-entities. Furthermore it is easier to understand meaningful names when defining data attributes. These mappings can be
+entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
 defined by provisioning a device individually.
 
 Three types of measurement attributes can be provisioned:
@@ -503,7 +503,7 @@ reading `c` with the context attribute `count` (which is defined as an `Integer`
 >
 > `/v2/entities?q=serialNumber=="XS403001-002"`
 >
-> Additionally devices with a fixed `location` static attribute can also be queried using the Geofencing parameters.
+> Additionally, devices with a fixed `location` static attribute can also be queried using the Geofencing parameters.
 >
 > `/v2/entities?georel=near;maxDistance:1500&geometry=point&coords=52.5162,13.3777`
 
@@ -561,7 +561,7 @@ curl -G -X GET \
         "type": "Relationship",
         "value": "urn:ngsi-ld:Store:001",
         "metadata": {
-            "TimeInstant": {"type": "ISO8601", "value": "2018-05-25T10:51:32.646Z"
+            "TimeInstant": {"type": "ISO8601", "value": "2018-05-25T10:51:32.646Z"}
         }
     }
 }
@@ -659,7 +659,7 @@ curl -L -X POST 'http://localhost:4041/iot/devices' \
 '
 ```
 
-Before we wire-up the context broker, we can test that a command can be send to a device by making a REST request
+Before we wire-up the context broker, we can test that a command can be sent to a device by making a REST request
 directly to the IoT Agent's North Port using the `/v2/op/update` endpoint. It is this endpoint that will eventually be
 invoked by the context broker once we have connected it up. To test the configuration you can run the command directly
 as shown:
@@ -818,7 +818,7 @@ attributes.
 
 Once the commands have been registered it will be possible to ring the **Bell**, open and close the **Smart Door** and
 switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending UltraLight 2.0
-requests directly the IoT devices as we did in the [previous tutorial](iot-sensors.md)
+requests directly the IoT devices as we did in the [previous tutorial](iot-sensors.md).
 
 ### Ringing the Bell
 
@@ -887,7 +887,7 @@ curl -iX PATCH \
 ## Service Group CRUD Actions
 
 The **CRUD** operations for provisioning a service group map on to the expected HTTP verbs under the `/iot/services`
-endpoint
+endpoint:
 
 -   **Create** - HTTP POST
 -   **Read** - HTTP GET
@@ -1033,7 +1033,7 @@ curl -iX DELETE \
 ## Device CRUD Actions
 
 The **CRUD** operations for provisioning individual devices map on to the expected HTTP verbs under the `/iot/devices`
-endpoint
+endpoint:
 
 -   **Create** - HTTP POST
 -   **Read** - HTTP GET

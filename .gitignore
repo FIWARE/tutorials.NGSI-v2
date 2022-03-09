@@ -40,3 +40,4 @@ push.sh
 package-lock.json
 !docker/Dockerfile
 Dockerfile
+.idea

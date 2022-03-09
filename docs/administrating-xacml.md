@@ -21,9 +21,9 @@ commands used to access the REST APIs of **Keyrock** and **Authzforce** -
 
 > **12.3 Central Terminal Area**
 >
-> -   Red or Yellow Zone
+> -   Red or Yellow Zone:
 >     -   No private vehicle shall stop, wait, or park in the red or yellow zone.
-> -   White Zone
+> -   White Zone:
 >     -   No vehicle shall stop, wait, or park in the white zone unless actively engaged in the immediate loading or
 >         unloading of passengers and/or baggage.
 >
@@ -40,7 +40,7 @@ any access request provided that sufficient information can be supplied.
 
 For full flexibility, it must be possible to load, update and activate a new access control XACML `<PolicySet>` whenever
 necessary. In order to do, this **Authzforce** offers a simple REST Policy Administration Point (PAP), an alternative
-role-based PAP is available within **Keyrock**
+role-based PAP is available within **Keyrock**.
 
 ## What is XACML
 
@@ -51,9 +51,9 @@ elements such as Policy Execution Point (PEP) and Policy Decision Point (PDP) co
 XACML policies are split into a hierarchy of three levels - `<PolicySet>`, `<Policy>` and `<Rule>`, the `<PolicySet>` is
 a collection of `<Policy>` elements each of which contain one or more `<Rule>` elements.
 
-Each `<Rule>` within a `<Policy>` is evaluated as to whether it should grant access to a resource - the overall
+Each `<Rule>` within a `<Policy>` is evaluated whether it should grant access to a resource - the overall
 `<Policy>` result is defined by the overall result of all `<Rule>` elements processed in turn. Separate `<Policy>`
-results are then evaluated against each other using combining alogorthms define which `<Policy>` wins in case of
+results are then evaluated against each other using combining algorithms define which `<Policy>` wins in case of
 conflict.
 
 Further information can be found within the
@@ -63,7 +63,7 @@ Further information can be found within the
 ## PAP - Policy Administration Point
 
 For the first half of the tutorial, a simple two rule `<PolicySet>` will be administered using the **Authzforce** PAP.
-Thereafter the **Keyrock** GUI will be used to administer XACML rules within the existing tutorial application on an
+Thereafter, the **Keyrock** GUI will be used to administer XACML rules within the existing tutorial application on an
 individual XACML `<Rule>` level. The policy decision request code within the **PEP-Proxy** may also need to be
 customized to enable the enforcement of complex XACML rules.
 
@@ -76,7 +76,7 @@ complete, valid XACML file before uploading it to the service. There is no GUI a
 ### Keyrock PAP
 
 **Keyrock** can create a valid XACML file based on available roles and permissions and pass this to **Authzforce**.
-Indeed **Keyrock** already does this whenever it combines with **Authzforce** as all its own basic authorization
+Indeed, **Keyrock** already does this whenever it combines with **Authzforce** as all its own basic authorization
 (level 2) permissions must be translated into advanced authorization (level 3) permissions before they can be
 adjudicated by **Authzforce**.
 
@@ -89,24 +89,25 @@ a valid `<PolicySet>` for **Authzforce**.
 
 ## PEP - Policy Execution Point
 
-When using advanced authorization (level 3), a policy execution point sends the an authorization request to he relevant
-domain endpoint within **Authzforce**, providing all of the information necessary for **Authzforce** to provide a
+When using advanced authorization (level 3), a policy execution point sends an authorization request to the relevant
+domain endpoint within **Authzforce**, providing all the information necessary for **Authzforce** to provide a
 judgement. Details of the interaction can be found in the [previous tutorial](xacml-access-rules.md).
 
 The full code to supply each request to **Authzforce** can be found within the tutorials'
-[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/lib/azf.js)
+[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/lib/azf.js).
 
-Obviously the definition of _"all of the information necessary"_ may change over time, applications must therefore be
+Obviously the definition of _"all the information necessary"_ may change over time, applications must therefore be
 flexible enough to be able to modify the requests sent to ensure that sufficient information is passed.
 
 ## Architecture
 
-This application demonstrates the admininistration of level 3 Advanced Authorization security into the existing Stock
+This application demonstrates the administration of level 3 Advanced Authorization security into the existing Stock
 Management and Sensors-based application created in [previous tutorials](xacml-access-rules.md) and secures access to
 the context broker behind a [PEP Proxy](https://github.com/FIWARE/tutorials.PEP-Proxy/). It will make use of five FIWARE
 components - the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/),the
 [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/), the
-[Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Manager, the [Wilma]() PEP Proxy and the
+[Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Manager, the 
+[Wilma](https://fiware-pep-proxy.readthedocs.io/en/latest/) PEP Proxy and the
 [Authzforce](https://authzforce-ce-fiware.readthedocs.io) XACML Server. All access control decisions will be delegated
 to **Authzforce** which will read the ruleset from a previously uploaded policy domain.
 
@@ -114,35 +115,35 @@ Both the Orion Context Broker and the IoT Agent rely on open source [MongoDB](ht
 keep persistence of the information they hold. We will also be using the dummy IoT devices created in the
 [previous tutorial](iot-sensors.md). **Keyrock** uses its own [MySQL](https://www.mysql.com/) database.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+    [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
 -   The FIWARE [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will receive
     southbound requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert them to
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-    commands for the devices
+    commands for the devices.
 -   FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) offer a complement Identity Management System
     including:
-    -   An OAuth2 authentication system for Applications and Users
-    -   A site graphical frontend for Identity Management Administration
-    -   An equivalent REST API for Identity Management via HTTP requests
+    -   An OAuth2 authentication system for Applications and Users.
+    -   A site graphical frontend for Identity Management Administration.
+    -   An equivalent REST API for Identity Management via HTTP requests.
 -   FIWARE [Authzforce](https://authzforce-ce-fiware.readthedocs.io/) is a XACML Server providing an interpretive Policy
     Decision Point (PDP) protecting access to resources such as **Orion** and the tutorial application.
 -   FIWARE [Wilma](https://fiware-pep-proxy.rtfd.io/) is a PEP Proxy securing access to the **Orion** microservices, it
-    delegates the passing of authorisation decisions to **Authzforce** PDP
--   The underlying [MongoDB](https://www.mongodb.com/) database :
+    delegates the passing of authorisation decisions to **Authzforce** PDP.
+-   The underlying [MongoDB](https://www.mongodb.com/) database:
     -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions and
-        registrations
-    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
+        registrations.
+    -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
 -   A [MySQL](https://www.mysql.com/) database :
-    -   Used to persist user identities, applications, roles and permissions
+    -   Used to persist user identities, applications, roles and permissions.
 -   The **Stock Management Frontend** does the following:
-    -   Displays store information
-    -   Shows which products can be bought at each store
+    -   Displays store information.
+    -   Shows which products can be bought at each store.
     -   Allows users to "buy" products and reduce the stock count.
-    -   Allows authorized users into restricted areas, it also delegates authoriation decisions to the **Authzforce**
-        PDP
+    -   Allows authorized users into restricted areas, it also delegates authorization decisions to the **Authzforce**
+        PDP.
 -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
     [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     protocol running over HTTP - access to certain resources is restricted.
@@ -158,7 +159,7 @@ The all container configuration values found in the YAML file have been describe
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Administrating-XACML.git
 cd tutorials.Administrating-XACML
@@ -184,9 +185,9 @@ the repository:
 
 <h3>Dramatis Personae</h3>
 
-The following people at `test.com` legitimately have accounts within the Application
+The following people at `test.com` legitimately have accounts within the Application:
 
--   Alice, she will be the Administrator of the **Keyrock** Application
+-   Alice, she will be the Administrator of the **Keyrock** Application.
 -   Bob, the Regional Manager of the supermarket chain - he has several store managers under him:
     -   Manager1
     -   Manager2
@@ -195,7 +196,7 @@ The following people at `test.com` legitimately have accounts within the Applica
     -   Detective2
 
 | Name       | eMail                       | Password |
-| ---------- | --------------------------- | -------- |
+|------------|-----------------------------|----------|
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -205,15 +206,14 @@ The following people at `test.com` legitimately have accounts within the Applica
 | detective2 | `detective2@test.com`       | `test`   |
 
 <br/>
-The following people at `example.com` have signed up for accounts, but have no
-reason to be granted access
+The following people at `example.com` have signed up for accounts, but have no reason to be granted access:
 
--   Eve - Eve the Eavesdropper
--   Mallory - Mallory the malicious attacker
--   Rob - Rob the Robber
+-   Eve - Eve the Eavesdropper.
+-   Mallory - Mallory the malicious attacker.
+-   Rob - Rob the Robber.
 
 | Name    | eMail                 | Password |
-| ------- | --------------------- | -------- |
+|---------|-----------------------|----------|
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -222,12 +222,12 @@ reason to be granted access
 
 To apply an access control policy, it is necessary to be able to do the following:
 
-1.  Create a consistent `<PolicySet>`
-2.  Supply a Policy Execution Point (PEP) which provides necessary data
+1.  Create a consistent `<PolicySet>`.
+2.  Supply a Policy Execution Point (PEP) which provides necessary data.
 
-As will be seen, **Keyrock** is able help with the first point, and custom code within the **PEP Proxy** can help with
-the second. **Authzforce** itself does not offer a UI, and is not concerned with generation and management of XACML
-policies - it assumes that each `<PolicySet>` it receives has already been generated by another component.
+As will be seen, **Keyrock** is able to help with the first point, and custom code within the **PEP Proxy** can help 
+with the second. **Authzforce** itself does not offer a UI, and is not concerned with generation and management of 
+XACML policies - it assumes that each `<PolicySet>` it receives has already been generated by another component.
 
 Full-blown XACML editors are available, but the limited editor within **Keyrock** is usually sufficient for most access
 control scenarios.
@@ -235,10 +235,10 @@ control scenarios.
 ## Authzforce PAP
 
 **Authzforce** can act as a Policy Administration Point (PAP), this means that PolicySets can be created and amended
-using API calls directly to **Authzforce**
+using API calls directly to **Authzforce**.
 
-However there is no GUI for creating or amending a `<PolicySet>`, and no generation tool. All CRUD actions occur on the
-`<PolicySet>` level.
+However, there is no GUI for creating or amending a `<PolicySet>`, and no generation tool. All CRUD actions occur on 
+the `<PolicySet>` level.
 
 A full XACML `<PolicySet>` for any non-trivial application is very verbose. For simplicity, for this part of the
 tutorial, we will work on a completely new set of access rules designed for airport parking enforcement. **Authzforce**
@@ -250,7 +250,7 @@ tutorial supermarket application.
 ### Creating a new Domain
 
 To create a new domain in **Authzforce**, make a POST request to the `/authzforce-ce/domains` endpoint including a
-unique `external-id` within the `<domainProperties>` element
+unique `external-id` within the `<domainProperties>` element:
 
 #### 1 Request
 
@@ -309,7 +309,7 @@ curl -X POST \
 #### Response
 
 The response for the request includes a `<Decision>` element to `Permit` or `Deny` access to the resource. at this point
-all requests will be `Permit`
+all requests will be `Permit`:
 
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
@@ -325,10 +325,10 @@ all requests will be `Permit`
 To create a `PolicySet` for a given domain information in **Authzforce**, make a POST request to the
 `/authzforce-ce/domains/{{domain-id}}/pap/policies` endpoint including the full set of XACML rules to upload.
 
-For this initial Policy, the following rules will be enforced
+For this initial Policy, the following rules will be enforced:
 
--   The **white** zone is for immediate loading and unloading of passengers only
--   There is no stopping in the **red** zone
+-   The **white** zone is for immediate loading and unloading of passengers only.
+-   There is no stopping in the **red** zone.
 
 #### 3 Request
 
@@ -358,7 +358,7 @@ The response contains the internal ID of the policy held within **Authzforce** a
 ### Activating the initial PolicySet
 
 To activate a `PolicySet`, make a PUT request to the `/authzforce-ce/domains/{domain-id}/pap/pdp.properties` endpoint
-including the `policy-id` to update within the `<rootPolicyRefExpresion>` attribute
+including the `policy-id` to update within the `<rootPolicyRefExpresion>` attribute.
 
 #### 4 Request
 
@@ -393,7 +393,7 @@ The response returns information about the `PolicySet` applied.
 
 #### 5 Request
 
-At this point, making a request to access to `loading` in the `white` zone will return `Permit`
+At this point, making a request to access to `loading` in the `white` zone will return `Permit`.
 
 Remember to amend the request below to use your own `{domain-id}`:
 
@@ -433,7 +433,7 @@ curl -X POST \
 
 #### 6 Request
 
-At this point, making a request to access to `loading` in the `red` zone will return `Deny`
+At this point, making a request to access to `loading` in the `red` zone will return `Deny`.
 
 Remember to amend the request below to use your own `{domain-id}`:
 
@@ -477,10 +477,10 @@ To update a `PolicySet` for a given domain information in **Authzforce**, make a
 `/authzforce-ce/domains/{{domain-id}}/pap/policies` endpoint including the full set of XACML rules to upload. Note that
 the `Version` must be unique.
 
-For the updated Policy, the previous rules will be reversed
+For the updated Policy, the previous rules will be reversed:
 
--   The **red** zone is for immediate loading and unloading of passengers only
--   There is no stopping in the **white** zone
+-   The **red** zone is for immediate loading and unloading of passengers only.
+-   There is no stopping in the **white** zone.
 
 #### 7 Request
 
@@ -547,7 +547,7 @@ The response returns information about the `PolicySet` applied.
 #### 9 Request
 
 Since the new policy has been activated, at this point, making a request to access to `loading` in the `white` zone will
-return `Deny`
+return `Deny`.
 
 Remember to amend the request below to use your own `{domain-id}`:
 
@@ -587,7 +587,7 @@ curl -X POST \
 
 #### 10 Request
 
-Making a request to access to `loading` in the `red` zone under the current policy will return `Permit`
+Making a request to access to `loading` in the `red` zone under the current policy will return `Permit`.
 
 Remember to amend the request below to use your own `{domain-id}`:
 
@@ -627,11 +627,11 @@ curl -X POST \
 
 ## Keyrock PAP
 
-**Keyrock** offers a role based access control identity management system. Typically every permission is only accessible
-to users within a given role. We have already seen how Verb-Resource rules can be
+**Keyrock** offers a role based access control identity management system. Typically, every permission is only 
+accessible to users within a given role. We have already seen how Verb-Resource rules can be
 [set-up](https://github.com/FIWARE/tutorials.Roles-Permissions/) and
 [enforced](https://github.com/FIWARE/tutorials.Securing-Access/) using the basic authorization (level 2) access control
-mechanism found within Keyrock, the data for defining an advanced permission can also be administed using the
+mechanism found within Keyrock, the data for defining an advanced permission can also be administrated using the
 **Keyrock** GUI or via **Keyrock** REST API requests.
 
 **Keyrock** permissions work on individual XACML `<Rule>` elements rather than a complete `<PolicySet>`. The
@@ -645,36 +645,36 @@ are applied:
 
 #### Security Staff
 
--   Can unlock the door at any time
+-   Can unlock the door at any time.
 -   Can ring the alarm bell before 8 a.m. or after 5 p.m. UTC.
--   Can access the **context broker** data at any time
+-   Can access the **context broker** data at any time.
 
-#### Mangement
+#### Management
 
--   Have access to the price change area
--   Have access to the stock count area
+-   Have access to the price change area.
+-   Have access to the stock count area.
 -   Can ring the alarm bell between 8 a.m. or after 5 p.m. UTC.
 -   Can access the **context broker** data from 8 a.m. or after 5 p.m. UTC.
 
-As you can see some of the new rules now have a time element to them and are no longer simple Verb-Resource rules.
+As you can see some new rules now have a time element to them and are no longer simple Verb-Resource rules.
 
 For most of the rules, the Policy Execution Point (i.e. the request to **Authzforce** and analysis of the result) is
 found within the tutorial
-[code](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/lib/azf.js) -
+[code](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/lib/azf.js).
 
 The **context broker** data for the **Store** and **IoT Devices** is held in is secured behind the **PEP Proxy**. This
-means that only security staff are able to access the system outside of core hours.
+means that only security staff are able to access the system outside core hours.
 
-> **Note** within the **Keyrock**, only four resources have been secured using advanced authorization rules (level 3)
+> **Note** within the **Keyrock**, only four resources have been secured using advanced authorization rules (level 3):
 >
-> -   sending the ring bell command
-> -   access to the price-change area
-> -   access to the order-stock area
-> -   PEP Proxy access to the **context broker**
+> -   sending the ring bell command;
+> -   access to the price-change area;
+> -   access to the order-stock area;
+> -   PEP Proxy access to the **context broker**.
 >
-> For contrast, one resource has been left as a simple VERB Resource permission (level 2)
+> For contrast, one resource has been left as a simple VERB Resource permission (level 2);
 >
-> -   sending the unlock door command
+> -   sending the unlock door command.
 
 ### Create Token with Password
 
@@ -697,7 +697,7 @@ curl -iX POST \
 #### Response
 
 The response header from **Keyrock** returns an `X-Subject-token` which identifies who has logged on the application.
-This token is required in all subsequent requests to gain access
+This token is required in all subsequent requests to gain access.
 
 ```text
 HTTP/1.1 201 Created
@@ -742,7 +742,7 @@ curl -X GET \
 #### Response
 
 The response returns the details of the requested permission, for a verb-resource permission, the `xml` element is
-`null`. This permission indicates that a user is permittted to make a POST request to the `/door/unlock` endpoint to
+`null`. This permission indicates that a user is allowed to make a POST request to the `/door/unlock` endpoint to
 unlock the main entrance.
 
 ```json
@@ -783,7 +783,7 @@ There is already one `<Rule>` within the `xml` attribute, which states the follo
 
 > **Security Staff** Can only ring the alarm bell **before** 8 a.m. or **after** 5 p.m. UTC.
 
-To see the full `<Rule>` [**(Click to EXPAND)**](cmds/administrating-xacml.md#13-request)
+To see the full `<Rule>` [**(Click to EXPAND)**](cmds/administrating-xacml.md#13-request).
 
 The `<Target>` element of the `<Rule>` defines access on a Verb-Resource level in a similar manner as seen in the
 previous tutorial. The a `<Condition>` element holds the time part of the rule and is evaluated by **Authzforce** based
@@ -805,7 +805,7 @@ on the current server time.
 ```
 
 **Tip** An annotated version of the full `<PolicySet>` can be found within the
-[tutorial itself](https://github.com/FIWARE/tutorials.Administrating-XACML/blob/master/authzforce/domains/gQqnLOnIEeiBFQJCrBIBDA/policies/ZjgxOTRhZjUtOGEwNy00ODZhLTk1ODEtYzFmMDVkMDU0ODNj/2.xml)
+[tutorial itself](https://github.com/FIWARE/tutorials.Administrating-XACML/blob/master/authzforce/domains/gQqnLOnIEeiBFQJCrBIBDA/policies/ZjgxOTRhZjUtOGEwNy00ODZhLTk1ODEtYzFmMDVkMDU0ODNj/2.xml).
 
 ### Deny Access to a Resource
 
@@ -862,24 +862,24 @@ If the time on the server is between 8 a.m. and 5 p.m. the access request will b
 The policy will now be updated as follows:
 
 > **Security Staff** Can only ring the alarm bell before 8 a.m. or after 5 p.m., except for **Charlie** who can ring the
-> bell at any time
+> bell at any time.
 
 This means that the `alrmbell-ring-24hr-xaml-000000000000` permission will need to be amended to apply two rules:
 
-To see the new `<Rule>` [**(Click to EXPAND)**](cmds/administrating-xacml.md#update-an-xacml-permission)
+To see the new `<Rule>` [**(Click to EXPAND)**](cmds/administrating-xacml.md#update-an-xacml-permission).
 
 This is most easily be done in the GUI by pasting the rule into the appropriate text box, however it can also be done
 programmatically.
 
-To log-in to the **Keyrock** GUI, enter the username and password on the log-in page `http://localhost:3005/`
+To log in to the **Keyrock** GUI, enter the username and password on the log-in page `http://localhost:3005/`.
 
 ![](https://fiware.github.io/tutorials.Administrating-XACML/img/login.png)
 
-Navigate to correct application, and click on the manage roles tab
+Navigate to correct application, and click on the manage roles tab:
 
 ![](https://fiware.github.io/tutorials.Administrating-XACML/img/manage-roles.png)
 
-Select a permission to edit
+Select a permission to edit:
 
 ![](https://fiware.github.io/tutorials.Administrating-XACML/img/edit-permission.png)
 
@@ -888,7 +888,7 @@ within the **Advanced XACML Rule** textbox as shown:
 
 ![](https://fiware.github.io/tutorials.Administrating-XACML/img/permission.png)
 
-Alternatively to programatically amend the XACML rules governing a permission, make a PATCH request to the
+Alternatively to programmatically amend the XACML rules governing a permission, make a PATCH request to the
 `/applications/{{app-id}}/permissions/{permission-id}}` endpoint. The body of the request must include three
 attributes - `action` and `resource` must both be set to `""` and the `xml` attribute should hold the XACML text.
 
@@ -1017,14 +1017,14 @@ The response is `Permit` when the new `<Rule>` has been applied.
 
 ## Tutorial PEP - Extending Advanced Authorization
 
-The new policy for Charlie the security manager needs additional information to be passed to **Authzforce**
+The new policy for Charlie the security manager needs additional information to be passed to **Authzforce**.
 
 ### Extending Advanced Authorization - Sample Code
 
 Programmatically, any Policy Execution Point consists of two parts, an OAuth request to Keyrock retrieves information
 about the user (such as the assigned roles) as well as the policy domain to be queried.
 
-A second request is sent to the relevant domain endpoint within Authzforce, providing all of the information necessary
+A second request is sent to the relevant domain endpoint within Authzforce, providing all the information necessary
 for Authzforce to provide a judgement. Authzforce responds with a **permit** or **deny** response, and the decision
 whether to continue can be made thereafter.
 
@@ -1062,7 +1062,7 @@ function authorizeAdvancedXACML(req, res, next, resource = req.url) {
 
 The full code to supply each request to Authzforce can be found within the tutorials'
 [Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/lib/azf.js) - the
-supplied information has been expanded to include the `username` and `email` within the generated XACML request
+supplied information has been expanded to include the `username` and `email` within the generated XACML request.
 
 ```javascript
 const xml2js = require("xml2js");
@@ -1099,33 +1099,33 @@ function policyDomainRequest(domain, roles, resource, action, username, email) {
 ## Extending Advanced Authorization - Running the Example
 
 After successfully update the **Authzforce** `<PolicySet>` to include a special rule for Charlie, his rights will differ
-from other users in the security role
+from other users in the security role.
 
 #### Detective 1
 
-Detective1 works for Charlie and has the **security** role
+Detective1 works for Charlie and has the **security** role:
 
--   From `http://localhost:3000`, log in as `detective1@test.com` with the password `test`
+-   From `http://localhost:3000`, log in as `detective1@test.com` with the password `test`.
 
 ##### Level 3: Advanced Authorization Access
 
 -   Click on the restricted access links at `http://localhost:3000` - access is **denied** - This is a management only
-    permission
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Unlock a door - access is **permitted** - This is a security only permission
+    permission.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Unlock a door - access is **permitted** - This is a security only permission.
     -   Ring a bell - access is **denied** - This is not permitted to security users between 8 a.m. and 5 p.m.
 
 #### Charlie the Security Manager
 
-Charlie has the **security** role
+Charlie has the **security** role:
 
--   From `http://localhost:3000`, log in as `charlie-security@test.com` with the password `test`
+-   From `http://localhost:3000`, log in as `charlie-security@test.com` with the password `test`.
 
 ##### Level 3: Advanced Authorization Access
 
 -   Click on the restricted access links at `http://localhost:3000` - access is **denied** - This is a management only
-    permission
--   Open the Device Monitor on `http://localhost:3000/device/monitor`
-    -   Unlock a door - access is **permitted** - This is a security only permission
+    permission.
+-   Open the Device Monitor on `http://localhost:3000/device/monitor`:
+    -   Unlock a door - access is **permitted** - This is a security only permission.
     -   Ring a bell - access is **permitted** - This is an exception which is only permitted to the user called
-        `charlie`
+        `charlie`.

@@ -8,7 +8,7 @@ alternative generic enabler which is used to persist context data into third-par
 into a database for further analysis.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
-[Postman documentation](https://fiware.github.io/tutorials.Historic-Context-NIFI/)
+[Postman documentation](https://fiware.github.io/tutorials.Historic-Context-NIFI/).
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/9658043920d9be43914a)
 
@@ -21,7 +21,7 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 > — George R.R. Martin (A Dance With Dragons)
 
 [FIWARE Draco](https://fiware-draco.readthedocs.io/en/latest/) is an alternative generic enabler which is able to
-persist historical context data to a series of databases. Like **Cygnus** - **Draco** is able subscribe to changes of
+persist historical context data to a series of databases. Like **Cygnus** - **Draco** is able to subscribe to change of
 state from the **Orion Context Broker** and provide a funnel to process that data before persisting to a data sink.
 
 As mentioned previously, persisting historical context data is useful for big data analysis or discovering trends or
@@ -31,7 +31,7 @@ graphical interface to set up and monitor the procedure.
 A summary of the differences can be seen below:
 
 | Draco                                                                           | Cygnus                                                                           |
-| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
+|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
 | Offers an NGSI v2 interface for notifications                                   | Offers an NGSI v2 interface for notifications                                    |
 | configurable subscription endpoint, but defaults to `/v2/notify`                | subscription endpoint listens on `/notify`                                       |
 | listens on a single port                                                        | listens on separate ports for each input                                         |
@@ -43,8 +43,8 @@ A summary of the differences can be seen below:
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context
 broker. Details of the architecture and protocol used can be found in the [IoT Sensors tutorial](iot-sensors.md). The
-state of each device can be seen on the UltraLight device monitor web page found at:
-`http://localhost:3000/device/monitor`
+state of each device can be seen on the UltraLight device monitor web page found at
+`http://localhost:3000/device/monitor`.
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/device-monitor.png)
 
@@ -60,39 +60,39 @@ Additional databases are now involved - both the Orion Context Broker and the Io
 [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold, and we will be
 persisting our historical context data another database - either **MySQL** , **PostgreSQL** or **MongoDB** database.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   Three **FIWARE Generic Enablers**:
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
-        using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
+        using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
     -   The FIWARE [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will
         receive northbound measurements from the dummy IoT devices in
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         format and convert them to [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests for the
-        context broker to alter the state of the context entities
+        context broker to alter the state of the context entities.
     -   FIWARE [Draco](https://fiware-draco.readthedocs.io/en/latest/) which will subscribe to context changes and
-        persist them into a database (**MySQL** , **PostgreSQL** or **MongoDB**)
+        persist them into a database (**MySQL** , **PostgreSQL** or **MongoDB**).
 -   One, two or three of the following **Databases**:
-    -   The underlying [MongoDB](https://www.mongodb.com/) database :
+    -   The underlying [MongoDB](https://www.mongodb.com/) database:
         -   Used by the **Orion Context Broker** to hold context data information such as data entities, subscriptions
-            and registrations
-        -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
+            and registrations.
+        -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
         -   Potentially used as a data sink to hold historical context data.
-    -   An additional [PostgreSQL](https://www.postgresql.org/) database :
+    -   An additional [PostgreSQL](https://www.postgresql.org/) database:
         -   Potentially used as a data sink to hold historical context data.
-    -   An additional [MySQL](https://www.mysql.com/) database :
+    -   An additional [MySQL](https://www.mysql.com/) database:
         -   Potentially used as a data sink to hold historical context data.
 -   Three **Context Providers**:
     -   The **Stock Management Frontend** is not used in this tutorial. It does the following:
-        -   Display store information and allow users to interact with the dummy IoT devices
-        -   Show which products can be bought at each store
+        -   Display store information and allow users to interact with the dummy IoT devices.
+        -   Show which products can be bought at each store.
         -   Allow users to "buy" products and reduce the stock count.
     -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
         [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         protocol running over HTTP.
     -   The **Context Provider NGSI** proxy is not used in this tutorial. It does the following:
-        -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
-        -   makes requests to publicly available data sources using their own APIs in a proprietary format
+        -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2);
+        -   makes requests to publicly available data sources using their own APIs in a proprietary format;
         -   returns context data back to the Orion Context Broker in
             [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) format.
 
@@ -173,8 +173,8 @@ draco:
 The `draco` container is listening on two ports:
 
 -   The Subscription Port for Draco - `5050` is where the service will be listening for notifications from the Orion
-    context broker
--   The Web interface for Draco - `9090` is exposed purely for configuring the processors
+    context broker.
+-   The Web interface for Draco - `9090` is exposed purely for configuring the processors.
 
 ## MongoDB - Start up
 
@@ -184,9 +184,9 @@ To start the system with a **MongoDB** database only, run the following command:
 ./services mongodb
 ```
 
-Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
+Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`.
 
-Now go to the Components toolbar which is placed in the upper section of the NiFi GUI, find the template icon and drag
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and drag
 and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the templates
 available. Please select the template MONGO-TUTORIAL.
 
@@ -253,7 +253,7 @@ The response will look similar to the following:
 
 > **Troubleshooting:** What if the response is blank ?
 >
-> -   To check that a docker container is running try
+> -   To check that a docker container is running try:
 >
 > ```
 > docker ps
@@ -266,7 +266,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/door-open.gif)
@@ -278,7 +278,7 @@ Once a dynamic context system is up and running, we need to inform **Draco** of 
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 -   The `idPattern` in the request body ensures that Draco will be informed of all context data changes.
 -   The notification `url` must match the configured `Base Path and Listening port` of the Draco Listen HTTP Processor
 -   The `throttling` value defines the rate that changes are sampled.
@@ -310,7 +310,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 If a subscription has been created, you can check to see if it is firing by making a GET request to the
 `/v2/subscriptions` endpoint.
@@ -357,14 +357,14 @@ curl -X GET \
 ```
 
 Within the `notification` section of the response, you can see several additional `attributes` which describe the health
-of the subscription
+of the subscription.
 
 If the criteria of the subscription have been met, `timesSent` should be greater than `0`. A zero value would indicate
 that the `subject` of the subscription is incorrect or the subscription has created with the wrong `fiware-service-path`
-or `fiware-service` header
+or `fiware-service` header.
 
 The `lastNotification` should be a recent timestamp - if this is not the case, then the devices are not regularly
-sending data. Remember to unlock the **Smart Door** and switch on the **Smart Lamp**
+sending data. Remember to unlock the **Smart Door** and switch on the **Smart Lamp**.
 
 The `lastSuccess` should match the `lastNotification` date - if this is not the case then **Draco** is not receiving the
 subscription properly. Check that the hostname and port are correct.
@@ -409,7 +409,7 @@ sth_openiot    0.000GB
 
 The result include two databases `admin` and `local` which are set up by default by **MongoDB**, along with four
 databases created by the FIWARE platform. The Orion Context Broker has created two separate database instance for each
-`fiware-service`
+`fiware-service`:
 
 -   The Store entities were created without defining a `fiware-service` and therefore are held within the `orion`
     database, whereas the IoT device entities were created using the `openiot` `fiware-service` header and are held
@@ -537,13 +537,13 @@ postgres-db:
 
 The `postgres-db` container is listening on a single port:
 
--   Port `5432` is the default port for a PostgreSQL server. It has been exposed so you can also run the `pgAdmin4` tool
-    to display database data if you wish
+-   Port `5432` is the default port for a PostgreSQL server. It has been exposed, so you can also run the `pgAdmin4`
+    tool to display database data if you wish.
 
 The `postgres-db` container is driven by environment variables as shown:
 
 | Key               | Value.     | Description                               |
-| ----------------- | ---------- | ----------------------------------------- |
+|-------------------|------------|-------------------------------------------|
 | POSTGRES_PASSWORD | `password` | Password for the PostgreSQL database user |
 | POSTGRES_USER     | `postgres` | Username for the PostgreSQL database user |
 | POSTGRES_DB       | `postgres` | The name of the PostgreSQL database       |
@@ -572,7 +572,7 @@ draco:
 The `draco` container is listening on two ports:
 
 -   The Subscription Port for Draco - `5050` is where the service will be listening for notifications from the Orion
-    context broker
+    context broker.
 -   The Web interface for Draco - `9090` is exposed purely for configuring the processors.
 
 ## PostgreSQL - Start up
@@ -585,9 +585,9 @@ To start the system with a **PostgreSQL** database run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
 
-Now go to the Components toolbar which is placed in the upper section of the NiFi GUI, find the template icon and drag
-and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the templates
-available. Please select the template POSTGRESQL-TUTORIAL.
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and 
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the 
+templates available. Please select the template POSTGRESQL-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/postgres-tutorial-template.png)
 
@@ -600,7 +600,7 @@ For doing that please follow the instructions:
 2.  Go to the Controller Services Tab, at this point a list of controllers should be displayed, locate the
     DBCConnectionPool controller.
 
-3.  Click on the configuration button of the "DBCPConnectionPool"
+3.  Click on the configuration button of the "DBCPConnectionPool".
     ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step2.png)
 
 4.  Go to the controller Properties tab and put "password" in the password field, then apply the changes.
@@ -608,10 +608,9 @@ For doing that please follow the instructions:
 
 5.  Enable the processor by clicking on the thunder icon and then click on enable, then close the controller
     configuration page.
+    ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step4.png)
 
-![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step4.png)
-
-![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step5.png)
+    ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step5.png)
 
 6.  Select all the processors (press shift and click on every processor) and start them by clicking on the start button.
     Now, you can see that the status icon of each processor turned from red to green.
@@ -687,7 +686,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/door-open.gif)
@@ -699,7 +698,7 @@ Once a dynamic context system is up and running, we need to inform **Draco** of 
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 -   The `idPattern` in the request body ensures that Draco will be informed of all context data changes.
 -   The `throttling` value defines the rate that changes are sampled.
 
@@ -730,7 +729,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 ## PostgreSQL - Reading Data from a database
 
@@ -816,7 +815,7 @@ ORDER BY table_schema,table_name;
 (3 rows)
 ```
 
-The `table_schema` matches the `fiware-service` header supplied with the context data:
+The `table_schema` matches the `fiware-service` header supplied with the context data.
 
 To read the data within a table, run a select statement as shown:
 
@@ -916,12 +915,12 @@ mysql-db:
 The `mysql-db` container is listening on a single port:
 
 -   Port `3306` is the default port for a MySQL server. It has been exposed so you can also run other database tools to
-    display data if you wish
+    display data if you wish,
 
 The `mysql-db` container is driven by environment variables as shown:
 
 | Key                 | Value. | Description                                                                                                                                                                                           |
-| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+|---------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | MYSQL_ROOT_PASSWORD | `123`. | specifies a password that is set for the MySQL `root` account.                                                                                                                                        |
 | MYSQL_ROOT_HOST     | `%`    | By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
@@ -945,8 +944,8 @@ draco:
 The `draco` container is listening on two ports:
 
 -   The Subscription Port for Draco - `5050` is where the service will be listening for notifications from the Orion
-    context broker
--   The Web interface for Draco - `9090` is exposed purely for configuring the processors
+    context broker.
+-   The Web interface for Draco - `9090` is exposed purely for configuring the processors.
 
 ## MySQL - Start up
 
@@ -958,9 +957,9 @@ To start the system with a **MySQL** database run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
 
-Now go to the Components toolbar which is placed in the upper section of the NiFi GUI, find the template icon and drag
-and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the templates
-available. Please select the template MYSQL-TUTORIAL.
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and 
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the 
+templates available. Please select the template MYSQL-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/draco-template1.png)
 
@@ -982,7 +981,7 @@ doing that please follow the instructions:
 5.  Enable the processor by clicking on the thunder icon and then click on enable, then close the controller
     configuration page. ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step4.png)
 
-![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step5.png)
+    ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step5.png)
 
 6.  Select all the processors (press shift and click on every processor) and start them by clicking on the start button.
     Now, you can see that the status icon of each processor turned from red to green.
@@ -1058,7 +1057,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/door-open.gif)
@@ -1070,7 +1069,7 @@ Once a dynamic context system is up and running, we need to inform **Draco** of 
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings.
 -   The `idPattern` in the request body ensures that Draco will be informed of all context data changes.
 -   The `throttling` value defines the rate that changes are sampled.
 
@@ -1101,7 +1100,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 ## MySQL - Reading Data from a database
 
@@ -1185,7 +1184,7 @@ SHOW tables FROM openiot;
 (3 rows)
 ```
 
-The `table_schema` matches the `fiware-service` header supplied with the context data:
+The `table_schema` matches the `fiware-service` header supplied with the context data.
 
 To read the data within a table, run a select statement as shown:
 
@@ -1283,8 +1282,8 @@ draco:
 The `draco` container is listening on two ports:
 
 -   The Subscription Port for Draco - `5050` is where the service will be listening for notifications from the Orion
-    context broker
--   The Web interface for Draco - `9090` is exposed purely for configuring the processors
+    context broker.
+-   The Web interface for Draco - `9090` is exposed purely for configuring the processors.
 
 ## Multi-Agent - Start up
 
@@ -1296,14 +1295,14 @@ To start the system with **multiple** databases run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
 
-Now go to the Components toolbar which is placed in the upper section of the NiFi GUI, find the template icon and drag
-and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the templates
-available. Please select the template MULTIPLE-SINKS-TUTORIAL.
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and 
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the 
+templates available. Please select the template MULTIPLE-SINKS-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/multiple-tutorial-template.png)
 
 Now repeat the process for setting the password in the controller "DBCPConnectionPool" each connection MySQL and
-PostgreSQL
+PostgreSQL.
 
 Select all the processors (press shift and click on every processor) and start them by clicking on the start button.
 Now, you can see that the status icon of each processor turned from red to green.
@@ -1379,7 +1378,7 @@ The response will look similar to the following:
 For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
 dummy IoT Sensors can be used to do this. Open the device monitor page at `http://localhost:3000/device/monitor` and
 unlock a **Smart Door** and switch on a **Smart Lamp**. This can be done by selecting an appropriate the command from
-the drop down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
+the drop-down list and pressing the `send` button. The stream of measurements coming from the devices can then be seen
 on the same page:
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/door-open.gif)
@@ -1391,7 +1390,7 @@ Once a dynamic context system is up and running, we need to inform **Draco** of 
 This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
-    measurements from the attached IoT Sensors
+    measurements from the attached IoT Sensors.
 -   The `idPattern` in the request body ensures that Draco will be informed of all context data changes.
 -   The `throttling` value defines the rate that changes are sampled.
 
@@ -1422,7 +1421,7 @@ curl -iX POST \
 ```
 
 As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
-same for each database. The response will be **201 - Created**
+same for each database. The response will be **201 - Created**.
 
 ## Multi-Agent - Reading Persisted Data
 

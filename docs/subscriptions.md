@@ -30,7 +30,7 @@ context will change as new stores open up, products are sold, prices change and 
 sensor data, this issue is even more pressing as the system will constantly be reacting to changes in the real world.
 
 Until now all the operations we have used to change the state of the system have been **synchronous** - changes have
-been made by directly by a user or application and they have been informed of the result. The Orion Context Broker
+been made by directly by a user or application, and they have been informed of the result. The Orion Context Broker
 offers also an **asynchronous** notification mechanism - applications can subscribe to changes of context information so
 that they can be informed when something happens. This means the application does not need to continuously poll or
 repeat query requests.
@@ -250,17 +250,17 @@ notification. This is not very efficient.
 The amount of data to passed can be reduced by adding an `attrs` attribute which will specify a list of attributes to be
 included in notification messages - other attributes are ignored
 
-> **Tip** an `exceptAttrs` attribute also exists to return all attributes except for those on the exclude list. `attrs`
-> and `exceptAttrs` cannot be used simultaneously in the same subscription
+> **Tip** an `exceptAttrs` attribute also exists to return all attributes except for those on the excluding list.
+> `attrs` and `exceptAttrs` cannot be used simultaneously in the same subscription
 
 The `attrsFormat` attribute specifies how the entities are represented in notifications. A verbose response is returned
 by default `keyValues` and `values` work in the same manner as a `v2/entities` GET request.
 
 ## Reducing Scope with `expression`
 
-Lets create two more subscriptions which will only fire under specific conditions - and will only return key-value pairs
-for the entity affected. Imagine that the warehouse of each store now wants to be informed whenever the amount of
-product on the shelf falls below a threshold level.
+Let's create two more subscriptions which will only fire under specific conditions - and will only return key-value
+pairs for the entity affected. Imagine that the warehouse of each store now wants to be informed whenever the amount
+of product on the shelf falls below a threshold level.
 
 The subscription is tested whenever the `shelfCount` of an **InventoryItem** is updated, however the addition of an
 `expression` attribute will mean that the subscription will only fire if the expression returns valid data - for example

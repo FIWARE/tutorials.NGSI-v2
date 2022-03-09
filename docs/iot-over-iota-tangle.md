@@ -2,12 +2,12 @@
 [![NGSI v2](https://img.shields.io/badge/NGSI-v2-5dc0cf.svg)](https://fiware-ges.github.io/orion/api/v2/stable/)
 [![UltraLight 2.0](https://img.shields.io/badge/Payload-Ultralight-27ae60.svg)](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 
-**Description:** This tutorial extends the connection of IoT devices connecting to FIWARE to use an alternate transport.
+**Description:** This tutorial extends the connection of IoT devices connecting to FIWARE to use alternate transport.
 The [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-IoT Agent created in the [previous tutorial](iot-agent.md) is reconfigured to communicate with a set of dummy IoT devices
-which transfer secure messages over the [IOTA Tangle](https://www.iota.org/get-started/what-is-iota). An additional
-gateway component is added to the architecture of the previous [MQTT tutorial](iot-agent.md) to allow for secure
-indelible transactions across a distributed ledger network.
+IoT Agent created in the [previous tutorial](iot-agent.md) is reconfigured to communicate with a set of dummy IoT 
+devices which transfer secure messages over the [IOTA Tangle](https://www.iota.org/get-started/what-is-iota). An 
+additional gateway component is added to the architecture of the previous [MQTT tutorial](iot-agent.md) to allow for 
+secure indelible transactions across a distributed ledger network.
 
 The tutorial is mainly concerned with the architecture of the custom components, but uses [cUrl](https://ec.haxx.se/)
 commands where necessary, and is also available as
@@ -26,18 +26,18 @@ commands where necessary, and is also available as
 
 The [IOTA Tangle](https://www.iota.org/get-started/what-is-iota) is a directed acyclic graph which can be used as a
 distributed ledger. It is not a traditional blockchain, but works with the concept of a Tangle which contains the
-current transaction history and links from parents to child transations which provide a single source of truth in a
+current transaction history and links from parents to child transactions which provide a single source of truth in a
 distributed network. Whenever information is persisted to the tangle it is replicated across all nodes so that any
 client, anywhere around the world can send valid transactions to a Node.
 
 IOTA positions itself as being an ideal distributed ledger for IoT due to its feeless nature and scalable distributed
 structure. Obviously when architecting any smart system, the developer needs to compromise between various factors such
-as price, speed, reliability, security and so on. The previous MQTT tutorial was fast, but contained no security elements
-and was vunerable to malicious attack. An IOTA-based IoT system will automatically include secure logging of all events
-and therefore could be used to for charging customers on an event-by-event basis.
+as price, speed, reliability, security and so on. The previous MQTT tutorial was fast, but contained no security 
+elements and was vulnerable to malicious attack. An IOTA-based IoT system will automatically include secure logging of 
+all events and therefore could be used to for charging customers on an event-by-event basis.
 
 A hybrid system could also be envisaged where some frequent but low risk transactions could be made using a standard
-MQTT transport (e.g. continouous tracking of the location an ARV), whereas infrequent but chargable events could be made
+MQTT transport (e.g. continuous tracking of the location an ARV), whereas infrequent but chargeable events could be made
 using a secure system like IOTA (e.g. credit card payment for an entire trip)
 
 The basic IOTA architecture includes the following basic components:
@@ -65,7 +65,7 @@ as a message bus, so we can provision our IoT devices as MQTT devices and interc
 transform the data into IOTA Tangle transactions to talk to IOTA Tangle enabled devices. The payload of each message
 continues to use the existing
 [UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-syntax and therefore we can continue to used thesame FIWARE generic enabler to connect the devices. It is merely the
+syntax, and therefore we can continue to use the same FIWARE generic enabler to connect the devices. It is merely the
 underlying **transport** which has been customized in this scenario.
 
 <h4>Mosquitto MQTT Broker</h4>
@@ -94,7 +94,7 @@ instance of the [Mosquitto](https://mosquitto.org/) MQTT broker which is open so
 create a custom **MQTT-IOTA Gateway** to enable us to persist commands to the IOTA Tangle and to subscribe to topics to
 receive measurements and command acknowledgements when they occur.
 
-Therefore the overall architecture will consist of the following elements:
+Therefore, the overall architecture will consist of the following elements:
 
 -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
     [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
@@ -179,14 +179,14 @@ tutorial:
 
 The `tutorial` container is listening on two ports:
 
--   Port `3000` is exposed so we can see the web page displaying the Dummy IoT devices.
+-   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
 -   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make UltraLight commands without
     being part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                               | Description                                                                                                                                |
-| ----------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
+|-------------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
 | DEBUG                   | `tutorial:*`                        | Debug flag used for logging                                                                                                                |
 | WEB_APP_PORT            | `3000`                              | Port used by web-app which displays the dummy device data                                                                                  |
 | DUMMY_DEVICES_PORT      | `3001`                              | Port used by the dummy IoT devices to receive commands                                                                                     |
@@ -242,7 +242,7 @@ information such as device URLs and Keys. The container is listening on a single
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -281,8 +281,8 @@ iota-gateway:
 ```
 
 The `iota-gateway` container is a middleware connecting to the MQTT broker and reading and persisting transactions onto
-IOTA Tangle. This middleware therefore needs to connect to both the MQTT broker and the IOTA Tangle and repeats some of
-the parameters described above.
+IOTA Tangle. This middleware therefore needs to connect to both the MQTT broker and the IOTA Tangle and repeats some 
+parameters described above.
 
 ## Start Up
 
@@ -421,7 +421,7 @@ Open a **new terminal**, and follow the `iota-gateway` Docker container as follo
 docker logs -f iota-gateway
 ```
 
-The terminal will then be ready to display received messages
+The terminal will then be ready to display received messages.
 
 #### 1st terminal - Gateway Result:
 
@@ -437,8 +437,8 @@ The gateway needs to subscribe to the IOTA Tangle to receive measures and comman
 
 ### Display the Dummy Device logs (2nd Terminal)
 
-A sensor sending northbound measurements will persists transactions to the IOTA Tangle to which will be passed on to any
-subscriber than wants them. The sensor does not need to make a connection to the subscriber directly. Similarly any
+A sensor sending northbound measurements will persist transactions to the IOTA Tangle to which will be passed on to any
+subscriber than wants them. The sensor does not need to make a connection to the subscriber directly. Similarly, any
 connected actuators will need to subscribe to an IOTA Tangle message topic to receive aby commands that are relevant to
 them.
 
@@ -448,11 +448,11 @@ Open a **new terminal**, and run a `fiware-tutorial` Docker container to send a 
 docker logs -f fiware-tutorial
 ```
 
-The terminal will then be ready to display received messages
+The terminal will then be ready to display received messages.
 
 #### 2nd terminal - Device Result:
 
-If the Devices are functioning correctly, the message should be received in the other terminal
+If the Devices are functioning correctly, the message should be received in the other terminal:
 
 ```
 2021-12-07T15:29:22.163Z tutorial:server Listening on port 3000
@@ -466,7 +466,7 @@ If the Devices are functioning correctly, the message should be received in the 
 
 ### Sending Commands
 
-Since all the devices have been pre-provisioned, a bell can be rung using a standard NGSI-v2 PATCH request
+Since all the devices have been pre-provisioned, a bell can be rung using a standard NGSI-v2 PATCH request:
 
 #### 1 Request:
 
@@ -483,7 +483,7 @@ curl -L -X PATCH 'http://localhost:1026/v2/entities/urn:ngsi-ld:Bell:001/attrs' 
 }'
 ```
 
-The NGSI request is transfomed into an MQTT message (with an Ultralight payload) which is received by the MQTT-IOTA
+The NGSI request is transformed into an MQTT message (with an Ultralight payload) which is received by the MQTT-IOTA
 Gateway - this message is then persisted to the IOTA Tangle as shown:
 
 #### 1st terminal - Gateway Result:
@@ -571,7 +571,7 @@ command can be seen in the value of the `ring_info` attribute.
 > }
 > ```
 
-Furthermore all transactions can be found on the IOTA Tangle under
+Furthermore, all transactions can be found on the IOTA Tangle under
 `https://explorer.iota.org/mainnet/message/<message_id>`, for example
 `https://explorer.iota.org/mainnet/message/40431e6e39ade9babe02ef342ee9267f69982fe42db8f5d3f32d57bb686120d5` permanently
 holds the following data:
@@ -597,7 +597,7 @@ The device persists the measure to the `fiware/attrs` topic on the IOTA Tangle M
 2021-12-07T16:34:26.479Z tutorial:ultralight da4df31054df529a3ade74befb84edabf7697ae8a3a9ee3481be08ee0aabb3e7
 ```
 
-Once the transactions is settled, it is passed onto the subscribing Gateway component
+Once the transactions is settled, it is passed onto the subscribing Gateway component.
 
 #### 1st terminal - Gateway Result:
 
@@ -652,8 +652,8 @@ MQTT_CLIENT.on("connect", () => {
 MQTT_CLIENT.on("message", Southbound.command);
 ```
 
-Similarly there are equivalent [client libraries](https://wiki.iota.org/iota.rs/libraries/nodejs/getting_started)
-available in multiple langauges for persisting and listening to changes on the IOTA Tangle. The MQTT-IOTA Gateway needs
+Similarly, there are equivalent [client libraries](https://wiki.iota.org/iota.rs/libraries/nodejs/getting_started)
+available in multiple languages for persisting and listening to changes on the IOTA Tangle. The MQTT-IOTA Gateway needs
 to listen on two topics - one for device measures and a second one for acknowledgements of commands:
 
 ```javascript
@@ -786,7 +786,7 @@ are queued and sent in order. If an error occurs the acknowledgement must be res
 `PENDING` state.
 
 ```javascript
- processIOTAMessage(apiKey, deviceId, message) {
+ function processIOTAMessage(apiKey, deviceId, message) {
         const keyValuePairs = message.split('|') || [''];
         const command = getUltralightCommand(keyValuePairs[0]);
         process.nextTick(() => {
@@ -823,7 +823,7 @@ Measures are dealt with in a similar manner. The payload is created in Ultraligh
 pushed to a queue. The queue sends the measure to the IOTA Tangle and reschedules any failures.
 
 ```javascript
-sendAsIOTA(deviceId, state) {
+function sendAsIOTA(deviceId, state) {
     const payload =
         'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '|t|' + new Date().toISOString();
     queue.push(payload);

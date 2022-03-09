@@ -27,7 +27,7 @@ may be able to use multiple disparate transports for that payload.
 
 We have already encountered the Ultralight IoT Agent, which communicates using a simple bar (`|`) separated list of
 key-value pairs. This payload is a simple, terse but relatively obscure communication mechanism - by far the commonest
-messaging payload used on the Internet is the so-called JavaScript Object Notation or JSON which will be familar to any
+messaging payload used on the Internet is the so-called JavaScript Object Notation or JSON which will be familiar to any
 software developer.
 
 JSON is slightly more verbose than Ultralight, but the cost of sending larger messages is offset by the familiarity of
@@ -43,18 +43,18 @@ Agent - the conversion of messages from JSON to NGSI and vice-versa will be uniq
 
 A direct comparison of the two IoT Agents can be seen below:
 
-| IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------------------- |
-| Sample Measure `c\|1`                                               | Sample Measure `{"count": "1"}`                                     | Message Payload            |
-| Sample Command `Robot1@turn\|left`                                  | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload            |
-| Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload            |
-| Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism        |
-| HTTP listens for measures on `iot/d` by default                     | HTTP listens for measures on `iot/json` by default                  | Transport Mechanism        |
-| HTTP devices are identified by parameters `?i=XXX&k=YYY`            | HTTP devices are identified by parameters `?i=XXX&k=YYY`            | Device Identification      |
-| HTTP commands posted to a well-known URL - response is in the reply | HTTP commands posted to a well-known URL - response is in the reply | Communications Handshake   |
-| MQTT devices are identified by the path of the topic `/XXX/YYY`     | MQTT devices are identified by the path of the topic `/XXX/YYY`     | Device Identification      |
-| MQTT commands posted to the `cmd` topic                             | MQTT commands posted to the `cmd` topic                             | Communications Handshake   |
-| MQTT command responses posted to the `cmdexe` topic                 | MQTT commands posted to the `cmdexe` topic                          | Communications Handshake   |
+| IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern                    |
+|---------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------|
+| Sample Measure `c\                                                  | 1`                                                                  | Sample Measure `{"count": "1"}`               | Message Payload            |
+| Sample Command `Robot1@turn\                                        | left`                                                               | Sample Command `{"Robot1": {"turn": "left"}}` | Message Payload            |
+| Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload                               |
+| Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism                           |
+| HTTP listens for measures on `iot/d` by default                     | HTTP listens for measures on `iot/json` by default                  | Transport Mechanism                           |
+| HTTP devices are identified by parameters `?i=XXX&k=YYY`            | HTTP devices are identified by parameters `?i=XXX&k=YYY`            | Device Identification                         |
+| HTTP commands posted to a well-known URL - response is in the reply | HTTP commands posted to a well-known URL - response is in the reply | Communications Handshake                      |
+| MQTT devices are identified by the path of the topic `/XXX/YYY`     | MQTT devices are identified by the path of the topic `/XXX/YYY`     | Device Identification                         |
+| MQTT commands posted to the `cmd` topic                             | MQTT commands posted to the `cmd` topic                             | Communications Handshake                      |
+| MQTT command responses posted to the `cmdexe` topic                 | MQTT commands posted to the `cmdexe` topic                          | Communications Handshake                      |
 
 As can be seen, the message payload differs entirely between the two IoT Agents, but much of the rest of the protocol
 remains the same.
@@ -211,7 +211,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                        |
-| ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
+|-------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                        |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                          |
 | IOTA_HTTP_HOST          | `iot-agent`                  | The hostname of the IoT Agent for JSON - see below                                                                                 |
@@ -261,7 +261,7 @@ iot-agent:
         - IOTA_DEFAULT_RESOURCE=/iot/json
 ```
 
-The `iot-agent` container relies on the precence of the Orion Context Broker and uses a MongoDB database to hold device
+The `iot-agent` container relies on the presence of the Orion Context Broker and uses a MongoDB database to hold device
 information such as device URLs and Keys. The container is listening on two ports:
 
 -   Port `7896` is exposed to receive JSON measurements over HTTP from the Dummy IoT devices
@@ -271,7 +271,7 @@ information such as device URLs and Keys. The container is listening on two port
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
+|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -285,7 +285,7 @@ The `iot-agent` container is driven by environment variables as shown:
 | IOTA_MONGO_DB        | `iotagentjson`          | The name of the database used in mongoDB                                                                                                              |
 | IOTA_HTTP_PORT       | `7896`                  | The port where the IoT Agent listens for IoT device traffic over HTTP                                                                                 |
 | IOTA_PROVIDER_URL    | `http://iot-agent:4041` | URL passed to the Context Broker when commands are registered, used as a forwarding URL location when the Context Broker issues a command to a device |
-| IOTA_PROVIDER_URL    | `/iot/json`             | The default path the IoT Agent uses listenening for JSON measures.                                                                                    |
+| IOTA_PROVIDER_URL    | `/iot/json`             | The default path the IoT Agent uses listening for JSON measures.                                                                                      |
 
 ## Start Up
 
@@ -447,7 +447,7 @@ listen at different locations.
 
 When a measurement from an IoT device is received on the resource URL it needs to be interpreted and passed to the
 context broker. The `entity_type` attribute provides a default `type` for each device which has made a request (in this
-case anonymous devices will be known as `Thing` entities. Furthermore the location of the context broker (`cbroker`) is
+case anonymous devices will be known as `Thing` entities. Furthermore, the location of the context broker (`cbroker`) is
 needed, so that the IoT Agent can pass on any measurements received to the correct location. `cbroker` is an optional
 attribute - if it is not provided, the IoT Agent uses the context broker URL as defined in the configuration file,
 however it has been included here for completeness.
@@ -456,7 +456,7 @@ however it has been included here for completeness.
 
 It is common good practice to use URNs following the NGSI-LD
 [specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.01_60/gs_cim009v010401p.pdf) when creating
-entities. Furthermore it is easier to understand meaningful names when defining data attributes. These mappings can be
+entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
 defined by provisioning a device individually.
 
 Three types of measurement attributes can be provisioned:
@@ -517,7 +517,7 @@ reading `c` with the context attribute `count` (which is defined as an `Integer`
 >
 > `/v2/entities?q=serialNumber=="XS403001-002"`
 >
-> Additionally devices with a fixed `location` static attribute can also be queried using the Geofencing parameters.
+> Additionally, devices with a fixed `location` static attribute can also be queried using the Geofencing parameters.
 >
 > `/v2/entities?georel=near;maxDistance:1500&geometry=point&coords=52.5162,13.3777`
 
@@ -634,7 +634,7 @@ curl -iX POST \
 '
 ```
 
-Before we wire-up the context broker, we can test that a command can be send to a device by making a REST request
+Before we wire-up the context broker, we can test that a command can be sent to a device by making a REST request
 directly to the IoT Agent's North Port using the `/v2/op/update` endpoint. It is this endpoint that will eventually be
 invoked by the context broker once we have connected it up. To test the configuration you can run the command directly
 as shown below.
@@ -700,7 +700,7 @@ command can be seen in the value of the `ring_info` attribute.
 ### Provisioning a Smart Door
 
 Because the underlying Ultralight and JSON protocols are so similar, actuators and devices are provisioned using the
-same attributes as the data the IoT Agent needs to know to communicate with the device reamins the same, and the payload
+same attributes as the data the IoT Agent needs to know to communicate with the device remains the same, and the payload
 parsing NGSI to JSON is delegated to the IoT Agent itself. Provisioning a device which offers both commands and
 measurements is merely a matter of making an HTTP POST request with both `attributes` and `command` attributes in the
 body of the request.
@@ -795,13 +795,13 @@ available. In other words the IoT Agent registered itself as a
 
 Once the commands have been registered it will be possible to ring the **Bell**, open and close the **Smart Door** and
 switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending JSON requests
-directly the IoT devices as we did in the [previous tutorial](iot-sensors.md)
+directly the IoT devices as we did in the [previous tutorial](iot-sensors.md).
 
 All the communications leaving and arriving at the North port of the IoT Agent use the standard NGSI syntax. The
 transport protocol used between the IoT devices and the IoT Agent is irrelevant to this layer of communication.
 Effectively the IoT Agent is offering a simplified facade pattern of well-known endpoints to actuate any device.
 
-Therefore this section of registering and invoking commands **duplicates** the instructions found in the
+Therefore, this section of registering and invoking commands **duplicates** the instructions found in the
 [previous tutorial](iot-agent.md)
 
 ### Ringing the Bell
