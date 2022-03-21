@@ -9,6 +9,7 @@ const logger = require('morgan');
 /* global MQTT_CLIENT */
 /* global IOTA_CLIENT */
 const DEVICE_TRANSPORT = process.env.DUMMY_DEVICES_TRANSPORT || 'HTTP';
+const MQTT_TOPIC_PROTOCOL = process.env.MQTT_TOPIC_PROTOCOL || 'ul';
 
 const MQTT_BROKER_URL = process.env.MQTT_BROKER_URL || 'mqtt://mosquitto';
 global.MQTT_CLIENT = mqtt.connect(MQTT_BROKER_URL);
@@ -58,7 +59,10 @@ if (DEVICE_TRANSPORT === 'MQTT') {
 
     MQTT_CLIENT.on('connect', () => {
         apiKeys.split(',').forEach((apiKey) => {
-            const topic = '/' + apiKey + '/#';
+            let topic = '/' + apiKey + '/#';
+            if (process.env.MQTT_TOPIC_PROTOCOL !== '') {
+                topic = '/' + MQTT_TOPIC_PROTOCOL + topic;
+            }
             debug('Subscribing to MQTT Broker: ' + MQTT_BROKER_URL + ' ' + topic);
             MQTT_CLIENT.subscribe(topic);
             MQTT_CLIENT.subscribe(topic + '/#');
