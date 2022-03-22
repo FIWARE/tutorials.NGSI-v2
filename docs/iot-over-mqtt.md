@@ -39,7 +39,7 @@ dependencies between the data producers and the data consumers.
 A summary of the differences between the two transport protocols can be seen below:
 
 | HTTP Transport                                                                      | MQTT Transport                                                                                |
-|-------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| ----------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
 | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/http.png)                  | ![](https://fiware.github.io/tutorials.IoT-over-MQTT/img/mqtt.png)                            |
 | IoT Agent communicates with IoT devices **directly**                                | IoT Agent communicates with IoT devices **indirectly** via an MQTT Broker                     |
 | [Request-Response](https://en.wikipedia.org/wiki/Request%E2%80%93response) Paradigm | [Publish-Subscribe](https://en.wikipedia.org/wiki/Publish%E2%80%93subscribe_pattern) Paradigm |
@@ -175,7 +175,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                               |
-|-------------------------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                               |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                                 |
 | DUMMY_DEVICES_PORT      | `3001`                       | Port used by the dummy IoT devices to receive commands                                                                                    |
@@ -229,7 +229,7 @@ information such as device URLs and Keys. The container is listening on a single
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -253,7 +253,7 @@ As you can see, use of the MQTT transport is driven by only two environment vari
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.IoT-over-MQTT.git
 cd tutorials.IoT-over-MQTT
@@ -419,8 +419,8 @@ The response will look similar to the following:
 
 The IoT Agent acts as a middleware between the IoT devices and the context broker. It therefore needs to be able to
 create context data entities with unique IDs. Once a service has been provisioned and an unknown device makes a
-measurement, the IoT Agent add this to the context using the supplied `<device-id>`, unless the device is recognized
-and can be mapped to a known ID.
+measurement, the IoT Agent add this to the context using the supplied `<device-id>`, unless the device is recognized and
+can be mapped to a known ID.
 
 There is no guarantee that every supplied IoT device `<device-id>` will always be unique, therefore all provisioning
 requests to the IoT Agent require two mandatory headers:
@@ -447,7 +447,7 @@ It is possible to set up default commands and attributes for all devices as well
 tutorial as we will be provisioning each device separately.
 
 This example provisions an anonymous group of devices. It tells the IoT Agent that a series of devices will be
-communicating by sending messages to the `/4jggokgpepnvsb2uv4s40d59ov` **topic**
+communicating by sending messages to the `/ul/4jggokgpepnvsb2uv4s40d59ov` **topic**
 
 The `resource` attribute is left blank since HTTP communication is not being used.
 
@@ -535,7 +535,7 @@ message to the following **topic**
 ```bash
 docker run -it --rm --name mqtt-publisher --network \
   fiware_default efrecon/mqtt-client pub -h mosquitto -m "c|1" \
-  -t "/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
+  -t "/ul/4jggokgpepnvsb2uv4s40d59ov/motion001/attrs"
 ```
 
 -   The value of the `-m` parameter defines the message. This is in UltraLight syntax.
@@ -544,7 +544,7 @@ docker run -it --rm --name mqtt-publisher --network \
 The **topic** must be in the following form:
 
 ```text
-/<api-key>/<device-id>/attrs
+/<protocol>/<api-key>/<device-id>/attrs
 ```
 
 > **Note** In the [previous tutorial](iot-agent.md), when testing HTTP connectivity between the Motion Sensor and an IoT
