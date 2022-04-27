@@ -59,13 +59,14 @@ if (DEVICE_TRANSPORT === 'MQTT') {
 
     MQTT_CLIENT.on('connect', () => {
         apiKeys.split(',').forEach((apiKey) => {
-            let topic = '/' + apiKey + '/#';
-            if (process.env.MQTT_TOPIC_PROTOCOL !== '') {
-                topic = '/' + MQTT_TOPIC_PROTOCOL + topic;
-            }
+            const topic = '/' + apiKey + '/#';
             debug('Subscribing to MQTT Broker: ' + MQTT_BROKER_URL + ' ' + topic);
             MQTT_CLIENT.subscribe(topic);
             MQTT_CLIENT.subscribe(topic + '/#');
+            if (process.env.MQTT_TOPIC_PROTOCOL !== '') {
+                MQTT_CLIENT.subscribe('/' + MQTT_TOPIC_PROTOCOL + topic);
+                MQTT_CLIENT.subscribe('/#' + MQTT_TOPIC_PROTOCOL + topic + '/#');
+            }
         });
     });
 
