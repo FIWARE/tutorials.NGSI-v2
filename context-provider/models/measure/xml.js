@@ -5,6 +5,7 @@ const debug = require('debug')('tutorial:xml');
 
 const DEVICE_API_KEY = process.env.DUMMY_DEVICES_API_KEY || '1234';
 const IOTA_ATTRS_TOPIC = (process.env.IOTA_MESSAGE_INDEX || 'fiware') + '/attrs';
+const MQTT_TOPIC_PROTOCOL = process.env.MQTT_TOPIC_PROTOCOL || 'xml';
 
 const IOT_AGENT_URL =
     'http://' +
@@ -83,7 +84,10 @@ class XMLMeasure {
 
     // measures sent over MQTT are posted as topics (motion sensor, lamp and door)
     sendAsMQTT(deviceId, state) {
-        const topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+        let topic = '/' + getAPIKey(deviceId) + '/' + deviceId + '/attrs';
+        if (process.env.MQTT_TOPIC_PROTOCOL !== '') {
+            topic = '/' + MQTT_TOPIC_PROTOCOL + topic;
+        }
         MQTT_CLIENT.publish(topic, ultralightToXML(DEVICE_API_KEY, deviceId, state));
     }
     // measures sent over IOTA are posted as topics (motion sensor, lamp and door)

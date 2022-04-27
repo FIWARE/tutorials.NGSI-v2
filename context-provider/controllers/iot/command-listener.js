@@ -18,6 +18,10 @@ const DEVICE_VERSION = process.env.DEVICE_VERSION || NGSI_VERSION;
 const NGSI_PREFIX = process.env.NGSI_LD_PREFIX !== undefined ? process.env.NGSI_LD_PREFIX : 'urn:ngsi-ld:';
 const AUTHZFORCE_ENABLED = process.env.AUTHZFORCE_ENABLED || false;
 
+const port = process.env.WEB_APP_PORT || '3000';
+const dataModelContext =
+    process.env.IOTA_JSON_LD_CONTEXT || 'http://localhost:' + port + '/data-models/ngsi-context.jsonld';
+
 function createNGSIv2Request(action, id) {
     const method = 'PATCH';
     const body = {};
@@ -48,7 +52,8 @@ function createNGSILDRequest(action, id) {
         'NGSILD-Tenant': 'openiot',
         'NGSILD-Path': '/',
         'fiware-service': 'openiot',
-        'fiware-servicepath': '/'
+        'fiware-servicepath': '/',
+        Link: '<' + dataModelContext + '>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
     };
 
     return { method, url, headers, body, json: true };
@@ -89,6 +94,7 @@ function sendCommand(req, res) {
         options.headers['X-Auth-Token'] = req.session.access_token;
     }
 
+    debug(JSON.stringify(options, null, 4));
     request(options, (error) => {
         if (error) {
             debug(error);
