@@ -451,8 +451,8 @@ communicating by sending device measures over the `/ul/4jggokgpepnvsb2uv4s40d59o
 
 > **Note** Measures and commands are sent over different MQTT topics:
 >
-> *  _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
-> *  _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
+> *   _Measures_ are sent on the `/<protocol>/<api-key>/<device-id>/attrs` topic,
+> *   _Commands_ are sent on the `/<api-key>/<device-id>/cmd` topic,
 >
 >  The reasoning behind this is that when sending measures northbound from device to IoT Agent,
 >  it is necessary to explicitly identify which IoT Agent is needed to parse the data. This
