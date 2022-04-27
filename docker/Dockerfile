@@ -70,6 +70,8 @@ WORKDIR /opt/tutorial
 RUN \
   # Ensure that Git is installed prior to running npm install
   apt-get install -y --no-install-recommends git && \
+  curl "https://sh.rustup.rs" -sSf | sh -s -- -y  && \
+  source "${HOME}/.cargo/env" && \
   echo "INFO: npm install --production..." && \
   npm install --only=prod --no-package-lock --no-optional && \
   # Remove Git and clean apt cache
