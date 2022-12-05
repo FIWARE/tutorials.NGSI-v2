@@ -917,7 +917,7 @@ start-up.
 
 The `kong-api-gateway` container is listening on a single port:
 
-- The API Gateway Port - `8000` is exposed purely for tutorial access - so that cUrl or Postman can make requests directly to
+-   The API Gateway Port - `8000` is exposed purely for tutorial access - so that cUrl or Postman can make requests directly to
   the **Kong** instance without being part of the same network.
 
 | Key                                    | Value                         | Description                                         |
