@@ -568,11 +568,11 @@ curl -X DELETE \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
-## Secure traffic between an Application and the Context Broker
+## Wilma PEP - Secure traffic between an Application and the Context Broker
 
 ![](https://fiware.github.io/tutorials.PEP-Proxy/img/pep-proxy-orion.png)
 
-<h3>Securing Orion - PEP Proxy Configuration</h3>
+<h3>Securing Orion - Wilma PEP Proxy Configuration</h3>
 
 The `orion-proxy` container is an instance of FIWARE **Wilma** listening on port `1027`, it is configured to forward
 traffic to `orion` on port `1026`, which is the default port that the Orion Context Broker is listening to for NGSI
@@ -703,11 +703,10 @@ To start the system with a PEP Proxy protecting access to **Orion**, run the fol
 
 Click on the image above to see a video about securing a REST API using the Wilma PEP Proxy.
 
-## User Logs In to the Application using the REST API
 
-### PEP Proxy - No Access to Orion without an Access Token
+### Wilma PEP Proxy - No Access to Orion without an Access Token
 
-Secured Access can be ensured by requiring all requests to the secured service are made indirectly via a PEP Proxy (in
+Secured Access can be ensured by requiring all requests to the secured service are made indirectly via a Wilma PEP Proxy (in
 this case the PEP Proxy is found in front of the Context Broker). Requests must include an `X-Auth-Token`, failure to
 present a valid token results in a denial of access.
 
@@ -760,9 +759,9 @@ The response returns an access code to identify the user:
 This can also be done by entering the Tutorial Application on http:/localhost and logging in using any of the OAuth2
 grants on the page. A successful log-in will return an access token.
 
-### PEP Proxy - Accessing Orion with an Access Token
+### Wilma PEP Proxy - Accessing Orion with an Access Token
 
-If a request to the PEP Proxy is made including a valid access token in the `X-Auth-Token` header as shown, the request
+If a request to **Wilma** is made including a valid access token in the `X-Auth-Token` header as shown, the request
 is permitted and the service behind the PEP Proxy (in this case the Orion Context Broker) will return the data as
 expected.
 
@@ -851,6 +850,190 @@ async function buyItem(req, res) {
     res.redirect(`/app/store/${inventory.refStore}/till`);
 }
 ```
+
+
+
+## Kong PEP - Secure traffic between an Application and the Context Broker
+
+FIWARE is not limited to using a single security stack. Since the authorization token is held in a header, security
+is effectively orthogonal to processing of a context broker, and the developer is free to chose their preferred
+Identity Manager, PDP and PEP. As an example, we can swap out the Wilma PEP Proxy and use the [Kong](https://konghq.com/)
+API Management tool in coordination with a [Kong Plugin](https://github.com/FIWARE/kong-plugins-fiware) for Keyrock.
+
+![](https://fiware.github.io/tutorials.PEP-Proxy/img/kong-orion.png)
+
+<h3>Securing Orion - Kong PEP Proxy Configuration</h3>
+
+The `kong-api-gateway` container is an instance of **Kong** listening on port `8000`, it includes a plugin to use **Keyrock** as a PDP and is configured to forward
+traffic to `orion` on port `1026`, which is the default port that the Orion Context Broker is listening to for NGSI
+Requests.
+
+```yaml
+kong-api-gateway:
+  image: quay.io/fiware/kong
+  container_name: fiware-orion-kong
+  hostname: orion-proxy
+  networks:
+    default:
+      ipv4_address: 172.18.1.10
+  ports:
+    - "8000:8000/tcp"
+  environment:
+    - KONG_DATABASE=off
+    - KONG_DECLARATIVE_CONFIG=/etc/kong/kong.yaml
+    - KONG_PLUGINS=bundled,pep-plugin
+    - KONG_PLUGINSERVER_NAMES= pep-plugin
+    - "KONG_PLUGINSERVER_PEP_PLUGIN_QUERY_CMD=/go-plugins/pep-plugin -dump"
+    - "KONG_PLUGINSERVER_PEP_PLUGIN_START_CMD=/go-plugins/pep-plugin"
+    - KONG_LOG_LEVEL=debug
+```
+
+The declarative config holds additional information such as the hostname and location of the `keyrock`PDP
+and the name and port of the proxied broker (`orion`)
+
+```yaml
+services:
+  - host: "orion"
+    name: "orion-oidc"
+    port: 1026
+    protocol: http
+    routes:
+      - name: orion-oidc
+        paths:
+          - /orion
+        strip_path: true
+    plugins:
+      - name: pep-plugin
+        config:
+          authorizationendpointtype: Keyrock
+          authorizationendpointaddress: http://keyrock:3005/user/
+          keyrockappid: tutorial-dckr-site-0000-xpresswebapp
+          pathprefix: /orion
+```
+
+The `keyrockappid` would usually be obtained by adding a new entry to the application in
+**Keyrock**, however, in this tutorial, they have been predefined by populating the **MySQL** database with data on
+start-up.
+
+The `kong-api-gateway` container is listening on a single port:
+
+- The API Gateway Port - `8000` is exposed purely for tutorial access - so that cUrl or Postman can make requests directly to
+  the **Kong** instance without being part of the same network.
+
+| Key                                    | Value                         | Description                                         |
+| -------------------------------------- | ----------------------------- | --------------------------------------------------- |
+| KONG_DATABASE                          | `off`                         | Whether to use a database to hold the configuration |
+| KONG_DECLARATIVE_CONFIG                | `/etc/kong/kong.yaml`         | The location of the configuration file              |
+| KONG_PLUGINS                           | `bundled,pep-plugin`          | List of included plugins                            |
+| KONG_PLUGINSERVER_NAMES                | `pep-plugin`                  | Names of configurable pluins                        |
+| KONG_PLUGINSERVER_PEP_PLUGIN_QUERY_CMD | `go-plugins/pep-plugin -dump` | Command for querying the plugin                     |
+| KONG_PLUGINSERVER_PEP_PLUGIN_START_CMD | `/go-plugins/pep-plugin`      | Command issued at plugin start up                   |
+| KONG_LOG_LEVEL                         | `debug`                       | Debug level of Kong                                 |
+
+This Docker image of **Kong** is generated to include several FIWARE specific plugins. [Kong Plugins](https://docs.konghq.com/hub/) enable the gateway to be extended and apply multiple security mechanisms.
+
+<h2>Securing Orion - Start up</h2>
+
+To start the system with a Kong API Gateway protecting access to **Orion**, run the following command:
+
+```console
+./services orion-kong
+```
+
+### Kong PEP Proxy - No Access to Orion without an Access Token
+
+Secured Access can be ensured by requiring all requests to the secured service are made indirectly
+via the API Gateway. Due to the manner in which Kong has been configured in the `kong.yaml`,
+all Context Broker access can be made under the path `/orion` - for example to retrieve all entities a user would use `http://localhost:8000/orion/v2/entities/` (in
+this case Kong is acting as a PEP Proxy is found in front of the Context Broker).
+
+Successful requests must include an `Authentiction` header, failure to
+present a valid token results in a denial of access.
+
+#### 16 Request:
+
+If a request to **Kong** is made without any access token as shown:
+
+```console
+curl -X GET \
+  http://localhost:8000/orion/v2/entities/urn:ngsi-ld:Store:001?options=keyValues
+```
+
+#### Response:
+
+The response is a **401 Unauthorized** error code, with the following explanation:
+
+```
+Request forbidden by authorization service Keyrock.
+```
+
+### Keyrock - User Obtains an Access Token
+
+#### 17 Request:
+
+To log in to the application using the user-credentials flow send a POST request to **Keyrock** using the `oauth2/token`
+endpoint with the `grant_type=password`. For example to log-in as Alice the Admin:
+
+```console
+curl -iX POST \
+  'http://localhost:3005/oauth2/token' \
+  -H 'Accept: application/json' \
+  -H 'Authorization: Basic dHV0b3JpYWwtZGNrci1zaXRlLTAwMDAteHByZXNzd2ViYXBwOnR1dG9yaWFsLWRja3Itc2l0ZS0wMDAwLWNsaWVudHNlY3JldA==' \
+  -H 'Content-Type: application/x-www-form-urlencoded' \
+  --data "username=alice-the-admin@test.com&password=test&grant_type=password"
+```
+
+#### Response:
+
+The response returns an access code to identify the user:
+
+```json
+{
+  "access_token": "a7e22dfe2bd7d883c8621b9eb50797a7f126eeab",
+  "token_type": "Bearer",
+  "expires_in": 3599,
+  "refresh_token": "05e386edd9f95ed0e599c5004db8573e86dff874"
+}
+```
+
+This can also be done by entering the Tutorial Application on http:/localhost and logging in using any of the OAuth2
+grants on the page. A successful log-in will return an access token.
+
+### Kong PEP Proxy - Accessing Orion with an Access Token
+
+If a request to **Kong** is made including a valid access token in the `X-Auth-Token` header as shown, the request
+is permitted and the service behind the PEP Proxy (in this case the Orion Context Broker) will return the data as
+expected.
+
+#### 18 Request:
+
+```console
+curl -X GET \
+  http://localhost:8000/orion/v2/entities/urn:ngsi-ld:Store:001?options=keyValues \
+  -H 'Authorization: Bearer {{X-Access-token}}'
+```
+
+#### Response:
+
+```json
+{
+  "id": "urn:ngsi-ld:Store:001",
+  "type": "Store",
+  "address": {
+    "streetAddress": "Bornholmer Straße 65",
+    "addressRegion": "Berlin",
+    "addressLocality": "Prenzlauer Berg",
+    "postalCode": "10439"
+  },
+  "location": {
+    "type": "Point",
+    "coordinates": [13.3986, 52.5547]
+  },
+  "name": "Bösebrücke Einkauf"
+}
+```
+
+
 
 ## Securing an IoT Agent South Port
 
@@ -993,7 +1176,7 @@ Logging in as an IoT Sensor follows the same user-credentials flow as for a User
 `iot_sensor_00000000-0000-0000-0000-000000000000` with password `test` send a POST request to **Keyock** using the
 `oauth2/token` endpoint with the `grant_type=password`:
 
-#### 15 Request:
+#### 19 Request:
 
 ```bash
 curl -iX POST \
@@ -1026,7 +1209,7 @@ The POST request to a PEP Proxy in front of the Ultralight IoT Agent identifies 
 the source of the request as being registered in Keyrock, and therefore the measurement will be successfully passed on
 to the IoT Agent itself.
 
-#### Request:
+#### 20 Request:
 
 ```bash
 curl -X POST \
@@ -1157,7 +1340,7 @@ The standard `Authorization: Basic` header holds the base 64 concatenation of th
 `scope=permanent` is added to retrieve permanent tokens when available. The response contains an `access_token` which
 can be used for device provisioning.
 
-#### 17 Request:
+#### 21 Request:
 
 ```bash
 curl -X POST \
@@ -1192,7 +1375,7 @@ been provisioned as shown:
 }
 ```
 
-#### 18 Request:
+#### 22 Request:
 
 ```bash
 curl -iX PUT \
@@ -1212,7 +1395,7 @@ The Motion sensor requests are now sent via the `orion-proxy` and identify thems
 
 Once a trusted service group has been created, a device can be provisioned in the usual manner.
 
-#### 19 Request:
+#### 23 Request:
 
 ```bash
 curl -iX POST \
