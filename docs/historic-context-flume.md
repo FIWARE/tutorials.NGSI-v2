@@ -28,8 +28,8 @@ The system so far has been built up to handle the current context, in other word
 the state of the real-world objects at a given moment in time.
 
 From this definition you can see - context is only interested in the **current** state of the system - It is not the
-responsibility of the existing components to report on the historical state of the system, the context is based
-on the last measurement each sensor has sent to the context broker.
+responsibility of the existing components to report on the historical state of the system, the context is based on the
+last measurement each sensor has sent to the context broker.
 
 In order to do this, we will need to extend the existing architecture to persist changes of state into a database
 whenever the context is updated.
@@ -116,7 +116,7 @@ The specific architecture of each section of the tutorial is discussed below.
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Historic-Context-Flume.git
 cd tutorials.Historic-Context-Flume
@@ -198,7 +198,7 @@ The `cygnus` container is listening on two ports:
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                 | Value            | Description                                                                                          |
-|---------------------|------------------|------------------------------------------------------------------------------------------------------|
+| ------------------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
 | CYGNUS_MONGO_HOSTS  | `mongo-db:27017` | Comma separated list of MongoDB servers which Cygnus will contact to persist historical context data |
 | CYGNUS_LOG_LEVEL    | `DEBUG`          | The logging level for Cygnus                                                                         |
 | CYGNUS_SERVICE_PORT | `5051`           | Notification Port that Cygnus listens when subscribing to context data changes                       |
@@ -538,7 +538,7 @@ The `postgres-db` container is listening on a single port:
 The `postgres-db` container is driven by environment variables as shown:
 
 | Key               | Value.     | Description                               |
-|-------------------|------------|-------------------------------------------|
+| ----------------- | ---------- | ----------------------------------------- |
 | POSTGRES_PASSWORD | `password` | Password for the PostgreSQL database user |
 | POSTGRES_USER     | `postgres` | Username for the PostgreSQL database user |
 | POSTGRES_DB       | `postgres` | The name of the PostgreSQL database       |
@@ -585,7 +585,7 @@ The `cygnus` container is listening on two ports:
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                            | Value         | Description                                                                    |
-|--------------------------------|---------------|--------------------------------------------------------------------------------|
+| ------------------------------ | ------------- | ------------------------------------------------------------------------------ |
 | CYGNUS_POSTGRESQL_HOST         | `postgres-db` | Hostname of the PostgreSQL server used to persist historical context data      |
 | CYGNUS_POSTGRESQL_PORT         | `5432`        | Port that the PostgreSQL server uses to listen to commands                     |
 | CYGNUS_POSTGRESQL_USER         | `postgres`    | Username for the PostgreSQL database user                                      |
@@ -876,7 +876,7 @@ The `mysql-db` container is listening on a single port:
 The `mysql-db` container is driven by environment variables as shown:
 
 | Key                 | Value. | Description                                                                                                                                                                                           |
-|---------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MYSQL_ROOT_PASSWORD | `123`. | specifies a password that is set for the MySQL `root` account.                                                                                                                                        |
 | MYSQL_ROOT_HOST     | `%`    | By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
@@ -926,7 +926,7 @@ The `cygnus` container is listening on two ports:
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                 | Value      | Description                                                                    |
-|---------------------|------------|--------------------------------------------------------------------------------|
+| ------------------- | ---------- | ------------------------------------------------------------------------------ |
 | CYGNUS_MYSQL_HOST   | `mysql-db` | Hostname of the MySQL server used to persist historical context data           |
 | CYGNUS_MYSQL_PORT   | `3306`     | Port that the MySQL server uses to listen to commands                          |
 | CYGNUS_MYSQL_USER   | `root`     | Username for the MySQL database user                                           |
@@ -1232,7 +1232,7 @@ In multi-agent mode, the `cygnus` container is listening on multiple ports:
 The default port mapping can be seen below:
 
 |       sink | port | admin_port |
-|-----------:|-----:|-----------:|
+| ---------: | ---: | ---------: |
 |      mysql | 5050 |       5080 |
 |      mongo | 5051 |       5081 |
 |       ckan | 5052 |       5082 |
@@ -1245,7 +1245,7 @@ Since we are not persisting CKAN, HDFS or CartoDB data, there is no need to open
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                    | Value            | Description                                                                                          |
-|------------------------|------------------|------------------------------------------------------------------------------------------------------|
+| ---------------------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
 | CYGNUS_MULTIAGENT      | `true`           | Whether to persist data into multiple databases.                                                     |
 | CYGNUS_MONGO_HOSTS     | `mongo-db:27017` | Comma separated list of MongoDB servers which Cygnus will contact to persist historical context data |
 | CYGNUS_POSTGRESQL_HOST | `postgres-db`    | Hostname of the PostgreSQL server used to persist historical context data                            |
@@ -1326,7 +1326,7 @@ database.
 The default port mapping can be seen below:
 
 |       sink | port |
-|-----------:|-----:|
+| ---------: | ---: |
 |      mysql | 5050 |
 |      mongo | 5051 |
 |       ckan | 5052 |

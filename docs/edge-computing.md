@@ -50,7 +50,7 @@ Logically, FogFlow consists of the following three layers:
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Edge-Computing.git
 cd tutorials.Edge-Computing
@@ -197,8 +197,8 @@ repository:
 ## Connect IoT Devices to FogFlow
 
 When data flow from a sensor device towards broker, it is called Northbound Flow, whereas it is Southbound Flow, when
-data flow from broker towards the actuator devices. FogFlow relies on this bidirectional data flow to realize the
-actual idea behind it.
+data flow from broker towards the actuator devices. FogFlow relies on this bidirectional data flow to realize the actual
+idea behind it.
 
 To receive data from the sensor devices, refer
 [connect to a sensor device](https://fogflow.readthedocs.io/en/latest/integration.html#northbound-integration). The
@@ -341,8 +341,8 @@ Go to Device menu in System Status tab. Provide the following information.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/device-registration.png)
 
-Once the device profile is registered, a new "Temperature" sensor entity will be created, and it will trigger the "dummy"
-fog function automatically.
+Once the device profile is registered, a new "Temperature" sensor entity will be created, and it will trigger the
+"dummy" fog function automatically.
 
 ![](https://fiware.github.io/tutorials.Edge-Computing/img/fog-function-triggering-device.png)
 
@@ -578,4 +578,4 @@ other FIWARE GEs.
 
 ## License
 
-[MIT](LICENSE) © 2020-2021 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2020-2023 FIWARE Foundation e.V.

@@ -113,16 +113,16 @@ outlinks to a separate HR system for example.
 ## Comparison between Linked and Non-Linked Data Systems
 
 Obviously within a single isolated Smart System itself, it makes no difference whether a rich, complex linked-data
-architecture is used or a simpler, non-linked-data system is created. However, if the data is designed to be shared, 
-then linked data is a requirement to avoid data silos. An external system is unable to "know" what relationships are 
+architecture is used or a simpler, non-linked-data system is created. However, if the data is designed to be shared,
+then linked data is a requirement to avoid data silos. An external system is unable to "know" what relationships are
 unless they have been provided in a machine-readable form.
 
 ### Video: Rich Snippets: Product Search
 
-A simple example of an external system interrogating for structured data can be found in online product search. 
-Machines from third parties such as Google are able to read product information (encoded using a standard
-[**Product** data model](https://jsonld.com/product/)) and display a rich snippet of product information with a 
-standard star rating.
+A simple example of an external system interrogating for structured data can be found in online product search. Machines
+from third parties such as Google are able to read product information (encoded using a standard
+[**Product** data model](https://jsonld.com/product/)) and display a rich snippet of product information with a standard
+star rating.
 
 [![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
 
@@ -152,9 +152,9 @@ on the shelf, which in turn have an indirect relationship.
 
 Since the entity data is not yet machine-readable externally, the programmer is free to design models as she sees fit
 and can decide to update two attributes of one **InventoryItem** Entity or two separate attributes on two separate
-**Shelf** and **StockOrder** entities without regards whether these really are real concrete items in the real
-world. However, this means **external systems** cannot discover information for themselves and must be pre-programmed 
-to know where information is held.
+**Shelf** and **StockOrder** entities without regards whether these really are real concrete items in the real world.
+However, this means **external systems** cannot discover information for themselves and must be pre-programmed to know
+where information is held.
 
 ### Relationships with Linked Data
 
@@ -165,8 +165,8 @@ additional annotations it is possible to create usable models which are ontologi
 can now be directly assigned a `numberOfItems` attribute and bridge table concept is no longer required. This is
 necessary as other systems may be interrogating **Shelf** directly.
 
-Similarly, a real **StockOrder** Entity can be created which holds a entry of which items are currently on order for 
-each store. This is a proper context data entity as `stockCount` describes the current state of a product in the 
+Similarly, a real **StockOrder** Entity can be created which holds a entry of which items are currently on order for
+each store. This is a proper context data entity as `stockCount` describes the current state of a product in the
 warehouse. Once again this describes a single, real world entity and is ontologically correct.
 
 Unlike the NGSI v2 scenario, with linked data, it would be possible for an **external system** to discover relationships
@@ -312,7 +312,7 @@ run from exposed ports.
 
 ![](https://fiware.github.io/tutorials.Relationships-Linked-Data/img/architecture.png)
 
-The necessary configuration information can be seen in the services' section of the associated `docker-compose.yml` 
+The necessary configuration information can be seen in the services' section of the associated `docker-compose.yml`
 file:
 
 ```yaml
@@ -781,14 +781,14 @@ More information about `Relationships` can be obtained from the `@graph` of the 
 relevant section definition is as follows:
 
 ```json
-    {
-      "@id": "tutorial:locatedIn",
-      "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
-      "schema:domainIncludes": [{"@id": "tutorial:Shelf"}],
-      "schema:rangeIncludes": [{"@id": "fiware:Building"}],
-      "rdfs:comment": "Building in which an item is found",
-      "rdfs:label": "located In"
-    }
+{
+    "@id": "tutorial:locatedIn",
+    "@type": "https://uri.etsi.org/ngsi-ld/Relationship",
+    "schema:domainIncludes": [{ "@id": "tutorial:Shelf" }],
+    "schema:rangeIncludes": [{ "@id": "fiware:Building" }],
+    "rdfs:comment": "Building in which an item is found",
+    "rdfs:label": "located In"
+}
 ```
 
 This indicates a lot of additional information about the `locatedIn` _Relationship_ in a computer readable fashion:

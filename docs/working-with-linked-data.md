@@ -9,8 +9,8 @@ data context programmatically. The tutorial extends the knowledge gained from th
 [Node.js](https://nodejs.org/) [Express](https://expressjs.com/) application in order to retrieve and alter context
 data. This removes the need to use the command-line to invoke cUrl commands.
 
-The tutorial is mainly concerned with discussing code written in Node.js, however some results can be checked by
-making [cUrl](https://ec.haxx.se/) commands.
+The tutorial is mainly concerned with discussing code written in Node.js, however some results can be checked by making
+[cUrl](https://ec.haxx.se/) commands.
 [Postman documentation](https://fiware.github.io/tutorials.Working-with-Linked-Data) for the same commands is also
 available.
 
@@ -146,7 +146,7 @@ tutorial:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key            | Value                          | Description                                                               |
-|----------------|--------------------------------|---------------------------------------------------------------------------|
+| -------------- | ------------------------------ | ------------------------------------------------------------------------- |
 | DEBUG          | `tutorial:*`                   | Debug flag used for logging                                               |
 | WEB_APP_PORT   | `3000`                         | Port used by the Context Provider NGSI proxy and web-app for viewing data |
 | CONTEXT_BROKER | `http://orion:1026/ngsi-ld/v1` | URL of the context broker to connect to update context                    |
@@ -163,7 +163,7 @@ All services can be initialised from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Relationships-Linked-Data/blob/master/services) Bash script provided
 within the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Working-with-Linked-Data.git
 cd tutorials.Working-with-Linked-Data
@@ -260,7 +260,7 @@ function readEntity(entityId, opts, headers = {}) {
         url: BASE_PATH + "/entities/" + entityId,
         method: "GET",
         headers,
-        json: true
+        json: true,
     });
 }
 ```
@@ -278,29 +278,22 @@ And the response from the broker is:
 
 ```json
 {
-  "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-  "id": "urn:ngsi-ld:Building:store001",
-  "type": "Building",
-  "furniture": [
-    "urn:ngsi-ld:Shelf:unit001",
-    "urn:ngsi-ld:Shelf:unit002",
-    "urn:ngsi-ld:Shelf:unit003"
-  ],
-  "category": "commercial",
-  "address": {
-    "streetAddress": "Bornholmer Straße 65",
-    "addressRegion": "Berlin",
-    "addressLocality": "Prenzlauer Berg",
-    "postalCode": "10439"
-  },
-  "location": {
-    "type": "Point",
-    "coordinates": [
-      13.3986,
-      52.5547
-    ]
-  },
-  "name": "Bösebrücke Einkauf"
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"],
+    "category": "commercial",
+    "address": {
+        "streetAddress": "Bornholmer Straße 65",
+        "addressRegion": "Berlin",
+        "addressLocality": "Prenzlauer Berg",
+        "postalCode": "10439"
+    },
+    "location": {
+        "type": "Point",
+        "coordinates": [13.3986, 52.5547]
+    },
+    "name": "Bösebrücke Einkauf"
 }
 ```
 
@@ -321,9 +314,9 @@ Therefore, the code for the `displayTillInfo()` method will consist of the follo
 3.  Reduce the result to a `id` parameter and make a third request to the Context Broker to _retrieve product details
     for selected shelves_.
 
-To users familiar with database joins, it may seem strange being forced to make a series of requests like this,
-however it is necessary due to scalability issues/concerns in a large distributed setup. Direct join requests are not
-possible with NGSI-LD.
+To users familiar with database joins, it may seem strange being forced to make a series of requests like this, however
+it is necessary due to scalability issues/concerns in a large distributed setup. Direct join requests are not possible
+with NGSI-LD.
 
 ### Find Shelves within a known Store
 
@@ -336,7 +329,7 @@ const building = await ngsiLD.readEntity(
     {
         type: "Building",
         options: "keyValues",
-        attrs: "furniture"
+        attrs: "furniture",
     },
     ngsiLD.setHeaders(req.session.access_token, LinkHeader)
 );
@@ -356,14 +349,10 @@ And the response from the broker is:
 
 ```json
 {
-  "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-  "id": "urn:ngsi-ld:Building:store001",
-  "type": "Building",
-  "furniture": [
-    "urn:ngsi-ld:Shelf:unit001",
-    "urn:ngsi-ld:Shelf:unit002",
-    "urn:ngsi-ld:Shelf:unit003"
-  ]
+    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "id": "urn:ngsi-ld:Building:store001",
+    "type": "Building",
+    "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"]
 }
 ```
 
@@ -380,7 +369,7 @@ let productsList = await ngsiLD.listEntities(
         type: "Shelf",
         options: "keyValues",
         attrs: "stocks,numberOfItems",
-        id: building.furniture.join(",")
+        id: building.furniture.join(","),
     },
     ngsiLD.setHeaders(req.session.access_token, LinkHeader)
 );
@@ -395,7 +384,7 @@ function listEntities(opts, headers = {}) {
         url: BASE_PATH + "/entities",
         method: "GET",
         headers,
-        json: true
+        json: true,
     });
 }
 ```
@@ -418,27 +407,27 @@ further.
 
 ```json
 [
-  {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-    "id": "urn:ngsi-ld:Shelf:unit001",
-    "type": "Shelf",
-    "numberOfItems": 15,
-    "stocks": "urn:ngsi-ld:Product:001"
-  },
-  {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-    "id": "urn:ngsi-ld:Shelf:unit002",
-    "type": "Shelf",
-    "numberOfItems": 15,
-    "stocks": "urn:ngsi-ld:Product:003"
-  },
-  {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-    "id": "urn:ngsi-ld:Shelf:unit003",
-    "type": "Shelf",
-    "numberOfItems": 15,
-    "stocks": "urn:ngsi-ld:Product:004"
-  }
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "id": "urn:ngsi-ld:Shelf:unit001",
+        "type": "Shelf",
+        "numberOfItems": 15,
+        "stocks": "urn:ngsi-ld:Product:001"
+    },
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "id": "urn:ngsi-ld:Shelf:unit002",
+        "type": "Shelf",
+        "numberOfItems": 15,
+        "stocks": "urn:ngsi-ld:Product:003"
+    },
+    {
+        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+        "id": "urn:ngsi-ld:Shelf:unit003",
+        "type": "Shelf",
+        "numberOfItems": 15,
+        "stocks": "urn:ngsi-ld:Product:004"
+    }
 ]
 ```
 
@@ -466,7 +455,7 @@ let productsInStore = await ngsiLD.listEntities(
         type: "Product",
         options: "keyValues",
         attrs: "name,price",
-        id: stockedProducts.join(",")
+        id: stockedProducts.join(","),
     },
     headers
 );
@@ -489,27 +478,26 @@ The response is a JSON Array of **Product** entities which are then displayed on
 
 ```json
 [
-  {
-    "id": "urn:ngsi-ld:Product:001",
-    "type": "Product",
-    "price": 0.99,
-    "name": "Beer"
-  },
-  {
-    "id": "urn:ngsi-ld:Product:003",
-    "type": "Product",
-    "price": 14.99,
-    "name": "White Wine"
-  },
-  {
-    "id": "urn:ngsi-ld:Product:004",
-    "type": "Product",
-    "price": 50,
-    "name": "Vodka"
-  }
+    {
+        "id": "urn:ngsi-ld:Product:001",
+        "type": "Product",
+        "price": 0.99,
+        "name": "Beer"
+    },
+    {
+        "id": "urn:ngsi-ld:Product:003",
+        "type": "Product",
+        "price": 14.99,
+        "name": "White Wine"
+    },
+    {
+        "id": "urn:ngsi-ld:Product:004",
+        "type": "Product",
+        "price": 50,
+        "name": "Vodka"
+    }
 ]
 ```
-
 
 ## Updating Linked Data
 
@@ -527,7 +515,7 @@ const shelf = await ngsiLD.listEntities(
         options: "keyValues",
         attrs: "stocks,numberOfItems",
         q: 'numberOfItems>0;locatedIn=="' + req.body.storeId + '";stocks=="' + req.body.productId + '"',
-        limit: 1
+        limit: 1,
     },
     headers
 );
@@ -547,7 +535,7 @@ curl -G -X GET 'http://localhost:1026/ngsi-ld/v1/entities/' \
 
 And the response from the broker is the following with nine shelves:
 
-````json
+```json
 [
   {
     "id": "urn:ngsi-ld:Shelf:unit001",
@@ -583,9 +571,9 @@ And the response from the broker is the following with nine shelves:
   },
 
   ... etc.
-  
+
 ]
-````
+```
 
 ### Update the state of a shelf
 
@@ -609,7 +597,7 @@ function updateAttribute(entityId, body, headers = {}) {
         method: "PATCH",
         body,
         headers,
-        json: true
+        json: true,
     });
 }
 ```
@@ -652,8 +640,8 @@ found for all attribute names used within the tutorials.
 
 #### 1 Request:
 
-When creating a data entity, short names for all the URIs mapped in the Japanese JSON-LD `@context` can be used
-freely in the payload of the request.
+When creating a data entity, short names for all the URIs mapped in the Japanese JSON-LD `@context` can be used freely
+in the payload of the request.
 
 As can be seen in the example below, attribute names and enumerated values (such as `ビル` = `Building`) can be used
 throughout. The NGSI-LD specification mandates that the attributes defined in the NGSI-LD API (i.e. the core `@context`)
@@ -816,7 +804,7 @@ function translateRequest(req, res) {
         method: req.method,
         headers: req.headers,
         qs: req.query,
-        json: true
+        json: true,
     })
         .then(async function (cbResponse) {
             cbResponse["@context"] = coreContext;
@@ -844,8 +832,8 @@ curl -L -X GET 'http://localhost:3000/japanese/ngsi-ld/v1/entities/urn:ngsi-ld:B
 
 #### Response:
 
-The response after the expansion/compaction operation is data which now uses all the preferred attribute names - this
-is **no longer** valid NGSI-LD, but would be of use if the receiving system requests data in this format.
+The response after the expansion/compaction operation is data which now uses all the preferred attribute names - this is
+**no longer** valid NGSI-LD, but would be of use if the receiving system requests data in this format.
 
 Note that the reverse expansion/compaction operation could be used to convert this JSON back into a valid NGSI-LD
 payload before sending data to the context broker.

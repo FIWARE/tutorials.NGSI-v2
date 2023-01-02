@@ -36,9 +36,9 @@ that identifies the user avoiding exposing the username and password. Particular
 Click on the image above to watch a video on OpenID connect and identity.
 
 OAuth2 is a mechanism for granting access - specifically **Authorization** - _Can I do this?_). Technically, within the
-OAuth protocol there is no concept of **Identity** per se, and therefore it is not really designed for 
-**Authentication** (_I am User X_) even if it is able to fulfil certain **Authentication** use cases such mobile app 
-log in. OpenID provides an extension to OAuth2 enabling applications to obtain user information in a standard manner.
+OAuth protocol there is no concept of **Identity** per se, and therefore it is not really designed for
+**Authentication** (_I am User X_) even if it is able to fulfil certain **Authentication** use cases such mobile app log
+in. OpenID provides an extension to OAuth2 enabling applications to obtain user information in a standard manner.
 
 OpenID connect works across multiple entity providers (such as **Keyrock**) and is operated using JSON Web tokens. It
 adds an additional ID token to the response which holds some basic user information, additional user information can be
@@ -48,7 +48,7 @@ OpenID connect requests follow a very similar flow to OAuth2 requests. They are 
 scope when making the initial request. The response contains an encoded JWT token holding elements described below:
 
 | name  | description                                       |
-|-------|---------------------------------------------------|
+| ----- | ------------------------------------------------- |
 | `iss` | Issuer Identifier for the Issuer of the response. |
 | `sub` | Subject Identifier.                               |
 | `aud` | Audience(s) that this ID Token is intended for.   |
@@ -167,7 +167,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                   | Value                                  | Description                                                                  |
-|-----------------------|----------------------------------------|------------------------------------------------------------------------------|
+| --------------------- | -------------------------------------- | ---------------------------------------------------------------------------- |
 | DEBUG                 | `tutorial:*`                           | Debug flag used for logging                                                  |
 | OIDC_ENABLED          | `true`                                 | Enable OpenID Connect in the tutorial                                        |
 | KEYROCK_CLIENT_ID     | `tutorial-dckr-site-0000-xpresswebapp` | The Client ID defined by Keyrock for this application                        |
@@ -175,7 +175,7 @@ The `tutorial` container is driven by environment variables as shown:
 | KEYROCK_JWT_SECRET    | `jsonwebtokenpass`                     | The JWT Secret defined by Keyrock for this application to validate id_tokens |
 | CALLBACK_URL          | `http://localhost:3000/login`          | The callback URL used by Keyrock when a challenge has succeeded.             |
 
-The other `tutorial` container configuration values described in the YAML file have been described in previous 
+The other `tutorial` container configuration values described in the YAML file have been described in previous
 tutorials.
 
 ## Start Up
@@ -232,7 +232,7 @@ The following people at `example.com` have signed up for accounts, but have no r
   </summary>
 
 | Name       | eMail                       | Password |
-|------------|-----------------------------|----------|
+| ---------- | --------------------------- | -------- |
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -242,7 +242,7 @@ The following people at `example.com` have signed up for accounts, but have no r
 | detective2 | `detective2@test.com`       | `test`   |
 
 | Name    | eMail                 | Password |
-|---------|-----------------------|----------|
+| ------- | --------------------- | -------- |
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -252,24 +252,23 @@ The following people at `example.com` have signed up for accounts, but have no r
 Two organizations have also been set up by Alice:
 
 | Name       | Description                         | UUID                                   |
-|------------|-------------------------------------|----------------------------------------|
+| ---------- | ----------------------------------- | -------------------------------------- |
 | Security   | Security Group for Store Detectives | `security-team-0000-0000-000000000000` |
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
 One application, with appropriate roles and permissions has also been created:
 
 | Key           | Value                                  |
-|---------------|----------------------------------------|
+| ------------- | -------------------------------------- |
 | Client ID     | `tutorial-dckr-site-0000-xpresswebapp` |
 | Client Secret | `tutorial-dckr-site-0000-clientsecret` |
 | JWT Secret    | `jsonwebtokenpass`                     |
 | URL           | `http://localhost:3000`                |
 | RedirectURL   | `http://localhost:3000/login`          |
 
-To save time, the data creating users and organizations from the
-[previous tutorial](roles-permissions.md) has been downloaded and is automatically
-persisted to the MySQL database on start-up so the assigned UUIDs do not change and the data does not need to be entered
-again.
+To save time, the data creating users and organizations from the [previous tutorial](roles-permissions.md) has been
+downloaded and is automatically persisted to the MySQL database on start-up so the assigned UUIDs do not change and the
+data does not need to be entered again.
 
 The **Keyrock** MySQL database deals with all aspects of application security including storing users, password etc.;
 defining access rights and dealing with OAuth2 authorization protocols. The complete database relationship diagram can

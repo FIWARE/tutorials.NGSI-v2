@@ -1,10 +1,10 @@
 [![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
 
 **Description:** This tutorial uses a PEP Proxy combined with the Keyrock to secure access to endpoints exposed by
-FIWARE generic enablers. Users (or other actors) must log in and use a token to gain access to the services. The 
-application code created in the [previous tutorial](securing-access.md) is expanded to authenticate users throughout a 
-distributed system. The design of FIWARE Wilma - a PEP Proxy is discussed, and the parts of the Keyrock GUI and REST 
-API relevant to authenticating other services are described in detail.
+FIWARE generic enablers. Users (or other actors) must log in and use a token to gain access to the services. The
+application code created in the [previous tutorial](securing-access.md) is expanded to authenticate users throughout a
+distributed system. The design of FIWARE Wilma - a PEP Proxy is discussed, and the parts of the Keyrock GUI and REST API
+relevant to authenticating other services are described in detail.
 
 [cUrl](https://ec.haxx.se/) commands are used throughout to access the **Keyrock** and **Wilma** REST APIs -
 [Postman documentation](https://fiware.github.io/tutorials.PEP-Proxy/) for these calls is also available.
@@ -31,11 +31,11 @@ allow their request to succeed and pass through the **PEP proxy**. The **PEP pro
 real location of the secured resource itself - the actual location of the secured resource is unknown to the outside
 user - it could be held in a private network behind the **PEP proxy** or found on a different machine altogether.
 
-FIWARE [Wilma](https://fiware-pep-proxy.rtfd.io/) is a simple implementation of a **PEP proxy** designed to work with 
-the FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Generic Enabler. Whenever a user tries to gain 
-access to the resource behind the **PEP proxy**, the PEP will describe the user's attributes to the Policy Decision 
-Point (PDP), request a security decision, and enforce the decision. (Permit or Deny). There is minimal disruption of 
-access for authorized users - the response received is the same as if they had accessed the secured service directly. 
+FIWARE [Wilma](https://fiware-pep-proxy.rtfd.io/) is a simple implementation of a **PEP proxy** designed to work with
+the FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Generic Enabler. Whenever a user tries to gain access
+to the resource behind the **PEP proxy**, the PEP will describe the user's attributes to the Policy Decision Point
+(PDP), request a security decision, and enforce the decision. (Permit or Deny). There is minimal disruption of access
+for authorized users - the response received is the same as if they had accessed the secured service directly.
 Unauthorized users are simply returned a **401 - Unauthorized** response.
 
 ## Standard Concepts of Identity Management
@@ -76,8 +76,8 @@ Click on the image above to see an introductory video.
 ## Architecture
 
 This application protects access to the existing Stock Management and Sensors-based application by adding PEP Proxy
-instances around the services created in previous tutorials and uses data pre-populated into the **MySQL** database 
-used by **Keyrock**. It will make use of four FIWARE components - the
+instances around the services created in previous tutorials and uses data pre-populated into the **MySQL** database used
+by **Keyrock**. It will make use of four FIWARE components - the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/),the
 [IoT Agent for UltraLight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/), the
 [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Generic enabler and adds one or two instances
@@ -127,7 +127,7 @@ The specific architecture of each section of the tutorial is discussed below.
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.PEP-Proxy.git
 cd tutorials.PEP-Proxy
@@ -166,7 +166,7 @@ The following people at `test.com` legitimately have accounts within the Applica
     -   Detective2
 
 | Name       | eMail                       | Password |
-|------------|-----------------------------|----------|
+| ---------- | --------------------------- | -------- |
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -182,7 +182,7 @@ The following people at `example.com` have signed up for accounts, but have no r
 -   Rob - Rob the Robber.
 
 | Name    | eMail                 | Password |
-|---------|-----------------------|----------|
+| ------- | --------------------- | -------- |
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -190,14 +190,14 @@ The following people at `example.com` have signed up for accounts, but have no r
 Two organizations have also been set up by Alice:
 
 | Name       | Description                         | UUID                                   |
-|------------|-------------------------------------|----------------------------------------|
+| ---------- | ----------------------------------- | -------------------------------------- |
 | Security   | Security Group for Store Detectives | `security-team-0000-0000-000000000000` |
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
 One application, with appropriate roles and permissions has also been created:
 
 | Key           | Value                                  |
-|---------------|----------------------------------------|
+| ------------- | -------------------------------------- |
 | Client ID     | `tutorial-dckr-site-0000-xpresswebapp` |
 | Client Secret | `tutorial-dckr-site-0000-clientsecret` |
 | URL           | `http://localhost:3000`                |
@@ -618,7 +618,7 @@ The `orion-proxy` container is listening on a single port:
     the **Wilma** instance without being part of the same network.
 
 | Key                       | Value                                            | Description                                            |
-|---------------------------|--------------------------------------------------|--------------------------------------------------------|
+| ------------------------- | ------------------------------------------------ | ------------------------------------------------------ |
 | PEP_PROXY_APP_HOST        | `orion`                                          | The hostname of the service behind the PEP Proxy       |
 | PEP_PROXY_APP_PORT        | `1026`                                           | The port of the service behind the PEP Proxy           |
 | PEP_PROXY_PORT            | `1027`                                           | The port that the PEP Proxy is listening on            |
@@ -680,7 +680,7 @@ context broker traffic is now sent to `orion-proxy` on port `1027`. As a reminde
 below:
 
 | Key                   | Value                                  | Description                                                                                    |
-|-----------------------|----------------------------------------|------------------------------------------------------------------------------------------------|
+| --------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | WEB_APP_PORT          | `3000`                                 | Port used by web-app which displays the login screen & etc.                                    |
 | KEYROCK_URL           | `http://localhost`                     | This is URL of the **Keyrock** Web frontend itself, used for redirection when forwarding users |
 | KEYROCK_IP_ADDRESS    | `http://172.18.1.5`                    | This is URL of the **Keyrock** OAuth Communications                                            |
@@ -703,12 +703,11 @@ To start the system with a PEP Proxy protecting access to **Orion**, run the fol
 
 Click on the image above to see a video about securing a REST API using the Wilma PEP Proxy.
 
-
 ### Wilma PEP Proxy - No Access to Orion without an Access Token
 
-Secured Access can be ensured by requiring all requests to the secured service are made indirectly via a Wilma PEP Proxy (in
-this case the PEP Proxy is found in front of the Context Broker). Requests must include an `X-Auth-Token`, failure to
-present a valid token results in a denial of access.
+Secured Access can be ensured by requiring all requests to the secured service are made indirectly via a Wilma PEP Proxy
+(in this case the PEP Proxy is found in front of the Context Broker). Requests must include an `X-Auth-Token`, failure
+to present a valid token results in a denial of access.
 
 #### 12 Request
 
@@ -761,9 +760,8 @@ grants on the page. A successful log-in will return an access token.
 
 ### Wilma PEP Proxy - Accessing Orion with an Access Token
 
-If a request to **Wilma** is made including a valid access token in the `X-Auth-Token` header as shown, the request
-is permitted and the service behind the PEP Proxy (in this case the Orion Context Broker) will return the data as
-expected.
+If a request to **Wilma** is made including a valid access token in the `X-Auth-Token` header as shown, the request is
+permitted and the service behind the PEP Proxy (in this case the Orion Context Broker) will return the data as expected.
 
 #### 14 Request
 
@@ -833,7 +831,7 @@ async function buyItem(req, res) {
         req.params.inventoryId,
         {
             options: "keyValues",
-            type: "InventoryItem"
+            type: "InventoryItem",
         },
         setAuthHeaders(req)
     );
@@ -843,7 +841,7 @@ async function buyItem(req, res) {
         req.params.inventoryId,
         { shelfCount: { type: "Integer", value: count } },
         {
-            type: "InventoryItem"
+            type: "InventoryItem",
         },
         setAuthHeaders(req)
     );
@@ -851,74 +849,71 @@ async function buyItem(req, res) {
 }
 ```
 
-
-
 ## Kong PEP - Secure traffic between an Application and the Context Broker
 
-FIWARE is not limited to using a single security stack. Since the authorization token is held in a header, security
-is effectively orthogonal to processing of a context broker, and the developer is free to chose their preferred
-Identity Manager, PDP and PEP. As an example, we can swap out the Wilma PEP Proxy and use the [Kong](https://konghq.com/)
-API Management tool in coordination with a [Kong Plugin](https://github.com/FIWARE/kong-plugins-fiware) for Keyrock.
+FIWARE is not limited to using a single security stack. Since the authorization token is held in a header, security is
+effectively orthogonal to processing of a context broker, and the developer is free to chose their preferred Identity
+Manager, PDP and PEP. As an example, we can swap out the Wilma PEP Proxy and use the [Kong](https://konghq.com/) API
+Management tool in coordination with a [Kong Plugin](https://github.com/FIWARE/kong-plugins-fiware) for Keyrock.
 
 ![](https://fiware.github.io/tutorials.PEP-Proxy/img/kong-orion.png)
 
 <h3>Securing Orion - Kong PEP Proxy Configuration</h3>
 
-The `kong-api-gateway` container is an instance of **Kong** listening on port `8000`, it includes a plugin to use **Keyrock** as a PDP and is configured to forward
-traffic to `orion` on port `1026`, which is the default port that the Orion Context Broker is listening to for NGSI
-Requests.
+The `kong-api-gateway` container is an instance of **Kong** listening on port `8000`, it includes a plugin to use
+**Keyrock** as a PDP and is configured to forward traffic to `orion` on port `1026`, which is the default port that the
+Orion Context Broker is listening to for NGSI Requests.
 
 ```yaml
 kong-api-gateway:
-  image: quay.io/fiware/kong
-  container_name: fiware-orion-kong
-  hostname: orion-proxy
-  networks:
-    default:
-      ipv4_address: 172.18.1.10
-  ports:
-    - "8000:8000/tcp"
-  environment:
-    - KONG_DATABASE=off
-    - KONG_DECLARATIVE_CONFIG=/etc/kong/kong.yaml
-    - KONG_PLUGINS=bundled,pep-plugin
-    - KONG_PLUGINSERVER_NAMES= pep-plugin
-    - "KONG_PLUGINSERVER_PEP_PLUGIN_QUERY_CMD=/go-plugins/pep-plugin -dump"
-    - "KONG_PLUGINSERVER_PEP_PLUGIN_START_CMD=/go-plugins/pep-plugin"
-    - KONG_LOG_LEVEL=debug
+    image: quay.io/fiware/kong
+    container_name: fiware-orion-kong
+    hostname: orion-proxy
+    networks:
+        default:
+            ipv4_address: 172.18.1.10
+    ports:
+        - "8000:8000/tcp"
+    environment:
+        - KONG_DATABASE=off
+        - KONG_DECLARATIVE_CONFIG=/etc/kong/kong.yaml
+        - KONG_PLUGINS=bundled,pep-plugin
+        - KONG_PLUGINSERVER_NAMES= pep-plugin
+        - "KONG_PLUGINSERVER_PEP_PLUGIN_QUERY_CMD=/go-plugins/pep-plugin -dump"
+        - "KONG_PLUGINSERVER_PEP_PLUGIN_START_CMD=/go-plugins/pep-plugin"
+        - KONG_LOG_LEVEL=debug
 ```
 
-The declarative config holds additional information such as the hostname and location of the `keyrock`PDP
-and the name and port of the proxied broker (`orion`)
+The declarative config holds additional information such as the hostname and location of the `keyrock`PDP and the name
+and port of the proxied broker (`orion`)
 
 ```yaml
 services:
-  - host: "orion"
-    name: "orion-oidc"
-    port: 1026
-    protocol: http
-    routes:
-      - name: orion-oidc
-        paths:
-          - /orion
-        strip_path: true
-    plugins:
-      - name: pep-plugin
-        config:
-          authorizationendpointtype: Keyrock
-          authorizationendpointaddress: http://keyrock:3005/user/
-          keyrockappid: tutorial-dckr-site-0000-xpresswebapp
-          pathprefix: /orion
+    - host: "orion"
+      name: "orion-oidc"
+      port: 1026
+      protocol: http
+      routes:
+          - name: orion-oidc
+            paths:
+                - /orion
+            strip_path: true
+      plugins:
+          - name: pep-plugin
+            config:
+                authorizationendpointtype: Keyrock
+                authorizationendpointaddress: http://keyrock:3005/user/
+                keyrockappid: tutorial-dckr-site-0000-xpresswebapp
+                pathprefix: /orion
 ```
 
-The `keyrockappid` would usually be obtained by adding a new entry to the application in
-**Keyrock**, however, in this tutorial, they have been predefined by populating the **MySQL** database with data on
-start-up.
+The `keyrockappid` would usually be obtained by adding a new entry to the application in **Keyrock**, however, in this
+tutorial, they have been predefined by populating the **MySQL** database with data on start-up.
 
 The `kong-api-gateway` container is listening on a single port:
 
--   The API Gateway Port - `8000` is exposed purely for tutorial access - so that cUrl or Postman can make requests directly to
-  the **Kong** instance without being part of the same network.
+-   The API Gateway Port - `8000` is exposed purely for tutorial access - so that cUrl or Postman can make requests
+    directly to the **Kong** instance without being part of the same network.
 
 | Key                                    | Value                         | Description                                         |
 | -------------------------------------- | ----------------------------- | --------------------------------------------------- |
@@ -930,7 +925,8 @@ The `kong-api-gateway` container is listening on a single port:
 | KONG_PLUGINSERVER_PEP_PLUGIN_START_CMD | `/go-plugins/pep-plugin`      | Command issued at plugin start up                   |
 | KONG_LOG_LEVEL                         | `debug`                       | Debug level of Kong                                 |
 
-This Docker image of **Kong** is generated to include several FIWARE specific plugins. [Kong Plugins](https://docs.konghq.com/hub/) enable the gateway to be extended and apply multiple security mechanisms.
+This Docker image of **Kong** is generated to include several FIWARE specific plugins.
+[Kong Plugins](https://docs.konghq.com/hub/) enable the gateway to be extended and apply multiple security mechanisms.
 
 <h2>Securing Orion - Start up</h2>
 
@@ -942,13 +938,13 @@ To start the system with a Kong API Gateway protecting access to **Orion**, run 
 
 ### Kong PEP Proxy - No Access to Orion without an Access Token
 
-Secured Access can be ensured by requiring all requests to the secured service are made indirectly
-via the API Gateway. Due to the manner in which Kong has been configured in the `kong.yaml`,
-all Context Broker access can be made under the path `/orion` - for example to retrieve all entities a user would use `http://localhost:8000/orion/v2/entities/` (in
+Secured Access can be ensured by requiring all requests to the secured service are made indirectly via the API Gateway.
+Due to the manner in which Kong has been configured in the `kong.yaml`, all Context Broker access can be made under the
+path `/orion` - for example to retrieve all entities a user would use `http://localhost:8000/orion/v2/entities/` (in
 this case Kong is acting as a PEP Proxy is found in front of the Context Broker).
 
-Successful requests must include an `Authentiction` header, failure to
-present a valid token results in a denial of access.
+Successful requests must include an `Authentiction` header, failure to present a valid token results in a denial of
+access.
 
 #### 16 Request:
 
@@ -989,10 +985,10 @@ The response returns an access code to identify the user:
 
 ```json
 {
-  "access_token": "a7e22dfe2bd7d883c8621b9eb50797a7f126eeab",
-  "token_type": "Bearer",
-  "expires_in": 3599,
-  "refresh_token": "05e386edd9f95ed0e599c5004db8573e86dff874"
+    "access_token": "a7e22dfe2bd7d883c8621b9eb50797a7f126eeab",
+    "token_type": "Bearer",
+    "expires_in": 3599,
+    "refresh_token": "05e386edd9f95ed0e599c5004db8573e86dff874"
 }
 ```
 
@@ -1001,9 +997,8 @@ grants on the page. A successful log-in will return an access token.
 
 ### Kong PEP Proxy - Accessing Orion with an Access Token
 
-If a request to **Kong** is made including a valid access token in the `X-Auth-Token` header as shown, the request
-is permitted and the service behind the PEP Proxy (in this case the Orion Context Broker) will return the data as
-expected.
+If a request to **Kong** is made including a valid access token in the `X-Auth-Token` header as shown, the request is
+permitted and the service behind the PEP Proxy (in this case the Orion Context Broker) will return the data as expected.
 
 #### 18 Request:
 
@@ -1017,23 +1012,21 @@ curl -X GET \
 
 ```json
 {
-  "id": "urn:ngsi-ld:Store:001",
-  "type": "Store",
-  "address": {
-    "streetAddress": "Bornholmer Straße 65",
-    "addressRegion": "Berlin",
-    "addressLocality": "Prenzlauer Berg",
-    "postalCode": "10439"
-  },
-  "location": {
-    "type": "Point",
-    "coordinates": [13.3986, 52.5547]
-  },
-  "name": "Bösebrücke Einkauf"
+    "id": "urn:ngsi-ld:Store:001",
+    "type": "Store",
+    "address": {
+        "streetAddress": "Bornholmer Straße 65",
+        "addressRegion": "Berlin",
+        "addressLocality": "Prenzlauer Berg",
+        "postalCode": "10439"
+    },
+    "location": {
+        "type": "Point",
+        "coordinates": [13.3986, 52.5547]
+    },
+    "name": "Bösebrücke Einkauf"
 }
 ```
-
-
 
 ## Securing an IoT Agent South Port
 
@@ -1085,7 +1078,7 @@ The `iot-agent-proxy` container is listening on a single port:
     this **Wilma** instance without being part of the same network.
 
 | Key                       | Value                                            | Description                                            |
-|---------------------------|--------------------------------------------------|--------------------------------------------------------|
+| ------------------------- | ------------------------------------------------ | ------------------------------------------------------ |
 | PEP_PROXY_APP_HOST        | `iot-agent`                                      | The hostname of the service behind the PEP Proxy       |
 | PEP_PROXY_APP_PORT        | `7896`                                           | The port of the service behind the PEP Proxy           |
 | PEP_PROXY_PORT            | `7897`                                           | The port that the PEP Proxy is listening on            |
@@ -1146,7 +1139,7 @@ relevant `tutorial` container settings have been described in previous tutorials
 `DUMMY_DEVICES_PASSWORD` are new additions.
 
 | Key                     | Value                                             | Description                                                                                                                        |
-|-------------------------|---------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | IOTA_HTTP_HOST          | `iot-agent-proxy`                                 | The hostname of the Wilma PEP Proxy protecting the IoT Agent for UltraLight 2.0                                                    |
 | IOTA_HTTP_PORT          | `7896`                                            | The port that the Wilma PEP Proxy protecting the IoT Agent is listening on                                                         |
 | DUMMY_DEVICES_PORT      | `3001`                                            | Port used by the dummy IoT devices to receive commands                                                                             |
@@ -1250,7 +1243,7 @@ const options = {
     url: UL_URL,
     qs: { k: UL_API_KEY, i: deviceId },
     headers: DUMMY_DEVICE_HTTP_HEADERS,
-    body: state
+    body: state,
 };
 
 request(options, (error) => {
@@ -1309,7 +1302,7 @@ iot-agent:
 ```
 
 | Key                       | Value                                  | Description                                                |
-|---------------------------|----------------------------------------|------------------------------------------------------------|
+| ------------------------- | -------------------------------------- | ---------------------------------------------------------- |
 | IOTA_AUTH_ENABLED         | `true`                                 | Whether to use authorization on the north port             |
 | IOTA_AUTH_TYPE            | `oauth2`                               | The type of authorization to be used (Keyrock uses OAuth2) |
 | IOTA_AUTH_HEADER          | `Authorization`                        | The name of the header to be added to requests             |

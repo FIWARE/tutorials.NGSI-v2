@@ -105,7 +105,7 @@ It has been described in a [previous tutorial](context-providers.md)
 All services can be initialized from the command-line by running the bash script provided within the repository. Please
 clone the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Subscriptions.git
 cd tutorials.Subscriptions
@@ -259,8 +259,8 @@ by default `keyValues` and `values` work in the same manner as a `v2/entities` G
 ## Reducing Scope with `expression`
 
 Let's create two more subscriptions which will only fire under specific conditions - and will only return key-value
-pairs for the entity affected. Imagine that the warehouse of each store now wants to be informed whenever the amount
-of product on the shelf falls below a threshold level.
+pairs for the entity affected. Imagine that the warehouse of each store now wants to be informed whenever the amount of
+product on the shelf falls below a threshold level.
 
 The subscription is tested whenever the `shelfCount` of an **InventoryItem** is updated, however the addition of an
 `expression` attribute will mean that the subscription will only fire if the expression returns valid data - for example

@@ -133,8 +133,8 @@ Goto `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001` to display 
 ### Create a Subscription (Store 1) - Low Stock
 
 NGSI-LD subscriptions can be set up using the `/ngsi-ld/v1/subscriptions/` endpoint and in a similar manner to the
-NGSI-v2 `/v2/subscriptions` endpoint. The payload body is slightly different, however. Firstly the linked data `@context`
-must be present either as an attribute or in the `Link` header. If the `@context` is placed in the body the
+NGSI-v2 `/v2/subscriptions` endpoint. The payload body is slightly different, however. Firstly the linked data
+`@context` must be present either as an attribute or in the `Link` header. If the `@context` is placed in the body the
 `Context-Type` header must state that the payload is `application/ld+json` - i.e. Linked Data plus JSON. The supplied
 `@context` will also be used when making notifications as part of the notification request.
 
@@ -149,8 +149,8 @@ The `notification` section of the body states that once the conditions of the su
 containing all affected Shelf entities will be sent to the URL `http://tutorial:3000/subscription/low-stock-store001`.
 It is now possible to amend the notification payload by requesting `notification.format=keyValues` and remove the
 `@context` from the notification body by stating `notification.endpoint.accept=application/json`. The `@context` is not
-lost, it is merely passed as a `Link` header. In summary, all the flags within a subscription work in the same manner
-as a GET request to the context broker itself. If no flags are set, a full NGSI-LD response including the `@context` is
+lost, it is merely passed as a `Link` header. In summary, all the flags within a subscription work in the same manner as
+a GET request to the context broker itself. If no flags are set, a full NGSI-LD response including the `@context` is
 returned by default, and the payload can be reduced and amended by adding in further restrictions.
 
 #### 1 Request:
@@ -355,7 +355,7 @@ where a single context provider is responsible for the maintenance of the whole 
 attributes are spread across multiple context providers. For a simple registration, all context requests are forwarded.
 
 | Request    | Action at **Context Broker**                                                | Action at **Context Provider**                                                                      |
-|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------|
+| ---------- | --------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------- |
 | **GET**    | Pass request to **Context Provider**, proxy the response back unaltered.    | Respond to context broker with the result of the GET request based on the entities held internally  |
 | **PATCH**  | Pass request to **Context Provider**, proxy back the HTTP back status code. | Update the entity within the **Context Provider**, Respond to the context broker with a status code |
 | **DELETE** | Pass request to **Context Provider**                                        | Delete the entity within the **Context Provider**, Respond to the context broker with a status code |
@@ -369,7 +369,7 @@ broker.
 For partial registrations the situation is more complex:
 
 | Request    | Action at **Context Broker**                                                                                                                                                                                                | Action at **Context Provider**                                                                                                       |
-|------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------|
+| ---------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
 | **GET**    | Assuming an entity exists locally, pass request for additional proxied attributes to **Context Provider**, concatenate a response back for locally held attributes and additional information from the **Context Provider** | Respond to context broker with the result of the GET request based on the entities held internally                                   |
 | **PATCH**  | Update any locally held attributes, Pass update requests for additional attributes to **Context Provider**, and return **success** or **partial success** HTTP status code dependent upon the overall result.               | Update the requested attributes of the entity held within the **Context Provider**. Respond to the context broker with a status code |
 | **DELETE** | If deleting an entity, remove the complete local instance. If deleting locally held attributes remove them. If deleting attributes held in the **Context Provider**, pass request on to **Context Provider**                | Delete the entity attributes within the **Context Provider**, Respond to the context broker with a status code                       |
@@ -416,7 +416,6 @@ The body of the request is similar to the **NGSI-v2** equivalent with the follow
 special key which fires a JSON-LD expansion/compaction operation to ensure that the attribute names within the request
 match the expected **NGSI-v2** attribute names.
 
-
 #### 4 Request:
 
 ```bash
@@ -456,7 +455,6 @@ curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
 > defined in the 1.1.1 **NGSI-LD** core context. It was replaced in order to offer full GeoJSON-LD support. Your context
 > broker may or may not support the updated core context
 
-
 ### Read Registration Details
 
 Retrieving the registration details can be made by sending a GET request to the `/ngsi-ld/v1/csourceRegistrations/`
@@ -494,16 +492,14 @@ returned, along with the `@context`.
                 "propertyNames": ["tweets"]
             }
         ],
-        "contextSourceInfo":[
+        "contextSourceInfo": [
             {
                 "key": "jsonldContext",
                 "value": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
             }
         ],
         "mode": "exclusive",
-        "operations": [
-            "updateOps", "retrieveOps"
-        ]
+        "operations": ["updateOps", "retrieveOps"]
     }
 ]
 ```
@@ -530,8 +526,7 @@ curl -iX GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:sto
 #### Response:
 
 The response now holds an additional `tweets` Property, which returns the values obtained from
-`http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
-endpoint.
+`http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding endpoint.
 
 ```json
 {
@@ -665,8 +660,7 @@ curl -L -X PATCH 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ng
 #### 9 Request:
 
 If the registered attribute is requested from the context broker, it returns the _updated_ values obtained from
-`http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding
-endpoint.
+`http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding endpoint.
 
 ```bash
 curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?attrs=tweets&options=keyValues' \

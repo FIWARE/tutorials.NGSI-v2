@@ -39,7 +39,7 @@ Of the two modes of operation, the _formal_ mode is more flexible, but _minimal_
 The key differences between the two are summarized in the table below:
 
 |                                                        | _minimal_ mode                                    | _formal_ mode                                                   |
-|--------------------------------------------------------|---------------------------------------------------|-----------------------------------------------------------------|
+| ------------------------------------------------------ | ------------------------------------------------- | --------------------------------------------------------------- |
 | Is the system easy to set-up properly?                 | Only one configuration supported - Easy to set up | Highly configurable - Complex to set up                         |
 | Which component is responsible for a data persistence? | **STH-Comet**                                     | **Cygnus**                                                      |
 | What is the role of **STH-Comet**?                     | Reading and writing data                          | Data Read only                                                  |
@@ -134,7 +134,7 @@ The specific architecture of both the _minimal_ and _formal_ configurations is d
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Short-Term-History.git
 cd tutorials.Short-Term-History
@@ -212,7 +212,7 @@ The `sth-comet` container is listening on one port:
 The `sth-comet` container is driven by environment variables as shown:
 
 | Key          | Value            | Description                                                                                                    |
-|--------------|------------------|----------------------------------------------------------------------------------------------------------------|
+| ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------- |
 | STH_HOST     | `0.0.0.0`        | The address where STH-Comet is hosted - within this container it means all IPv4 addresses on the local machine |
 | STH_PORT     | `8666`           | Operations Port that STH-Comet listens on, it is also used when subscribing to context data changes            |
 | DB_PREFIX    | `sth_`           | The prefix added to each database entity if none is provided                                                   |
@@ -803,7 +803,7 @@ curl -G -X GET \
                                         "offset": 22,
                                         "samples": 5,
                                         "min": 1855
-                                    }, 
+                                    },
                                     ..etc
                                 ]
                             }
@@ -971,7 +971,7 @@ The `sth-comet` container is listening on one port:
 The `sth-comet` container is driven by environment variables as shown:
 
 | Key          | Value            | Description                                                                                                    |
-|--------------|------------------|----------------------------------------------------------------------------------------------------------------|
+| ------------ | ---------------- | -------------------------------------------------------------------------------------------------------------- |
 | STH_HOST     | `0.0.0.0`        | The address where STH-Comet is hosted - within this container it means all IPv4 addresses on the local machine |
 | STH_PORT     | `8666`           | Operations Port that STH-Comet listens on                                                                      |
 | DB_PREFIX    | `sth_`           | The prefix added to each database entity if none is provided                                                   |
@@ -988,7 +988,7 @@ The `cygnus` container is listening on two ports:
 The `cygnus` container is driven by environment variables as shown:
 
 | Key                 | Value            | Description                                                                                          |
-|---------------------|------------------|------------------------------------------------------------------------------------------------------|
+| ------------------- | ---------------- | ---------------------------------------------------------------------------------------------------- |
 | CYGNUS_MONGO_HOSTS  | `mongo-db:27017` | Comma separated list of MongoDB servers which Cygnus will contact to persist historical context data |
 | CYGNUS_LOG_LEVEL    | `DEBUG`          | The logging level for Cygnus                                                                         |
 | CYGNUS_SERVICE_PORT | `5050`           | Notification Port that Cygnus listens when subscribing to context data changes                       |
@@ -1129,7 +1129,8 @@ the `throttling` attribute in the request body.
 
 -   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
     measurements from the attached IoT Sensors.
--   The `idPattern` in the request body ensures that **Cygnus** will be informed of all **Smart Lamp** data changes only.
+-   The `idPattern` in the request body ensures that **Cygnus** will be informed of all **Smart Lamp** data changes
+    only.
 -   The notification `url` must match the configured `CYGNUS_MONGO_SERVICE_PORT`.
 -   The `throttling` value defines the rate that changes are sampled.
 
@@ -1196,8 +1197,8 @@ function readCometLampLuminosity(id, aggMethod) {
             qs: { aggrMethod: aggMethod, aggrPeriod: "minute" },
             headers: {
                 "fiware-servicepath": "/",
-                "fiware-service": "openiot"
-            }
+                "fiware-service": "openiot",
+            },
         };
 
         request(options, (error, response, body) => {
@@ -1223,7 +1224,7 @@ function cometToTimeSeries(cometResponse, aggMethod) {
 
     return {
         labels,
-        data
+        data,
     };
 }
 ```

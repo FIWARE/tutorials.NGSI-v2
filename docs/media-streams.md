@@ -127,7 +127,7 @@ The `kurento-examples` container is a web app server listening on a single port:
 The `kurento-examples` container is driven by environment variables as shown:
 
 | Key               | Value              | Description                                                                      |
-|-------------------|--------------------|----------------------------------------------------------------------------------|
+| ----------------- | ------------------ | -------------------------------------------------------------------------------- |
 | MEDIA_SERVER_HOST | `kurento`          | Hostname of the Media Server receives the media stream                           |
 | MEDIA_SERVER_PORT | `8888`             | Port used by the Media Server used websocket traffic                             |
 | APP_SERVER_HOST   | `kurento-examples` | Hostname of the App Server to display the web page (and receive event callbacks) |
@@ -138,7 +138,7 @@ The `kurento-examples` container is driven by environment variables as shown:
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Media-Streams.git
 cd tutorials.Media-Streams
@@ -268,14 +268,14 @@ var ws = require("ws");
 
 var wss = new ws.Server({
     server: server,
-    path: "/helloworld"
+    path: "/helloworld",
 });
 
 wss.on("connection", function (ws) {
     var sessionId = null;
     var request = ws.upgradeReq;
     var response = {
-        writeHead: {}
+        writeHead: {},
     };
 
     sessionHandler(request, response, function (err) {
@@ -300,7 +300,7 @@ wss.on("connection", function (ws) {
                     ws.send(
                         JSON.stringify({
                             id: "startResponse",
-                            sdpAnswer: sdpAnswer
+                            sdpAnswer: sdpAnswer,
                         })
                     );
                 });
@@ -381,7 +381,7 @@ function start(sessionId, ws, sdpOffer, callback) {
                         ws.send(
                             JSON.stringify({
                                 id: "iceCandidate",
-                                candidate: candidate
+                                candidate: candidate,
                             })
                         );
                     });
@@ -389,7 +389,7 @@ function start(sessionId, ws, sdpOffer, callback) {
                     webRtcEndpoint.processOffer(sdpOffer, (error, sdpAnswer) => {
                         sessions[sessionId] = {
                             pipeline: pipeline,
-                            webRtcEndpoint: webRtcEndpoint
+                            webRtcEndpoint: webRtcEndpoint,
                         };
                         return callback(null, sdpAnswer);
                     });
@@ -473,7 +473,7 @@ function start() {
     var options = {
         localVideo: videoInput,
         remoteVideo: videoOutput,
-        onicecandidate: onIceCandidate
+        onicecandidate: onIceCandidate,
     };
 
     webRtcPeer = kurentoUtils.WebRtcPeer.WebRtcPeerSendrecv(options, function (error) {
@@ -485,14 +485,14 @@ function start() {
 function onIceCandidate(candidate) {
     sendMessage({
         id: "onIceCandidate",
-        candidate: candidate
+        candidate: candidate,
     });
 }
 
 function onOffer(error, offerSdp) {
     sendMessage({
         id: "start",
-        sdpOffer: offerSdp
+        sdpOffer: offerSdp,
     });
 }
 ```

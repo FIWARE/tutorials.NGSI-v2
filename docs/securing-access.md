@@ -176,7 +176,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                   | Value                                  | Description                                                                                    |
-|-----------------------|----------------------------------------|------------------------------------------------------------------------------------------------|
+| --------------------- | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | DEBUG                 | `tutorial:*`                           | Debug flag used for logging                                                                    |
 | WEB_APP_PORT          | `3000`                                 | Port used by web-app which displays the login screen & etc.                                    |
 | KEYROCK_URL           | `http://localhost`                     | This is URL of the **Keyrock** Web frontend itself, used for redirection when forwarding users |
@@ -200,7 +200,7 @@ environment, but production deployment is beyond the scope of this tutorial.
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Securing-Access.git
 cd tutorials.Securing-Access
@@ -239,7 +239,7 @@ The following people at `test.com` legitimately have accounts within the Applica
     -   Detective2
 
 | Name       | eMail                       | Password |
-|------------|-----------------------------|----------|
+| ---------- | --------------------------- | -------- |
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -255,7 +255,7 @@ The following people at `example.com` have signed up for accounts, but have no r
 -   Rob - Rob the Robber.
 
 | Name    | eMail                 | Password |
-|---------|-----------------------|----------|
+| ------- | --------------------- | -------- |
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -263,14 +263,14 @@ The following people at `example.com` have signed up for accounts, but have no r
 Two organizations have also been set up by Alice:
 
 | Name       | Description                         | UUID                                   |
-|------------|-------------------------------------|----------------------------------------|
+| ---------- | ----------------------------------- | -------------------------------------- |
 | Security   | Security Group for Store Detectives | `security-team-0000-0000-000000000000` |
 | Management | Management Group for Store Managers | `managers-team-0000-0000-000000000000` |
 
 One application, with appropriate roles and permissions has also been created:
 
 | Key           | Value                                  |
-|---------------|----------------------------------------|
+| ------------- | -------------------------------------- |
 | Client ID     | `tutorial-dckr-site-0000-xpresswebapp` |
 | Client Secret | `tutorial-dckr-site-0000-clientsecret` |
 | URL           | `http://localhost:3000`                |
@@ -464,7 +464,7 @@ function authCodeGrant(req, res) {
 }
 ```
 
-The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, 
+The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below,
 an interim access code is received from **Keyrock** and second request must be made to obtain a usable `access_token`.
 
 ```javascript
@@ -519,8 +519,8 @@ function implicitGrant(req, res) {
 }
 ```
 
-The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, 
-a usable access token is received from **Keyrock**:
+The after the User authorizes access, the response is received by the `redirect_uri` and is handled in the code below, a
+usable access token is received from **Keyrock**:
 
 ```javascript
 function implicitGrantCallback(req, res) {

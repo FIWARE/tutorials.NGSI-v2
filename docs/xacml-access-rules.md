@@ -54,10 +54,9 @@ elements such as Policy Execution Point (PEP) and Policy Decision Point (PDP) co
 XACML policies are split into a hierarchy of three levels - `<PolicySet>`, `<Policy>` and `<Rule>`, the `<PolicySet>` is
 a collection of `<Policy>` elements each of which contain one or more `<Rule>` elements.
 
-Each `<Rule>` within a `<Policy>` is evaluated whether it should grant access to a resource - the overall
-`<Policy>` result is defined by the overall result of all `<Rule>` elements processed in turn. Separate `<Policy>`
-results are then evaluated against each other using combining algorithms define which `<Policy>` wins in case of
-conflict.
+Each `<Rule>` within a `<Policy>` is evaluated whether it should grant access to a resource - the overall `<Policy>`
+result is defined by the overall result of all `<Rule>` elements processed in turn. Separate `<Policy>` results are then
+evaluated against each other using combining algorithms define which `<Policy>` wins in case of conflict.
 
 A `<Rule>` element consists of a `<Target>` and a `<Condition>`. This is an example `<Rule>`, it states access will be
 granted (`Effect="Permit"`) when a POST request is sent to the `/bell/ring` endpoint, provided that the `subject:role`
@@ -71,7 +70,12 @@ has been provided and that the `role=security-role-0000-0000-000000000000` :
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
           <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/bell/ring</AttributeValue>
-          <AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource" AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true" />
+          <AttributeDesignator
+                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+                        AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id"
+                        DataType="http://www.w3.org/2001/XMLSchema#string"
+                        MustBePresent="true"
+                    />
         </Match>
       </AllOf>
     </AnyOf>
@@ -79,7 +83,12 @@ has been provided and that the `role=security-role-0000-0000-000000000000` :
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
           <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</AttributeValue>
-          <AttributeDesignator Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action" AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="true" />
+          <AttributeDesignator
+                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+                        AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+                        DataType="http://www.w3.org/2001/XMLSchema#string"
+                        MustBePresent="true"
+                    />
         </Match>
       </AllOf>
     </AnyOf>
@@ -87,8 +96,15 @@ has been provided and that the `role=security-role-0000-0000-000000000000` :
   <Condition>
     <Apply FunctionId="urn:oasis:names:tc:xacml:3.0:function:any-of">
       <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal" />
-      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">security-role-0000-0000-000000000000</AttributeValue>
-      <AttributeDesignator Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject" AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" DataType="http://www.w3.org/2001/XMLSchema#string" MustBePresent="false" />
+      <AttributeValue
+                DataType="http://www.w3.org/2001/XMLSchema#string"
+            >security-role-0000-0000-000000000000</AttributeValue>
+      <AttributeDesignator
+                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+                AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+                DataType="http://www.w3.org/2001/XMLSchema#string"
+                MustBePresent="false"
+            />
     </Apply>
   </Condition>
 </Rule>
@@ -218,7 +234,7 @@ The `keyrock` container is a web application server listening on a single port:
 The `keyrock` container is connecting to **Authzforce** and is driven by environment variables as shown:
 
 | Key                    | Value        | Description                                                                  |
-|------------------------|--------------|------------------------------------------------------------------------------|
+| ---------------------- | ------------ | ---------------------------------------------------------------------------- |
 | IDM_PDP_LEVEL          | `advanced`   | Flag indicating that **Keyrock** should delegate PDP decisions to AuthZforce |
 | PEP_PROXY_AZF_PROTOCOL | `http`       | Transport protocol used by the XACML Server microservice                     |
 | PEP_PROXY_AZF_HOST     | `authzforce` | This is URL where the **Authzforce** is found users                          |
@@ -270,7 +286,7 @@ The `orion-proxy` container is delegating PDP decisions to **Authzforce** and is
 shown:
 
 | Key                    | Value        | Description                                               |
-|------------------------|--------------|-----------------------------------------------------------|
+| ---------------------- | ------------ | --------------------------------------------------------- |
 | PEP_PROXY_PDP          | `authzforce` | Flag ensuring that the PEP Proxy uses Authzforce as a PDP |
 | PEP_PROXY_AZF_PROTOCOL | `http`       | Flag to enable use of the XACML PDP                       |
 | PEP_PROXY_AZF_HOST     | `authzforce` | This is URL where the **Authzforce** is found users       |
@@ -337,19 +353,19 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is now secured by **Authzforce**, and is driven by environment variables as shown:
 
 | Key                | Value               | Description                                         |
-|--------------------|---------------------|-----------------------------------------------------|
+| ------------------ | ------------------- | --------------------------------------------------- |
 | AUTHZFORCE_ENABLED | `true`              | Flag to enable use of the XACML PDP                 |
 | AUTHZFORCE_URL     | `http://authzforce` | This is URL where the **Authzforce** is found users |
 | AUTHZFORCE_PORT    | `8080`              | Port that **Authzforce** is listening on            |
 
-The other `tutorial` container configuration values described in the YAML file have been described in previous 
+The other `tutorial` container configuration values described in the YAML file have been described in previous
 tutorials.
 
 ## Start Up
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.XACML-Access-Rules.git
 cd tutorials.XACML-Access-Rules
@@ -386,7 +402,7 @@ The following people at `test.com` legitimately have accounts within the Applica
     -   Detective2
 
 | Name       | eMail                       | Password |
-|------------|-----------------------------|----------|
+| ---------- | --------------------------- | -------- |
 | alice      | `alice-the-admin@test.com`  | `test`   |
 | bob        | `bob-the-manager@test.com`  | `test`   |
 | charlie    | `charlie-security@test.com` | `test`   |
@@ -402,7 +418,7 @@ The following people at `example.com` have signed up for accounts, but have no r
 -   Rob - Rob the Robber.
 
 | Name    | eMail                 | Password |
-|---------|-----------------------|----------|
+| ------- | --------------------- | -------- |
 | eve     | `eve@example.com`     | `test`   |
 | mallory | `mallory@example.com` | `test`   |
 | rob     | `rob@example.com`     | `test`   |
@@ -426,17 +442,19 @@ curl -X GET \
 The response returns information about the version of Authzforce.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<productMetadata xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-   xmlns:ns2="http://www.w3.org/2005/Atom"
-   xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-   xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-   xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
-   name="AuthzForce CE Server"
-   version="8.0.1"
-   release_date="2017-12-05"
-   uptime="P0Y0M0DT0H8M47.642S"
-   doc="https://authzforce.github.io/fiware/authorization-pdp-api-spec/5.2/"/>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<productMetadata
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+    name="AuthzForce CE Server"
+    version="8.0.1"
+    release_date="2017-12-05"
+    uptime="P0Y0M0DT0H8M47.642S"
+    doc="https://authzforce.github.io/fiware/authorization-pdp-api-spec/5.2/"
+/>
 ```
 
 ## Using an XACML Server
@@ -444,8 +462,8 @@ The response returns information about the version of Authzforce.
 **Authzforce** is a Policy Decision Point (PDP) Generic Enabler, which makes authorization decisions based on
 `<PolicySet>` information written in [XACML](https://www.oasis-open.org/committees/tc_home.php?wg_abbrev=xacml). This
 example starts with a running XACML server containing an existing set of rules. An XACML server should offer an API to
-administrate policies and invoke access control policy decisions. This tutorial is mainly concerned with the 
-decision-making side - the creation and administration of access control policies will be dealt with in a subsequent 
+administrate policies and invoke access control policy decisions. This tutorial is mainly concerned with the
+decision-making side - the creation and administration of access control policies will be dealt with in a subsequent
 tutorial.
 
 ## Reading XACML Rulesets
@@ -474,13 +492,15 @@ The response lists the domains which are available in **Authzforce**. This corre
 uploaded to **Authzforce** on start-up.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resources xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
-    <ns2:link rel="item" href="gQqnLOnIEeiBFQJCrBIBDA" title="gQqnLOnIEeiBFQJCrBIBDA"/>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resources
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
+    <ns2:link rel="item" href="gQqnLOnIEeiBFQJCrBIBDA" title="gQqnLOnIEeiBFQJCrBIBDA" />
 </resources>
 ```
 
@@ -504,18 +524,19 @@ The response lists more information about the domain, including the ID used with
 (`tutorial-dckr-site-0000-xpresswebapp`):
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<domain xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
-    <properties externalId="tutorial-dckr-site-0000-xpresswebapp"/>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<domain
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
+    <properties externalId="tutorial-dckr-site-0000-xpresswebapp" />
     <childResources>
-        <ns2:link rel="item" href="/properties" title="Domain properties"/>
-        <ns2:link rel="item" href="/pap" title="Policy Administration Point"/>
-        <ns2:link rel="http://docs.oasis-open.org/ns/xacml/relation/pdp"
-          href="/pdp" title="Policy Decision Point"/>
+        <ns2:link rel="item" href="/properties" title="Domain properties" />
+        <ns2:link rel="item" href="/pap" title="Policy Administration Point" />
+        <ns2:link rel="http://docs.oasis-open.org/ns/xacml/relation/pdp" href="/pdp" title="Policy Decision Point" />
     </childResources>
 </domain>
 ```
@@ -539,14 +560,16 @@ The response returns a list of all the PolicySets of the given `domain-id` which
 container. In this case the policy-ids of the PolicySets returned are `f8194af5-8a07-486a-9581-c1f05d05483c` and `root`.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resources xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
-    <ns2:link rel="item" href="f8194af5-8a07-486a-9581-c1f05d05483c"/>
-    <ns2:link rel="item" href="root"/>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resources
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
+    <ns2:link rel="item" href="f8194af5-8a07-486a-9581-c1f05d05483c" />
+    <ns2:link rel="item" href="root" />
 </resources>
 ```
 
@@ -570,14 +593,16 @@ The response returns a list of available revisions of the given policy which are
 container. This corresponds the named XML files `1.xml`, `2.xml` etc.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<resources xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
-    <ns2:link rel="item" href="2"/>
-    <ns2:link rel="item" href="1"/>
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<resources
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
+    <ns2:link rel="item" href="2" />
+    <ns2:link rel="item" href="1" />
 </resources>
 ```
 
@@ -601,18 +626,26 @@ The response contains the full `<PolicySet>` for the given revision. This is a c
 held within **Authzforce**.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns3:PolicySet xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6" PolicySetId="f8194af5-8a07-486a-9581-c1f05d05483c" Version="2" PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit">
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ns3:PolicySet
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+    PolicySetId="f8194af5-8a07-486a-9581-c1f05d05483c"
+    Version="2"
+    PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit"
+>
     <ns3:Description>Policy Set for application tutorial-dckr-site-0000-xpresswebapp</ns3:Description>
-    <ns3:Target/>
-    <ns3:Policy PolicyId="security-role-0000-0000-000000000000"
-      Version="1.0"
-      RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit">
-        <ns3:Description>Role security-role-0000-0000-000000000000 from application tutorial-dckr-site-0000-xpresswebapp</ns3:Description>
+    <ns3:Target />
+    <ns3:Policy
+        PolicyId="security-role-0000-0000-000000000000"
+        Version="1.0"
+        RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit"
+    >
+        <ns3:Description
+        >Role security-role-0000-0000-000000000000 from application tutorial-dckr-site-0000-xpresswebapp</ns3:Description>
         <ns3:Target>
            ...etc
         </ns3:Target>
@@ -684,12 +717,14 @@ The `managers-role-0000-0000-000000000000` permits access to the `/app/price-cha
 successful request includes a `<Decision>` element to `Permit` access to the resource.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns3:Response xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ns3:Response
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
     <ns3:Result>
         <ns3:Decision>Permit</ns3:Decision>
     </ns3:Result>
@@ -737,12 +772,14 @@ The `security-role-0000-0000-000000000000` does not permit access to the `/app/p
 an unsuccessful request includes a `<Decision>` element which will `Deny` access to the resource.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns3:Response xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ns3:Response
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
     <ns3:Result>
         <ns3:Decision>Deny</ns3:Decision>
     </ns3:Result>
@@ -770,8 +807,8 @@ resource and an action, but can be extended as necessary.
 For example users in role `XXX` can access URL **starting with** `YYY` provided that the HTTP verb **is either** `GET`,
 `PUT` or `POST`. Such users may also `DELETE` **provided that** they were the creator in the first place.
 
-Within the tutorial programmatic example we are using our own trusted instance of **Keyrock** - once a user has signed 
-in and obtained an `access_token`, the `access_token` can be stored in session and used to retrieve user details on 
+Within the tutorial programmatic example we are using our own trusted instance of **Keyrock** - once a user has signed
+in and obtained an `access_token`, the `access_token` can be stored in session and used to retrieve user details on
 demand. All access to the Orion context broker is hidden behind a PEP Proxy. Whenever a request is made to Orion, the
 `access_token` is passed in the header of the request, and the PEP proxy handles the decision to whether to execute the
 request.
@@ -823,7 +860,8 @@ curl -X GET \
 
 Where :
 
--   `{{access-token}}` is the current access token of a logged-in user (e.g. `08fef363c429cb34cfff3f56dfe751a8d1890690`).
+-   `{{access-token}}` is the current access token of a logged-in user (e.g.
+    `08fef363c429cb34cfff3f56dfe751a8d1890690`).
 -   `{{app-id}}` holds the application to request `tutorial-dckr-site-0000-xpresswebapp` and `authzforce=true` indicates
     that we want to obtain an **Authzforce** Domain from **Keyrock**.
 
@@ -900,12 +938,14 @@ curl -X POST \
 The response includes a `<Decision>` element which will either `Permit` or `Deny` the request.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
-<ns3:Response xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-  xmlns:ns2="http://www.w3.org/2005/Atom"
-  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6">
+<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<ns3:Response
+    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+    xmlns:ns2="http://www.w3.org/2005/Atom"
+    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+>
     <ns3:Result>
         <ns3:Decision>Permit</ns3:Decision>
     </ns3:Result>
@@ -917,9 +957,9 @@ The response includes a `<Decision>` element which will either `Permit` or `Deny
 Programmatically, any Policy Execution Point consists of two parts, an OAuth request to Keyrock retrieves information
 about the user (such as the assigned roles) as well as the policy domain to be queried.
 
-A second request is sent to the relevant domain endpoint within Authzforce, providing all the information necessary
-for Authzforce to provide a judgement. Authzforce responds with a **permit** or **deny** response, and the decision
-whether to continue can be made thereafter.
+A second request is sent to the relevant domain endpoint within Authzforce, providing all the information necessary for
+Authzforce to provide a judgement. Authzforce responds with a **permit** or **deny** response, and the decision whether
+to continue can be made thereafter.
 
 ```javascript
 function authorizeAdvancedXACML(req, res, next, resource = req.url) {
@@ -964,7 +1004,7 @@ function policyDomainRequest(domain, roles, resource, action) {
         method: "POST",
         url: "http://authzforceUrl/authzforce-ce/domains/" + domain + "/pdp",
         headers: { "Content-Type": "application/xml" },
-        body
+        body,
     };
 
     return new Promise((resolve, reject) => {

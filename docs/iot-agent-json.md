@@ -44,9 +44,9 @@ Agent - the conversion of messages from JSON to NGSI and vice-versa will be uniq
 A direct comparison of the two IoT Agents can be seen below:
 
 | IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern                    |
-|---------------------------------------------------------------------|---------------------------------------------------------------------|-----------------------------------------------|
-| Sample Measure `c\                                                  | 1`                                                                  | Sample Measure `{"count": "1"}`               | Message Payload            |
-| Sample Command `Robot1@turn\                                        | left`                                                               | Sample Command `{"Robot1": {"turn": "left"}}` | Message Payload            |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------------- | --------------- |
+| Sample Measure `c\                                                  | 1`                                                                  | Sample Measure `{"count": "1"}`               | Message Payload |
+| Sample Command `Robot1@turn\                                        | left`                                                               | Sample Command `{"Robot1": {"turn": "left"}}` | Message Payload |
 | Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload                               |
 | Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism                           |
 | HTTP listens for measures on `iot/d` by default                     | HTTP listens for measures on `iot/json` by default                  | Transport Mechanism                           |
@@ -211,7 +211,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                        |
-|-------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                        |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                          |
 | IOTA_HTTP_HOST          | `iot-agent`                  | The hostname of the IoT Agent for JSON - see below                                                                                 |
@@ -271,7 +271,7 @@ information such as device URLs and Keys. The container is listening on two port
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -292,7 +292,7 @@ The `iot-agent` container is driven by environment variables as shown:
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.IoT-Agent-JSON.git
 cd tutorials.IoT-Agent

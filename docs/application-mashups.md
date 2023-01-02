@@ -160,7 +160,7 @@ The `wirecloud` container is a web application server listening on a single port
 The `wirecloud` container is connecting to **Keyrock** and is driven by environment variables as shown:
 
 | Key                       | Value                                  | Description                                                                          |
-|---------------------------|----------------------------------------|--------------------------------------------------------------------------------------|
+| ------------------------- | -------------------------------------- | ------------------------------------------------------------------------------------ |
 | DEFAULT_THEME             | `wirecloud.defaulttheme`               | Which Wirecloud theme to display                                                     |
 | DB_HOST                   | `postgres-db`                          | The name of the Wirecloud database                                                   |
 | DB_PASSWORD               | `wirepass`                             | The password for the Wirecloud database - this should be protected by Docker Secrets |
@@ -346,10 +346,10 @@ The NGSI browser should be displaying live data as shown:
 
 ## Combining Multiple Widgets within a Mashup
 
-The simple widget in the example above give combines both input and output into a single component, but it is when
-a series of operators and widgets are **combined** that the true power of Wirecloud can be seen. Simple data flows can
-be mapped graphically on screen and a mashup can be created by a user with minimal understanding of the technologies
-used to create the mashup.
+The simple widget in the example above give combines both input and output into a single component, but it is when a
+series of operators and widgets are **combined** that the true power of Wirecloud can be seen. Simple data flows can be
+mapped graphically on screen and a mashup can be created by a user with minimal understanding of the technologies used
+to create the mashup.
 
 ### Selecting Widgets and Operators
 
@@ -368,7 +368,7 @@ Then click on the **Widgets** tab and add an instance of the _Open Layers Map_ W
 view.
 
 | Operators                                                                         | Widgets                                                                               |
-|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| --------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------- |
 | ![](https://fiware.github.io/tutorials.Application-Mashup/img/operators-list.png) | ![](https://fiware.github.io/tutorials.Application-Mashup/img/components-widgets.png) |
 
 The result is a series of unconnected components on screen.
@@ -462,7 +462,7 @@ Clicking on the POIs retrieves additional data from each store.
 
 ![](https://fiware.github.io/tutorials.Application-Mashup/img/osm-map-on-click.png)
 
-Currently, the data is displayed as unformatted JSON. This is because the `Store` context data entities with the tutorial
-example are not using a standard FIWARE data model. If a standard data model such as
+Currently, the data is displayed as unformatted JSON. This is because the `Store` context data entities with the
+tutorial example are not using a standard FIWARE data model. If a standard data model such as
 [Building](https://github.com/smart-data-models/dataModel.Building) had been used the data would be formatted in an
 appropriate manner and a **Building** specific icon would be used.

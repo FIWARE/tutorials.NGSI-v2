@@ -31,7 +31,7 @@ graphical interface to set up and monitor the procedure.
 A summary of the differences can be seen below:
 
 | Draco                                                                           | Cygnus                                                                           |
-|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------|
+| ------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
 | Offers an NGSI v2 interface for notifications                                   | Offers an NGSI v2 interface for notifications                                    |
 | configurable subscription endpoint, but defaults to `/v2/notify`                | subscription endpoint listens on `/notify`                                       |
 | listens on a single port                                                        | listens on separate ports for each input                                         |
@@ -186,9 +186,9 @@ To start the system with a **MongoDB** database only, run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`.
 
-Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and drag
-and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the templates
-available. Please select the template MONGO-TUTORIAL.
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the
+templates available. Please select the template MONGO-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/mongo-tutorial-template.png)
 
@@ -543,14 +543,14 @@ The `postgres-db` container is listening on a single port:
 The `postgres-db` container is driven by environment variables as shown:
 
 | Key               | Value.     | Description                               |
-|-------------------|------------|-------------------------------------------|
+| ----------------- | ---------- | ----------------------------------------- |
 | POSTGRES_PASSWORD | `password` | Password for the PostgreSQL database user |
 | POSTGRES_USER     | `postgres` | Username for the PostgreSQL database user |
 | POSTGRES_DB       | `postgres` | The name of the PostgreSQL database       |
 
-> **Note:** Passing the Username and Password in plain text environment variables like this is a
-> security risk. Whereas this is acceptable practice in a tutorial, for a production environment, you can avoid this
-> risk by applying [Docker Secrets](https://blog.docker.com/2017/02/docker-secrets-management/)
+> **Note:** Passing the Username and Password in plain text environment variables like this is a security risk. Whereas
+> this is acceptable practice in a tutorial, for a production environment, you can avoid this risk by applying
+> [Docker Secrets](https://blog.docker.com/2017/02/docker-secrets-management/)
 
 <h3>PostgreSQL - Draco Configuration</h3>
 
@@ -585,8 +585,8 @@ To start the system with a **PostgreSQL** database run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
 
-Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and 
-drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the 
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the
 templates available. Please select the template POSTGRESQL-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/postgres-tutorial-template.png)
@@ -607,8 +607,7 @@ For doing that please follow the instructions:
     ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/controller-postgresql.png)
 
 5.  Enable the processor by clicking on the thunder icon and then click on enable, then close the controller
-    configuration page.
-    ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step4.png)
+    configuration page. ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step4.png)
 
     ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/step5.png)
 
@@ -907,9 +906,9 @@ mysql-db:
         - "MYSQL_ROOT_HOST=%"
 ```
 
-> **Note:** Using the default `root` user and displaying the password in an environment variables
-> like this is a security risk. Whereas this is acceptable practice in a tutorial, for a production environment, you can
-> avoid this risk by setting up another user and applying
+> **Note:** Using the default `root` user and displaying the password in an environment variables like this is a
+> security risk. Whereas this is acceptable practice in a tutorial, for a production environment, you can avoid this
+> risk by setting up another user and applying
 > [Docker Secrets](https://blog.docker.com/2017/02/docker-secrets-management/)
 
 The `mysql-db` container is listening on a single port:
@@ -920,7 +919,7 @@ The `mysql-db` container is listening on a single port:
 The `mysql-db` container is driven by environment variables as shown:
 
 | Key                 | Value. | Description                                                                                                                                                                                           |
-|---------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MYSQL_ROOT_PASSWORD | `123`. | specifies a password that is set for the MySQL `root` account.                                                                                                                                        |
 | MYSQL_ROOT_HOST     | `%`    | By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
@@ -957,8 +956,8 @@ To start the system with a **MySQL** database run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
 
-Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and 
-drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the 
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the
 templates available. Please select the template MYSQL-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/draco-template1.png)
@@ -1295,8 +1294,8 @@ To start the system with **multiple** databases run the following command:
 
 Then go to your browser and open Draco using this URL `http://localhost:9090/nifi`
 
-Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and 
-drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the 
+Now go to the _*Components*_ toolbar which is placed in the upper section of the NiFi GUI, find the template icon and
+drag and drop it inside the Draco user space. At this point, a popup should be displayed with a list of all the
 templates available. Please select the template MULTIPLE-SINKS-TUTORIAL.
 
 ![](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/multiple-tutorial-template.png)

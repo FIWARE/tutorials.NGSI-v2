@@ -44,7 +44,7 @@ the actual data. In combination with [PostGIS](https://postgis.net/) extension c
 A summary of the differences can be seen below:
 
 | QuantumLeap                                                                                                      | STH-Comet                                                                                          |
-|------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------|
+| ---------------------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------- |
 | Offers an NGSI v2 interface for notifications                                                                    | Offers an NGSI v1 interface for notifications                                                      |
 | Persists Data to CrateDB or TimescaleDB database                                                                 | Persists Data to MongoDB database                                                                  |
 | Offers its own HTTP endpoint for queries (currently for CrateDB), but you can also query CrateDB and TimescaleDB | Offers its own HTTP endpoint for queries, you can also query MongoDB directly                      |
@@ -139,7 +139,7 @@ The overall architecture can be seen below:
 Before you start, you should ensure that you have obtained or built the necessary Docker images locally. Please clone
 the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Time-Series-Data.git
 cd tutorials.Time-Series-Data
@@ -617,8 +617,8 @@ This example shows the latest four sampled `luminosity` values of lamps that are
 `52°33'16.9"N 13°23'55.0"E` (Bornholmer Straße 65, Berlin, Germany). If you have turned on all the lamps available on
 the device monitor page, you should be able to see data for `Lamp:001` and `Lamp:004`.
 
-> **Note:** Geographical queries are only available starting from version `0.5` of QuantumLeap
-> which implements the full set of queries detailed in the Geographical Queries section of the
+> **Note:** Geographical queries are only available starting from version `0.5` of QuantumLeap which implements the full
+> set of queries detailed in the Geographical Queries section of the
 > [NGSI v2 specification](http://fiware.github.io/specifications/ngsiv2/stable/).
 
 #### 10 Request:
@@ -985,7 +985,7 @@ function readCrateLampLuminosity(id, aggMethod) {
             url: crateUrl,
             headers: { "Content-Type": "application/json" },
             body: { stmt: sqlStatement },
-            json: true
+            json: true,
         };
         request(options, (error, response, body) => {
             return error ? reject(error) : resolve(body);
@@ -1012,7 +1012,7 @@ function crateToTimeSeries(crateResponse, aggMethod, hexColor) {
     return {
         labels,
         data,
-        color
+        color,
     };
 }
 ```

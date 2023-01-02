@@ -78,7 +78,7 @@ const request = require("request");
 const options = {
     method: "GET",
     url: "http://localhost:1026/v2/entities/urn:ngsi-ld:Store:001",
-    qs: { options: "keyValues" }
+    qs: { options: "keyValues" },
 };
 
 request(options, function (error, response, body) {
@@ -221,7 +221,7 @@ It has been described in a [previous tutorial](context-providers.md)
 All services can be initialized from the command-line by running the bash script provided within the repository. Please
 clone the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Accessing-Context.git
 cd tutorials.Accessing-Context
@@ -242,8 +242,7 @@ This command will also import seed data from the previous [Stock Management exam
 ## Stock Management Frontend
 
 All the code Node.js Express for the demo can be found within the `proxy` folder within the GitHub
-repository.[Stock Management example](context-providers.md).
-The application runs on the following URLs:
+repository.[Stock Management example](context-providers.md). The application runs on the following URLs:
 
 -   `http://localhost:3000/app/store/urn:ngsi-ld:Store:001`
 -   `http://localhost:3000/app/store/urn:ngsi-ld:Store:002`
@@ -263,7 +262,7 @@ low level HTTP requests and will simplify the code to be written. The methods ex
 the NGSI v2 [CRUD operations](crud-operations.md#what-is-crud) with the following names:
 
 | HTTP Verb  |                                                  `/v2/entities`                                                  |                                               `/v2/entities/<entity>`                                                |
-|------------|:----------------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|
+| ---------- | :--------------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
 | **POST**   | [`createEntity()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#createEntity) |                                                         :x:                                                          |
 | **GET**    | [`listEntities()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#listEntities) | [`retrieveEntity()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#retrieveEntity) |
 | **PUT**    |                                                       :x:                                                        |                                                         :x:                                                          |
@@ -271,7 +270,7 @@ the NGSI v2 [CRUD operations](crud-operations.md#what-is-crud) with the followin
 | **DELETE** |                                                       :x:                                                        |   [`removeEntity()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#removeEntity)   |
 
 | HTTP Verb   |                                                                     `.../attrs`                                                                      |  `.../attrs/<attribute>`   |                                                     `.../attrs/<attribute>/value`                                                      |
-|-------------|:----------------------------------------------------------------------------------------------------------------------------------------------------:|:--------------------------:|:--------------------------------------------------------------------------------------------------------------------------------------:|
+| ----------- | :--------------------------------------------------------------------------------------------------------------------------------------------------: | :------------------------: | :------------------------------------------------------------------------------------------------------------------------------------: |
 | **POST**    | [`updateOrAppendEntityAttributes()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#updateOrAppendEntityAttributes) |            :x:             |                                                                  :x:                                                                   |
 | **GET**     |       [`retrieveEntityAttributes()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/EntitiesApi.md#retrieveEntityAttributes)       |            :x:             |    [`getAttributeValue()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/AttributeValueApi.md#getAttributeValue)    |
 | **PUT**     |                                                                         :x:                                                                          |            :x:             | [`updateAttributeValue()`](https://github.com/smartsdk/ngsi-sdk-javascript/blob/master/docs/AttributeValueApi.md#updateAttributeValue) |
@@ -420,19 +419,19 @@ function displayTillInfo(req, res) {
     Promise.all([
         listEntities({
             options: "keyValues",
-            type: "Product"
+            type: "Product",
         }),
         listEntities({
             q: "refStore==" + req.params.storeId,
             options: "keyValues",
-            type: "InventoryItem"
-        })
+            type: "InventoryItem",
+        }),
     ])
         .then((values) => {
             // If values have been found display it on screen
             return res.render("till", {
                 products: values[0],
-                inventory: values[1]
+                inventory: values[1],
             });
         })
         .catch((error) => {
@@ -503,14 +502,14 @@ updated. No error handling has been added to this function - it has been left to
 async function buyItem(req, res) {
     const inventory = await retrieveEntity(req.params.inventoryId, {
         options: "keyValues",
-        type: "InventoryItem"
+        type: "InventoryItem",
     });
     const count = inventory.shelfCount - 1;
     await updateExistingEntityAttributes(
         req.params.inventoryId,
         { shelfCount: { type: "Integer", value: count } },
         {
-            type: "InventoryItem"
+            type: "InventoryItem",
         }
     );
     res.redirect(`/app/store/${inventory.refStore}/till`);

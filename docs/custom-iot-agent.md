@@ -41,7 +41,7 @@ For the purpose of this tutorial we will amend code from the existing Ultralight
 XML format. A direct comparison of the two IoT Agents can be seen below:
 
 | IoT Agent for Ultralight                                            | IoT Agent for XML                                                                                            | Protocol's Area of Concern |
-|---------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------|----------------------------|
+| ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------- |
 | Sample Measure `c\1`                                                | Sample Measure <br/>`<measure device="lamp002" key="xxx">`<br/>&nbsp;&nbsp;`<c value="1"/>`<br/>`</measure>` | Message Payload            |
 | Sample Command `Robot1@turn\left=30`                                | Sample Command <br/>`<turn device="Robot1">`<br/>&nbsp;&nbsp;`<left>30</left>`<br/>`</turn>`                 | Message Payload            |
 | Content Type is `text/plain`                                        | Content Type is `application/xml`                                                                            | Message Payload            |
@@ -159,7 +159,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                        |
-|-------------------------|------------------------------|------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | ---------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                        |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                          |
 | IOTA_HTTP_HOST          | `iot-agent`                  | The hostname of the IoT Agent for XML - see below                                                                                  |
@@ -225,7 +225,7 @@ information such as device URLs and Keys. The container is listening on two port
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                   | Value                   | Description                                                                                                                                           |
-|-----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| --------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | IOTA_CB_HOST          | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT          | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT       | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -246,7 +246,7 @@ The `iot-agent` container is driven by environment variables as shown:
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Custom-IoT-Agent.git
 cd tutorials.Custom-IoT-Agent
@@ -660,17 +660,17 @@ command to the device to `generateCommandExecution()`.
 
 ```javascript
 function generateCommandExecution(apiKey, device, attribute) {
-//...
+    //...
     const options = {
         url: device.endpoint,
-        method: 'POST',
+        method: "POST",
         body: xmlParser.createCommandPayload(device, cmdName, cmdAttributes),
         headers: {
-            'fiware-service': device.service,
-            'fiware-servicepath': device.subservice
-        }
-    }
-//...
+            "fiware-service": device.service,
+            "fiware-servicepath": device.subservice,
+        },
+    };
+    //...
 }
 ```
 

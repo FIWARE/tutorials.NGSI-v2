@@ -95,7 +95,7 @@ docker run -d --name fiware-orion -h orion --network=fiware_default \
 All services can be initialised from the command-line using the `docker compose` command. Please clone the repository
 and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Getting-Started.git
 cd tutorials.Getting-Started
@@ -264,8 +264,8 @@ curl -iX POST \
 
 ### Data Model Guidelines
 
-Although the data entity within your context will vary according to your use case, the common structure within each
-data entity should be standardized order to promote reuse. The full FIWARE data model guidelines can be found
+Although the data entity within your context will vary according to your use case, the common structure within each data
+entity should be standardized order to promote reuse. The full FIWARE data model guidelines can be found
 [here](https://smartdatamodels.org/). This tutorial demonstrates the usage of the following recommendations:
 
 #### All terms are defined in American English

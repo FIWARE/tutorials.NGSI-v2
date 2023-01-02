@@ -26,9 +26,9 @@ appropriate access to resources across disparate systems.
 The FIWARE framework consists of a series of separate components, and the security chapter aims to implement the common
 needs of these components regarding who (or what) gets to access which resources within the system, but before access to
 resources can be locked down, the identity of the person (or service) making the request needs to be known. The FIWARE
-**Keyrock** Generic Enabler sets up all the common characteristics of an Identity Management System out-of-the-box,
-so that other components are able to use standard authentication mechanisms to accept or reject requests based on
-industry standard protocols.
+**Keyrock** Generic Enabler sets up all the common characteristics of an Identity Management System out-of-the-box, so
+that other components are able to use standard authentication mechanisms to accept or reject requests based on industry
+standard protocols.
 
 Identity Management therefore covers the issues of how to gain an identity within the system, the protection of that
 identity and the surrounding technologies such as passwords and network protocols.
@@ -143,7 +143,7 @@ The `idm` container is a web application server listening on two ports:
 The `idm` container is driven by environment variables as shown:
 
 | Key               | Value                   | Description                                                                                                                  |
-|-------------------|-------------------------|------------------------------------------------------------------------------------------------------------------------------|
+| ----------------- | ----------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | IDM_DB_PASS       | `idm`                   | Password of the attached MySQL Database - secured by **Docker Secrets** (see below)                                          |
 | IDM_DB_USER       | `root`                  | Username of the default MySQL user - left in plain-text                                                                      |
 | IDM_HOST          | `http://localhost:3005` | Hostname of the **Keyrock** App Server - used in activation eMails when signing up users                                     |
@@ -198,7 +198,7 @@ The `mysql-db` container is listening on a single port:
 The `mysql-db` container is driven by environment variables as shown:
 
 | Key                 | Value. | Description                                                                                                                                                                                           |
-|---------------------|--------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
 | MYSQL_ROOT_PASSWORD | `123`. | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)                                                                                             |
 | MYSQL_ROOT_HOST     | `root` | By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
@@ -206,7 +206,7 @@ The `mysql-db` container is driven by environment variables as shown:
 
 To start the installation, do the following:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
@@ -262,7 +262,7 @@ All IDs and tokens within **Keyrock** are subject to change. The following value
 for records. Record IDs use Universally Unique Identifiers - UUIDs.
 
 | Key                    | Description                                                                                                                        | Sample Value                                            |
-|------------------------|------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
 | `keyrock`              | URL for the location of the **Keyrock** service                                                                                    | `localhost:3005` for HTTP or `localhost:3443` for HTTPS |
 | `X-Auth-token`         | Token received in the Header when logging in as a user - in other words _"Who am I?"_                                              | `51f2e380-c959-4dee-a0af-380f730137c3`                  |
 | `X-Subject-token`      | Token added to requests to define _"Who do I want to inquire about?"_ - This can also be a repeat the `X-Auth-token` defined above | `51f2e380-c959-4dee-a0af-380f730137c3`                  |
@@ -765,8 +765,8 @@ Manager would be made the owner of the _management_ organization and could add a
 ownership role in the _security_ organization and add additional store detectives to that organization.
 
 Note that Bob does not have the rights to alter the membership list of the _security_ organization and Charlie does not
-have the rights to alter the membership list of the _management_ organization. Furthermore, neither Bob nor Charlie 
-would be able to alter the permissions of the application themselves, merely add and remove existing user accounts to 
+have the rights to alter the membership list of the _management_ organization. Furthermore, neither Bob nor Charlie
+would be able to alter the permissions of the application themselves, merely add and remove existing user accounts to
 the organization they control.
 
 Creating an application and setting-up the permissions is not covered here as it is the subject of the next tutorial.

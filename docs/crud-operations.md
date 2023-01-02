@@ -112,7 +112,7 @@ command-line initialization should be self-explanatory.
 All services can be initialised from the command-line by running the bash script provided within the repository. Please
 clone the repository and create the necessary images by running the commands as shown below:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.CRUD-Operations.git
 cd tutorials.CRUD-Operations
@@ -154,7 +154,7 @@ therefore each `id` is a URN which follows a standard format: `urn:ngsi-ld:<enti
 make every `id` in the context data unique.
 
 | HTTP Verb  |                                               `/v2/entities`                                               |                                              `/v2/entities/<entity-id>`                                              |
-|------------|:----------------------------------------------------------------------------------------------------------:|:--------------------------------------------------------------------------------------------------------------------:|
+| ---------- | :--------------------------------------------------------------------------------------------------------: | :------------------------------------------------------------------------------------------------------------------: |
 | **POST**   |                                CREATE a new entity and add to the context.                                 |                                 CREATE or UPDATE an attribute of a specified entity.                                 |
 | **GET**    | READ entity data from the context. This will return data from multiple entities. The data can be filtered. | READ entity data from a specified entity. This will return data from a single entity only. The data can be filtered. |
 | **PUT**    |                                                    :x:                                                     |                                                         :x:                                                          |
@@ -177,7 +177,7 @@ There are three endpoints:
     the `type` untouched.
 
 | HTTP Verb   |                           `.../attrs`                           |                `.../attrs/<attribute>`                |                              `.../attrs/<attribute>/value`                               |
-|-------------|:---------------------------------------------------------------:|:-----------------------------------------------------:|:----------------------------------------------------------------------------------------:|
+| ----------- | :-------------------------------------------------------------: | :---------------------------------------------------: | :--------------------------------------------------------------------------------------: |
 | **POST**    |                               :x:                               |                          :x:                          |                                           :x:                                            |
 | **GET**     |                               :x:                               |                          :x:                          | READ the value of an attribute from a specified entity. This will return a single field. |
 | **PUT**     |                               :x:                               |                          :x:                          |              UPDATE the value of single attribute from a specified entity.               |

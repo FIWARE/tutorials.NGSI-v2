@@ -200,7 +200,7 @@ The `tutorial` container is listening on two ports:
 The `tutorial` container is driven by environment variables as shown:
 
 | Key                     | Value                        | Description                                                                                                                               |
-|-------------------------|------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
 | DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                               |
 | WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                                 |
 | IOTA_HTTP_HOST          | `iot-agent`                  | The hostname of the IoT Agent for UltraLight 2.0 - see below                                                                              |
@@ -258,7 +258,7 @@ information such as device URLs and Keys. The container is listening on two port
 The `iot-agent` container is driven by environment variables as shown:
 
 | Key                  | Value                   | Description                                                                                                                                           |
-|----------------------|-------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------|
+| -------------------- | ----------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------- |
 | IOTA_CB_HOST         | `orion`                 | Hostname of the context broker to update context                                                                                                      |
 | IOTA_CB_PORT         | `1026`                  | Port that context broker listens on to update context                                                                                                 |
 | IOTA_NORTH_PORT      | `4041`                  | Port used for Configuring the IoT Agent and receiving context updates from the context broker                                                         |
@@ -278,7 +278,7 @@ The `iot-agent` container is driven by environment variables as shown:
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
 repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.IoT-Agent.git
 cd tutorials.IoT-Agent
@@ -546,22 +546,25 @@ curl -G -X GET \
 
 ```json
 {
-    "id": "urn:ngsi-ld:Motion:001", "type": "Motion",
+    "id": "urn:ngsi-ld:Motion:001",
+    "type": "Motion",
     "TimeInstant": {
-        "type": "ISO8601","value": "2018-05-25T10:51:32.00Z",
+        "type": "ISO8601",
+        "value": "2018-05-25T10:51:32.00Z",
         "metadata": {}
     },
     "count": {
-        "type": "Integer","value": "1",
+        "type": "Integer",
+        "value": "1",
         "metadata": {
-            "TimeInstant": {"type": "ISO8601","value": "2018-05-25T10:51:32.646Z"}
+            "TimeInstant": { "type": "ISO8601", "value": "2018-05-25T10:51:32.646Z" }
         }
     },
     "refStore": {
         "type": "Relationship",
         "value": "urn:ngsi-ld:Store:001",
         "metadata": {
-            "TimeInstant": {"type": "ISO8601", "value": "2018-05-25T10:51:32.646Z"}
+            "TimeInstant": { "type": "ISO8601", "value": "2018-05-25T10:51:32.646Z" }
         }
     }
 }

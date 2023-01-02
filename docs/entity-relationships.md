@@ -30,8 +30,8 @@ defined as shown:
 -   A shelf is a real world device to hold objects which we wish to sell. Each **Shelf** entity would have properties
     such as: + A name of the shelf e.g. "Wall Unit" + A physical location e.g. _52.5075 N, 13.3903 E_ + A maximum
     capacity + An association to the store in which the shelf is present
--   A product is defined as something that we sell - it is conceptual object. **Product** entities would have
-    properties such as: + A name of the product e.g. "Vodka" + A price e.g. 13.99 Euros + A size e.g. Small
+-   A product is defined as something that we sell - it is conceptual object. **Product** entities would have properties
+    such as: + A name of the product e.g. "Vodka" + A price e.g. 13.99 Euros + A size e.g. Small
 -   An inventory item is another conceptual entity, used to associate products, stores, shelves and physical objects.
     **Inventory Item** entities would have properties such as: + An association to the product being sold + An
     association to the store in which the product is being sold + An association to the shelf where the product is being
@@ -114,7 +114,7 @@ All services can be initialised from the command-line by running the
 [services](https://github.com/FIWARE/tutorials.Entity-Relationships/blob/master/services) Bash script provided within
 the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
-``` bash
+```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Entity-Relationships.git
 cd tutorials.Entity-Relationships

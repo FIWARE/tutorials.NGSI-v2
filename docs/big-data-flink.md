@@ -154,7 +154,7 @@ The `taskmanager` container is listening on two ports:
 The containers within the flink cluster are driven by a single environment variable as shown:
 
 | Key                     | Value        | Description                                                           |
-|-------------------------|--------------|-----------------------------------------------------------------------|
+| ----------------------- | ------------ | --------------------------------------------------------------------- |
 | JOB_MANAGER_RPC_ADDRESS | `jobmanager` | URL of the _master_ Job Manager which coordinates the task processing |
 
 ## Start Up

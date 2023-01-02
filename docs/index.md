@@ -18,12 +18,12 @@ _"powered by FIWARE"_.
 
 The tutorials are split according to the chapters defined within the
 [FIWARE catalog](https://www.fiware.org/developers/catalogue/) and are numbered in order of difficulty within each
-chapter hence an introduction to a given enabler will occur before the full capabilities of that element are
-explored in more depth.
+chapter hence an introduction to a given enabler will occur before the full capabilities of that element are explored in
+more depth.
 
 It is recommended to start with reading the full **Core Context Management: The NGSI-v2 Interface** Chapter before
 moving on to other subjects, as this will give you a fuller understanding of the role of context data in general.
-However, it is not necessary to follow all the subsequent tutorials sequentially - as FIWARE is a modular system, you 
+However, it is not necessary to follow all the subsequent tutorials sequentially - as FIWARE is a modular system, you
 can choose which enablers are of interest to you.
 
 ## Prerequisites
@@ -77,10 +77,16 @@ framework for REST APIs. The tool can be downloaded from [www.getpostman.com](ht
 FIWARE Postman collections can be downloaded directly from the
 [Postman API network](https://explore.postman.com/team/3mM5EY6ChBYp9D).
 
+### GitPod <img src="https://gitpod.io/favicon.ico" align="left"  height="30" width="30">
+
+[Gitpod](https://github.com/gitpod-io/gitpod) is an open-source Kubernetes application for ready-to-code cloud
+development environments that spins up an automated dev environment for each task, in the cloud. It enables you to run
+the tutorials in a cloud development environment directly from your browser or your Desktop IDE.
+
 ### Cygwin for Windows <img src="https://www.cygwin.com/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
-We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/)
-to provide a command-line functionality similar to a Linux distribution on Windows.
+The tutorials start up their services using a simple Bash script. When working locally, Windows users should download
+[cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
 ### Apache Maven <img src="https://maven.apache.org/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
@@ -105,12 +111,10 @@ The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 These first tutorials are an introduction to the FIWARE Context Broker, and are an essential first step when learning to
 use FIWARE.
 
-&nbsp; 101. [Getting Started](getting-started.md)<br/>
-&nbsp; 102. [Entity Relationships](entity-relationships.md)<br/>
-&nbsp; 103. [CRUD Operations](crud-operations.md)<br/>
-&nbsp; 104. [Context Providers](context-providers.md)<br/>
-&nbsp; 105. [Altering the Context Programmatically](accessing-context.md)<br/>
-&nbsp; 106. [Subscribing to Changes in Context](subscriptions.md)<br/>
+&nbsp; 101. [Getting Started](getting-started.md)<br/> &nbsp; 102. [Entity Relationships](entity-relationships.md)<br/>
+&nbsp; 103. [CRUD Operations](crud-operations.md)<br/> &nbsp; 104. [Context Providers](context-providers.md)<br/>
+&nbsp; 105. [Altering the Context Programmatically](accessing-context.md)<br/> &nbsp; 106.
+[Subscribing to Changes in Context](subscriptions.md)<br/>
 
 <h3 style="box-shadow: 0px 4px 0px 0px #5dc0cf;">Internet of Things, Robots and third-party systems</h3>
 
@@ -118,12 +122,11 @@ In order to make a context-based system aware of the state of the real world, it
 Robots, IoT Sensors or other suppliers of context data such as social media. It is also possible to generate commands
 from the context broker to alter the state of real-world objects themselves.
 
-&nbsp; 201. [Introduction to IoT Sensors](iot-sensors.md)<br/>
-&nbsp; 202. [Provisioning an IoT Agent](iot-agent.md)<br/>
-&nbsp; 203. [IoT over MQTT](iot-over-mqtt.md)<br/>
-&nbsp; 204. [Using an alternative IoT Agent](iot-agent-json.md)<br/>
-&nbsp; 205. [Creating a Custom IoT Agent](custom-iot-agent.md)<br/>
-&nbsp; 206. [IoT over IOTA Tangle](iot-over-iota-tangle.md)<br/>
+&nbsp; 201. [Introduction to IoT Sensors](iot-sensors.md)<br/> &nbsp; 202.
+[Provisioning an IoT Agent](iot-agent.md)<br/> &nbsp; 203. [IoT over MQTT](iot-over-mqtt.md)<br/> &nbsp; 204.
+[Using an alternative IoT Agent](iot-agent-json.md)<br/> &nbsp; 205.
+[Creating a Custom IoT Agent](custom-iot-agent.md)<br/> &nbsp; 206. [IoT over IOTA Tangle](iot-over-iota-tangle.md)<br/>
+
 <!-- &nbsp; 250. [Introduction to Fast-RTPS and Micro-RTPS](fast-rtps-micro-rtps.md)<br/> -->
 
 <h3 style="box-shadow: 0px 4px 0px 0px #233c68;">Core Context Management: History Management</h3>
@@ -132,37 +135,35 @@ These tutorials show how to manipulate and store context data therefore it can b
 
 &nbsp; 301. [Persisting Context Data using Apache Flume (MongoDB, MySQL, PostgreSQL)](historic-context-flume.md)<br/>
 &nbsp; 302. [Persisting Context Data using Apache NIFI (MongoDB, MySQL, PostgreSQL)](historic-context-nifi.md)<br/>
-&nbsp; 303. [Querying Time Series Data (MongoDB)](short-term-history.md)<br/>
-&nbsp; 304. [Querying Time Series Data (Crate-DB)](time-series-data.md)<br/>
-&nbsp; 305. [Big Data Analysis (Flink)](big-data-flink.md)<br/>
-&nbsp; 306. [Big Data Analysis (Spark)](big-data-spark.md)<br/>
+&nbsp; 303. [Querying Time Series Data (MongoDB)](short-term-history.md)<br/> &nbsp; 304.
+[Querying Time Series Data (Crate-DB)](time-series-data.md)<br/> &nbsp; 305.
+[Big Data Analysis (Flink)](big-data-flink.md)<br/> &nbsp; 306. [Big Data Analysis (Spark)](big-data-spark.md)<br/>
 
 <h3 style="box-shadow: 0px 4px 0px 0px #ff7059;">Security: Identity Management</h3>
 
 These tutorials show how to create and administer users within an application, and how to restrict access to assets, by
 assigning roles and permissions.
 
-&nbsp; 401. [Administrating Users and Organizations](identity-management.md)<br/>
-&nbsp; 402. [Managing Roles and Permissions](roles-permissions.md)<br/>
-&nbsp; 403. [Securing Application Access](securing-access.md)<br/>
-&nbsp; 404. [Securing Microservices with a PEP Proxy](pep-proxy.md)<br/>
-&nbsp; 405. [XACML Rules-based Permissions](xacml-access-rules.md)<br/>
-&nbsp; 406. [Administrating XACML via a PAP](administrating-xacml.md)<br/>
-&nbsp; 407. [Authenticating Identities (OpenID)](open-id-connect.md)<br/>
+&nbsp; 401. [Administrating Users and Organizations](identity-management.md)<br/> &nbsp; 402.
+[Managing Roles and Permissions](roles-permissions.md)<br/> &nbsp; 403.
+[Securing Application Access](securing-access.md)<br/> &nbsp; 404.
+[Securing Microservices with a PEP Proxy](pep-proxy.md)<br/> &nbsp; 405.
+[XACML Rules-based Permissions](xacml-access-rules.md)<br/> &nbsp; 406.
+[Administrating XACML via a PAP](administrating-xacml.md)<br/> &nbsp; 407.
+[Authenticating Identities (OpenID)](open-id-connect.md)<br/>
 
 <h3 style="box-shadow: 0px 4px 0px 0px #88a1ce;">Processing, Analysis and Visualization</h3>
 
 These tutorials show how to create, process, analyze or visualize context information.
 
-&nbsp; 501. [Creating Application Mashups](application-mashups.md)<br/>
-&nbsp; 503. [Introduction to Media Streams](media-streams.md)<br/>
-&nbsp; 507. [Cloud-Edge Computing](edge-computing.md)<br/>
+&nbsp; 501. [Creating Application Mashups](application-mashups.md)<br/> &nbsp; 503.
+[Introduction to Media Streams](media-streams.md)<br/> &nbsp; 507. [Cloud-Edge Computing](edge-computing.md)<br/>
 
 <h3 style="box-shadow: 0px 4px 0px 0px #233c68;">NGSI-LD for NGSI-v2 Developers</h3>
 
 These tutorials show how to use NGSI-LD which combines context data management with linked data concepts.
 
-&nbsp; 601. [Introduction to Linked Data](linked-data.md)<br/>
-&nbsp; 602. [Linked Data Relationships and Data Models](relationships-linked-data.md)<br/>
-&nbsp; 603. [Traversing Linked Data](working-with-linked-data.md)<br/>
-&nbsp; 604. [Linked Data Subscriptions and Registrations](ld-subscriptions-registrations.md)<br/>
+&nbsp; 601. [Introduction to Linked Data](linked-data.md)<br/> &nbsp; 602.
+[Linked Data Relationships and Data Models](relationships-linked-data.md)<br/> &nbsp; 603.
+[Traversing Linked Data](working-with-linked-data.md)<br/> &nbsp; 604.
+[Linked Data Subscriptions and Registrations](ld-subscriptions-registrations.md)<br/>

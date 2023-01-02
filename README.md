@@ -21,8 +21,10 @@ directly or programmatically.
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
--   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/> [Smart Data Models](https://smartdatamodels.org)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/>
+    [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+-   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/>
+    [Smart Data Models](https://smartdatamodels.org)
 
 ## Install
 
@@ -61,14 +63,20 @@ necessary.
 ### Postman <img src="./docs/img/postman.png" align="left"  height="25" width="25">
 
 The tutorials which use HTTP requests supply a collection for use with the Postman utility. Postman is a testing
-framework for REST APIs. The tool can be downloaded from [www.postman.com](https://www.postman.com/downloads/). All the FIWARE
-Postman collections can be downloaded directly from the
+framework for REST APIs. The tool can be downloaded from [www.postman.com](https://www.postman.com/downloads/). All the
+FIWARE Postman collections can be downloaded directly from the
 [Postman API network](https://explore.postman.com/team/3mM5EY6ChBYp9D)
+
+### GitPod <img src="https://gitpod.io/favicon.ico" align="left"  height="30" width="30">
+
+[Gitpod](https://github.com/gitpod-io/gitpod) is an open-source Kubernetes application for ready-to-code cloud
+development environments that spins up an automated dev environment for each task, in the cloud. It enables you to run
+the tutorials in a cloud development environment directly from your browser or your Desktop IDE.
 
 ### Cygwin for Windows <img src="https://www.cygwin.com/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
-We will start up our services using a simple Bash script. Windows users should download [cygwin](http://www.cygwin.com/)
-to provide a command-line functionality similar to a Linux distribution on Windows.
+The tutorials start up their services using a simple Bash script. When working locally, Windows users should download
+[cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
 ### Apache Maven <img src="https://maven.apache.org/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
@@ -81,43 +89,46 @@ Scala code into a JAR file.
 
 ### Core Context Management: NGSI-v2 Fundamentals
 
-&nbsp; 101. [Getting Started](https://github.com/FIWARE/tutorials.Getting-Started/tree/NGSI-v2)<br/>
-&nbsp; 102. [Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships/tree/NGSI-v2)<br/>
-&nbsp; 103. [CRUD Operations](https://github.com/FIWARE/tutorials.CRUD-Operations/tree/NGSI-v2)<br/>
-&nbsp; 104. [Context Providers](https://github.com/FIWARE/tutorials.Context-Providers/tree/NGSI-v2)<br/>
-&nbsp; 105. [Altering the Context Programmatically](https://github.com/FIWARE/tutorials.Accessing-Context/tree/NGSI-v2)<br/>
+&nbsp; 101. [Getting Started](https://github.com/FIWARE/tutorials.Getting-Started/tree/NGSI-v2)<br/> &nbsp; 102.
+[Entity Relationships](https://github.com/FIWARE/tutorials.Entity-Relationships/tree/NGSI-v2)<br/> &nbsp; 103.
+[CRUD Operations](https://github.com/FIWARE/tutorials.CRUD-Operations/tree/NGSI-v2)<br/> &nbsp; 104.
+[Context Providers](https://github.com/FIWARE/tutorials.Context-Providers/tree/NGSI-v2)<br/> &nbsp; 105.
+[Altering the Context Programmatically](https://github.com/FIWARE/tutorials.Accessing-Context/tree/NGSI-v2)<br/>
 &nbsp; 106. [Subscribing to Changes in Context](https://github.com/FIWARE/tutorials.Subscriptions/tree/NGSI-v2)
 
 ### Internet of Things, Robots and third-party systems
 
-&nbsp; 201. [Introduction to IoT Sensors](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)<br/>
-&nbsp; 202. [Provisioning an IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent/tree/NGSI-v2)<br/>
-&nbsp; 203. [IoT over an MQTT Transport](https://github.com/FIWARE/tutorials.IoT-over-MQTT/tree/NGSI-v2)<br/>
-&nbsp; 204. [Using an alternative IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent-JSON/tree/NGSI-v2)<br/>
-&nbsp; 205. [Creating a Custom IoT Agent](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/NGSI-v2)<br/>
-&nbsp; 206. [IoT over an IOTA Tangle Transport](https://github.com/FIWARE/tutorials.IoT-over-IOTA/tree/NGSI-v2)<br/>
+&nbsp; 201. [Introduction to IoT Sensors](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2)<br/> &nbsp; 202.
+[Provisioning an IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent/tree/NGSI-v2)<br/> &nbsp; 203.
+[IoT over an MQTT Transport](https://github.com/FIWARE/tutorials.IoT-over-MQTT/tree/NGSI-v2)<br/> &nbsp; 204.
+[Using an alternative IoT Agent](https://github.com/FIWARE/tutorials.IoT-Agent-JSON/tree/NGSI-v2)<br/> &nbsp; 205.
+[Creating a Custom IoT Agent](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/NGSI-v2)<br/> &nbsp; 206.
+[IoT over an IOTA Tangle Transport](https://github.com/FIWARE/tutorials.IoT-over-IOTA/tree/NGSI-v2)<br/>
+
 <!-- &nbsp; 250. [Introduction to Fast-RTPS and Micro-RTPS](https://github.com/FIWARE/tutorials.Fast-RTPS-Micro-RTPS/tree/NGSI-v2) -->
 
 ### Core Context Management: Manipulating Context Data and Persisting Historic Data
 
 &nbsp; 301. [Persisting Context Data using Apache Flume](https://github.com/FIWARE/tutorials.Historic-Context-Flume) -
-MongoDB, MySQL, PostgreSQL<br/>
-&nbsp; 302. [Persisting Context Data using Apache NIFI](https://github.com/FIWARE/tutorials.Historic-Context-NIFI) - MongoDB, MySQL,
-PostgreSQL<br/>
-&nbsp; 303. [Querying Time Series Data (MongoDB)](https://github.com/FIWARE/tutorials.Short-Term-History/tree/NGSI-v2)<br/>
-&nbsp; 304. [Querying Time Series Data (CrateDB)](https://github.com/FIWARE/tutorials.Time-Series-Data/tree/NGSI-v2)<br/>
+MongoDB, MySQL, PostgreSQL<br/> &nbsp; 302.
+[Persisting Context Data using Apache NIFI](https://github.com/FIWARE/tutorials.Historic-Context-NIFI) - MongoDB, MySQL,
+PostgreSQL<br/> &nbsp; 303.
+[Querying Time Series Data (MongoDB)](https://github.com/FIWARE/tutorials.Short-Term-History/tree/NGSI-v2)<br/>
+&nbsp; 304.
+[Querying Time Series Data (CrateDB)](https://github.com/FIWARE/tutorials.Time-Series-Data/tree/NGSI-v2)<br/>
 &nbsp; 305. [Big Data Analysis (Flink)](https://github.com/FIWARE/tutorials.Big-Data-Flink/tree/NGSI-v2)<br/>
 &nbsp; 306. [Big Data Analysis (Spark)](https://github.com/FIWARE/tutorials.Big-Data-Spark/tree/NGSI-v2)
 
 ### Security: Identity Management
 
-&nbsp; 401. [Managing Users and Organizations](https://github.com/FIWARE/tutorials.Identity-Management/tree/NGSI-v2)<br/>
-&nbsp; 402. [Roles and Permissions](https://github.com/FIWARE/tutorials.Roles-Permissions/tree/NGSI-v2)<br/>
-&nbsp; 403. [Securing Application Access](https://github.com/FIWARE/tutorials.Securing-Access/tree/NGSI-v2)<br/>
-&nbsp; 404. [Securing Microservices with a PEP Proxy](https://github.com/FIWARE/tutorials.PEP-Proxy/tree/NGSI-v2)<br/>
-&nbsp; 405. [XACML Rules-based Permissions](https://github.com/FIWARE/tutorials.XACML-Access-Rules/tree/NGSI-v2)<br/>
-&nbsp; 406. [Administrating XACML via a PAP](https://github.com/FIWARE/tutorials.Administrating-XACML/tree/NGSI-v2)<br/>
-&nbsp; 407. [Authenticating Identities (Open-ID Connect)](https://github.com/FIWARE/tutorials.Securing-Access-OpenID-Connect/tree/NGSI-v2)
+&nbsp; 401.
+[Managing Users and Organizations](https://github.com/FIWARE/tutorials.Identity-Management/tree/NGSI-v2)<br/>
+&nbsp; 402. [Roles and Permissions](https://github.com/FIWARE/tutorials.Roles-Permissions/tree/NGSI-v2)<br/> &nbsp; 403.
+[Securing Application Access](https://github.com/FIWARE/tutorials.Securing-Access/tree/NGSI-v2)<br/> &nbsp; 404.
+[Securing Microservices with a PEP Proxy](https://github.com/FIWARE/tutorials.PEP-Proxy/tree/NGSI-v2)<br/> &nbsp; 405.
+[XACML Rules-based Permissions](https://github.com/FIWARE/tutorials.XACML-Access-Rules/tree/NGSI-v2)<br/> &nbsp; 406.
+[Administrating XACML via a PAP](https://github.com/FIWARE/tutorials.Administrating-XACML/tree/NGSI-v2)<br/> &nbsp; 407.
+[Authenticating Identities (Open-ID Connect)](https://github.com/FIWARE/tutorials.Securing-Access-OpenID-Connect/tree/NGSI-v2)
 
 ### Processing, Analysis and Visualization
 
@@ -127,10 +138,12 @@ PostgreSQL<br/>
 
 ### NGSI-LD for NGSI-v2 Developers
 
-&nbsp; 601. [Introduction to Linked Data](https://github.com/FIWARE/tutorials.Linked-Data/tree/NGSI-v2)<br/>
-&nbsp; 602. [Linked Data Relationships and Data Models](https://github.com/FIWARE/tutorials.Relationships-Linked-Data/tree/NGSI-v2)<br/>
-&nbsp; 603. [Traversing Linked Data Programmatically](https://github.com/FIWARE/tutorials.Accessing-Linked-Data/tree/NGSI-v2)<br/>
-&nbsp; 604. [Linked Data Subscriptions and Registrations](https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations/tree/NGSI-v2)<br/>
+&nbsp; 601. [Introduction to Linked Data](https://github.com/FIWARE/tutorials.Linked-Data/tree/NGSI-v2)<br/> &nbsp; 602.
+[Linked Data Relationships and Data Models](https://github.com/FIWARE/tutorials.Relationships-Linked-Data/tree/NGSI-v2)<br/>
+&nbsp; 603.
+[Traversing Linked Data Programmatically](https://github.com/FIWARE/tutorials.Accessing-Linked-Data/tree/NGSI-v2)<br/>
+&nbsp; 604.
+[Linked Data Subscriptions and Registrations](https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations/tree/NGSI-v2)<br/>
 
 ## Usage
 

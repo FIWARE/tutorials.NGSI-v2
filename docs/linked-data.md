@@ -531,8 +531,8 @@ and all attributes are expanded whenever possible.
 -   `address` has been mapped to `http://schema.org/address`.
 -   `category` has been mapped to `https://uri.fiware.org/ns/data-models#category`.
 
-Note that if an attribute has not been associated to an FQN when the entity was created, the short name will
-**always** be displayed.
+Note that if an attribute has not been associated to an FQN when the entity was created, the short name will **always**
+be displayed.
 
 ```json
 [
