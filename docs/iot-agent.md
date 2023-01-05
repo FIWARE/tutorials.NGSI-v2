@@ -326,10 +326,10 @@ The response will look similar to the following:
 
 ```json
 {
-    "libVersion": "2.6.0-next",
+    "libVersion": "2.24.0",
     "port": "4041",
     "baseRoot": "/",
-    "version": "1.6.0-next"
+    "version": "1.24.0"
 }
 ```
 
@@ -945,17 +945,23 @@ curl -G -X GET \
 
 ```json
 {
-    "_id": "5b07b2c3d7eec57836ecfed4",
-    "subservice": "/",
-    "service": "openiot",
-    "apikey": "4jggokgpepnvsb2uv4s40d59ov",
-    "resource": "/iot/d",
-    "attributes": [],
-    "lazy": [],
-    "commands": [],
-    "entity_type": "Thing",
-    "internal_attributes": [],
-    "static_attributes": []
+    "count": 1,
+    "services": [
+        {
+            "commands": [],
+            "lazy": [],
+            "attributes": [],
+            "_id": "63b6d2a7a24432771c016f8c",
+            "resource": "/iot/d",
+            "apikey": "4jggokgpepnvsb2uv4s40d59ov",
+            "service": "openiot",
+            "subservice": "/",
+            "__v": 0,
+            "static_attributes": [],
+            "internal_attributes": [],
+            "entity_type": "Thing"
+        }
+    ]
 }
 ```
 
@@ -979,17 +985,23 @@ curl -X GET \
 
 ```json
 {
-    "_id": "5b07b2c3d7eec57836ecfed4",
-    "subservice": "/",
-    "service": "openiot",
-    "apikey": "4jggokgpepnvsb2uv4s40d59ov",
-    "resource": "/iot/d",
-    "attributes": [],
-    "lazy": [],
-    "commands": [],
-    "entity_type": "Thing",
-    "internal_attributes": [],
-    "static_attributes": []
+    "count": 1,
+    "services": [
+        {
+            "commands": [],
+            "lazy": [],
+            "attributes": [],
+            "_id": "63b6d2a7a24432771c016f8c",
+            "resource": "/iot/d",
+            "apikey": "4jggokgpepnvsb2uv4s40d59ov",
+            "service": "openiot",
+            "subservice": "/",
+            "__v": 0,
+            "static_attributes": [],
+            "internal_attributes": [],
+            "entity_type": "Thing"
+        }
+    ]
 }
 ```
 
@@ -1063,12 +1075,12 @@ curl -iX POST \
   -d '{
   "devices": [
     {
-      "device_id": "bell002",
-      "entity_name": "urn:ngsi-ld:Bell:002",
+      "device_id": "bell003",
+      "entity_name": "urn:ngsi-ld:Bell:003",
       "entity_type": "Bell",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "HTTP",
-      "endpoint": "http://iot-sensors:3001/iot/bell002",
+      "endpoint": "http://iot-sensors:3001/iot/bell003",
       "commands": [
         {
           "name": "ring",
@@ -1076,7 +1088,7 @@ curl -iX POST \
         }
        ],
        "static_attributes": [
-         {"name":"refStore", "type": "Relationship","value": "urn:ngsi-ld:Store:002"}
+         {"name":"refStore", "type": "Relationship","value": "urn:ngsi-ld:Store:003"}
       ]
     }
   ]
@@ -1107,19 +1119,27 @@ The response includes all the commands and attributes mappings associated with t
     "device_id": "bell002",
     "service": "openiot",
     "service_path": "/",
-    "entity_name": "urn:ngsi",
+    "entity_name": "urn:ngsi-ld:Bell:002",
     "entity_type": "Bell",
-    "endpoint": "http://iot-sensors:3001/iot/bell002",
+    "endpoint": "http://context-provider:3001/iot/bell002",
+    "polling": false,
     "transport": "HTTP",
-    "attributes": [],
-    "lazy": [],
-    "commands": [
+    "attributes": [
         {
             "object_id": "ring",
             "name": "ring",
-            "type": "command"
+            "type": "Text",
+            "expression": "${@ring}",
+            "reverse": [
+                {
+                    "object_id": "ring",
+                    "type": "Text",
+                    "expression": "${@ring}"
+                }
+            ]
         }
     ],
+    "commands": [],
     "static_attributes": [
         {
             "name": "refStore",
@@ -1127,7 +1147,8 @@ The response includes all the commands and attributes mappings associated with t
             "value": "urn:ngsi-ld:Store:002"
         }
     ],
-    "protocol": "PDI-IoTA-UltraLight"
+    "protocol": "PDI-IoTA-UltraLight",
+    "explicitAttrs": false
 }
 ```
 

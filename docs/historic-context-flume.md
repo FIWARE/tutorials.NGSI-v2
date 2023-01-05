@@ -231,7 +231,7 @@ The response will look similar to the following:
 ```json
 {
     "success": "true",
-    "version": "1.18.0_SNAPSHOT.etc"
+    "version": "'2.16.etc"
 }
 ```
 
@@ -324,8 +324,8 @@ curl -X GET \
 ```json
 [
     {
-        "id": "5b39d7c866df40ed84284174",
-        "description": "Notify Cygnus Mongo-DB of all context changes",
+        "id": "63b6e2f48786fb29a221125a",
+        "description": "Notify Cygnus of all context changes",
         "status": "active",
         "subject": {
             "entities": [
@@ -338,13 +338,17 @@ curl -X GET \
             }
         },
         "notification": {
-            "timesSent": 158,
-            "lastNotification": "2018-07-02T07:59:21.00Z",
+            "timesSent": 3,
+            "lastNotification": "2023-01-05T14:48:29.000Z",
             "attrs": [],
+            "onlyChangedAttrs": false,
+            "attrsFormat": "normalized",
             "http": {
-                "url": "http://cygnus:5050/notify"
+                "url": "http://cygnus:5051/notify"
             },
-            "lastSuccess": "2018-07-02T07:59:21.00Z"
+            "lastSuccess": "2023-01-05T14:48:29.000Z",
+            "lastSuccessCode": 200,
+            "covered": false
         },
         "throttling": 5
     }
@@ -395,11 +399,15 @@ show dbs
 
 ```text
 admin          0.000GB
+config         0.000GB
 iotagentul     0.000GB
 local          0.000GB
 orion          0.000GB
 orion-openiot  0.000GB
-sth_openiot    0.000GB
+session        0.000GB
+sessions       0.000GB
+sth_openiot    0.001GB
+test           0.000GB
 ```
 
 The result include two databases `admin` and `local` which are set up by default by **MongoDB**, along with four
@@ -627,7 +635,7 @@ The response will look similar to the following:
 ```json
 {
     "success": "true",
-    "version": "1.18.0_SNAPSHOT.etc"
+    "version": "'2.16.etc"
 }
 ```
 
@@ -685,7 +693,7 @@ curl -iX POST \
       "url": "http://cygnus:5055/notify"
     }
   },
-  "throttling": 5
+  "throttling": 1
 }'
 ```
 
@@ -962,7 +970,7 @@ The response will look similar to the following:
 ```json
 {
     "success": "true",
-    "version": "1.18.0_SNAPSHOT.etc"
+    "version": "'2.16.etc"
 }
 ```
 
@@ -1020,7 +1028,7 @@ curl -iX POST \
       "url": "http://cygnus:5050/notify"
     }
   },
-  "throttling": 5
+  "throttling": 1
 }'
 ```
 
@@ -1285,7 +1293,7 @@ The response will look similar to the following:
 ```json
 {
     "success": "true",
-    "version": "1.18.0_SNAPSHOT.etc"
+    "version": "'2.16.etc"
 }
 ```
 
@@ -1358,7 +1366,7 @@ curl -iX POST \
       "url": "http://cygnus:5050/notify"
     }
   },
-  "throttling": 5
+  "throttling": 1
 }'
 ```
 

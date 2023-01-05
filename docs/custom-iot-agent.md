@@ -739,7 +739,7 @@ curl -X GET \
     "type": "Bell",
     "TimeInstant": "2018-05-25T20:06:28.00Z",
     "refStore": "urn:ngsi-ld:Store:001",
-    "ring_info": " ring OK",
+    "ring_info": "success",
     "ring_status": "OK",
     "ring": ""
 }
