@@ -226,8 +226,7 @@ curl -X GET \
     "array": ["Arthur", "Dent"],
     "boolean": true,
     "number": 42,
-    "structuredValue": { "somevalue": "this" },
-    "text": "I never could get the hang of Thursdays"
+    "text": "I never could get the hang of thursdays"
 }
 ```
 
@@ -584,20 +583,15 @@ curl -G -X GET \
         "value": "Bösebrücke Einkauf",
         "metadata": {}
     },
-    "temperature": {
-        "type": "Number",
-        "value": "22.6",
-        "metadata": {}
-    },
     "relativeHumidity": {
         "type": "Number",
-        "value": "58%",
+        "value": "58",
         "metadata": {}
     }
 }
 ```
 
-Similarly, a single attribute can be obtained by making a request to the `/entities/<entity-id>/attrs/<attribute>`
+Similarly, a single attribute can be obtained by making a request to the `/entities/<entity-id>/attrs/<attribute>/value`
 
 #### 9 Request:
 
@@ -609,7 +603,7 @@ curl -X GET \
 #### Response:
 
 ```text
-"58%"
+58
 ```
 
 ### Read a registered Context Provider
@@ -644,23 +638,23 @@ curl -X GET \
 ```json
 [
     {
-        "id": "5addeffd93e53f86d8264521",
+        "id": "5ad5b9435c28633f0ae90671",
         "description": "Random Weather Conditions",
         "dataProvided": {
             "entities": [
                 {
-                    "id": "urn:ngsi-ld:Store:002",
+                    "id": "urn:ngsi-ld:Store:001",
                     "type": "Store"
                 }
             ],
-            "attrs": ["temperature", "relativeHumidity"]
+            "attrs": ["relativeHumidity"]
         },
         "provider": {
             "http": {
                 "url": "http://context-provider:3000/random/weatherConditions"
             },
             "supportedForwardingMode": "all",
-            "legacyForwarding": true
+            "legacyForwarding": false
         },
         "status": "active"
     }
