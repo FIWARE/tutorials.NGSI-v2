@@ -78,7 +78,7 @@ const request = require("request");
 const options = {
     method: "GET",
     url: "http://localhost:1026/v2/entities/urn:ngsi-ld:Store:001",
-    qs: { options: "keyValues" },
+    qs: { options: "keyValues" }
 };
 
 request(options, function (error, response, body) {
@@ -419,19 +419,19 @@ function displayTillInfo(req, res) {
     Promise.all([
         listEntities({
             options: "keyValues",
-            type: "Product",
+            type: "Product"
         }),
         listEntities({
             q: "refStore==" + req.params.storeId,
             options: "keyValues",
-            type: "InventoryItem",
-        }),
+            type: "InventoryItem"
+        })
     ])
         .then((values) => {
             // If values have been found display it on screen
             return res.render("till", {
                 products: values[0],
-                inventory: values[1],
+                inventory: values[1]
             });
         })
         .catch((error) => {
@@ -502,14 +502,14 @@ updated. No error handling has been added to this function - it has been left to
 async function buyItem(req, res) {
     const inventory = await retrieveEntity(req.params.inventoryId, {
         options: "keyValues",
-        type: "InventoryItem",
+        type: "InventoryItem"
     });
     const count = inventory.shelfCount - 1;
     await updateExistingEntityAttributes(
         req.params.inventoryId,
         { shelfCount: { type: "Integer", value: count } },
         {
-            type: "InventoryItem",
+            type: "InventoryItem"
         }
     );
     res.redirect(`/app/store/${inventory.refStore}/till`);

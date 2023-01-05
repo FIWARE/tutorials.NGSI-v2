@@ -1174,7 +1174,7 @@ function policyDomainRequest(domain, roles, resource, action, username, email) {
         method: "POST",
         url: "http://authzforceUrl/authzforce-ce/domains/" + domain + "/pdp",
         headers: { "Content-Type": "application/xml" },
-        body,
+        body
     };
 
     return new Promise((resolve, reject) => {

@@ -667,8 +667,8 @@ function generateCommandExecution(apiKey, device, attribute) {
         body: xmlParser.createCommandPayload(device, cmdName, cmdAttributes),
         headers: {
             "fiware-service": device.service,
-            "fiware-servicepath": device.subservice,
-        },
+            "fiware-servicepath": device.subservice
+        }
     };
     //...
 }

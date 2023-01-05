@@ -1197,8 +1197,8 @@ function readCometLampLuminosity(id, aggMethod) {
             qs: { aggrMethod: aggMethod, aggrPeriod: "minute" },
             headers: {
                 "fiware-servicepath": "/",
-                "fiware-service": "openiot",
-            },
+                "fiware-service": "openiot"
+            }
         };
 
         request(options, (error, response, body) => {
@@ -1224,7 +1224,7 @@ function cometToTimeSeries(cometResponse, aggMethod) {
 
     return {
         labels,
-        data,
+        data
     };
 }
 ```
