@@ -163,7 +163,7 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "Shelf"}],
   "watchedAttributes": ["numberOfItems"],
-  "q": "numberOfItems<10;locatedIn==urn:ngsi-ld:Building:store001",
+  "q": "numberOfItems<10;locatedIn==%22urn:ngsi-ld:Building:store001%22",
   "notification": {
     "attributes": ["numberOfItems", "stocks", "locatedIn"],
     "format": "keyValues",
@@ -194,7 +194,7 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
   "type": "Subscription",
   "entities": [{"type": "Shelf"}],
   "watchedAttributes": ["numberOfItems"],
-  "q": "numberOfItems<10;locatedIn==urn:ngsi-ld:Building:store002",
+  "q": "numberOfItems<10;locatedIn==%22urn:ngsi-ld:Building:store002%22",
   "notification": {
     "attributes": ["numberOfItems", "stocks", "locatedIn"],
     "format": "normalized",
@@ -236,7 +236,7 @@ the payloads offered by the two subscriptions will be discussed below.
             }
         ],
         "watchedAttributes": ["numberOfItems"],
-        "q": "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems<10;https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn==urn:ngsi-ld:Building:store001",
+        "q": "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems<10;https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn==%22urn:ngsi-ld:Building:store001%22",
         "notification": {
             "attributes": ["numberOfItems", "stocks", "locatedIn"],
             "format": "keyValues",
@@ -257,7 +257,7 @@ the payloads offered by the two subscriptions will be discussed below.
             }
         ],
         "watchedAttributes": ["numberOfItems"],
-        "q": "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems<10;https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn==urn:ngsi-ld:Building:store002",
+        "q": "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems<10;https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn==%22urn:ngsi-ld:Building:store002%22",
         "notification": {
             "attributes": ["numberOfItems", "stocks", "locatedIn"],
             "format": "keyValues",
