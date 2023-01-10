@@ -542,7 +542,7 @@ curl -L -X GET 'http://localhost:1026/v2/entities/urn:ngsi-ld:Bell:001?options=k
     "controlledProperty": "noiseLevel",
     "function": ["onOff"],
     "refStore": "urn:ngsi-ld:Store:001",
-    "ring_info": " ring OK",
+    "ring_info": "OK",
     "ring_status": "OK",
     "supportedProtocol": ["ul20"],
     "ring": ""
