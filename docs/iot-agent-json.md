@@ -43,18 +43,19 @@ Agent - the conversion of messages from JSON to NGSI and vice-versa will be uniq
 
 A direct comparison of the two IoT Agents can be seen below:
 
-| IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern                    |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | --------------------------------------------- | --------------- |
-| Sample Measure `c\                                                  | 1`                                                                  | Sample Measure `{"count": "1"}`               | Message Payload |
-| Sample Command `Robot1@turn\                                        | left`                                                               | Sample Command `{"Robot1": {"turn": "left"}}` | Message Payload |
-| Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload                               |
-| Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism                           |
-| HTTP listens for measures on `iot/d` by default                     | HTTP listens for measures on `iot/json` by default                  | Transport Mechanism                           |
-| HTTP devices are identified by parameters `?i=XXX&k=YYY`            | HTTP devices are identified by parameters `?i=XXX&k=YYY`            | Device Identification                         |
-| HTTP commands posted to a well-known URL - response is in the reply | HTTP commands posted to a well-known URL - response is in the reply | Communications Handshake                      |
-| MQTT devices are identified by the path of the topic `/XXX/YYY`     | MQTT devices are identified by the path of the topic `/XXX/YYY`     | Device Identification                         |
-| MQTT commands posted to the `cmd` topic                             | MQTT commands posted to the `cmd` topic                             | Communications Handshake                      |
-| MQTT command responses posted to the `cmdexe` topic                 | MQTT commands posted to the `cmdexe` topic                          | Communications Handshake                      |
+
+| IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------------------- |
+| Sample Measure `c|1`                                               | Sample Measure `{"count": "1"}`                                     | Message Payload            |
+| Sample Command `Robot1@turn\|left`                                  | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload            |
+| Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload            |
+| Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism        |
+| HTTP listens for measures on `iot/d` by default                     | HTTP listens for measures on `iot/json` by default                  | Transport Mechanism        |
+| HTTP devices are identified by parameters `?i=XXX&k=YYY`            | HTTP devices are identified by parameters `?i=XXX&k=YYY`            | Device Identification      |
+| HTTP commands posted to a well-known URL - response is in the reply | HTTP commands posted to a well-known URL - response is in the reply | Communications Handshake   |
+| MQTT devices are identified by the path of the topic `/XXX/YYY`     | MQTT devices are identified by the path of the topic `/XXX/YYY`     | Device Identification      |
+| MQTT commands posted to the `cmd` topic                             | MQTT commands posted to the `cmd` topic                             | Communications Handshake   |
+| MQTT command responses posted to the `cmdexe` topic                 | MQTT commands posted to the `cmdexe` topic                          | Communications Handshake   |
 
 As can be seen, the message payload differs entirely between the two IoT Agents, but much of the rest of the protocol
 remains the same.
