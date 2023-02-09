@@ -117,7 +117,7 @@ The NGSI LD data model is more complex, with more rigid definitions of use which
 Once again, _entity_ can be considered to be the core element. Every entity must use a unique `id` which must be a URI,
 often a [URN](https://en.wikipedia.org/wiki/Uniform_resource_name), there is also a `type`, used to define the structure
 of the data held, which must also be a URI. This URI should correspond to a well-defined data model which can be found
-on the web. For example the URI `https://uri.fiware.org/ns/data-models#Building` is used to define common data model for
+on the web. For example the URI `https://uri.fiware.org/ns/dataModels#Building` is used to define common data model for
 a [Building](https://github.com/smart-data-models/dataModel.Building).
 
 _Entities_ can have _properties_ and _relationships_. Ideally the name of each _property_ should also be a well-defined
@@ -132,7 +132,7 @@ An NGSI LD Data Entity (e.g. a supermarket):
 
 -   Has an `id` which must be unique. For example `urn:ngsi-ld:Building:store001`.
 -   Has `type` which should be a fully qualified URI of a well-defined data model. For example
-    `https://uri.fiware.org/ns/data-models#Building`. Authors can also use type names, as shorthand strings for types,
+    `https://uri.fiware.org/ns/dataModels#Building`. Authors can also use type names, as shorthand strings for types,
     mapped to fully qualified URIs through the JSON-LD `@context`.
 -   Has _property_ of the entity, for example, an `address` attribute which holds the address of the store. This can be
     expanded into `http://schema.org/address`, which is known as a fully qualified name
@@ -318,10 +318,10 @@ related to **Building** can be seen below:
 ```json
 {
     "@context": {
-        "Building": "https://uri.fiware.org/ns/data-models#Building",
+        "Building": "https://uri.fiware.org/ns/dataModels#Building",
 ...
         "address": "http://schema.org/address",
-        "category": "https://uri.fiware.org/ns/data-models#category",
+        "category": "https://uri.fiware.org/ns/dataModels#category",
         "location": "http://uri.etsi.org/ngsi-ld/location",
 ...
     }
@@ -469,7 +469,7 @@ curl -iX POST \
 
 The attributes `id` and `type` should be familiar to anyone who has used NGSI v2, and these have not changed. As
 mentioned above, the type should refer to an included data model, in this case `Building` is being used as a short name
-for the included URN `https://uri.fiware.org/ns/data-models#Building`. Thereafter, each _property_ is defined as a JSON
+for the included URN `https://uri.fiware.org/ns/dataModels#Building`. Thereafter, each _property_ is defined as a JSON
 element containing two attributes, a `type` and a `value`.
 
 The `type` of a _property_ attribute must be one of the following:
@@ -519,7 +519,7 @@ NGSI-LD and is used to filter the response. The Accept HTTP header is needed to 
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -H 'Accept: application/ld+json' \
-  -d 'type=https://uri.fiware.org/ns/data-models%23Building'
+  -d 'type=https://uri.fiware.org/ns/dataModels%23Building'
 ```
 
 #### Response:
@@ -529,7 +529,7 @@ and all attributes are expanded whenever possible.
 
 -   `id`, `type`, `location` and `name` are defined in the core context and are not expanded.
 -   `address` has been mapped to `http://schema.org/address`.
--   `category` has been mapped to `https://uri.fiware.org/ns/data-models#category`.
+-   `category` has been mapped to `https://uri.fiware.org/ns/dataModels#category`.
 
 Note that if an attribute has not been associated to an FQN when the entity was created, the short name will **always**
 be displayed.
@@ -538,7 +538,7 @@ be displayed.
 [
     {
         "id": "urn:ngsi-ld:Building:store001",
-        "type": "https://uri.fiware.org/ns/data-models#Building",
+        "type": "https://uri.fiware.org/ns/dataModels#Building",
         "http://schema.org/address": {
             "type": "Property",
             "value": {
@@ -556,7 +556,7 @@ be displayed.
             "type": "Property",
             "value": "Bösebrücke Einkauf"
         },
-        "https://uri.fiware.org/ns/data-models#category": {
+        "https://uri.fiware.org/ns/dataModels#category": {
             "type": "Property",
             "value": ["commercial"]
         },
@@ -571,7 +571,7 @@ be displayed.
     },
     {
         "id": "urn:ngsi-ld:Building:store002",
-        "type": "https://uri.fiware.org/ns/data-models#Building",
+        "type": "https://uri.fiware.org/ns/dataModels#Building",
         "http://schema.org/address": {
             "type": "Property",
             "value": {
@@ -589,7 +589,7 @@ be displayed.
             "type": "Property",
             "value": "Checkpoint Markt"
         },
-        "https://uri.fiware.org/ns/data-models#category": {
+        "https://uri.fiware.org/ns/dataModels#category": {
             "type": "Property",
             "value": ["commercial"]
         },
@@ -625,7 +625,7 @@ and all attributes are expanded whenever possible.
 ```json
 {
     "id": "urn:ngsi-ld:Building:store001",
-    "type": "https://uri.fiware.org/ns/data-models#Building",
+    "type": "https://uri.fiware.org/ns/dataModels#Building",
     "http://schema.org/address": {
         "type": "Property",
         "value": {
@@ -643,7 +643,7 @@ and all attributes are expanded whenever possible.
         "type": "Property",
         "value": "Bösebrücke Einkauf"
     },
-    "https://uri.fiware.org/ns/data-models#category": {
+    "https://uri.fiware.org/ns/dataModels#category": {
         "type": "Property",
         "value": ["commercial"]
     },
@@ -666,7 +666,7 @@ data. Use of the `type` parameter limits the response to `Building` entities onl
 parameter reduces the response down to standard JSON-LD.
 
 A [`Link` header](https://www.w3.org/wiki/LinkHeader) must be supplied to associate the short form `type="Building"`
-with the FQN `https://uri.fiware.org/ns/data-models#Building`. The full link header syntax can be seen below:
+with the FQN `https://uri.fiware.org/ns/dataModels#Building`. The full link header syntax can be seen below:
 
 ```text
 Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json
