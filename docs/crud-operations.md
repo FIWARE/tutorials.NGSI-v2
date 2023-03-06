@@ -36,7 +36,7 @@ are defined as shown below:
     -   An association to the store in which the shelf is located
 -   A **Product** is defined as something that we sell - it is a conceptual object. Products would have properties such
     as:
-    -   Product name, e.g. "Vodka"
+    -   Product name, e.g. "Melons"
     -   Price, e.g. 13.99 Euros
     -   Size, e.g. Small
 -   An **Inventory Item** is another conceptual entity, used to associate products, stores, shelves and physical
@@ -289,7 +289,7 @@ curl -X GET \
   --url 'http://localhost:1026/v2/entities/urn:ngsi-ld:Product:001?type=Product'
 ```
 
-As you can see there is now a boolean `specialOffer` flag attached to the "Beer" **Product** entity.
+As you can see there is now a boolean `specialOffer` flag attached to the "Apples" **Product** entity.
 
 ### Batch Create New Data Entities or Attributes
 
@@ -426,10 +426,10 @@ curl -X GET \
 
 #### Response:
 
-Product `urn:ngsi-ld:Product:001` is "Beer" at 99 cents. The response is shown below:
+Product `urn:ngsi-ld:Product:001` is "Apples" at 99 cents. The response is shown below:
 
 ```json
-"Beer"
+"Apples"
 ```
 
 Context data can be retrieved by making a GET request to the `/v2/entities/<entity>/attrs/<attribute>/value` endpoint.
@@ -448,13 +448,13 @@ curl -X GET \
 
 #### Response:
 
-Product `urn:ngsi-ld:Product:001` is "Beer" at 99 cents. The response is shown below:
+Product `urn:ngsi-ld:Product:001` is "Apples" at 99 cents. The response is shown below:
 
 ```json
 {
     "id": "urn:ngsi-ld:Product:001",
     "type": "Product",
-    "name": "Beer",
+    "name": "Apples",
     "price": 99
 }
 ```
@@ -475,10 +475,10 @@ curl -X GET \
 
 #### Response:
 
-Product `urn:ngsi-ld:Product:001` is "Beer" at 99 cents. The response is shown below:
+Product `urn:ngsi-ld:Product:001` is "Apples" at 99 cents. The response is shown below:
 
 ```json
-["Beer", 99]
+["Apples", 99]
 ```
 
 Combine the `options=values` parameter and the `attrs` parameter to return a list of values in an array.
@@ -504,7 +504,7 @@ contain twelve products.
     {
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
-        "name": { "type": "Text", "value": "Beer", "metadata": {} },
+        "name": { "type": "Text", "value": "Apples", "metadata": {} },
         "offerPrice": { "type": "Integer", "value": 89, "metadata": {} },
         "price": { "type": "Integer", "value": 99, "metadata": {} },
         "size": { "type": "Text", "value": "S", "metadata": {} },
@@ -513,56 +513,56 @@ contain twelve products.
     {
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
-        "name": { "type": "Text", "value": "Red Wine", "metadata": {} },
+        "name": { "type": "Text", "value": "Bananas", "metadata": {} },
         "price": { "type": "Integer", "value": 1099, "metadata": {} },
         "size": { "type": "Text", "value": "M", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:003",
         "type": "Product",
-        "name": { "type": "Text", "value": "White Wine", "metadata": {} },
+        "name": { "type": "Text", "value": "Coconuts", "metadata": {} },
         "price": { "type": "Integer", "value": 1499, "metadata": {} },
         "size": { "type": "Text", "value": "M", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:004",
         "type": "Product",
-        "name": { "type": "Text", "value": "Vodka", "metadata": {} },
+        "name": { "type": "Text", "value": "Melons", "metadata": {} },
         "price": { "type": "Integer", "value": 5000, "metadata": {} },
         "size": { "type": "Text", "value": "XL", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:005",
         "type": "Product",
-        "name": { "type": "Text", "value": "Lager", "metadata": {} },
+        "name": { "type": "Text", "value": "Kiwi Fruits", "metadata": {} },
         "price": { "type": "Integer", "value": 99, "metadata": {} },
         "size": { "type": "Text", "value": "S", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:006",
         "type": "Product",
-        "name": { "type": "Text", "value": "Whisky", "metadata": {} },
+        "name": { "type": "Text", "value": "Strawberries", "metadata": {} },
         "price": { "type": "Integer", "value": 99, "metadata": {} },
         "size": { "type": "Text", "value": "S", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:007",
         "type": "Product",
-        "name": { "type": "Text", "value": "Gin", "metadata": {} },
+        "name": { "type": "Text", "value": "Raspberries", "metadata": {} },
         "price": { "type": "Integer", "value": 99, "metadata": {} },
         "size": { "type": "Text", "value": "S", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:008",
         "type": "Product",
-        "name": { "type": "Text", "value": "Apple Juice", "metadata": {} },
+        "name": { "type": "Text", "value": "Pineapples", "metadata": {} },
         "price": { "type": "Integer", "value": 99, "metadata": {} },
         "size": { "type": "Text", "value": "S", "metadata": {} }
     },
     {
         "id": "urn:ngsi-ld:Product:009",
         "type": "Product",
-        "name": { "type": "Text", "value": "Orange Juice", "metadata": {} },
+        "name": { "type": "Text", "value": "Oranges", "metadata": {} },
         "price": { "type": "Integer", "value": 99, "metadata": {} },
         "size": { "type": "Text", "value": "S", "metadata": {} }
     },
@@ -611,55 +611,55 @@ contain twelve products.
     {
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
-        "name": "Beer",
+        "name": "Apples",
         "price": 99
     },
     {
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
-        "name": "Red Wine",
+        "name": "Bananas",
         "price": 1099
     },
     {
         "id": "urn:ngsi-ld:Product:003",
         "type": "Product",
-        "name": "White Wine",
+        "name": "Coconuts",
         "price": 1499
     },
     {
         "id": "urn:ngsi-ld:Product:004",
         "type": "Product",
-        "name": "Vodka",
+        "name": "Melons",
         "price": 5000
     },
     {
         "id": "urn:ngsi-ld:Product:005",
         "type": "Product",
-        "name": "Lager",
+        "name": "Kiwi Fruits",
         "price": 99
     },
     {
         "id": "urn:ngsi-ld:Product:006",
         "type": "Product",
-        "name": "Whisky",
+        "name": "Strawberries",
         "price": 99
     },
     {
         "id": "urn:ngsi-ld:Product:007",
         "type": "Product",
-        "name": "Gin",
+        "name": "Raspberries",
         "price": 99
     },
     {
         "id": "urn:ngsi-ld:Product:008",
         "type": "Product",
-        "name": "Apple Juice",
+        "name": "Pineapples",
         "price": 99
     },
     {
         "id": "urn:ngsi-ld:Product:009",
         "type": "Product",
-        "name": "Orange Juice",
+        "name": "Oranges",
         "price": 99
     },
     {

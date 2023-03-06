@@ -31,7 +31,7 @@ defined as shown:
     such as: + A name of the shelf e.g. "Wall Unit" + A physical location e.g. _52.5075 N, 13.3903 E_ + A maximum
     capacity + An association to the store in which the shelf is present
 -   A product is defined as something that we sell - it is conceptual object. **Product** entities would have properties
-    such as: + A name of the product e.g. "Vodka" + A price e.g. 13.99 Euros + A size e.g. Small
+    such as: + A name of the product e.g. "Melons" + A price e.g. 13.99 Euros + A size e.g. Small
 -   An inventory item is another conceptual entity, used to associate products, stores, shelves and physical objects.
     **Inventory Item** entities would have properties such as: + An association to the product being sold + An
     association to the store in which the product is being sold + An association to the shelf where the product is being
@@ -233,7 +233,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:001", "type":"Product",
       "name":{
-        "type":"Text", "value":"Beer"
+        "type":"Text", "value":"Apples"
       },
       "size":{
         "type":"Text", "value": "S"
@@ -245,7 +245,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:002", "type":"Product",
       "name":{
-        "type":"Text", "value":"Red Wine"
+        "type":"Text", "value":"Bananas"
       },
       "size":{
         "type":"Text", "value": "M"
@@ -257,7 +257,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:003", "type":"Product",
       "name":{
-        "type":"Text", "value":"White Wine"
+        "type":"Text", "value":"Coconuts"
       },
       "size":{
         "type":"Text", "value": "M"
@@ -269,7 +269,7 @@ curl -iX POST \
     {
       "id":"urn:ngsi-ld:Product:004", "type":"Product",
       "name":{
-        "type":"Text", "value":"Vodka"
+        "type":"Text", "value":"Melons"
       },
       "size":{
         "type":"Text", "value": "XL"

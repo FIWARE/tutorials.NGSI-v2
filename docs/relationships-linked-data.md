@@ -484,7 +484,7 @@ However since the full context has been supplied in the `Link` header, the short
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
-        "name": "Beer",
+        "name": "Apples",
         "price": 0.99,
         "size": "S"
     },
@@ -492,7 +492,7 @@ However since the full context has been supplied in the `Link` header, the short
         "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
-        "name": "Red Wine",
+        "name": "Bananas",
         "price": 10.99,
         "size": "M"
     },

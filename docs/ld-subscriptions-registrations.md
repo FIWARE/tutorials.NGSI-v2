@@ -275,7 +275,7 @@ the payloads offered by the two subscriptions will be discussed below.
 
 Open two tabs on a browser. Go to the event monitor (`http://localhost:3000/app/monitor`) to see the payloads that are
 received when a subscription fires, and then go to store001
-(`http://localhost:3000/app/store/urn:ngsi-ld:Building:store001`) and buy beer until less than 10 items are in stock.
+(`http://localhost:3000/app/store/urn:ngsi-ld:Building:store001`) and buy apples until less than 10 items are in stock.
 The low stock message should be displayed on screen.
 
 ![low-stock](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/img/low-stock-warehouse.png)
@@ -291,7 +291,7 @@ payload body since `endpoint.accept=application/json` was set. The effect is to 
 format to the `v2/subscription/` payload. In addition to the `data` array, the `subscriptionId` is included in the
 response, along with a `notifiedAt` element which describes when the notification was fired.
 
-Now go to store002 (`http://localhost:3000/app/store/urn:ngsi-ld:Building:store002`) and buy beer until fewer than 10
+Now go to store002 (`http://localhost:3000/app/store/urn:ngsi-ld:Building:store002`) and buy apples until fewer than 10
 items are in stock. The low stock message is once again displayed on screen, the payload can be seen within the event
 monitor.
 

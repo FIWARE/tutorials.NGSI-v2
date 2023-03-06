@@ -480,19 +480,19 @@ The response is a JSON Array of **Product** entities which are then displayed on
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "price": 0.99,
-        "name": "Beer"
+        "name": "Apples"
     },
     {
         "id": "urn:ngsi-ld:Product:003",
         "type": "Product",
         "price": 14.99,
-        "name": "White Wine"
+        "name": "Coconuts"
     },
     {
         "id": "urn:ngsi-ld:Product:004",
         "type": "Product",
         "price": 50,
-        "name": "Vodka"
+        "name": "Melons"
     }
 ]
 ```

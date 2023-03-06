@@ -208,13 +208,13 @@ function broadcastEvents(req, item, types) {
 This business logic emits socket I/O events to any registered parties (such as the cash till)
 
 The cash till has been set to reload if is receives an event - however in this case the prices have not changed yet, so
-the product prices remain the same - for example a bottle of beer remains at 0.99€
+the product prices remain the same - for example apples remains at 0.99€
 
 #### `http://localhost:3000/app/store/urn:ngsi-ld:Store:002`
 
 ![](https://fiware.github.io/tutorials.Subscriptions/img/beer-99.png)
 
-Let's reduce the price of a bottle of beer to 0.89€. This can't be done programmatically yet, so it has to be done with
+Let's reduce the price of apples to 0.89€. This can't be done programmatically yet, so it has to be done with
 a curl command as shown:
 
 #### 2 Request:
@@ -236,7 +236,7 @@ changed since the last run therefore a POST request is sent to `subscription/pri
 ![](https://fiware.github.io/tutorials.Subscriptions/img/price-change.png)
 
 The business logic of the Stock Management frontend again emits socket I/O events to any registered parties (such as the
-cash till) and since the price has changed the till now displays a bottle of beer at 0.89€
+cash till) and since the price has changed the till now displays apples at 0.89€
 
 #### `http://localhost:3000/app/store/urn:ngsi-ld:Store:002`
 
