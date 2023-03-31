@@ -3,7 +3,7 @@
 [![Documentation](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/documentation.svg)](https://fiware-tutorials.rtfd.io)
 [![License: MIT](https://img.shields.io/github/license/fiware/tutorials.Step-by-Step.svg)](https://opensource.org/licenses/MIT)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
-[![Docker](https://img.shields.io/docker/pulls/fiware/tutorials.context-provider.svg)](https://hub.docker.com/r/fiware/tutorials.context-provider/)
+[![Docker badge](https://img.shields.io/badge/quay.io-fiware%2Ftutorials.context--provider-grey?logo=red%20hat&labelColor=EE0000)](https://quay.io/repository/fiware/tutorials.context-provider)
 <br> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
 [![CI](https://github.com/FIWARE/tutorials.Step-by-Step/workflows/CI/badge.svg)](https://github.com/FIWARE/tutorials.Step-by-Step/actions?query=workflow%3ACI)
 
@@ -22,9 +22,9 @@ directly or programmatically.
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
 
 -   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/>
-    [Tutorial-specific Data Models](https://fiware.github.io/tutorials.Step-by-Step/schema/)
+    <a href="https://fiware.github.io/tutorials.Step-by-Step/schema/)">Tutorial-specific Data Models</a>
 -   <img src="https://json-ld.org/favicon.ico" align="center" height="25"/>
-    [Smart Data Models](https://smartdatamodels.org)
+    <a href="https://smartdatamodels.org">Smart Data Models</a>
 
 ## Install
 
