@@ -580,7 +580,7 @@ Requests.
 
 ```yaml
 orion-proxy:
-    image: fiware/pep-proxy
+    image: quay.io/fiware/pep-proxy
     container_name: fiware-orion-proxy
     hostname: orion-proxy
     networks:
@@ -644,7 +644,7 @@ additional `access_token` header.
 
 ```yaml
 tutorial-app:
-    image: fiware/tutorials.context-provider
+    image: quay.io/fiware/tutorials.context-provider
     hostname: iot-sensors-app
     container_name: tutorial-app
     depends_on:
@@ -1040,7 +1040,7 @@ Requests.
 
 ```yaml
 iot-agent-proxy:
-    image: fiware/pep-proxy
+    image: quay.io/fiware/pep-proxy
     container_name: fiware-iot-agent-proxy
     hostname: iot-agent-proxy
     networks:
@@ -1105,7 +1105,7 @@ requests to a second **Wilma** PEP Proxy in front of the **IoT Agent**.
 
 ```yaml
 tutorial-app:
-    image: fiware/tutorials.context-provider
+    image: quay.io/fiware/tutorials.context-provider
     hostname: iot-sensors-app
     container_name: tutorial-app
     depends_on:
@@ -1264,7 +1264,7 @@ The `iot-agent` container is listening on port `4041`, it is configured to forwa
 
 ```yaml
 iot-agent:
-    image: fiware/iotagent-ul:${ULTRALIGHT_VERSION}
+    image: quay.io/fiware/iotagent-ul:${ULTRALIGHT_VERSION}
     hostname: iot-agent
     container_name: fiware-iot-agent
     depends_on:

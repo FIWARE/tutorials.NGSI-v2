@@ -128,7 +128,7 @@ section of the associated `docker-compose.yml` file:
 
 ```yaml
 tutorial:
-    image: fiware/tutorials.context-provider
+    image: quay.io/fiware/tutorials.context-provider
     hostname: iot-sensors
     container_name: fiware-tutorial
     networks:
@@ -182,7 +182,7 @@ instantiated using a `docker-compose.yaml` file. The necessary configuration can
 
 ```yaml
 iot-agent:
-    image: fiware/iotagent-xml
+    image: quay.io/fiware/iotagent-xml
     build:
         context: iot-agent
         dockerfile: Dockerfile
@@ -416,7 +416,7 @@ not hold sufficient information.
 ### Provisioning a Sensor
 
 It is common good practice to use URNs following the NGSI-LD
-[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.06.01_60/gs_CIM009v010601p.pdf) when creating
+[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.07.01_60/gs_cim009v010701p.pdf) when creating
 entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
 defined by provisioning a device individually.
 

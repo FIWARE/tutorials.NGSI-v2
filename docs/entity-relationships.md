@@ -76,7 +76,7 @@ The necessary configuration information can be seen in the services section of t
 
 ```yaml
 orion:
-    image: fiware/orion:latest
+    image: quay.io/fiware/orion:latest
     hostname: orion
     container_name: fiware-orion
     depends_on:
@@ -283,7 +283,7 @@ curl -iX POST \
 ```
 
 In both cases we have encoded each entity `id` according to the NGSI-LD
-[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.06.01_60/gs_CIM009v010601p.pdf) - the proposal
+[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.07.01_60/gs_cim009v010701p.pdf) - the proposal
 is that each `id` is a URN follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every
 `id` in the system will be unique.
 
