@@ -5,7 +5,7 @@
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
 [![Docker badge](https://img.shields.io/badge/quay.io-fiware%2Ftutorials.context--provider-grey?logo=red%20hat&labelColor=EE0000)](https://quay.io/repository/fiware/tutorials.context-provider)
 <br> [![Documentation](https://img.shields.io/readthedocs/fiware-tutorials.svg)](https://fiware-tutorials.rtfd.io)
-[![CI](https://github.com/FIWARE/tutorials.Step-by-Step/workflows/CI/badge.svg)](https://github.com/FIWARE/tutorials.Step-by-Step/actions?query=workflow%3ACI)
+[![CI](https://github.com/FIWARE/tutorials.NGSI-v2/workflows/CI/badge.svg)](https://github.com/FIWARE/tutorials.NGSI-v2/actions?query=workflow%3ACI)
 
 This is a collection of tutorials for the FIWARE ecosystem designed for **NGSI-v2** developers. Each tutorial consists
 of a series of exercises to demonstrate the correct use of individual FIWARE components and shows the flow of context
