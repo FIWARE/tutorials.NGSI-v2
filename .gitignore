@@ -41,3 +41,4 @@ package-lock.json
 !docker/Dockerfile
 Dockerfile
 .idea
+diff.sh
