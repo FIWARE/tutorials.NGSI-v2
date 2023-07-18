@@ -306,8 +306,7 @@ curl -iX POST \
       "count"
     ],
     "metadata": ["dateCreated", "dateModified"]
-  },
-  "throttling": 1
+  }
 }'
 ```
 
@@ -384,36 +383,83 @@ curl -X GET \
 
 ```json
 [
-    {
-        "id": "5be07427be9a2d09cf677f08",
-        "description": "Notify QuantumLeap of count changes of any Motion Sensor",
-        "status": "active",
-        "subject": { ...ETC },
-        "notification": {
-            "timesSent": 6,
-            "lastNotification": "2018-09-02T08:36:04.00Z",
-            "attrs": ["count"],
-            "attrsFormat": "normalized",
-            "http": { "url": "http://quantumleap:8668/v2/notify" },
-            "lastSuccess": "2018-09-02T08:36:04.00Z"
-        },
-        "throttling": 1
+  {
+    "id": "64b6bc0dd439ec09a007ee19",
+    "description": "Notify QuantumLeap of all Motion Sensor count changes",
+    "status": "active",
+    "subject": {
+      "entities": [
+        {
+          "idPattern": "Motion.*"
+        }
+      ],
+      "condition": {
+        "attrs": [
+          "count"
+        ],
+        "notifyOnMetadataChange": true
+      }
     },
-    {
-        "id": "5be07427be9a2d09cf677f09",
-        "description": "Notify QuantumLeap on luminosity changes on any Lamp",
-        "status": "active",
-        "subject": { ...ETC },
-        "notification": {
-            "timesSent": 4,
-            "lastNotification": "2018-09-02T08:36:00.00Z",
-            "attrs": ["luminosity"],
-            "attrsFormat": "normalized",
-            "http": { "url": "http://quantumleap:8668/v2/notify" },
-            "lastSuccess": "2018-09-02T08:36:01.00Z"
-        },
-        "throttling": 1
+    "notification": {
+      "timesSent": 48,
+      "lastNotification": "2023-07-18T16:23:21.000Z",
+      "attrs": [
+        "count"
+      ],
+      "onlyChangedAttrs": false,
+      "attrsFormat": "normalized",
+      "http": {
+        "url": "http://quantumleap:8668/v2/notify"
+      },
+      "metadata": [
+        "dateCreated",
+        "dateModified"
+      ],
+      "lastSuccess": "2023-07-18T16:23:22.000Z",
+      "lastSuccessCode": 200,
+      "covered": false
     }
+  },
+  {
+    "id": "64b6bc11d439ec09a007ee1a",
+    "description": "Notify Quantum Leap to sample Lamp changes every five seconds",
+    "status": "active",
+    "subject": {
+      "entities": [
+        {
+          "idPattern": "Lamp.*"
+        }
+      ],
+      "condition": {
+        "attrs": [
+          "luminosity",
+          "location"
+        ],
+        "notifyOnMetadataChange": true
+      }
+    },
+    "notification": {
+      "timesSent": 21,
+      "lastNotification": "2023-07-18T16:23:19.000Z",
+      "attrs": [
+        "luminosity",
+        "location"
+      ],
+      "onlyChangedAttrs": false,
+      "attrsFormat": "normalized",
+      "http": {
+        "url": "http://quantumleap:8668/v2/notify"
+      },
+      "metadata": [
+        "dateCreated",
+        "dateModified"
+      ],
+      "lastSuccess": "2023-07-18T16:23:20.000Z",
+      "lastSuccessCode": 200,
+      "covered": false
+    },
+    "throttling": 5
+  }
 ]
 ```
 
@@ -446,12 +492,19 @@ curl -X GET \
 
 ```json
 {
-    "data": {
-        "attrName": "luminosity",
-        "entityId": "Lamp:001",
-        "index": ["2018-10-29T14:27:26", "2018-10-29T14:27:28", "2018-10-29T14:27:29"],
-        "values": [2000, 1991, 1998]
-    }
+  "attrName": "luminosity",
+  "entityId": "Lamp:001",
+  "entityType": "Lamp",
+  "index": [
+    "2023-07-18T16:21:37.915+00:00",
+    "2023-07-18T16:21:42.800+00:00",
+    "2023-07-18T16:21:47.851+00:00"
+  ],
+  "values": [
+    1992,
+    1996,
+    1995
+  ]
 }
 ```
 
@@ -473,12 +526,19 @@ curl -X GET \
 
 ```json
 {
-    "data": {
-        "attrName": "count",
-        "entityId": "Motion:001",
-        "index": ["2018-10-29T14:23:53.804000", "2018-10-29T14:23:54.812000", "2018-10-29T14:24:00.849000"],
-        "values": [0, 1, 0]
-    }
+  "attrName": "count",
+  "entityId": "Motion:001",
+  "entityType": "Motion",
+  "index": [
+    "2023-07-18T16:21:39.869+00:00",
+    "2023-07-18T16:21:40.930+00:00",
+    "2023-07-18T16:21:41.857+00:00"
+  ],
+  "values": [
+    0,
+    1,
+    0
+  ]
 }
 ```
 
@@ -500,12 +560,19 @@ curl -X GET \
 
 ```json
 {
-    "data": {
-        "attrName": "count",
-        "entityId": "Motion:001",
-        "index": ["2018-10-29T15:03:45.113000", "2018-10-29T15:03:46.118000", "2018-10-29T15:03:47.111000"],
-        "values": [1, 0, 1]
-    }
+  "attrName": "count",
+  "entityId": "Motion:001",
+  "entityType": "Motion",
+  "index": [
+    "2023-07-18T16:25:28.221+00:00",
+    "2023-07-18T16:25:29.169+00:00",
+    "2023-07-18T16:25:30.186+00:00"
+  ],
+  "values": [
+    1,
+    0,
+    1
+  ]
 }
 ```
 
@@ -535,12 +602,19 @@ curl -X GET \
 
 ```json
 {
-    "data": {
-        "attrName": "count",
-        "entityId": "Motion:001",
-        "index": ["2018-10-29T15:03:00.000000", "2018-10-29T15:04:00.000000", "2018-10-29T15:05:00.000000"],
-        "values": [21, 10, 11]
-    }
+  "attrName": "count",
+  "entityId": "Motion:001",
+  "entityType": "Motion",
+  "index": [
+    "2023-07-18T16:23:00.000+00:00",
+    "2023-07-18T16:24:00.000+00:00",
+    "2023-07-18T16:25:00.000+00:00"
+  ],
+  "values": [
+    20,
+    14,
+    21
+  ]
 }
 ```
 
@@ -573,13 +647,21 @@ curl -X GET \
 #### Response:
 
 ```json
+  -H 'Fiware-ServicePath: /'
 {
-    "data": {
-        "attrName": "count",
-        "entityId": "Motion:001",
-        "index": ["2018-10-29T15:03:00.000000", "2018-10-29T15:04:00.000000", "2018-10-29T15:05:00.000000"],
-        "values": [1720, 1878, 1443]
-    }
+  "attrName": "luminosity",
+  "entityId": "Lamp:001",
+  "entityType": "Lamp",
+  "index": [
+    "2023-07-18T16:24:00.000+00:00",
+    "2023-07-18T16:25:00.000+00:00",
+    "2023-07-18T16:26:00.000+00:00"
+  ],
+  "values": [
+    1590,
+    1729,
+    1886
+  ]
 }
 ```
 
@@ -592,7 +674,7 @@ This example shows maximum `luminosity` value of `Lamp:001` that occurred betwee
 
 ```bash
 curl -X GET \
-  'http://localhost:8668/v2/entities/Lamp:001/attrs/luminosity?aggrMethod=max&fromDate=2018-06-27T09:00:00&toDate=2018-06-30T23:59:59' \
+  'http://localhost:8668/v2/entities/Lamp:001/attrs/luminosity?aggrMethod=max&fromDate=2023-07-18T09:00:00&toDate=2023-07-30T23:59:59' \
   -H 'Accept: application/json' \
   -H 'Fiware-Service: openiot' \
   -H 'Fiware-ServicePath: /'
@@ -602,12 +684,13 @@ curl -X GET \
 
 ```json
 {
-    "data": {
-        "attrName": "luminosity",
-        "entityId": "Lamp:001",
-        "index": [],
-        "values": [1753]
-    }
+  "attrName": "luminosity",
+  "entityId": "Lamp:001",
+  "entityType": "Lamp",
+  "index": [],
+  "values": [
+    1999
+  ]
 }
 ```
 
@@ -736,10 +819,19 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["table_schema"],
-    "rows": [["doc"], ["information_schema"], ["sys"], ["mtopeniot"], ["pg_catalog"]],
-    "rowcount": 5,
-    "duration": 10.5146
+  "cols": [
+    "schema_name"
+  ],
+  "rows": [
+    ["blob"],
+    ["doc"],
+    ["information_schema"],
+    ["mtopeniot"],
+    ["pg_catalog"],
+    ["sys"]
+  ],
+  "rowcount": 6,
+  "duration": 15.559625
 }
 ```
 
@@ -766,10 +858,10 @@ curl -X POST \
 
 ```json
 {
-    "cols": ["table_name"],
-    "rows": [["etlamp"], ["etmotion"], ["md_ets_metadata"]],
-    "rowcount": 3,
-    "duration": 42.3912
+    "cols":["table_name"],
+    "rows":[["etlamp"],["etmotion"],["md_ets_metadata"]],
+    "rowcount":3,
+    "duration":15.263458
 }
 ```
 
@@ -793,14 +885,14 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["entity_id", "entity_type", "fiware_servicepath", "luminosity", "time_index"],
-    "rows": [
-        ["Lamp:001", "Lamp", "/", 1750, 1530262765000],
-        ["Lamp:001", "Lamp", "/", 1507, 1530262770000],
-        ["Lamp:001", "Lamp", "/", 1390, 1530262775000]
+    "cols":["entity_id","entity_type","time_index","fiware_servicepath","__original_ngsi_entity__","instanceid","luminosity","location","location_centroid"],
+    "rows":[
+        ["Lamp:001","Lamp",1689697297915,"/",null,"urn:ngsi-ld:1cc3a7d5-86cb-447c-b691-95d8dd138981",1992,{"coordinates":[52.5547,13.3986],"type":"Point"},[52.5547,13.3986]],
+        ["Lamp:001","Lamp",1689697302800,"/",null,"urn:ngsi-ld:0bf5d692-48dc-49ad-8f0b-bdd5e0e4e2b9",1996,{"coordinates":[52.5547,13.3986],"type":"Point"},[52.5547,13.3986]],
+        ["Lamp:001","Lamp",1689697307851,"/",null,"urn:ngsi-ld:a830b61e-8947-4fce-986c-6225db1622d1",1995,{"coordinates":[52.5547,13.3986],"type":"Point"},[52.5547,13.3986]]
     ],
-    "rowcount": 3,
-    "duration": 21.8338
+    "rowcount":3,
+    "duration":131.47903
 }
 ```
 
@@ -822,14 +914,14 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["count", "entity_id", "entity_type", "fiware_servicepath", "time_index"],
+    "cols": ["entity_id","entity_type","time_index","fiware_servicepath","__original_ngsi_entity__","instanceid","count"],
     "rows": [
-        [0, "Motion:001", "Motion", "/", 1530262791452],
-        [1, "Motion:001", "Motion", "/", 1530262792469],
-        [0, "Motion:001", "Motion", "/", 1530262793472]
+        ["Motion:001","Motion",1689697299869,"/",null,"urn:ngsi-ld:6232dc49-8a03-4471-8d49-266d2f5b4234",0],
+        ["Motion:001","Motion",1689697300930,"/",null,"urn:ngsi-ld:65d82c77-01c4-483b-bda1-7496feb7bd0f",1],
+        ["Motion:001","Motion",1689697301857,"/",null,"urn:ngsi-ld:90f2db3d-1cb0-48e4-ab8c-c71e4ceac1d3",0]
     ],
-    "rowcount": 3,
-    "duration": 54.215
+    "rowcount":3,
+    "duration":301.9434
 }
 ```
 
@@ -852,14 +944,14 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["count", "entity_id", "entity_type", "fiware_servicepath", "time_index"],
-    "rows": [
-        [0, "Motion:001", "Motion", "/", 1530263896550],
-        [1, "Motion:001", "Motion", "/", 1530263894491],
-        [0, "Motion:001", "Motion", "/", 1530263892483]
+    "cols":["entity_id","entity_type","time_index","fiware_servicepath","__original_ngsi_entity__","instanceid","count"],
+    "rows":[
+        ["Motion:001","Motion",1689699097452,"/",null,"urn:ngsi-ld:99910d16-b388-4216-ada9-4c2df8feef8a",0],
+        ["Motion:001","Motion",1689699095481,"/",null,"urn:ngsi-ld:070ef58d-36b5-46b1-a9ef-72897972718e",1],
+        ["Motion:001","Motion",1689699093507,"/",null,"urn:ngsi-ld:7bf0f277-0203-4912-ba5b-2555bafd661b",0]
     ],
-    "rowcount": 3,
-    "duration": 18.591
+    "rowcount":3,
+    "duration":783.8505
 }
 ```
 
@@ -883,16 +975,14 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["minute", "sum"],
-    "rows": [
-        ["2018-06-29T09:17:00.000000Z", 12],
-        ["2018-06-29T09:34:00.000000Z", 10],
-        ["2018-06-29T09:08:00.000000Z", 11],
-        ["2018-06-29T09:40:00.000000Z", 3],
-        ...etc
+    "cols":["minute","sum"],
+    "rows":[
+        ["2023-07-18T16:26:00.000000Z",11],
+        ["2023-07-18T16:36:00.000000Z",11],
+        ["2023-07-18T16:29:00.000000Z",14]
     ],
-    "rowcount": 42,
-    "duration": 22.9832
+    "rowcount":3,
+    "duration":867.4263
 }
 ```
 
@@ -916,16 +1006,17 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["minute", "min"],
-    "rows": [
-        ["2018-06-29T09:34:00.000000Z", 1516],
-        ["2018-06-29T09:17:00.000000Z", 1831],
-        ["2018-06-29T09:40:00.000000Z", 1768],
-        ["2018-06-29T09:08:00.000000Z", 1868],
-        ...etc
+    "cols":["minute","min"],
+    "rows":[
+        ["2023-07-18T16:26:00.000000Z",1834],
+        ["2023-07-18T16:36:00.000000Z",1722],
+        ["2023-07-18T16:29:00.000000Z",1881],
+        ["2023-07-18T16:32:00.000000Z",1866],
+        ["2023-07-18T16:23:00.000000Z",1684],
+        ... etc
     ],
-    "rowcount": 40,
-    "duration": 13.1854
+    "rowcount":33,
+    "duration":46.888416
 }
 ```
 
@@ -948,10 +1039,12 @@ curl -iX POST \
 
 ```json
 {
-    "cols": ["max"],
-    "rows": [[1753]],
-    "rowcount": 1,
-    "duration": 26.7215
+    "cols":["max"],
+    "rows":[
+        [2015]
+    ],
+    "rowcount":1,
+    "duration":271.6023
 }
 ```
 
