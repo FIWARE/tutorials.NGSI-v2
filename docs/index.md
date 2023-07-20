@@ -4,6 +4,20 @@
 [![NGSI v2](https://img.shields.io/badge/NGSI-v2-5dc0cf.svg)](https://fiware-ges.github.io/orion/api/v2/stable/)
 [![Support badge](https://img.shields.io/badge/tag-fiware-orange.svg?logo=stackoverflow)](https://stackoverflow.com/questions/tagged/fiware)
 
+<div id="social-meta">
+<meta property="og:title" content="A collection of NGSI-v2 tutorials for the FIWARE system">
+<meta property="og:description" content="Each tutorial consists of a series of exercises to demonstrate the correct use of individual FIWARE components.">
+<meta property="og:type" content="documentation">
+<meta property="og:url" content="https://ngsi-ld-tutorials.readthedocs.io/en/latest/">
+<meta property="og:image" content="https://www.fiware.org/wp-content/uploads/FF_Banner_General.png">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:site" content="@FIWARE">
+<meta name="twitter:title" content="About
+The process for commercial software to apply as powered by FIWARE or FIWARE-Ready">
+<meta name="twitter:description" content="A series of exercises to demonstrate the correct use of individual FIWARE component.">
+<meta name="twitter:image" content="https://www.fiware.org/wp-content/uploads/FF_Banner_General.png">
+</div>
+
 This is a collection of **NGSI-v2** tutorials for the FIWARE system. Each tutorial consists of a series of exercises to
 demonstrate the correct use of individual FIWARE components and shows the flow of context data within a simple Smart
 Solution either by connecting to a series of dummy IoT devices or manipulating the context directly or programmatically.
