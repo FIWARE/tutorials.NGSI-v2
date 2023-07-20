@@ -8,7 +8,7 @@
 <meta property="og:title" content="A collection of NGSI-v2 tutorials for the FIWARE system">
 <meta property="og:description" content="Each tutorial consists of a series of exercises to demonstrate the correct use of individual FIWARE components.">
 <meta property="og:type" content="documentation">
-<meta property="og:url" content="https://ngsi-ld-tutorials.readthedocs.io/en/latest/">
+<meta property="og:url" content="https://fiware-tutorials.readthedocs.io/en/latest/">
 <meta property="og:image" content="https://www.fiware.org/wp-content/uploads/FF_Banner_General.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@FIWARE">
