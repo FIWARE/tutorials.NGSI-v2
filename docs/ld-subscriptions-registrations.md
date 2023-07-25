@@ -220,6 +220,14 @@ curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/subscriptions/'
 
 #### Response:
 
+
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
+> the JSON responses in this tutorial. Pipe the result by appending
+>
+> ```
+> | jq '.'
+> ```
+
 The response consists of the details of the subscriptions within the system. The parameters within the `q` attribute
 have been expanded to use the full URIs, as internally the broker consistently uses long names. The differences between
 the payloads offered by the two subscriptions will be discussed below.

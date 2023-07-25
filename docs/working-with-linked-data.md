@@ -698,6 +698,14 @@ curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:s
 
 #### Response:
 
+
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
+> the JSON responses in this tutorial. Pipe the result by appending
+>
+> ```
+> | jq '.'
+> ```
+
 The response is an ordinary **Building** entity which standard attribute names (such as `name` and `location` and it
 also returns the standard enumeration for **Building** `category`.
 

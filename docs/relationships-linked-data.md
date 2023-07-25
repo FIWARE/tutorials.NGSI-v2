@@ -404,6 +404,14 @@ curl -G -X GET \
 
 #### Response:
 
+
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
+> the JSON responses in this tutorial. Pipe the result by appending
+>
+> ```
+> | jq '.'
+> ```
+
 The response returns all the existing **Building** entities, with the attributes expanded as fully qualified names
 (FQNs).
 

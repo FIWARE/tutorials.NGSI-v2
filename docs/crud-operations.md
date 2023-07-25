@@ -401,6 +401,14 @@ curl -X GET \
 
 Product `urn:ngsi-ld:Product:010` is "Lemonade" at 99 cents. The response is shown below:
 
+
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
+> the JSON responses in this tutorial. Pipe the result by appending
+>
+> ```
+> | jq '.'
+> ```
+
 ```json
 {
     "id": "urn:ngsi-ld:Product:010",
