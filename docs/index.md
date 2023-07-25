@@ -113,6 +113,11 @@ the concept of a project object model (POM), Maven can manage a project's build,
 central piece of information. Maven can be used to define and download our dependencies and to build and package Java or
 Scala code into a JAR file.
 
+### JQ <img src="https://jqlang.github.io/jq/jq.png" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
+
+[jq](https://jqlang.github.io/jq/ jq is a lightweight and flexible command-line JSON processor which can be used
+to format the JSON responses received from the context broker and other FIWARE components. More information about how to use jq can be found [here](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq)
+
 ## Data models
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
