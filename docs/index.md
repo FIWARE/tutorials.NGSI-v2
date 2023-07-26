@@ -48,43 +48,9 @@ can choose which enablers are of interest to you.
 
 The NGSI-v2 tutorials are designed to run under any Unix environment, the tested
 configuration and [GitPod](https://github.com/gitpod-io/gitpod) environment is currently based on Ubuntu 22.04.2 LTS.
-However, there may be some minor issues when running the tutorials directly on Windows or Apple M1 Silicon `amd64` systems, and the following set-up can be used when facing issues.
-
-
-### Tested Windows configuration
-
-Windows and Mac are able to emulate a Unix system when running [VirtualBox](https://www.virtualbox.org/) - the following minimal set-up is recommended:
-
--   VirtualBox
--   Ubuntu 22.04.2 2G RAM 25G Disk
--   Docker Engine on Ubuntu: Docker 24.0.4 and Docker compose 2.19.1
-
-Download Virtualbox from [here](https://www.virtualbox.org/)
-
-#### Ubuntu
-
-Download Ubuntu LTS from [here](https://ubuntu.com/download/desktop)
-
-To set up the working environment, follow these steps: 
--   Open Virtualbox and create a new virtual machine.
--   Select the ISO image downloaded earlier (.iso file).
--   Choose a username and a password. Check the "Guest Additions" option (to enable features such as shared clipboard and shared folders).
--   Set the memory size to 2GB and allocate 2 CPUs.
--   Create a virtual hard disk with a size of 25GB.
--   Finish the setup process and start the virtual machine.
-
-If you encounter the error _"Username is not in the sudoers file. This incident will be reported"_ when attempting to execute a `sudo` command, follow these steps to resolve the issue:
-
--   Restart your virtual machine. While restaring, press the Shift key for a few seconds to get the Grub boot menu.
--   Using the Down Arrow, select "Advanced options for Ubuntu" and press Enter.
--   Select the kernel with the "recovery mode" option and press Enter to open the Recovery menu.
--   In the "Recovery menu", move over to the line "root Drop to root shell prompt", then press Enter.
--   Use the root password and press Enter to start the "maintenance mode".
--   At this point, you should be at the root shell prompt. Change the system to be mounted as read/write by running the command: "mount -o rw,remount /"
--   Execute the following command to add the user to the sudo group: "adduser username sudo" (use the actual username on the system).
--   Type the exit command to go back to the "Recovery menu": "Exit"
--   Use the Right Arrow to select `<Ok>` and press Enter.
--   Press `<Ok>` to continue with normal boot sequence.
+However, there may be some minor issues when running the tutorials directly on Windows
+machines or Apple M1 Silicon `amd64` systems, and the following
+[Virtual Box set-up](virtual-box.md) can be used when facing issues.
 
 ### Docker and Docker Compose <img src="https://www.docker.com/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
@@ -92,43 +58,8 @@ To keep things simple all components will be run using [Docker](https://www.dock
 technology which allows to different components isolated into their respective environments.
 
 -   To install Docker on Windows follow the instructions [here](https://docs.docker.com/docker-for-windows/).
--   To install Docker on Mac follow the instructions [here](https://docs.docker.com/docker-for-mac/).
-
-#### install Docker Engine on Ubuntu
-
-Follow the instructions in this [link](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) to install Docker using the apt repository.
-
-**Docker Compose** is a tool for defining and running multi-container Docker applications. A series of `*.yaml` files
-are used configure the required services for the application. This means all container services can be brought up in a
-single command.
-
-You can check your current **Docker** and **Docker Compose** versions using the following commands:
-
-```bash
-docker-compose -v
-docker version
-```
-
-> **Important** In recent versions, `docker-compose` is already included as part of of the main `docker` client, Please
-> ensure that you are using Docker version 24.0.4 or higher and Docker Compose 2.29.1 or higher and upgrade if necessary.
-> If you are unable to upgrade and stuck using an older version you can still run the tutorials by adding a `legacy`
-> parameter at the end the `./services` script commands e.g. `services start legacy`
-
-If using a Linux distro with an outdated docker-compose, the files can be installed directly as shown:
-
-```bash
-sudo curl -L "https://github.com/docker/compose/releases/download/1.24.0/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
-sudo chmod +x /usr/local/bin/docker-compose
-```
-
-If you are using docker-compose in Ubuntu with VMWare and faced the following error: _ERROR: Couldn't connect to Docker
-daemon at http+docker://localunixsocket - is it running?_
-
-It can be solved by owning the `/var/run/docker.sock` Unix socket as shown:
-
-```bash
-sudo chown $USER /var/run/docker.sock
-```
+-   To install Docker on Mac/OS follow the instructions [here](https://docs.docker.com/docker-for-mac/).
+-   To install Docker on Unix follow the instructions [here](./docker-ubuntu.md).
 
 ### Postman <img src="./img/postman.png" align="left"  height="25" width="35" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
