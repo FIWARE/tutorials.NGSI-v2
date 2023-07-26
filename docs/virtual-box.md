@@ -29,7 +29,7 @@ If you encounter the error _"Username is not in the sudoers file. This incident 
 -   Select the kernel with the "recovery mode" option and press Enter to open the Recovery menu.
 -   In the "Recovery menu", move over to the line "root Drop to root shell prompt", then press Enter.
 -   Use the root password and press Enter to start the "maintenance mode".
--   At this point, you should be at the root shell prompt. Change the system to be mounted as read/write by running the command: "mount -o rw,remount /"
+-   At this point, you should be at the root shell prompt. Change the system to be mounted as read/write by running the command: `mount -o rw,remount /``
 -   Execute the following command to add the user to the sudo group: "adduser username sudo" (use the actual username on the system).
 -   Type the exit command to go back to the "Recovery menu": "Exit"
 -   Use the Right Arrow to select `<Ok>` and press Enter.
