@@ -46,6 +46,40 @@ can choose which enablers are of interest to you.
 
 ## Prerequisites
 
+### Tested configuration
+
+Virtualbox
+Ubuntu 22.04.2 2G RAM 25G Disk
+Docker Engine on Ubuntu: Docker 24.0.4 and Docker compose 2.19.1
+
+### Virtualbox
+
+Download Virtualbox from [here](https://www.virtualbox.org/)
+
+### Ubuntu
+
+Download Ubuntu LTS from [here](https://ubuntu.com/download/desktop)
+
+To set up the working environment, follow these steps: 
+- Open Virtualbox and create a new virtual machine.
+- Select the ISO image downloaded earlier (.iso file).
+- Choose a username and a password. Check the "Guest Additions" option (to enable features such as shared clipboard and shared folders).
+- Set the memory size to 2GB and allocate 2 CPUs.
+- Create a virtual hard disk with a size of 25GB.
+- Finish the setup process and start the virtual machine.
+
+If you encounter the error "Username is not in the sudoers file. This incident will be reported" when attempting to execute a sudo command, follow these steps to resolve the issue:
+- Restart your virtual machine. While restaring, press the Shift key for a few seconds to get the Grub boot menu.
+- Using the Down Arrow, select "Advanced options for Ubuntu" and press Enter.
+- Select the kernel with the "recovery mode" option and press Enter to open the Recovery menu.
+- In the "Recovery menu", move over to the line "root Drop to root shell prompt", then press Enter.
+- Use the root password and press Enter to start the "maintenance mode".
+- At this point, you should be at the root shell prompt. Change the system to be mounted as read/write by running the command: "mount -o rw,remount /"
+- Execute the following command to add the user to the sudo group: "adduser username sudo" (use the actual username on the system).
+- Type the exit command to go back to the "Recovery menu": "Exit"
+- Use the Right Arrow to select <Ok> and press Enter.
+- Press <Ok> to continue with normal boot sequence.
+
 ### Docker and Docker Compose <img src="https://www.docker.com/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
 To keep things simple all components will be run using [Docker](https://www.docker.com). **Docker** is a container
@@ -53,12 +87,14 @@ technology which allows to different components isolated into their respective e
 
 -   To install Docker on Windows follow the instructions [here](https://docs.docker.com/docker-for-windows/).
 -   To install Docker on Mac follow the instructions [here](https://docs.docker.com/docker-for-mac/).
--   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/).
+
+#### install Docker Engine on Ubuntu
+
+Follow the instructions in this [link](https://docs.docker.com/engine/install/ubuntu/#install-using-the-repository) to install Docker using the apt repository.
 
 **Docker Compose** is a tool for defining and running multi-container Docker applications. A series of `*.yaml` files
 are used configure the required services for the application. This means all container services can be brought up in a
-single command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux
-users will need to follow the instructions found [here](https://docs.docker.com/compose/install/).
+single command.
 
 You can check your current **Docker** and **Docker Compose** versions using the following commands:
 
@@ -100,11 +136,6 @@ FIWARE Postman collections can be downloaded directly from the
 [Gitpod](https://github.com/gitpod-io/gitpod) is an open-source Kubernetes application for ready-to-code cloud
 development environments that spins up an automated dev environment for each task, in the cloud. It enables you to run
 the tutorials in a cloud development environment directly from your browser or your Desktop IDE.
-
-### Cygwin for Windows <img src="https://www.cygwin.com/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
-
-The tutorials start up their services using a simple Bash script. When working locally, Windows users should download
-[cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
 ### Apache Maven <img src="https://maven.apache.org/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
