@@ -308,6 +308,9 @@ docker run -it --rm --name mqtt-subscriber \
 
 The terminal will then be ready to receive events
 
+> **Note:** There is no change on whilst running this command. The on screen output
+> will only respond once you have completed the next step.
+
 ### Start an MQTT Publisher (2nd Terminal)
 
 A sensor sending northbound measurements will publish to those measurements to the MQTT Broker to be passed on to any
