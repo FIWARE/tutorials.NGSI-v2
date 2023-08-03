@@ -148,7 +148,7 @@ mongo-db:
     hostname: mongo-db
     container_name: db-mongo
     ports:
-        - "27017:27017"
+        - '27017:27017'
     networks:
         - default
 ```
@@ -164,8 +164,8 @@ draco:
     environment:
         - NIFI_WEB_HTTP_PORT=9090
     ports:
-        - "9090:9090"
-        - "5050:5050"
+        - '9090:9090'
+        - '5050:5050'
     healthcheck:
         test: curl --fail -s http://localhost:9090/nifi-api/system-diagnostics || exit 1
 ```
@@ -210,9 +210,8 @@ curl -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'
@@ -532,15 +531,15 @@ postgres-db:
     hostname: postgres-db
     container_name: db-postgres
     expose:
-        - "5432"
+        - '5432'
     ports:
-        - "5432:5432"
+        - '5432:5432'
     networks:
         - default
     environment:
-        - "POSTGRES_PASSWORD=password"
-        - "POSTGRES_USER=postgres"
-        - "POSTGRES_DB=postgres"
+        - 'POSTGRES_PASSWORD=password'
+        - 'POSTGRES_USER=postgres'
+        - 'POSTGRES_DB=postgres'
 ```
 
 The `postgres-db` container is listening on a single port:
@@ -571,8 +570,8 @@ draco:
     environment:
         - NIFI_WEB_HTTP_PORT=9090
     ports:
-        - "9090:9090"
-        - "5050:5050"
+        - '9090:9090'
+        - '5050:5050'
     healthcheck:
         test: curl --fail -s http://localhost:9090/nifi-api/system-diagnostics || exit 1
 ```
@@ -904,14 +903,14 @@ mysql-db:
     hostname: mysql-db
     container_name: db-mysql
     expose:
-        - "3306"
+        - '3306'
     ports:
-        - "3306:3306"
+        - '3306:3306'
     networks:
         - default
     environment:
-        - "MYSQL_ROOT_PASSWORD=123"
-        - "MYSQL_ROOT_HOST=%"
+        - 'MYSQL_ROOT_PASSWORD=123'
+        - 'MYSQL_ROOT_HOST=%'
 ```
 
 > **Note:** Using the default `root` user and displaying the password in an environment variables like this is a
@@ -942,8 +941,8 @@ draco:
     environment:
         - NIFI_WEB_HTTP_PORT=9090
     ports:
-        - "9090:9090"
-        - "5050:5050"
+        - '9090:9090'
+        - '5050:5050'
     healthcheck:
         test: curl --fail -s http://localhost:9090/nifi-api/system-diagnostics || exit 1
 ```
@@ -1280,8 +1279,8 @@ draco:
     environment:
         - NIFI_WEB_HTTP_PORT=9090
     ports:
-        - "9090:9090"
-        - "5050:5050"
+        - '9090:9090'
+        - '5050:5050'
     healthcheck:
         test: curl --fail -s http://localhost:9090/nifi-api/system-diagnostics || exit 1
 ```

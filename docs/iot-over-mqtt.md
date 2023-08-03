@@ -125,11 +125,11 @@ mosquitto:
     networks:
         - default
     expose:
-        - "1883"
-        - "9001"
+        - '1883'
+        - '9001'
     ports:
-        - "1883:1883"
-        - "9001:9001"
+        - '1883:1883'
+        - '9001:9001'
     volumes:
         - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 ```
@@ -153,17 +153,17 @@ tutorial:
     networks:
         - default
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "WEB_APP_PORT=3000"
-        - "DUMMY_DEVICES_PORT=3001"
-        - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
-        - "DUMMY_DEVICES_TRANSPORT=MQTT"
+        - 'DEBUG=tutorial:*'
+        - 'WEB_APP_PORT=3000'
+        - 'DUMMY_DEVICES_PORT=3001'
+        - 'DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov'
+        - 'DUMMY_DEVICES_TRANSPORT=MQTT'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -200,9 +200,9 @@ iot-agent:
     networks:
         - default
     expose:
-        - "4041"
+        - '4041'
     ports:
-        - "4041:4041"
+        - '4041:4041'
     environment:
         - IOTA_CB_HOST=orion
         - IOTA_CB_PORT=1026
@@ -308,8 +308,8 @@ docker run -it --rm --name mqtt-subscriber \
 
 The terminal will then be ready to receive events
 
-> **Note:** There is no change on whilst running this command. The on screen output
-> will only respond once you have completed the next step.
+> **Note:** There is no change on whilst running this command. The on screen output will only respond once you have
+> completed the next step.
 
 ### Start an MQTT Publisher (2nd Terminal)
 
@@ -593,9 +593,8 @@ curl -G -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'

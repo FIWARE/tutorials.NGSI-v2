@@ -31,7 +31,7 @@ that identifies the user avoiding exposing the username and password. Particular
 
 ## :arrow_forward: Video: What is OpenID Connect?
 
-[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Kb56GzQ2pSk "OpenID connect")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Kb56GzQ2pSk 'OpenID connect')
 
 Click on the image above to watch a video on OpenID connect and identity.
 
@@ -139,23 +139,23 @@ tutorial:
         default:
             ipv4_address: 172.18.1.7
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "SECURE_ENDPOINTS=true"
-        - "OIDC_ENABLED=true"
-        - "WEB_APP_PORT=3000"
-        - "KEYROCK_URL=http://localhost"
-        - "KEYROCK_IP_ADDRESS=http://172.18.1.5"
-        - "KEYROCK_PORT=3005"
-        - "KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp"
-        - "KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret"
-        - "KEYROCK_JWT_SECRET=jsonwebtokenpass"
-        - "CALLBACK_URL=http://localhost:3000/login"
+        - 'DEBUG=tutorial:*'
+        - 'SECURE_ENDPOINTS=true'
+        - 'OIDC_ENABLED=true'
+        - 'WEB_APP_PORT=3000'
+        - 'KEYROCK_URL=http://localhost'
+        - 'KEYROCK_IP_ADDRESS=http://172.18.1.5'
+        - 'KEYROCK_PORT=3005'
+        - 'KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp'
+        - 'KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret'
+        - 'KEYROCK_JWT_SECRET=jsonwebtokenpass'
+        - 'CALLBACK_URL=http://localhost:3000/login'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -384,7 +384,7 @@ coming from Keyrock:
 
 ```javascript
 function authCodeOICGrant(req, res) {
-    const path = oa.getAuthorizeUrl("code", "openid", "oic");
+    const path = oa.getAuthorizeUrl('code', 'openid', 'oic');
     return res.redirect(path);
 }
 ```
@@ -395,7 +395,7 @@ interim access code is received from **Keyrock** and second request must be made
 ```javascript
 function authCodeOICGrantCallback(req, res) {
     return oa
-        .getOAuthAccessToken(req.query.code, "authorization_code")
+        .getOAuthAccessToken(req.query.code, 'authorization_code')
         .then((results) => {
             return getUserFromIdToken(req, results.id_token);
         })
@@ -497,7 +497,7 @@ to follow an OIDC flow the response type is "id_token".
 
 ```javascript
 function implicitOICGrant(req, res) {
-    const path = oa.getAuthorizeUrl("id_token", null, "oic");
+    const path = oa.getAuthorizeUrl('id_token', null, 'oic');
     return res.redirect(path);
 }
 ```
@@ -554,7 +554,7 @@ using authorization code previously generated, Keyrock generates a new access to
 
 ```javascript
 function hybridOICGrant(req, res) {
-    const path = oa.getAuthorizeUrl("code id_token token", "openid", "oic");
+    const path = oa.getAuthorizeUrl('code id_token token', 'openid', 'oic');
     return res.redirect(path);
 }
 ```
@@ -565,7 +565,7 @@ interim access code is received from **Keyrock** and second request must be made
 ```javascript
 function authCodeOICGrantCallback(req, res) {
     return oa
-        .getOAuthAccessToken(req.query.code, "hybrid")
+        .getOAuthAccessToken(req.query.code, 'hybrid')
         .then((results) => {
             return getUserFromIdToken(req, results.id_token);
         })

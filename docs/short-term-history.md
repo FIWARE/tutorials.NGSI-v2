@@ -178,7 +178,7 @@ mongo-db:
     hostname: mongo-db
     container_name: db-mongo
     ports:
-        - "27017:27017"
+        - '27017:27017'
     networks:
         - default
 ```
@@ -195,7 +195,7 @@ sth-comet:
     networks:
         - default
     ports:
-        - "8666:8666"
+        - '8666:8666'
     environment:
         - STH_HOST=0.0.0.0
         - STH_PORT=8666
@@ -241,9 +241,8 @@ curl -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'
@@ -922,7 +921,7 @@ mongo-db:
     hostname: mongo-db
     container_name: db-mongo
     ports:
-        - "27017:27017"
+        - '27017:27017'
     networks:
         - default
 ```
@@ -939,7 +938,7 @@ sth-comet:
     networks:
         - default
     ports:
-        - "8666:8666"
+        - '8666:8666'
     environment:
         - STH_HOST=0.0.0.0
         - STH_PORT=8666
@@ -960,15 +959,15 @@ cygnus:
     networks:
         - default
     expose:
-        - "5080"
+        - '5080'
     ports:
-        - "5050:5050"
-        - "5080:5080"
+        - '5050:5050'
+        - '5080:5080'
     environment:
-        - "CYGNUS_MONGO_HOSTS=mongo-db:27017"
-        - "CYGNUS_LOG_LEVEL=DEBUG"
-        - "CYGNUS_SERVICE_PORT=5050"
-        - "CYGNUS_API_PORT=5080"
+        - 'CYGNUS_MONGO_HOSTS=mongo-db:27017'
+        - 'CYGNUS_LOG_LEVEL=DEBUG'
+        - 'CYGNUS_SERVICE_PORT=5050'
+        - 'CYGNUS_API_PORT=5080'
 ```
 
 The `sth-comet` container is listening on one port:
@@ -1198,14 +1197,14 @@ The basic processing consists of two-step - retrieval and attribute mapping, sam
 ```javascript
 function readCometLampLuminosity(id, aggMethod) {
     return new Promise(function (resolve, reject) {
-        const url = "http://sth-comet:8666/STH/v1/contextEntities/type/Lamp/id/Lamp:001/attributes/luminosity";
+        const url = 'http://sth-comet:8666/STH/v1/contextEntities/type/Lamp/id/Lamp:001/attributes/luminosity';
         const options = {
-            method: "GET",
+            method: 'GET',
             url: url,
-            qs: { aggrMethod: aggMethod, aggrPeriod: "minute" },
+            qs: { aggrMethod: aggMethod, aggrPeriod: 'minute' },
             headers: {
-                "fiware-servicepath": "/",
-                "fiware-service": "openiot"
+                'fiware-servicepath': '/',
+                'fiware-service': 'openiot'
             }
         };
 
@@ -1226,8 +1225,8 @@ function cometToTimeSeries(cometResponse, aggMethod) {
 
     _.forEach(values.points, (element) => {
         data.push({ t: date.valueOf(), y: element[aggMethod] });
-        labels.push(date.format("HH:mm"));
-        date = date.clone().add(1, "m");
+        labels.push(date.format('HH:mm'));
+        date = date.clone().add(1, 'm');
     });
 
     return {

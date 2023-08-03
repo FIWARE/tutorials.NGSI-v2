@@ -208,7 +208,7 @@ keyrock:
         - mysql-db
         - authzforce
     ports:
-        - "3005:3005"
+        - '3005:3005'
     environment:
         - DEBUG=idm:*
         - DATABASE_HOST=mysql-db
@@ -256,9 +256,9 @@ orion-proxy:
         - keyrock
         - authzforce
     ports:
-        - "1027:1027"
+        - '1027:1027'
     expose:
-        - "1027"
+        - '1027'
     environment:
         - PEP_PROXY_APP_HOST=orion
         - PEP_PROXY_APP_PORT=1026
@@ -306,7 +306,7 @@ authzforce:
         default:
             ipv4_address: 172.18.1.12
     ports:
-        - "8080:8080"
+        - '8080:8080'
     volumes:
         - ./authzforce/domains:/opt/authzforce-ce-server/data/domains
 ```
@@ -325,23 +325,23 @@ tutorial:
         default:
             ipv4_address: 172.18.1.7
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "WEB_APP_PORT=3000"
-        - "KEYROCK_URL=http://localhost"
-        - "KEYROCK_IP_ADDRESS=http://172.18.1.5"
-        - "KEYROCK_PORT=3005"
-        - "KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp"
-        - "KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret"
-        - "CALLBACK_URL=http://localhost:3000/login"
-        - "AUTHZFORCE_ENABLED=true"
-        - "AUTHZFORCE_URL=http://authzforce"
-        - "AUTHZFORCE_PORT=8080"
+        - 'DEBUG=tutorial:*'
+        - 'WEB_APP_PORT=3000'
+        - 'KEYROCK_URL=http://localhost'
+        - 'KEYROCK_IP_ADDRESS=http://172.18.1.5'
+        - 'KEYROCK_PORT=3005'
+        - 'KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp'
+        - 'KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret'
+        - 'CALLBACK_URL=http://localhost:3000/login'
+        - 'AUTHZFORCE_ENABLED=true'
+        - 'AUTHZFORCE_URL=http://authzforce'
+        - 'AUTHZFORCE_PORT=8080'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -964,7 +964,7 @@ to continue can be made thereafter.
 ```javascript
 function authorizeAdvancedXACML(req, res, next, resource = req.url) {
     const keyrockUserUrl =
-        "http://keyrock/user?access_token=" + req.session.access_token + "&app_id=" + clientId + "&authzforce=true";
+        'http://keyrock/user?access_token=' + req.session.access_token + '&app_id=' + clientId + '&authzforce=true';
 
     return oa
         .get(keyrockUserUrl)
@@ -973,7 +973,7 @@ function authorizeAdvancedXACML(req, res, next, resource = req.url) {
             return azf.policyDomainRequest(user.app_azf_domain, user.roles, resource, req.method);
         })
         .then((authzforceResponse) => {
-            res.locals.authorized = authzforceResponse === "Permit";
+            res.locals.authorized = authzforceResponse === 'Permit';
             return next();
         })
         .catch((error) => {
@@ -990,20 +990,20 @@ information to supply will depend on business use case - it could be expanded to
 relationships between records and so on, but in this very simple example only roles are necessary.
 
 ```javascript
-const xml2js = require("xml2js");
-const request = require("request");
+const xml2js = require('xml2js');
+const request = require('request');
 
 function policyDomainRequest(domain, roles, resource, action) {
     let body =
         '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<Request xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" CombinedDecision="false" ReturnPolicyIdList="false">\n';
     // Code to create the XML body for the request is omitted
-    body = body + "</Request>";
+    body = body + '</Request>';
 
     const options = {
-        method: "POST",
-        url: "http://authzforceUrl/authzforce-ce/domains/" + domain + "/pdp",
-        headers: { "Content-Type": "application/xml" },
+        method: 'POST',
+        url: 'http://authzforceUrl/authzforce-ce/domains/' + domain + '/pdp',
+        headers: { 'Content-Type': 'application/xml' },
         body
     };
 

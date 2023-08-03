@@ -151,20 +151,20 @@ tutorial:
         default:
             ipv4_address: 172.18.1.7
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "WEB_APP_PORT=3000"
-        - "KEYROCK_URL=http://localhost"
-        - "KEYROCK_IP_ADDRESS=http://172.18.1.5"
-        - "KEYROCK_PORT=3005"
-        - "KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp"
-        - "KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret"
-        - "CALLBACK_URL=http://localhost:3000/login"
+        - 'DEBUG=tutorial:*'
+        - 'WEB_APP_PORT=3000'
+        - 'KEYROCK_URL=http://localhost'
+        - 'KEYROCK_IP_ADDRESS=http://172.18.1.5'
+        - 'KEYROCK_PORT=3005'
+        - 'KEYROCK_CLIENT_ID=tutorial-dckr-site-0000-xpresswebapp'
+        - 'KEYROCK_CLIENT_SECRET=tutorial-dckr-site-0000-clientsecret'
+        - 'CALLBACK_URL=http://localhost:3000/login'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -342,9 +342,8 @@ curl -iX POST \
 
 #### Response
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'
@@ -422,13 +421,13 @@ function userCredentialGrant(req, res) {
 ```javascript
 function getUserFromAccessToken(req, accessToken) {
     return new Promise(function (resolve, reject) {
-        oa.get(keyrockIPAddress + "/user", accessToken)
+        oa.get(keyrockIPAddress + '/user', accessToken)
             .then((response) => {
                 const user = JSON.parse(response);
                 return resolve(user);
             })
             .catch((error) => {
-                req.flash("error", "User not found");
+                req.flash('error', 'User not found');
                 return reject(error);
             });
     });
@@ -467,7 +466,7 @@ form `/oauth/authorize?response_type=code&client_id={{client-id}}&state=xyz&redi
 
 ```javascript
 function authCodeGrant(req, res) {
-    const path = oa.getAuthorizeUrl("code");
+    const path = oa.getAuthorizeUrl('code');
     return res.redirect(path);
 }
 ```
@@ -522,7 +521,7 @@ form `/oauth/authorize?response_type=token&client_id={{client-id}}&state=xyz&red
 
 ```javascript
 function implicitGrant(req, res) {
-    const path = oa.getAuthorizeUrl("token");
+    const path = oa.getAuthorizeUrl('token');
     return res.redirect(path);
 }
 ```
@@ -757,7 +756,7 @@ To check whether a **Keyrock** `access_token` has expired, you can try to retrie
 ```javascript
 function pdpAuthentication(req, res, next) {
     const keyrockUserUrl =
-        keyrockIPAddress + "/user" + "?access_token=" + req.session.access_token + "&app_id=" + clientId;
+        keyrockIPAddress + '/user' + '?access_token=' + req.session.access_token + '&app_id=' + clientId;
     return oa
         .get(keyrockUserUrl)
         .then((response) => {
@@ -837,20 +836,20 @@ set a flag:
 function pdpBasicAuthorization(req, res, next, url = req.url) {
     const keyrockUserUrl =
         keyrockIPAddress +
-        "/user" +
-        "?access_token=" +
+        '/user' +
+        '?access_token=' +
         req.session.access_token +
-        "&action=" +
+        '&action=' +
         req.method +
-        "&resource=" +
+        '&resource=' +
         url +
-        "&app_id=" +
+        '&app_id=' +
         clientId;
     return oa
         .get(keyrockUserUrl)
         .then((response) => {
             const user = JSON.parse(response);
-            res.locals.authorized = user.authorization_decision === "Permit";
+            res.locals.authorized = user.authorization_decision === 'Permit';
             return next();
         })
         .catch((error) => {
@@ -867,8 +866,8 @@ example of a Policy Enforcement Point (PEP):
 ```javascript
 function priceChange(req, res) {
     if (!res.locals.authorized) {
-        req.flash("error", "Access Denied");
-        return res.redirect("/");
+        req.flash('error', 'Access Denied');
+        return res.redirect('/');
     }
     /// Continue with the normal flow of execution...
 }
@@ -880,8 +879,8 @@ example of a Policy Enforcement Point (PEP):
 ```javascript
 function sendCommand(req, res) {
     if (!res.locals.authorized) {
-        res.setHeader("Content-Type", "application/json");
-        return res.status(403).send({ message: "Forbidden" });
+        res.setHeader('Content-Type', 'application/json');
+        return res.status(403).send({ message: 'Forbidden' });
     }
     /// Continue with the normal flow of execution...
 }

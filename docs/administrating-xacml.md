@@ -1128,7 +1128,7 @@ The `user.username` and `user.email` have been added to the list of fields to be
 ```javascript
 function authorizeAdvancedXACML(req, res, next, resource = req.url) {
     const keyrockUserUrl =
-        "http://keyrock/user?access_token=" + req.session.access_token + "&app_id=" + clientId + "&authzforce=true";
+        'http://keyrock/user?access_token=' + req.session.access_token + '&app_id=' + clientId + '&authzforce=true';
 
     return oa
         .get(keyrockUserUrl)
@@ -1144,7 +1144,7 @@ function authorizeAdvancedXACML(req, res, next, resource = req.url) {
             );
         })
         .then((authzforceResponse) => {
-            res.locals.authorized = authzforceResponse === "Permit";
+            res.locals.authorized = authzforceResponse === 'Permit';
             return next();
         })
         .catch((error) => {
@@ -1160,20 +1160,20 @@ The full code to supply each request to Authzforce can be found within the tutor
 supplied information has been expanded to include the `username` and `email` within the generated XACML request.
 
 ```javascript
-const xml2js = require("xml2js");
-const request = require("request");
+const xml2js = require('xml2js');
+const request = require('request');
 
 function policyDomainRequest(domain, roles, resource, action, username, email) {
     let body =
         '<?xml version="1.0" encoding="UTF-8"?>\n' +
         '<Request xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" CombinedDecision="false" ReturnPolicyIdList="false">\n';
     // Code to create the XML body for the request is omitted
-    body = body + "</Request>";
+    body = body + '</Request>';
 
     const options = {
-        method: "POST",
-        url: "http://authzforceUrl/authzforce-ce/domains/" + domain + "/pdp",
-        headers: { "Content-Type": "application/xml" },
+        method: 'POST',
+        url: 'http://authzforceUrl/authzforce-ce/domains/' + domain + '/pdp',
+        headers: { 'Content-Type': 'application/xml' },
         body
     };
 

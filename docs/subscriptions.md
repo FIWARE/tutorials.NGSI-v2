@@ -188,18 +188,18 @@ not been run before makes the assumption that all products have been changed. Th
 Code within the Stock Management frontend application handles received the POST request as shown:
 
 ```javascript
-router.post("/subscription/:type", (req, res) => {
+router.post('/subscription/:type', (req, res) => {
     _.forEach(req.body.data, (item) => {
-        broadcastEvents(req, item, ["refStore", "refProduct", "refShelf", "type"]);
+        broadcastEvents(req, item, ['refStore', 'refProduct', 'refShelf', 'type']);
     });
     res.status(204).send();
 });
 
 function broadcastEvents(req, item, types) {
-    const message = req.params.type + " received";
+    const message = req.params.type + ' received';
     _.forEach(types, (type) => {
         if (item[type]) {
-            req.app.get("io").emit(item[type], message);
+            req.app.get('io').emit(item[type], message);
         }
     });
 }
@@ -214,8 +214,8 @@ the product prices remain the same - for example apples remains at 0.99€
 
 ![](https://fiware.github.io/tutorials.Subscriptions/img/beer-99.png)
 
-Let's reduce the price of apples to 0.89€. This can't be done programmatically yet, so it has to be done with
-a curl command as shown:
+Let's reduce the price of apples to 0.89€. This can't be done programmatically yet, so it has to be done with a curl
+command as shown:
 
 #### 2 Request:
 

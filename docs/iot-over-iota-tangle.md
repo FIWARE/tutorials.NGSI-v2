@@ -134,11 +134,11 @@ mosquitto:
     networks:
         - default
     expose:
-        - "1883"
-        - "9001"
+        - '1883'
+        - '9001'
     ports:
-        - "1883:1883"
-        - "9001:9001"
+        - '1883:1883'
+        - '9001:9001'
     volumes:
         - ./mosquitto/mosquitto.conf:/mosquitto/config/mosquitto.conf
 ```
@@ -162,19 +162,19 @@ tutorial:
     networks:
         - default
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "WEB_APP_PORT=3000"
-        - "DUMMY_DEVICES_PORT=3001"
-        - "DUMMY_DEVICES_API_KEYS=1068318794,3020035,3314136,3089326"
-        - "DUMMY_DEVICES_TRANSPORT=IOTA"
-        - "IOTA_NODE=https://chrysalis-nodes.iota.cafe"
-        - "IOTA_MESSAGE_INDEX=fiware"
+        - 'DEBUG=tutorial:*'
+        - 'WEB_APP_PORT=3000'
+        - 'DUMMY_DEVICES_PORT=3001'
+        - 'DUMMY_DEVICES_API_KEYS=1068318794,3020035,3314136,3089326'
+        - 'DUMMY_DEVICES_TRANSPORT=IOTA'
+        - 'IOTA_NODE=https://chrysalis-nodes.iota.cafe'
+        - 'IOTA_MESSAGE_INDEX=fiware'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -213,9 +213,9 @@ iot-agent:
     networks:
         - default
     expose:
-        - "4041"
+        - '4041'
     ports:
-        - "4041:4041"
+        - '4041:4041'
     environment:
         - IOTA_CB_HOST=orion
         - IOTA_CB_PORT=1026
@@ -274,10 +274,10 @@ iota-gateway:
     networks:
         - default
     environment:
-        - "DEBUG=gateway:*"
-        - "MQTT_BROKER_URL=mqtt://mosquitto"
-        - "IOTA_NODE=https://chrysalis-nodes.iota.cafe"
-        - "IOTA_MESSAGE_INDEX=fiware"
+        - 'DEBUG=gateway:*'
+        - 'MQTT_BROKER_URL=mqtt://mosquitto'
+        - 'IOTA_NODE=https://chrysalis-nodes.iota.cafe'
+        - 'IOTA_MESSAGE_INDEX=fiware'
 ```
 
 The `iota-gateway` container is a middleware connecting to the MQTT broker and reading and persisting transactions onto
@@ -644,12 +644,12 @@ application written in Node.js. Its only function is passing data between the tw
 already exist so the application can be set up to listen to the normal MQTT topic for IoT Agent actuations.
 
 ```javascript
-const mqtt = require("mqtt");
-const MQTT_CLIENT = mqtt.connect("mqtt://mosquitto");
-MQTT_CLIENT.on("connect", () => {
-    MQTT_CLIENT.subscribe("/+/+/cmd");
+const mqtt = require('mqtt');
+const MQTT_CLIENT = mqtt.connect('mqtt://mosquitto');
+MQTT_CLIENT.on('connect', () => {
+    MQTT_CLIENT.subscribe('/+/+/cmd');
 });
-MQTT_CLIENT.on("message", Southbound.command);
+MQTT_CLIENT.on('message', Southbound.command);
 ```
 
 Similarly, there are equivalent [client libraries](https://wiki.iota.org/iota.rs/libraries/nodejs/getting_started)
@@ -657,13 +657,13 @@ available in multiple languages for persisting and listening to changes on the I
 to listen on two topics - one for device measures and a second one for acknowledgements of commands:
 
 ```javascript
-const iotaClient = require("@iota/client");
-const IOTA_CLIENT = new iotaClient.ClientBuilder().node("https://chrysalis-nodes.iota.cafe").build();
+const iotaClient = require('@iota/client');
+const IOTA_CLIENT = new iotaClient.ClientBuilder().node('https://chrysalis-nodes.iota.cafe').build();
 
 IOTA_CLIENT.getInfo()
     .then(() => {
         IOTA_CLIENT.subscriber()
-            .topic(IOTA_MESSAGE_INDEX + "messages/indexation/fiware/attrs")
+            .topic(IOTA_MESSAGE_INDEX + 'messages/indexation/fiware/attrs')
             .subscribe((err, data) => {
                 const messageId = IOTA_CLIENT.getMessageId(data.payload);
                 IOTA_CLIENT.getMessage()
@@ -673,7 +673,7 @@ IOTA_CLIENT.getInfo()
                     });
             });
         IOTA_CLIENT.subscriber()
-            .topic(IOTA_MESSAGE_INDEX + "messages/indexation/fiware/cmdexe")
+            .topic(IOTA_MESSAGE_INDEX + 'messages/indexation/fiware/cmdexe')
             .subscribe((err, data) => {
                 const messageId = IOTA_CLIENT.getMessageId(data.payload);
                 IOTA_CLIENT.getMessage()
@@ -696,8 +696,8 @@ The syntax of the IOTA payload (with `i`, `k` and `d` attributes) is based on th
 `message` is then persisted to the Tangle using an appropriate index:
 
 ```javascript
-function command(topic = "cmd", message) {
-    const parts = topic.toString().split("/");
+function command(topic = 'cmd', message) {
+    const parts = topic.toString().split('/');
     const apiKey = parts[1];
     const deviceId = parts[2];
     const action = parts[3];
@@ -705,13 +705,13 @@ function command(topic = "cmd", message) {
 }
 
 function forwardAsIOTATangle(apiKey, deviceId, state, topic) {
-    const payload = "i=" + deviceId + "&k=" + apiKey + "&d=" + state;
+    const payload = 'i=' + deviceId + '&k=' + apiKey + '&d=' + state;
     IOTA_CLIENT.message()
-        .index("fiware/" + topic)
+        .index('fiware/' + topic)
         .data(payload)
         .submit()
         .then((message) => {
-            debug("messageId: " + message.messageId);
+            debug('messageId: ' + message.messageId);
         });
 }
 ```
@@ -723,23 +723,23 @@ device id, and the posted to an appropriate MQTT Topic.
 
 ```javascript
 function unmarshall(payload) {
-    const parts = payload.split("&");
+    const parts = payload.split('&');
     const obj = {};
     parts.forEach((elem) => {
-        const keyValues = elem.split("=");
+        const keyValues = elem.split('=');
         obj[keyValues[0]] = keyValues[1];
     });
     return obj;
 }
 
 function measure(messageData) {
-    const payload = Buffer.from(messageData.message.payload.data, "hex").toString("utf8");
+    const payload = Buffer.from(messageData.message.payload.data, 'hex').toString('utf8');
     const data = unmarshall(payload);
-    forwardAsMQTT(data.k, data.i, data.d, "attrs");
+    forwardAsMQTT(data.k, data.i, data.d, 'attrs');
 }
 
 function forwardAsMQTT(apiKey, deviceId, state, topic) {
-    const mqttTopic = "/" + apiKey + "/" + deviceId + "/" + topic;
+    const mqttTopic = '/' + apiKey + '/' + deviceId + '/' + topic;
     MQTT_CLIENT.publish(mqttTopic, state);
 }
 ```
@@ -755,12 +755,12 @@ in order to be informed of commands. `process.nextTick()` can be used to ensure 
 processed when time permits.
 
 ```javascript
-const iotaClient = require("@iota/client");
-const IOTA_CLIENT = new iotaClient.ClientBuilder().node("https://chrysalis-nodes.iota.cafe").build();
+const iotaClient = require('@iota/client');
+const IOTA_CLIENT = new iotaClient.ClientBuilder().node('https://chrysalis-nodes.iota.cafe').build();
 
 IOTA_CLIENT.getInfo().then(() => {
     IOTA_CLIENT.subscriber()
-        .topic("messages/indexation/cmd")
+        .topic('messages/indexation/cmd')
         .subscribe((err, data) => {
             return process.nextTick(() => {
                 readFromTangle(data);
@@ -773,7 +773,7 @@ function readFromTangle(data) {
     IOTA_CLIENT.getMessage()
         .data(messageId)
         .then((messageData) => {
-            const payload = Buffer.from(messageData.message.payload.data, "hex").toString("utf8");
+            const payload = Buffer.from(messageData.message.payload.data, 'hex').toString('utf8');
             Southbound.processIOTAMessage(messageId, payload);
         });
 }
@@ -787,7 +787,7 @@ are queued and sent in order. If an error occurs the acknowledgement must be res
 
 ```javascript
 function processIOTAMessage(apiKey, deviceId, message) {
-    const keyValuePairs = message.split("|") || [""];
+    const keyValuePairs = message.split('|') || [''];
     const command = getUltralightCommand(keyValuePairs[0]);
     process.nextTick(() => {
         IoTDevices.actuateDevice(deviceId, command).then((response) => {
@@ -798,10 +798,10 @@ function processIOTAMessage(apiKey, deviceId, message) {
 ```
 
 ```javascript
-const async = require("async");
+const async = require('async');
 const queue = async.queue((data, callback) => {
     IOTA_CLIENT.message()
-        .index("fiware/cmdexe")
+        .index('fiware/cmdexe')
         .data(data.responsePayload)
         .submit()
         .then((response) => {
@@ -823,17 +823,17 @@ pushed to a queue. The queue sends the measure to the IOTA Tangle and reschedule
 
 ```javascript
 function sendAsIOTA(deviceId, state) {
-    const payload = "i=" + deviceId + "&k=" + getAPIKey(deviceId) + "&d=" + state + "|t|" + new Date().toISOString();
+    const payload = 'i=' + deviceId + '&k=' + getAPIKey(deviceId) + '&d=' + state + '|t|' + new Date().toISOString();
     queue.push(payload);
 }
 ```
 
 ```javascript
-const async = require("async");
+const async = require('async');
 
 const queue = async.queue((payload, callback) => {
     IOTA_CLIENT.message()
-        .index("fiware/attrs")
+        .index('fiware/attrs')
         .data(payload)
         .submit()
         .then((message) => {

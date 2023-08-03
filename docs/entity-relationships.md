@@ -84,9 +84,9 @@ orion:
     networks:
         - default
     expose:
-        - "1026"
+        - '1026'
     ports:
-        - "1026:1026"
+        - '1026:1026'
     command: -dbhost mongo-db -logLevel DEBUG
 ```
 
@@ -96,9 +96,9 @@ mongo-db:
     hostname: mongo-db
     container_name: db-mongo
     expose:
-        - "27017"
+        - '27017'
     ports:
-        - "27017:27017"
+        - '27017:27017'
     networks:
         - default
 ```
@@ -301,9 +301,8 @@ curl -G -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'

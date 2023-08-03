@@ -111,8 +111,8 @@ keyrock:
     depends_on:
         - mysql-db
     ports:
-        - "3005:3005"
-        - "3443:3443"
+        - '3005:3005'
+        - '3443:3443'
     environment:
         - DEBUG=idm:*
         - DATABASE_HOST=mysql-db
@@ -183,14 +183,14 @@ mysql-db:
     hostname: mysql-db
     container_name: db-mysql
     expose:
-        - "3306"
+        - '3306'
     ports:
-        - "3306:3306"
+        - '3306:3306'
     networks:
         - default
     environment:
-        - "MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data"
-        - "MYSQL_ROOT_HOST=172.18.1.5"
+        - 'MYSQL_ROOT_PASSWORD_FILE=/run/secrets/my_secret_data'
+        - 'MYSQL_ROOT_HOST=172.18.1.5'
     volumes:
         - mysql-db:/var/lib/mysql
     secrets:
@@ -361,9 +361,8 @@ curl -iX POST \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'
@@ -445,7 +444,7 @@ Applications are therefore a conceptual bucket holding who can do what on which 
 
 ## Video : Creating Applications with the Keyrock GUI
 
-[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=pjsl0eHpFww&t=470 "Creating Applications")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=pjsl0eHpFww&t=470 'Creating Applications')
 
 Click on the image above to watch a video demonstrating how to create applications using the **Keyrock** GUI.
 

@@ -113,11 +113,11 @@ jobmanager:
     hostname: jobmanager
     container_name: flink-jobmanager
     expose:
-        - "8081"
-        - "9001"
+        - '8081'
+        - '9001'
     ports:
-        - "6123:6123"
-        - "8081:8081"
+        - '6123:6123'
+        - '8081:8081'
     command: jobmanager
     environment:
         - JOB_MANAGER_RPC_ADDRESS=jobmanager
@@ -129,14 +129,14 @@ taskmanager:
     hostname: taskmanager
     container_name: flink-taskmanager
     ports:
-        - "6121:6121"
-        - "6122:6122"
-        - "9001:9001"
+        - '6121:6121'
+        - '6122:6122'
+        - '9001:9001'
     depends_on:
         - jobmanager
     command: taskmanager
     links:
-        - "jobmanager:jobmanager"
+        - 'jobmanager:jobmanager'
     environment:
         - JOB_MANAGER_RPC_ADDRESS=jobmanager
 ```
@@ -333,9 +333,8 @@ curl -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'

@@ -195,18 +195,18 @@ tutorial:
     networks:
         - default
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "PORT=3000"
-        - "IOTA_HTTP_HOST=iot-agent"
-        - "IOTA_HTTP_PORT=7896"
-        - "DUMMY_DEVICES_PORT=3001" # Port used by the dummy IOT devices to receive commands
-        - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
+        - 'DEBUG=tutorial:*'
+        - 'PORT=3000'
+        - 'IOTA_HTTP_HOST=iot-agent'
+        - 'IOTA_HTTP_PORT=7896'
+        - 'DUMMY_DEVICES_PORT=3001' # Port used by the dummy IOT devices to receive commands
+        - 'DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov'
 ```
 
 The `tutorial` container is listening on two ports:

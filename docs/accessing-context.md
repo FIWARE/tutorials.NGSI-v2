@@ -73,12 +73,12 @@ try {
 #### Node.js (with `request` library)
 
 ```javascript
-const request = require("request");
+const request = require('request');
 
 const options = {
-    method: "GET",
-    url: "http://localhost:1026/v2/entities/urn:ngsi-ld:Store:001",
-    qs: { options: "keyValues" }
+    method: 'GET',
+    url: 'http://localhost:1026/v2/entities/urn:ngsi-ld:Store:001',
+    qs: { options: 'keyValues' }
 };
 
 request(options, function (error, response, body) {
@@ -293,9 +293,9 @@ will use the existing `ngsi_v2` npm library. This needs to be included in the he
 <!-- textlint-enable write-good -->
 
 ```javascript
-const NgsiV2 = require("ngsi_v2");
+const NgsiV2 = require('ngsi_v2');
 const defaultClient = NgsiV2.ApiClient.instance;
-defaultClient.basePath = process.env.CONTEXT_BROKER || "http://localhost:1026/v2";
+defaultClient.basePath = process.env.CONTEXT_BROKER || 'http://localhost:1026/v2';
 ```
 
 ### Reading Store Data
@@ -320,15 +320,15 @@ This enables us to wrap the requests in `Promises` as shown:
 
 ```javascript
 function displayStore(req, res) {
-    retrieveEntity(req.params.storeId, { options: "keyValues", type: "Store" })
+    retrieveEntity(req.params.storeId, { options: 'keyValues', type: 'Store' })
         .then((store) => {
             // If a store has been found display it on screen
-            return res.render("store", { title: store.name, store });
+            return res.render('store', { title: store.name, store });
         })
         .catch((error) => {
             debug(error);
             // If no store has been found, display an error screen
-            return res.render("store-error", { title: "Error", error });
+            return res.render('store-error', { title: 'Error', error });
         });
 }
 ```
@@ -418,18 +418,18 @@ The presence of the `q` parameter in the request will filter the list of entitie
 function displayTillInfo(req, res) {
     Promise.all([
         listEntities({
-            options: "keyValues",
-            type: "Product"
+            options: 'keyValues',
+            type: 'Product'
         }),
         listEntities({
-            q: "refStore==" + req.params.storeId,
-            options: "keyValues",
-            type: "InventoryItem"
+            q: 'refStore==' + req.params.storeId,
+            options: 'keyValues',
+            type: 'InventoryItem'
         })
     ])
         .then((values) => {
             // If values have been found display it on screen
-            return res.render("till", {
+            return res.render('till', {
                 products: values[0],
                 inventory: values[1]
             });
@@ -437,7 +437,7 @@ function displayTillInfo(req, res) {
         .catch((error) => {
             debug(error);
             // An error occurred, return with no results
-            return res.render("till", { products: {}, inventory: {} });
+            return res.render('till', { products: {}, inventory: {} });
         });
 }
 
@@ -501,15 +501,15 @@ updated. No error handling has been added to this function - it has been left to
 ```javascript
 async function buyItem(req, res) {
     const inventory = await retrieveEntity(req.params.inventoryId, {
-        options: "keyValues",
-        type: "InventoryItem"
+        options: 'keyValues',
+        type: 'InventoryItem'
     });
     const count = inventory.shelfCount - 1;
     await updateExistingEntityAttributes(
         req.params.inventoryId,
-        { shelfCount: { type: "Integer", value: count } },
+        { shelfCount: { type: 'Integer', value: count } },
         {
-            type: "InventoryItem"
+            type: 'InventoryItem'
         }
     );
     res.redirect(`/app/store/${inventory.refStore}/till`);

@@ -134,20 +134,20 @@ tutorial:
     networks:
         - default
     expose:
-        - "3000"
-        - "3001"
+        - '3000'
+        - '3001'
     ports:
-        - "3000:3000"
-        - "3001:3001"
+        - '3000:3000'
+        - '3001:3001'
     environment:
-        - "DEBUG=tutorial:*"
-        - "PORT=3000"
-        - "IOTA_HTTP_HOST=iot-agent"
-        - "IOTA_HTTP_PORT=7896"
-        - "DUMMY_DEVICES_PORT=3001"
-        - "DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov"
-        - "DUMMY_DEVICES_TRANSPORT=HTTP"
-        - "DUMMY_DEVICES_PAYLOAD=XML"
+        - 'DEBUG=tutorial:*'
+        - 'PORT=3000'
+        - 'IOTA_HTTP_HOST=iot-agent'
+        - 'IOTA_HTTP_PORT=7896'
+        - 'DUMMY_DEVICES_PORT=3001'
+        - 'DUMMY_DEVICES_API_KEY=4jggokgpepnvsb2uv4s40d59ov'
+        - 'DUMMY_DEVICES_TRANSPORT=HTTP'
+        - 'DUMMY_DEVICES_PAYLOAD=XML'
 ```
 
 The `tutorial` container is listening on two ports:
@@ -193,11 +193,11 @@ iot-agent:
     networks:
         - default
     expose:
-        - "4041"
-        - "7896"
+        - '4041'
+        - '7896'
     ports:
-        - "4041:4041"
-        - "7896:7896"
+        - '4041:4041'
+        - '7896:7896'
     environment:
         - IOTA_CB_HOST=orion
         - IOTA_CB_PORT=1026
@@ -360,7 +360,7 @@ This syntax differs from the Ultralight IoT Agent where the device ID and API ke
 The relevant changes can be found in the `HTTPBindings.js` file where an XML parser is instantiated.
 
 ```javascript
-const xmlBodyParser = require("express-xml-bodyparser");
+const xmlBodyParser = require('express-xml-bodyparser');
 ```
 
 ```javascript
@@ -381,24 +381,24 @@ function checkMandatoryParams(queryPayload) {
         var notFoundParams = [],
             error;
 
-        req.apiKey = req.body["measure"]["$"]["key"];
-        req.deviceId = req.body["measure"]["$"]["device"];
+        req.apiKey = req.body['measure']['$']['key'];
+        req.deviceId = req.body['measure']['$']['device'];
 
         if (!req.apiKey) {
-            notFoundParams.push("API Key");
+            notFoundParams.push('API Key');
         }
 
         if (!req.deviceId) {
-            notFoundParams.push("Device Id");
+            notFoundParams.push('Device Id');
         }
 
         // CHeck if retrievingParam
-        if (queryPayload && !req.query.d && req.query.getCmd !== "1") {
-            notFoundParams.push("Payload");
+        if (queryPayload && !req.query.d && req.query.getCmd !== '1') {
+            notFoundParams.push('Payload');
         }
 
-        if (req.method === "POST" && !req.is("application/xml")) {
-            error = new errors.UnsupportedType("application/xml");
+        if (req.method === 'POST' && !req.is('application/xml')) {
+            error = new errors.UnsupportedType('application/xml');
         }
 
         if (notFoundParams.length !== 0) {
@@ -493,11 +493,11 @@ The next step is to parse the payload extract the attributes. This can be found 
 ```javascript
 function parse(payload) {
     let result = [];
-    const keys = Object.keys(payload["measure"]);
+    const keys = Object.keys(payload['measure']);
     for (let i = 0; i < keys.length; i++) {
-        if (keys[i] !== "$") {
+        if (keys[i] !== '$') {
             let obj = {};
-            obj[keys[i]] = payload["measure"][keys[i]]["$"].value;
+            obj[keys[i]] = payload['measure'][keys[i]]['$'].value;
             result.push(obj);
         }
     }
@@ -522,9 +522,8 @@ curl -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'
@@ -671,11 +670,11 @@ function generateCommandExecution(apiKey, device, attribute) {
     //...
     const options = {
         url: device.endpoint,
-        method: "POST",
+        method: 'POST',
         body: xmlParser.createCommandPayload(device, cmdName, cmdAttributes),
         headers: {
-            "fiware-service": device.service,
-            "fiware-servicepath": device.subservice
+            'fiware-service': device.service,
+            'fiware-servicepath': device.subservice
         }
     };
     //...
@@ -687,16 +686,16 @@ unique to our custom XML messaging protocol and is generated in `createCommandPa
 
 ```javascript
 function createCommandPayload(device, command, attributes) {
-    if (typeof attributes === "object") {
-        let payload = "<" + command + '  device="' + device.id + '">';
+    if (typeof attributes === 'object') {
+        let payload = '<' + command + '  device="' + device.id + '">';
 
         Object.keys(attributes).forEach(function (key, value) {
-            payload = payload + "<" + key + ">" + value + "</" + key + ">";
+            payload = payload + '<' + key + '>' + value + '</' + key + '>';
         });
-        payload = payload + "</" + command + ">";
+        payload = payload + '</' + command + '>';
         return payload;
     } else {
-        return "<" + command + '  device="' + device.id + '"/>';
+        return '<' + command + '  device="' + device.id + '"/>';
     }
 }
 ```
@@ -710,7 +709,7 @@ interprets the command response from the device.
 
 ```javascript
 function result(payload) {
-    const xmlToJson = require("xml-parser");
+    const xmlToJson = require('xml-parser');
     const data = xmlToJson(payload);
     const result = {};
     result.deviceId = data.root.attributes.device;

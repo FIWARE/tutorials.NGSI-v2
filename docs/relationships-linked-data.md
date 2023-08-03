@@ -124,7 +124,7 @@ from third parties such as Google are able to read product information (encoded 
 [**Product** data model](https://jsonld.com/product/)) and display a rich snippet of product information with a standard
 star rating.
 
-[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=_-rRxKSm2ic "Rich Snippets")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=_-rRxKSm2ic 'Rich Snippets')
 
 Click on the image above to watch an introductory video on rich snippets for product search.
 
@@ -325,7 +325,7 @@ orion:
     networks:
         - default
     ports:
-        - "1026:1026"
+        - '1026:1026'
     command: -dbhost mongo-db -logLevel DEBUG
     healthcheck:
         test: curl --fail -s http://orion:1026/version || exit 1
@@ -337,9 +337,9 @@ mongo-db:
     hostname: mongo-db
     container_name: db-mongo
     expose:
-        - "27017"
+        - '27017'
     ports:
-        - "27017:27017"
+        - '27017:27017'
     networks:
         - default
     command: --nojournal
@@ -404,9 +404,8 @@ curl -G -X GET \
 
 #### Response:
 
-
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format
-> the JSON responses in this tutorial. Pipe the result by appending
+> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
+> JSON responses in this tutorial. Pipe the result by appending
 >
 > ```
 > | jq '.'
@@ -779,7 +778,7 @@ Furthermore, `locatedIn` has an `@type="@id"` which indicates to a computer that
 
 ### Video: JSON-LD Compaction & Expansion
 
-[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Tm3fD89dqRE "JSON-LD Compaction & Expansion")
+[![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Tm3fD89dqRE 'JSON-LD Compaction & Expansion')
 
 Click on the image above to watch a video JSON-LD expansion and compaction with reference to the `@context`.
 
