@@ -34,6 +34,12 @@ run from exposed ports.
 
 ![](https://fiware.github.io/tutorials.Getting-Started/img/architecture.png)
 
+### Video: NGSI-v2 Core Context Management
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=pK4GgYjlmdY&t=277s 'NGSI-v2 Hello World')
+
+Click on the image above to watch a demo of this tutorial describing how to create Entities and Properties
+
 ## Prerequisites
 
 ### Docker

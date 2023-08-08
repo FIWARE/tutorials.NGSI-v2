@@ -100,6 +100,12 @@ from exposed ports.
 The necessary configuration information can be seen in the services section of the associated `docker-compose.yml` file.
 It has been described in a [previous tutorial](context-providers.md)
 
+### Video: NGSI-v2 Core Context Management
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=pK4GgYjlmdY&t=1690s 'NGSI-v2 Subscriptions')
+
+Click on the image above to watch a demo of this tutorial describing how to create Subscriptions.
+
 ## Start Up
 
 All services can be initialized from the command-line by running the bash script provided within the repository. Please

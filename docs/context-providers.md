@@ -141,6 +141,12 @@ The other `tutorial` container configuration values described in the YAML file a
 The configuration information for MongoDB and the Orion Context Broker has been described in a
 [previous tutorial](entity-relationships.md)
 
+### Video: NGSI-v2 Core Context Management
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=pK4GgYjlmdY&t=1319s 'NGSI-v2 Registrations')
+
+Click on the image above to watch a demo of this tutorial describing how to create Registrations
+
 ## Context Provider NGSI proxy
 
 A simple [Node.js](https://nodejs.org/) [Express](https://expressjs.com/) application has been bundled as part of the

@@ -108,6 +108,12 @@ listening on the default port `27071`. Both containers are also exposing the sam
 the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line
 initialization should be self-explanatory.
 
+### Video: NGSI-v2 Core Context Management
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=pK4GgYjlmdY&t=938s 'NGSI-v2 Relationships')
+
+Click on the image above to watch a demo of this tutorial describing how to create Entity Relationships
+
 ## Start Up
 
 All services can be initialised from the command-line by running the
