@@ -45,8 +45,8 @@ Solution either by connecting to a series of dummy IoT devices or manipulating t
     <code style="color:#777;">@context</code>.
 </p>
 <p>
-    However, NGSI-LD is when creating a data space or introducing a system of systems aproach, and in
-    situations requiring  interoperability across apps and organisations.
+    However, NGSI-LD and Linked Data is necessary when creating a data space or introducing a system of
+    systems aproach, and in situations requiring  interoperability across apps and organisations.
 </p>
 <p>
      More information about NGSI-LD can be found <a href="https://ngsi-ld-tutorials.readthedocs.io/">here</a>
