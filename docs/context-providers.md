@@ -265,6 +265,9 @@ curl -X GET \
 
 ### Twitter API Context Provider (Health Check)
 
+> **Note:** Access to the Twitter API will depend upon creating a developer's account. If you do not wish to sign up,
+> you can use the free-to-use [Cat Facts API](https://github.com/alexwohlbruck/cat-facts) instead.
+
 This example returns the health of the Twitter API Context Provider endpoint.
 
 A non-error response shows that an NGSI proxy for the Twitter API is available on the network and returning values.
@@ -278,7 +281,7 @@ The Twitter API uses OAuth2:
     Key & Consumer Secret.
 -   For more information see: [https://developer.twitter.com/](https://developer.twitter.com/)
 
-#### 3 Request:
+#### 3a Request:
 
 ```bash
 curl -X GET \
@@ -326,6 +329,61 @@ seen below:
 ```
 
 As you can see details the `text` of each tweet is available within the `statuses` array.
+
+#### 3b Request:
+
+```bash
+curl -X GET \
+  'http://localhost:3000/health/catfacts'
+```
+
+The response will contain a series of facts about cats. The full response is rather long, but a snippet can be seen
+below:
+
+```json
+{
+    "current_page": 1,
+    "data": [
+        {
+            "fact": "Unlike dogs, cats do not have a sweet tooth. Scientists believe this is due to a mutation in a key taste receptor.",
+            "length": 114
+        },
+        {
+            "fact": "When a cat chases its prey, it keeps its head level. Dogs and humans bob their heads up and down.",
+            "length": 97
+        },
+        ... ETC
+    ],
+    "first_page_url": "https://catfact.ninja/facts?page=1",
+    "from": 1,
+    "last_page": 67,
+    "last_page_url": "https://catfact.ninja/facts?page=67",
+    "links": [
+        {
+            "url": null,
+            "label": "Previous",
+            "active": false
+        },
+        {
+            "url": "https://catfact.ninja/facts?page=1",
+            "label": "1",
+            "active": true
+        },
+        {
+            "url": "https://catfact.ninja/facts?page=2",
+            "label": "2",
+            "active": false
+        },
+        ... ETC
+    ],
+    "next_page_url": "https://catfact.ninja/facts?page=2",
+    "path": "https://catfact.ninja/facts",
+    "per_page": "5",
+    "prev_page_url": null,
+    "to": 5,
+    "total": 332
+}
+```
 
 ### Weather API Context Provider (Health Check)
 
@@ -539,6 +597,7 @@ curl -iX POST \
       }
     ],
     "attrs": [
+      "temperature",
       "relativeHumidity"
     ]
   },
@@ -552,6 +611,26 @@ curl -iX POST \
 
 Once a Context Provider has been registered, the new context data will be included if the context of the **Store**
 entity `urn:ngsi-ld:Store:001` is requested using the `/entities/<entity-id>` endpoint:
+
+> **Note:** the `provider.http.url` links to a receiving endpoint (`*/op/query`)within the
+> [Tutorial Application](https://github.com/FIWARE/tutorials.NGSI-v2/blob/master/context-provider/routes/proxy-v2.js)
+>
+> -   `/random/temperature/op/query` - Random Temperature readings as `temperature`
+> -   `/random/relativeHumidity/op/query` - Random Humidity readings as `relativeHumidity`
+> -   `/random/tweets/op/query` - Random Texts as `tweets`
+> -   `/random/weatherConditions/op/query` - Temperatures and Humidity
+>
+> -   `/static/temperature/op/query` - Fixed Temperature readings as `temperature`
+> -   `/static/relativeHumidity/op/query` - Fixed Humidity readings as `relativeHumidity`
+> -   `/static/tweets/op/query` - Fixed Texts as `tweets`
+> -   `/static/weatherConditions/op/query` - Temperatures and Humidity
+> -
+> -   `/catfacts/tweets/op/query` - Live CatFacts Texts as `tweets`
+> -   `/twitter/tweets/op/query` - Live Tweet Texts as `tweets`
+>
+> -   `/weather/temperature/op/query` - Weather data readings as `temperature`
+> -   `/weather/relativeHumidity/op/query` - Weather data readings as `relativeHumidity`
+> -   `/weather/weatherConditions/op/query` - Temperatures and Humidity
 
 #### 8 Request:
 
@@ -620,6 +699,9 @@ This example reads the registration data with the ID 5addeffd93e53f86d8264521 fr
 Registration data can be obtained by making a GET request to the `/v2/registrations/<entity>` endpoint.
 
 #### 10 Request:
+
+> **Note**: The `id` `5ad5b9435c28633f0ae90671` shown below will need to be replaced by the existing example found in
+> the Response to [Request 7](#7-request).
 
 ```bash
 curl -X GET \
