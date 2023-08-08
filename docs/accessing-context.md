@@ -280,7 +280,7 @@ the NGSI v2 [CRUD operations](crud-operations.md#what-is-crud) with the followin
 ## Analyzing the Code
 
 The code under discussion can be found within the `store` controller in the
-[Git Repository](https://github.com/FIWARE/tutorials.Step-by-Step/blob/master/context-provider/controllers/store.js)
+[Git Repository](https://github.com/FIWARE/tutorials.NGSI-v2/blob/master/context-provider/controllers/ngsi-v2/store.js)
 
 ### Initializing the library
 
