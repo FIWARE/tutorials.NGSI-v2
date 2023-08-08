@@ -111,6 +111,12 @@ from exposed ports.
 
 The specific architecture of each section of the tutorial is discussed below.
 
+### Video: Data Persistence
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=_uLZDGFPlRA&list=PLR9elAI9JscTyBVUq0P48OMVkrbdPitB7&index=42&t=1010s 'NGSI-v2 Cygnus')
+
+Click on the image above to watch a demo of this tutorial persisting context data using Apache Flume
+
 ## Start Up
 
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the

@@ -241,6 +241,12 @@ The `iot-agent` container is driven by environment variables as shown:
 | IOTA_PROVIDER_URL     | `http://iot-agent:4041` | URL passed to the Context Broker when commands are registered, used as a forwarding URL location when the Context Broker issues a command to a device |
 | IOTA_DEFAULT_RESOURCE | `/iot/xml`              | The default path the IoT Agent uses listening for custom XML measures.                                                                                |
 
+### Video: NGSI-v2 IoT Agent
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=HuEwI8wJKFU&t=311s 'NGSI-v2 XML IoT Agent')
+
+Click on the image above to watch a demo of this tutorial describing how to create an XML IoT Agent.
+
 ## Start Up
 
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the

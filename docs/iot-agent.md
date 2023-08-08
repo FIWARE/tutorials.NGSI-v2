@@ -275,6 +275,12 @@ The `iot-agent` container is driven by environment variables as shown:
 | IOTA_HTTP_PORT       | `7896`                  | The port where the IoT Agent listens for IoT device traffic over HTTP                                                                                 |
 | IOTA_PROVIDER_URL    | `http://iot-agent:4041` | URL passed to the Context Broker when commands are registered, used as a forwarding URL location when the Context Broker issues a command to a device |
 
+### Video: NGSI-v2 IoT Agent
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=my6Kgiqx-OM 'NGSI-v2 IoT Agent')
+
+Click on the image above to watch a demo of this tutorial describing how to use an IoT Agent
+
 ## Start Up
 
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the

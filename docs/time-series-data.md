@@ -134,6 +134,12 @@ The overall architecture can be seen below:
 
 ![](https://fiware.github.io/tutorials.Time-Series-Data/img/architecture.png)
 
+### Video: Short-Term History
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=fX_YAc7G4Dk&list=PLR9elAI9JscTyBVUq0P48OMVkrbdPitB7&index=41&t=980s 'NGSI-v2 QuantumLeap')
+
+Click on the image above to watch a demo of this tutorial persisting context data using QuantumLeap
+
 ## Start Up
 
 Before you start, you should ensure that you have obtained or built the necessary Docker images locally. Please clone

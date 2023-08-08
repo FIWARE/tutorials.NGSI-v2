@@ -129,6 +129,12 @@ from exposed ports.
 
 The specific architecture of both the _minimal_ and _formal_ configurations is discussed below.
 
+### Video: Short-Term History
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=fX_YAc7G4Dk&list=PLR9elAI9JscTyBVUq0P48OMVkrbdPitB7 'NGSI-v2 STH-Comet')
+
+Click on the image above to watch a demo of this tutorial persisting context data using STH-Comet
+
 ## Start Up
 
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the

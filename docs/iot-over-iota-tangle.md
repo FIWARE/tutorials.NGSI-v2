@@ -284,6 +284,12 @@ The `iota-gateway` container is a middleware connecting to the MQTT broker and r
 IOTA Tangle. This middleware therefore needs to connect to both the MQTT broker and the IOTA Tangle and repeats some
 parameters described above.
 
+### Video: NGSI-v2 IoT Agent Gateway
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=qDMljIidA6k 'NGSI-v2 IoT Agent Gateway')
+
+Click on the image above to watch a demo of this tutorial describing how to use an IoT Agent Gateway with IOTA.
+
 ## Start Up
 
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the

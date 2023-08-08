@@ -248,6 +248,12 @@ The `iot-agent` container is driven by environment variables as shown:
 As you can see, use of the MQTT transport is driven by only two environment variables `IOTA_MQTT_HOST` and
 `IOTA_MQTT_PORT`
 
+### Video: NGSI-v2 IoT Agent
+
+[![](https://fiware.github.io/tutorials.NGSI-LD/img/video-logo.png)](https://www.youtube.com/watch?v=my6Kgiqx-OM&t=1805s 'NGSI-v2 IoT Agent MQTT')
+
+Click on the image above to watch a demo of this tutorial describing how to use an IoT Agent with MQTT
+
 ## Start Up
 
 Before you start you should ensure that you have obtained or built the necessary Docker images locally. Please clone the
