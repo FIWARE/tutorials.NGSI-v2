@@ -26,6 +26,33 @@ Solution either by connecting to a series of dummy IoT devices or manipulating t
 <a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit23.png" width="240" height="70" /></a>  <a href="https://www.eventbrite.com/e/fiware-on-site-training-tickets-591474775977"><img src="https://fiware.github.io//catalogue/img/Training23.png" width="240" height="70" /></a>
 --->
 
+<blockquote>
+<h3>Should I use NGSI-v2 or NGSI-LD?</h3>
+<p>
+    FIWARE offers two flavours of the NGSI interfaces:
+</p>
+<ul>
+    <li>
+        <b style="color:#777;">NGSI-v2</b> offers JSON based interoperability used in individual Smart Systems
+    </li>
+    <li>
+        <b style="color:#777;">NGSI-LD</b> offers JSON-LD based interoperability used for Federations and Data Spaces
+    </li>
+</ul>
+<p>
+    NGSI-v2 is ideal for creating individual applications offering interoperable interfaces for web services
+    or IoT devices. It is easier to understand than NGSI-LD and does not require a JSON-LD
+    <code style="color:#777;">@context</code>.
+</p>
+<p>
+    However, NGSI-LD is when creating a data space or introducing a system of systems aproach, and in
+    situations requiring  interoperability across apps and organisations.
+</p>
+<p>
+     More information about NGSI-LD can be found <a href="https://ngsi-ld-tutorials.readthedocs.io/">here</a>
+</p>
+</blockquote>
+
 <h3>How to Use</h3>
 
 Each tutorial is a self-contained learning exercise designed to teach the developer about a single aspect of FIWARE. A
