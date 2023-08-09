@@ -287,6 +287,8 @@ of dummy devices using XML syntax
 
 The device monitor can be found at: `http://localhost:3000/device/monitor`
 
+> **Note:** In addition to user interactions, All dummy devices will periodically register a heartbeat message
+
 ### Checking the IoT Agent Service Health
 
 You can check if the IoT Agent is running by making an HTTP request to the exposed port:

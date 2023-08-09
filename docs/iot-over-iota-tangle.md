@@ -82,6 +82,8 @@ seen on the UltraLight device monitor web page found at: `http://localhost:3000/
 
 ![FIWARE Monitor](https://fiware.github.io//tutorials.IoT-over-IOTA/img/device-monitor.png)
 
+> **Note:** In addition to user interactions, All dummy devices will periodically register a heartbeat message
+
 ## Architecture
 
 This application builds on the components created in [previous tutorials](iot-agent.md). It will make use of two FIWARE

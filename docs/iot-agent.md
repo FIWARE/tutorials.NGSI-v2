@@ -123,6 +123,8 @@ state of each device can be seen on the UltraLight device monitor web page found
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-Agent/img/device-monitor.png)
 
+> **Note:** In addition to user interactions, All dummy devices will periodically register a heartbeat message
+
 ---
 
 ## Architecture
@@ -318,6 +320,8 @@ of dummy devices using Ultralight 2.0 syntax
 
 <h4>Device Monitor</h4>
 The device monitor can be found at: `http://localhost:3000/device/monitor`
+
+> **Note:** In addition to user interactions, All dummy devices will periodically register a heartbeat message
 
 ## Checking the IoT Agent Service Health
 

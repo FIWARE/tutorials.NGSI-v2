@@ -65,6 +65,8 @@ state of each device can be seen on the UltraLight device monitor web page found
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-over-MQTT/img/device-monitor.png)
 
+> **Note:** In addition to user interactions, All dummy devices will periodically register a heartbeat message
+
 ---
 
 ## Architecture

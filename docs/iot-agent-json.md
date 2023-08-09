@@ -131,6 +131,8 @@ state of each device can be seen on the JSON device monitor web page found at: `
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-Agent-JSON/img/device-monitor.png)
 
+> **Note:** In addition to user interactions, All dummy devices will periodically register a heartbeat message
+
 ---
 
 ## Architecture
