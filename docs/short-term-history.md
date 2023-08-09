@@ -367,7 +367,7 @@ curl -iX POST \
   -H 'fiware-service: openiot' \
   -H 'fiware-servicepath: /' \
   -d '{
-  "description": "Notify Cygnus to sample Lamp luminosity every five seconds",
+  "description": "Notify STH-Comet to sample Lamp luminosity every five seconds",
   "subject": {
     "entities": [
       {
