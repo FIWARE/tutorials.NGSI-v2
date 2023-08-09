@@ -443,6 +443,8 @@ show collections
 
 #### Result:
 
+> **Note** Additional Entities may also appear.
+
 ```text
 switched to db sth_openiot
 
@@ -784,6 +786,8 @@ ORDER BY table_schema,table_name;
 
 #### Result:
 
+> **Note** Additional Entities may also appear.
+
 ```text
  table_schema |    table_name
 --------------+-------------------
@@ -1116,6 +1120,8 @@ SHOW tables FROM openiot;
 ```
 
 #### Result:
+
+> **Note** Additional Entities may also appear.
 
 ```text
  table_schema |    table_name
