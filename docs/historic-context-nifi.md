@@ -1114,7 +1114,7 @@ port.
 
 ```bash
 curl -X GET \
-  'http://localhost:9090/system-diagnostics'
+  'http://localhost:9090/nifi-api/system-diagnostics'
 ```
 
 #### Response:
