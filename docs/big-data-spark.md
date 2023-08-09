@@ -147,7 +147,7 @@ commands as a privileged user:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Big-Data-Spark.git
 cd tutorials.Big-Data-Spark
-checkout NGSI-v2
+git checkout NGSI-v2
 ./services create
 ```
 
