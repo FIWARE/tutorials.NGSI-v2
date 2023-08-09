@@ -231,37 +231,89 @@ The response will look similar to the following:
 {
     "systemDiagnostics": {
         "aggregateSnapshot": {
-            "totalNonHeap": "value",
-            "totalNonHeapBytes": 0,
-            "usedNonHeap": "value",
-            "usedNonHeapBytes": 0,
-            "freeNonHeap": "value",
-            "freeNonHeapBytes": 0,
-            "maxNonHeap": "value",
-            "maxNonHeapBytes": 0,
-            "nonHeapUtilization": "value",
-            "totalHeap": "value",
-            "totalHeapBytes": 0,
-            "usedHeap": "value",
-            "usedHeapBytes": 0,
-            "freeHeap": "value",
-            "freeHeapBytes": 0,
-            "maxHeap": "value",
-            "maxHeapBytes": 0,
-            "heapUtilization": "value",
-            "availableProcessors": 0,
-            "processorLoadAverage": 0.0,
-            "totalThreads": 0,
-            "daemonThreads": 0,
-            "uptime": "value",
-            "flowFileRepositoryStorageUsage": {},
-            "contentRepositoryStorageUsage": [{}],
-            "provenanceRepositoryStorageUsage": [{}],
-            "garbageCollection": [{}],
-            "statsLastRefreshed": "value",
-            "versionInfo": {}
-        },
-        "nodeSnapshots": [{}]
+            "totalNonHeap": "185.66 MB",
+            "totalNonHeapBytes": 194682880,
+            "usedNonHeap": "175.44 MB",
+            "usedNonHeapBytes": 183967304,
+            "freeNonHeap": "10.22 MB",
+            "freeNonHeapBytes": 10715576,
+            "maxNonHeap": "-1 bytes",
+            "maxNonHeapBytes": -1,
+            "totalHeap": "477 MB",
+            "totalHeapBytes": 500170752,
+            "usedHeap": "183.07 MB",
+            "usedHeapBytes": 191966680,
+            "freeHeap": "293.93 MB",
+            "freeHeapBytes": 308204072,
+            "maxHeap": "477 MB",
+            "maxHeapBytes": 500170752,
+            "heapUtilization": "38.0%",
+            "availableProcessors": 4,
+            "processorLoadAverage": 0.24,
+            "totalThreads": 65,
+            "daemonThreads": 26,
+            "uptime": "00:48:56.788",
+            "flowFileRepositoryStorageUsage": {
+                "freeSpace": "248.23 GB",
+                "totalSpace": "285.7 GB",
+                "usedSpace": "37.47 GB",
+                "freeSpaceBytes": 266531205120,
+                "totalSpaceBytes": 306767486976,
+                "usedSpaceBytes": 40236281856,
+                "utilization": "13.0%"
+            },
+            "contentRepositoryStorageUsage": [
+                {
+                    "identifier": "default",
+                    "freeSpace": "248.23 GB",
+                    "totalSpace": "285.7 GB",
+                    "usedSpace": "37.47 GB",
+                    "freeSpaceBytes": 266531205120,
+                    "totalSpaceBytes": 306767486976,
+                    "usedSpaceBytes": 40236281856,
+                    "utilization": "13.0%"
+                }
+            ],
+            "provenanceRepositoryStorageUsage": [
+                {
+                    "identifier": "default",
+                    "freeSpace": "248.23 GB",
+                    "totalSpace": "285.7 GB",
+                    "usedSpace": "37.47 GB",
+                    "freeSpaceBytes": 266531205120,
+                    "totalSpaceBytes": 306767486976,
+                    "usedSpaceBytes": 40236281856,
+                    "utilization": "13.0%"
+                }
+            ],
+            "garbageCollection": [
+                {
+                    "name": "PS Scavenge",
+                    "collectionCount": 41,
+                    "collectionTime": "00:00:01.131",
+                    "collectionMillis": 1131
+                },
+                {
+                    "name": "PS MarkSweep",
+                    "collectionCount": 4,
+                    "collectionTime": "00:00:00.529",
+                    "collectionMillis": 529
+                }
+            ],
+            "statsLastRefreshed": "09:20:15 UTC",
+            "versionInfo": {
+                "niFiVersion": "1.15.3",
+                "javaVendor": "Oracle Corporation",
+                "javaVersion": "1.8.0_322",
+                "osName": "Linux",
+                "osVersion": "5.15.49-linuxkit-pr",
+                "osArchitecture": "amd64",
+                "buildTag": "nifi-1.15.3-RC1",
+                "buildRevision": "753c311",
+                "buildBranch": "UNKNOWN",
+                "buildTimestamp": "01/13/2022 11:15:46 UTC"
+            }
+        }
     }
 }
 ```
