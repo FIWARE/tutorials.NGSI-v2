@@ -44,8 +44,8 @@ Agent - the conversion of messages from JSON to NGSI and vice-versa will be uniq
 A direct comparison of the two IoT Agents can be seen below:
 
 | IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern      |
-| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------- | --------------- |
-| Sample Measure `c                                                   | 1`                                                                  | Sample Measure `{"count": "1"}` | Message Payload |
+| ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------- |
+| Sample Measure `c\|1`                                               | Sample Measure `{"count": "1"}`                                     | Message Payload                 |
 | Sample Command `Robot1@turn\|left`                                  | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload                 |
 | Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload                 |
 | Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism             |
