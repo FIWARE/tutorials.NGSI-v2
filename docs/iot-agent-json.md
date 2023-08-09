@@ -45,8 +45,8 @@ A direct comparison of the two IoT Agents can be seen below:
 
 | IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern      |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | ------------------------------- |
-| Sample Measure <code>c&vert;1</code>                               | Sample Measure `{"count": "1"}`                                     | Message Payload                 |
-| Sample Command `Robot1@turn\|left`                                  | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload                 |
+| Sample Measure <code>c&vert;1</code>                                | Sample Measure `{"count": "1"}`                                     | Message Payload                 |
+| Sample Command <code>Robot1@turn&vert;left</code>                  | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload                 |
 | Content Type is `text/plain`                                        | Content Type is `application/json`                                  | Message Payload                 |
 | Offers 3 transports - HTTP, MQTT and AMPQ                           | Offers 3 transports - HTTP, MQTT and AMPQ                           | Transport Mechanism             |
 | HTTP listens for measures on `iot/d` by default                     | HTTP listens for measures on `iot/json` by default                  | Transport Mechanism             |
