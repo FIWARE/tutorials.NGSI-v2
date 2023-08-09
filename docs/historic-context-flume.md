@@ -391,7 +391,7 @@ docker run -it --network fiware_default  --entrypoint /bin/bash mongo
 You can then log into to the running `mongo-db` database by using the command-line as shown:
 
 ```bash
-mongo --host mongo-db
+mongosh --host mongo-db
 ```
 
 ### Show Available Databases on the MongoDB server
