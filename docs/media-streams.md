@@ -10,6 +10,8 @@ also available.
 The tutorial introduces a series of exercises which can be run directly from within a [Docker](https://www.docker.com)
 container, no HTTP calls are required.
 
+[![Run in GitPod](https://fiware.github.io/tutorials.NGSI-LD/img/gitpod.png)](https://gitpod.io/#https://github.com/FIWARE/tutorials.Media-Streams/tree/NGSI-v2)
+
 <hr class="processing"/>
 
 # What are Media Streams?

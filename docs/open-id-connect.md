@@ -4,6 +4,8 @@
 **Description:** This tutorial complements the previous [Securing Access tutorial](securing-access.md). This tutorial
 also secures access to a FIWARE application but using various **OpenID Connect** flows to authenticate users.
 
+[![Run in GitPod](https://fiware.github.io/tutorials.NGSI-LD/img/gitpod.png)](https://gitpod.io/#https://github.com/FIWARE/tutorials.Securing-Access-OpenID-Connect/tree/NGSI-v2)
+
 # Authenticating Identities (OpenID)
 
 > "Yes, your home is your castle, but it is also your identity and your possibility to be open to others.

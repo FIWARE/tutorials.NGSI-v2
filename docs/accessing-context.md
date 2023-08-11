@@ -12,6 +12,7 @@ making [cUrl](https://ec.haxx.se/) commands.
 [Postman documentation](https://fiware.github.io/tutorials.Accessing-Context/) for the same commands is also available.
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/fb5f564d9bc65fc3690e)
+[![Run in GitPod](https://fiware.github.io/tutorials.NGSI-LD/img/gitpod.png)](https://gitpod.io/#https://github.com/FIWARE/tutorials.Accessing-Context/tree/NGSI-v2)
 
 <hr class="core"/>
 
