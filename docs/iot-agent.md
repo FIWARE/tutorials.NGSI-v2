@@ -660,19 +660,19 @@ curl -L -X POST 'http://localhost:4041/iot/devices' \
       "transport": "HTTP",
       "endpoint": "http://iot-sensors:3001/iot/bell002",
       "attributes": [
-          {
-          "name":"ring",
-          "type":"Text",
-          "expression": "${@ring}",
-          "reverse": [
             {
-              "object_id":"ring",
-              "type": "Text",
-              "expression": "${@ring}"
+                "name": "ring",
+                "type": "Text",
+                "expression": "ring",
+                "reverse": [
+                    {
+                        "object_id": "ring",
+                        "type": "Text",
+                        "expression": "ring | toString()"
+                    }
+                ]
             }
-          ]
-        }
-      ],
+       ],
        "static_attributes": [
          {"name":"refStore", "type": "Relationship","value": "urn:ngsi-ld:Store:002"}
         ]
