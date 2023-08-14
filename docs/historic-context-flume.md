@@ -860,6 +860,324 @@ To leave the Postgres client and leave interactive mode, run the following:
 
 You will then return to the command-line.
 
+
+## ElasticSearch - Persisting Context Data into a Database
+
+To persist historic context data into an alternative database such as **ElasticSearch**, we will need an additional
+container which hosts the ElasticSearch server - the default Docker image for this data can be used. It is important to
+mention that the ElasticSearch Sink has been tested with the versions 6.3 and 7.6 of Elasticsearch. The ElasticSearch
+instance is listening on the standard `9200` port, and the overall architecture can be seen below:
+
+![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/cygnus-elasticsearch.png)
+
+We now have a system with two databases, since the MongoDB container is still required to hold data related to the Orion
+Context Broker and the IoT Agent.
+
+<h3>ElasticSearch - Database Server Configuration</h3>
+
+```yaml
+elasticsearch-db:
+    image: elasticsearch:${ELASTICSEARCH_VERSION}
+    hostname: elasticsearch
+    container_name: db-elasticsearch
+    expose:
+        - '${MONGO_DB_PORT}'
+    ports:
+        - '${ELASTICSEARCH_PORT}:${ELASTICSEARCH_PORT}'
+    networks:
+        - default
+    volumes:
+        - es-db:/usr/share/elasticsearch/data
+    environment:
+        ES_JAVA_OPTS: '-Xmx256m -Xms256m'
+        ELASTIC_PASSWORD: changeme
+        # Use single node discovery in order to disable production mode and avoid bootstrap checks.
+        # see: https://www.elastic.co/guide/en/elasticsearch/reference/current/bootstrap-checks.html
+        discovery.type: single-node
+    healthcheck:
+        test: curl http://localhost:${ELASTICSEARCH_PORT} >/dev/null; if [[ $$? == 52 ]]; then echo 0; else echo 1; fi
+        interval: 30s
+        timeout: 10s
+        retries: 5
+```
+
+The `elasticsearch-db` container is listening on only one port:
+
+-   Port `9200` (ELASTICSEARCH_PORT) is the default port for a ElasticSearch server.
+
+> Note: If you want to deploy multiplie ElasticSearch nodes, it is needed to specify the corresponding port, by default
+> it should be `9300` (ELASTICSEARCH_NODES_COMMUNICATION_PORT) for a ElasticSearch for nodes communication.
+
+The `elasticsearch-db` container is driven by environment variables as shown:
+
+| Key              | Value.              | Description                                                             |
+| ---------------- | ------------------- | ----------------------------------------------------------------------- |
+| ES_JAVA_OPTS     | `-Xmx256m -Xms256m` | Setting JVM heap size. It is not recommended in production environment. |
+| ELASTIC_PASSWORD | `changeme`          | Password for the PostgreSQL database user.                              |
+
+> :information_source: **Note:** Passing the Password in plain text environment variables like this is a security risk.
+> Whereas this is acceptable practice in a tutorial, for a production environment, you can avoid this risk by applying
+> [Docker Secrets](https://blog.docker.com/2017/02/docker-secrets-management/)
+
+<h3>ElasticSearch - Cygnus Configuration</h3>
+
+```yaml
+cygnus:
+    image: quay.io/fiware/cygnus-ngsi:${CYGNUS_VERSION}
+    hostname: cygnus
+    container_name: fiware-cygnus
+    depends_on:
+        - elasticsearch-db
+    networks:
+        - default
+    expose:
+        - '${CYGNUS_API_PORT}'
+        - '${CYGNUS_ELASTICSEARCH_SERVICE_PORT}'
+    ports:
+        - '${CYGNUS_ELASTICSEARCH_SERVICE_PORT}:${CYGNUS_ELASTICSEARCH_SERVICE_PORT}' # localhost:5058
+        - '${CYGNUS_API_PORT}:${CYGNUS_API_PORT}' # localhost:5088
+    environment:
+        - 'CYGNUS_ELASTICSEARCH_HOST=elasticsearch-db:${ELASTICSEARCH_PORT}'
+        - 'CYGNUS_ELASTICSEARCH_PORT=${CYGNUS_ELASTICSEARCH_SERVICE_PORT}'
+        - 'CYGNUS_ELASTICSEARCH_SSL=false'
+        - 'CYGNUS_API_PORT=${CYGNUS_API_PORT}' # Port that Cygnus listens on for operational reasons
+        - 'CYGNUS_LOG_LEVEL=DEBUG' # The logging level for Cygnus
+    healthcheck:
+        test: curl --fail -s http://localhost:${CYGNUS_API_ADMIN_PORT}/v1/version || exit 1
+```
+
+The `cygnus` container is listening on two ports:
+
+-   The Subscription Port for Cygnus, CYGNUS_ELASTICSEARCH_SERVICE_PORT, `5058` is where the service will be listening
+    for notifications from the Orion context broker.
+-   The Management Port for Cygnus, CYGNUS_API_PORT, - `5080` is exposed purely for tutorial access - so that cUrl or
+    Postman can make provisioning commands without being part of the same network.
+
+The `cygnus` container is driven by environment variables as shown:
+
+| Key                       | Value                                    | Description                                                                            |
+| ------------------------- | ---------------------------------------- | -------------------------------------------------------------------------------------- |
+| CYGNUS_ELASTICSEARCH_HOST | `elasticsearch-db:${ELASTICSEARCH_PORT}` | Hostname and port of the ElasticSearch server used to persist historical context data. |
+| CYGNUS_ELASTICSEARCH_PORT | `${CYGNUS_ELASTICSEARCH_SERVICE_PORT}`   | Port, by default `5058`, that Cygnus used to persist historical context data.          |
+| CYGNUS_ELASTICSEARCH_SSL  | `false`                                  | SSL is not configured for communication.                                               |
+| CYGNUS_API_PORT           | `${CYGNUS_API_PORT}`                     | Port, by default `5080` that Cygnus listens on for operational reasons.                |
+| CYGNUS_LOG_LEVEL          | `DEBUG`                                  | The logging level for Cygnus                                                           |
+
+## ElasticSearch - Start up
+
+To start the system with a **ElasticSearch** database run the following command:
+
+```bash
+./services elasticsearch
+```
+
+### Checking the Cygnus Service Health
+
+Once Cygnus is running, you can check the status by making an HTTP request to the exposed `CYGNUS_API_PORT` port. If the
+response is blank, this is usually because Cygnus is not running or is listening on another port.
+
+#### Request:
+
+```bash
+curl -X GET \
+  'http://localhost:5080/v1/version'
+```
+
+#### Response:
+
+The response will look similar to the following:
+
+```json
+{
+    "success": "true",
+    "version": "1.18.0_SNAPSHOT.etc"
+}
+```
+
+> **Troubleshooting:** What if the response is blank ?
+>
+> -   To check that a docker container is running try
+>
+> ```
+> docker ps
+> ```
+>
+> You should see several containers running. If `cygnus` is not running, you can restart the containers as necessary.
+
+### Generating Context Data
+
+For the purpose of this tutorial, we must be monitoring a system where the context is periodically being updated. The
+dummy IoT Sensors can be used to do this. Open the device monitor page at
+`http://localhost:$TUTORIAL_APP_PORT/device/monitor` and unlock a **Smart Door** and switch on a **Smart Lamp**.
+Remember that the variable `TUTORIAL_APP_PORT` is defined in the `.env` file. This can be done by selecting an
+appropriate the command from the drop down list and pressing the `send` button. The stream of measurements coming from
+the devices can then be seen on the same page:
+
+![](https://fiware.github.io/tutorials.Historic-Context-Flume/img/door-open.gif)
+
+### Subscribing to Context Changes
+
+Once a dynamic context system is up and running, we need to inform **Cygnus** of changes in context.
+
+This is done by making a POST request to the `/v2/subscription` endpoint of the Orion Context Broker.
+
+-   The `fiware-service` and `fiware-servicepath` headers are used to filter the subscription to only listen to
+    measurements from the attached IoT Sensors, since they had been provisioned using these settings
+-   The `idPattern` in the request body ensures that Cygnus will be informed of all context data changes.
+-   The notification `url` must match the configured `CYGNUS_ELASTICSEARCH_SERVICE_PORT`
+-   The `throttling` value defines the rate that changes are sampled.
+
+#### Request:
+
+```bash
+curl -iX POST \
+  'http://localhost:1026/v2/subscriptions' \
+  -H 'Content-Type: application/json' \
+  -H 'fiware-service: openiot' \
+  -H 'fiware-servicepath: /' \
+  -d '{
+  "description": "Notify Cygnus ElasticSearch of all context changes",
+  "subject": {
+    "entities": [
+      {
+        "idPattern": ".*"
+      }
+    ]
+  },
+  "notification": {
+    "http": {
+      "url": "http://cygnus:5058/notify"
+    }
+  },
+  "throttling": 5
+}'
+```
+
+As you can see, the database used to persist context data has no impact on the details of the subscription. It is the
+same for each database. The response will be **201 - Created**
+
+## ElasticSearch - Reading Data from a database
+
+To read ElasticSearch data from the command-line, we will execute a set of HTTP request to get the data. If you want to
+know how create specific queries to access the data, you can take a look to the
+[Elastic Search API](https://www.elastic.co/guide/en/elasticsearch/reference/7.x/search-your-data.html) for the current
+version.
+
+### Show Available Databases on the ElasticSearch server
+
+To show the list of available databases, run the statement as shown:
+
+### Query:
+
+```bash
+curl -X GET 'localhost:9200/_cat/indices?v&pretty'
+```
+
+### Result:
+
+```text
+health status index                                        uuid                   pri rep docs.count docs.deleted
+green  open   .geoip_databases                             ATZpqJUHQgibDyBUXOx_XQ   1   0         42            0     40.3mb         40.3mb
+yellow open   cygnus-openiot--lamp-001-lamp-2023.08.14     AzJUwdLGTGS8GWsmYLte4Q   1   1         83           12     96.1kb         96.1kb
+yellow open   cygnus-openiot--bell-001-bell-2023.08.14     mYCVDJzcRw-5nqzMe7OcRA   1   1          7            0     10.6kb         10.6kb
+yellow open   cygnus-openiot--motion-001-motion-2023.08.14 QfMxa7MCRKW2F-d9msz1og   1   1          8            0     10.7kb         10.7kb
+```
+
+The result includes the complete list of indexes as well the number of registries and the store size of each of the
+table. Once we have this information, we can request the information of each of the sensor:
+
+### Read Historical Context from the ElasticSearch server
+
+Once running a docker container within the network, it is possible to obtain information about the running database. In
+our case we access to the `motion001` entity, and we limit the results only to 2.
+
+<blockquote>
+<p>
+<code style="color: #777;">&lt;current_date&gt;</code> in the query below needs to be replaced with
+<code style="color: #777;" class="current_time">2023.08.14</code>.
+</p>
+</blockquote>
+
+### Query:
+
+```bash
+curl -X GET 'localhost:9200/_sql?format=json' \
+  -H 'Content-Type: application/json' \
+  -d'{
+  "query": " select * from \"cygnus-openiot--motion-001-motion-<current_date>\" limit 2 "
+}'
+```
+
+### Result:
+
+```json
+{
+    "columns": [
+        {
+            "name": "attrMetadata.name",
+            "type": "text"
+        },
+        {
+            "name": "attrMetadata.type",
+            "type": "text"
+        },
+        {
+            "name": "attrMetadata.value",
+            "type": "datetime"
+        },
+        {
+            "name": "attrName",
+            "type": "text"
+        },
+        {
+            "name": "attrType",
+            "type": "text"
+        },
+        {
+            "name": "attrValue",
+            "type": "text"
+        },
+        {
+            "name": "entityId",
+            "type": "text"
+        },
+        {
+            "name": "entityType",
+            "type": "text"
+        },
+        {
+            "name": "recvTime",
+            "type": "datetime"
+        }
+    ],
+    "rows":  [
+    [
+      "TimeInstant",
+      "DateTime",
+      "2023-08-14T14:16:48.154Z",
+      "supportedProtocol",
+      "Text",
+      "[\"ul20\"]",
+      "Motion:001",
+      "Motion",
+      "2023-08-14T14:16:48.154Z"
+    ],
+    [
+      "TimeInstant",
+      "DateTime",
+      "2023-08-14T14:16:48.154Z",
+      "function",
+      "Text",
+      "[\"sensing\"]",
+      "Motion:001",
+      "Motion",
+      "2023-08-14T14:16:48.154Z"
+    ]
+  ]
+}
+```
+
+
 ## MySQL - Persisting Context Data into a Database
 
 Similarly, to persisting historic context data into **MySQL**, we will again need an additional container which hosts
@@ -1392,3 +1710,29 @@ same for each database. The response will be **201 - Created**.
 ## Multi-Agent - Reading Persisted Data
 
 To read persisted data from the attached databases, please refer to the previous sections of this tutorial.
+
+
+<script>
+function formatDate(date) {
+    var d = new Date(date),
+        month = '' + (d.getMonth() + 1),
+        day = '' + d.getDate(),
+        year = d.getFullYear();
+
+    if (month.length < 2)
+        month = '0' + month;
+    if (day.length < 2)
+        day = '0' + day;
+
+    return [year, month, day].join('.');
+}
+    function isoDate(){
+        const date = new Date();
+        const timeElts = document.getElementsByClassName("current_time");
+
+        for (let i = 0; i < timeElts.length; i++) {
+            timeElts[i].innerHTML = formatDate(date);
+        }
+    }
+    isoDate();
+</script>
