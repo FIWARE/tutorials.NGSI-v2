@@ -477,6 +477,16 @@ If the Devices are functioning correctly, the message should be received in the 
 
 Since all the devices have been pre-provisioned, a bell can be rung using a standard NGSI-v2 PATCH request:
 
+> **Note:** The major use case for an IOTA Tangle transport is very different to the transports used in previous
+> tutorials (HTTP, MQTT). Specifically IOTA Tangle is designed for IoT Sensors to indelibly record transactions across a
+> global network with a resolution time of around **60 seconds** for each transaction. Therefore compared to previous
+> tutorials repsonses will be very slow.
+>
+> Every transaction is added to a directed acyclic graph, so it can be traced and therefore the IOTA Tangle is a good
+> candidate for a single source of truth and trust in **high value** context data. However, the IOTA Tangle would
+> usually be a poor choice for inherently low-value essentially meaningless context data changes within a tutorial
+> application.
+
 #### 1 Request:
 
 ```bash
