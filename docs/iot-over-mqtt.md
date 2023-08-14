@@ -764,6 +764,7 @@ curl -iX POST \
       "entity_type": "Door",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "MQTT",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "commands": [
         {"name": "unlock","type": "command"},
         {"name": "open","type": "command"},
@@ -802,6 +803,7 @@ curl -iX POST \
       "entity_type": "Lamp",
       "protocol": "PDI-IoTA-UltraLight",
       "transport": "MQTT",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "commands": [
         {"name": "on","type": "command"},
         {"name": "off","type": "command"}
