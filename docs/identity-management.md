@@ -1085,7 +1085,9 @@ The response returns the role of the given `<user-id>`:
 
 ### Remove a User from an Organization
 
-Owners and Super-Admins can remove a user from and organization by making a delete request.
+Owners and Super-Admins can remove a user from an organization by making a delete request.
+
+> **Note:** This request only removes users who are "members", not those who are "owners".
 
 #### 18 Request:
 
