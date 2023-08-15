@@ -1050,11 +1050,22 @@ aggregate data in different ways.
 
 #### 19 Request:
 
+<blockquote>
+<p>
+<code style="color: #777;">&lt;current_time&gt;</code> needs to be replaced with
+<code style="color: #777;" class="current_time">2023-08-03T12:00:00</code> in ISO8601 format.
+</p>
+<p>
+<code style="color: #777;">&lt;previous_time&gt;</code> needs to be replaced with
+<code style="color: #777;" class="previous_time">2023-08-03T11:55:00</code> in ISO8601 format.
+</p>
+</blockquote>
+
 ```bash
 curl -iX POST \
   'http://localhost:4200/_sql' \
   -H 'Content-Type: application/json' \
-  -d '{"stmt":"SELECT MAX(luminosity) AS max FROM mtopeniot.etlamp WHERE entity_id = '\''Lamp:001'\'' and time_index >= '\''2018-06-27T09:00:00'\'' and time_index < '\''2018-06-30T23:59:59'\''"}'
+  -d '{"stmt":"SELECT MAX(luminosity) AS max FROM mtopeniot.etlamp WHERE entity_id = '\''Lamp:001'\'' and time_index >= '\''<previous_time>'\'' and time_index < '\''<current_time>'\''"}'
 ```
 
 #### Response:
