@@ -143,7 +143,7 @@ Thereafter, all services can be initialized from the command-line by running the
 repository:
 
 ```bash
-./services <command>
+./services [orion|orion-kong|northport|southport]
 ```
 
 Where `<command>` will vary depending upon the exercise we wish to activate.
