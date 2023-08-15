@@ -1378,6 +1378,8 @@ been provisioned as shown:
 
 #### 22 Request:
 
+> **Note:** use the `access_token` from the previous request.
+
 ```bash
 curl -iX PUT \
   'http://localhost:4041/iot/services?resource=/iot/d&apikey=1068318794' \
@@ -1386,7 +1388,7 @@ curl -iX PUT \
   -H 'fiware-servicepath: /' \
   -d '{
      "cbroker": "http://orion-proxy:1027",
-     "trust": "30a5ce4c71e416bd199dcdcb7f8bcd8d70e8bb5e"
+     "trust": "{{access_token}}"
 }'
 ```
 
