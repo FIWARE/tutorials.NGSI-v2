@@ -638,9 +638,20 @@ This example shows maximum `luminosity` value of `Lamp:001` that occurred betwee
 
 #### 9 Request:
 
+<blockquote>
+<p>
+<code style="color: #777;">&lt;current_time&gt;</code> needs to be replaced with
+<code style="color: #777;" class="current_time">2023-08-03T12:00:00.000Z</code> in ISO8601 format.
+</p>
+<p>
+<code style="color: #777;">&lt;previous_time&gt;</code> needs to be replaced with
+<code style="color: #777;" class="previous_time">2023-08-03T11:55:00.000Z</code> in ISO8601 format.
+</p>
+</blockquote>
+
 ```bash
 curl -X GET \
-  'http://localhost:8668/v2/entities/Lamp:001/attrs/luminosity?aggrMethod=max&fromDate=2023-07-18T09:00:00&toDate=2023-07-30T23:59:59' \
+  'http://localhost:8668/v2/entities/Lamp:001/attrs/luminosity?aggrMethod=max&fromDate=<previous_time>&toDate=<current_time>' \
   -H 'Accept: application/json' \
   -H 'Fiware-Service: openiot' \
   -H 'Fiware-ServicePath: /'
@@ -1206,3 +1217,26 @@ Click on `Visualisation` tab on the left and set as follows:
 The final result can be seen below:
 
 ![](https://fiware.github.io/tutorials.Time-Series-Data/img/grafana-result.png)
+
+
+<script>
+    function isoDate(){
+        const date = new Date();
+        const old_date = new Date(Date.parse(date) - (5 * 60 * 1000) );
+
+
+        console.log(date)
+        console.log(old_date)
+
+        const timeElts1 = document.getElementsByClassName("current_time");
+        for (let i = 0; i < timeElts1.length; i++) {
+            timeElts1[i].innerHTML = date.toISOString();
+        }
+        const timeElts2 = document.getElementsByClassName("previous_time");
+        for (let i = 0; i < timeElts2.length; i++) {
+            timeElts2[i].innerHTML = old_date.toISOString();
+        }
+    }
+    isoDate();
+    setInterval(isoDate, 5000)
+</script>
