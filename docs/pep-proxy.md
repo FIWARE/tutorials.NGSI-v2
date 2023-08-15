@@ -940,7 +940,7 @@ This Docker image of **Kong** is generated to include several FIWARE specific pl
 
 To start the system with a Kong API Gateway protecting access to **Orion**, run the following command:
 
-```console
+```bash
 ./services orion-kong
 ```
 
@@ -958,7 +958,7 @@ access.
 
 If a request to **Kong** is made without any access token as shown:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:8000/orion/v2/entities/urn:ngsi-ld:Store:001?options=keyValues'
 ```
@@ -978,7 +978,7 @@ Request forbidden by authorization service Keyrock.
 To log in to the application using the user-credentials flow send a POST request to **Keyrock** using the `oauth2/token`
 endpoint with the `grant_type=password`. For example to log-in as Alice the Admin:
 
-```console
+```bash
 curl -iX POST \
   'http://localhost:3005/oauth2/token' \
   -H 'Accept: application/json' \
@@ -1010,7 +1010,7 @@ permitted and the service behind the PEP Proxy (in this case the Orion Context B
 
 #### 18 Request:
 
-```console
+```bash
 curl -X GET \
   'http://localhost:8000/orion/v2/entities/urn:ngsi-ld:Store:001?options=keyValues' \
   -H 'Authorization: Bearer {{X-Access-token}}'
