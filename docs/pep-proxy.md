@@ -1214,7 +1214,7 @@ to the IoT Agent itself.
 
 ```bash
 curl -X POST \
-  'http://localhost:7896/iot/d?k=4jggokgpepnvsb2uv4s40d59ov&i=motion001' \
+  'http://localhost:7896/iot/d?k=1068318794&i=motion001' \
   -H 'Content-Type: text/plain' \
   -H 'X-Auth-Token: {{X-Access-token}}' \
   -d 'c|1'
