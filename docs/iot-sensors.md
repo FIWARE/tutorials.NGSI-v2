@@ -3,7 +3,7 @@
 
 <blockquote style="border-left-color:#002e67;background-color:#ededee;color:#002e67">
     <p><b>Background:</b>
-        This tutorial does not use the <b>NGSI-LD</b> interface directly.
+        This tutorial does not use the <b>NGSI-v2</b> interface directly.
         it covers background information about IoT devices and protocols, which
         is then used in subsequent chapters.
     </p>
