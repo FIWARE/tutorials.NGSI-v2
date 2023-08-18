@@ -581,7 +581,7 @@ section.
 ### Hybrid - Running the Example
 
 It is possible to invoke the Hybrid flow programmatically, by bringing up the page `http://localhost:3000/` and clicking
-on the Authorization Code Button.
+on the **Hybrid** Button.
 
 The user is initially redirected to **Keyrock**, and must log in:
 
