@@ -70,42 +70,47 @@ has been provided and that the `role=security-role-0000-0000-000000000000` :
     <AnyOf>
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/bell/ring</AttributeValue>
-          <AttributeDesignator
-                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
-                        AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id"
-                        DataType="http://www.w3.org/2001/XMLSchema#string"
-                        MustBePresent="true"
-                    />
+        <AttributeValue
+          DataType="http://www.w3.org/2001/XMLSchema#string">/bell/ring
+        </AttributeValue>
+        <AttributeDesignator
+          Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource"
+          AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id"
+          DataType="http://www.w3.org/2001/XMLSchema#string"
+          MustBePresent="true"
+        />
         </Match>
       </AllOf>
     </AnyOf>
     <AnyOf>
       <AllOf>
         <Match MatchId="urn:oasis:names:tc:xacml:1.0:function:string-equal">
-          <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">POST</AttributeValue>
+          <AttributeValue
+            DataType="http://www.w3.org/2001/XMLSchema#string">POST
+          </AttributeValue>
           <AttributeDesignator
-                        Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
-                        AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
-                        DataType="http://www.w3.org/2001/XMLSchema#string"
-                        MustBePresent="true"
-                    />
+            Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action"
+            AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id"
+            DataType="http://www.w3.org/2001/XMLSchema#string"
+            MustBePresent="true"
+          />
         </Match>
       </AllOf>
     </AnyOf>
   </Target>
   <Condition>
     <Apply FunctionId="urn:oasis:names:tc:xacml:3.0:function:any-of">
-      <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal" />
-      <AttributeValue
-                DataType="http://www.w3.org/2001/XMLSchema#string"
-            >security-role-0000-0000-000000000000</AttributeValue>
-      <AttributeDesignator
-                Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
-                AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
-                DataType="http://www.w3.org/2001/XMLSchema#string"
-                MustBePresent="false"
-            />
+    <Function FunctionId="urn:oasis:names:tc:xacml:1.0:function:string-equal" />
+    <AttributeValue
+      DataType="http://www.w3.org/2001/XMLSchema#string">
+      security-role-0000-0000-000000000000
+    </AttributeValue>
+    <AttributeDesignator
+      Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject"
+      AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role"
+      DataType="http://www.w3.org/2001/XMLSchema#string"
+      MustBePresent="false"
+    />
     </Apply>
   </Condition>
 </Rule>
@@ -443,19 +448,19 @@ curl -X GET \
 The response returns information about the version of Authzforce.
 
 ```xml
-<?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
+<?xml version="1.0" encoding="UTF-8"?>
 <productMetadata
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
-    name="AuthzForce CE Server"
-    version="8.0.1"
-    release_date="2017-12-05"
-    uptime="P0Y0M0DT0H8M47.642S"
-    doc="https://authzforce.github.io/fiware/authorization-pdp-api-spec/5.2/"
-/>
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  name="AuthzForce CE Server"
+  version="8.0.1"
+  release_date="2017-12-05"
+  uptime="P0Y0M0DT0H8M47.642S"
+  doc="https://authzforce.github.io/fiware/authorization-pdp-api-spec/5.2/"
+  />
 ```
 
 ## Using an XACML Server
@@ -495,11 +500,11 @@ uploaded to **Authzforce** on start-up.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resources
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
 >
     <ns2:link rel="item" href="gQqnLOnIEeiBFQJCrBIBDA" title="gQqnLOnIEeiBFQJCrBIBDA" />
 </resources>
@@ -527,18 +532,18 @@ The response lists more information about the domain, including the ID used with
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <domain
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
 >
-    <properties externalId="tutorial-dckr-site-0000-xpresswebapp" />
-    <childResources>
-        <ns2:link rel="item" href="/properties" title="Domain properties" />
-        <ns2:link rel="item" href="/pap" title="Policy Administration Point" />
-        <ns2:link rel="http://docs.oasis-open.org/ns/xacml/relation/pdp" href="/pdp" title="Policy Decision Point" />
-    </childResources>
+  <properties externalId="tutorial-dckr-site-0000-xpresswebapp" />
+  <childResources>
+      <ns2:link rel="item" href="/properties" title="Domain properties" />
+      <ns2:link rel="item" href="/pap" title="Policy Administration Point" />
+      <ns2:link rel="http://docs.oasis-open.org/ns/xacml/relation/pdp" href="/pdp" title="Policy Decision Point" />
+  </childResources>
 </domain>
 ```
 
@@ -563,11 +568,11 @@ container. In this case the policy-ids of the PolicySets returned are `f8194af5-
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resources
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
 >
     <ns2:link rel="item" href="f8194af5-8a07-486a-9581-c1f05d05483c" />
     <ns2:link rel="item" href="root" />
@@ -596,11 +601,11 @@ container. This corresponds the named XML files `1.xml`, `2.xml` etc.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <resources
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
 >
     <ns2:link rel="item" href="2" />
     <ns2:link rel="item" href="1" />
@@ -629,32 +634,34 @@ held within **Authzforce**.
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <ns3:PolicySet
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
-    PolicySetId="f8194af5-8a07-486a-9581-c1f05d05483c"
-    Version="2"
-    PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit"
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  PolicySetId="f8194af5-8a07-486a-9581-c1f05d05483c"
+  Version="2"
+  PolicyCombiningAlgId="urn:oasis:names:tc:xacml:3.0:policy-combining-algorithm:deny-unless-permit"
 >
-    <ns3:Description>Policy Set for application tutorial-dckr-site-0000-xpresswebapp</ns3:Description>
-    <ns3:Target />
-    <ns3:Policy
-        PolicyId="security-role-0000-0000-000000000000"
-        Version="1.0"
-        RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit"
-    >
-        <ns3:Description
-        >Role security-role-0000-0000-000000000000 from application tutorial-dckr-site-0000-xpresswebapp</ns3:Description>
-        <ns3:Target>
-           ...etc
-        </ns3:Target>
-        <ns3:Rule RuleId="alrmbell-ring-0000-0000-000000000000" Effect="Permit">
-            ...etc
-        </ns3:Rule>
-        ..etc
-    </ns3:Policy>
+  <ns3:Description>
+    Policy Set for application tutorial-dckr-site-0000-xpresswebapp
+  </ns3:Description>
+  <ns3:Target />
+  <ns3:Policy
+    PolicyId="security-role-0000-0000-000000000000"
+    Version="1.0"
+    RuleCombiningAlgId="urn:oasis:names:tc:xacml:3.0:rule-combining-algorithm:deny-unless-permit"
+  >
+      <ns3:Description
+      >Role security-role-0000-0000-000000000000 from application tutorial-dckr-site-0000-xpresswebapp</ns3:Description>
+      <ns3:Target>
+         ...etc
+      </ns3:Target>
+      <ns3:Rule RuleId="alrmbell-ring-0000-0000-000000000000" Effect="Permit">
+          ...etc
+      </ns3:Rule>
+      ..etc
+  </ns3:Policy>
 </ns3:PolicySet>
 ```
 
@@ -690,25 +697,25 @@ curl -X POST \
   -H 'Content-Type: application/xml' \
   -d '<?xml version="1.0" encoding="UTF-8"?>
 <Request xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" CombinedDecision="false" ReturnPolicyIdList="false">
-   <Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
-      <Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">managers-role-0000-0000-000000000000</AttributeValue>
-      </Attribute>
-   </Attributes>
-   <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource">
-      <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">tutorial-dckr-site-0000-xpresswebapp</AttributeValue>
-      </Attribute>
-      <Attribute AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/app/price-change</AttributeValue>
-      </Attribute>
-   </Attributes>
-   <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action">
-      <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
-      </Attribute>
-   </Attributes>
-   <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" />
+  <Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+    <Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">managers-role-0000-0000-000000000000</AttributeValue>
+    </Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource">
+    <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">tutorial-dckr-site-0000-xpresswebapp</AttributeValue>
+    </Attribute>
+    <Attribute AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/app/price-change</AttributeValue>
+    </Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action">
+    <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
+    </Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" />
 </Request>'
 ```
 
@@ -720,15 +727,15 @@ successful request includes a `<Decision>` element to `Permit` access to the res
 ```xml
 <?xml version="1.0" encoding="UTF-8" standalone="yes" ?>
 <ns3:Response
-    xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
-    xmlns:ns2="http://www.w3.org/2005/Atom"
-    xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
-    xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
-    xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
+  xmlns="http://authzforce.github.io/rest-api-model/xmlns/authz/5"
+  xmlns:ns2="http://www.w3.org/2005/Atom"
+  xmlns:ns3="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17"
+  xmlns:ns4="http://authzforce.github.io/core/xmlns/pdp/6.0"
+  xmlns:ns5="http://authzforce.github.io/pap-dao-flat-file/xmlns/properties/3.6"
 >
-    <ns3:Result>
-        <ns3:Decision>Permit</ns3:Decision>
-    </ns3:Result>
+  <ns3:Result>
+      <ns3:Decision>Permit</ns3:Decision>
+  </ns3:Result>
 </ns3:Response>
 ```
 
@@ -745,25 +752,25 @@ curl -X POST \
   -H 'Content-Type: application/xml' \
   -d '<?xml version="1.0" encoding="UTF-8"?>
 <Request xmlns="urn:oasis:names:tc:xacml:3.0:core:schema:wd-17" CombinedDecision="false" ReturnPolicyIdList="false">
-   <Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
-      <Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">security-role-0000-0000-000000000000</AttributeValue>
-      </Attribute>
-   </Attributes>
-   <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource">
-      <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">tutorial-dckr-site-0000-xpresswebapp</AttributeValue>
-      </Attribute>
-      <Attribute AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/app/price-change</AttributeValue>
-      </Attribute>
-   </Attributes>
-   <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action">
-      <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" IncludeInResult="false">
-         <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
-      </Attribute>
-   </Attributes>
-   <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" />
+  <Attributes Category="urn:oasis:names:tc:xacml:1.0:subject-category:access-subject">
+    <Attribute AttributeId="urn:oasis:names:tc:xacml:2.0:subject:role" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">security-role-0000-0000-000000000000</AttributeValue>
+    </Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:resource">
+    <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:resource:resource-id" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">tutorial-dckr-site-0000-xpresswebapp</AttributeValue>
+    </Attribute>
+    <Attribute AttributeId="urn:thales:xacml:2.0:resource:sub-resource-id" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">/app/price-change</AttributeValue>
+    </Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:action">
+    <Attribute AttributeId="urn:oasis:names:tc:xacml:1.0:action:action-id" IncludeInResult="false">
+      <AttributeValue DataType="http://www.w3.org/2001/XMLSchema#string">GET</AttributeValue>
+    </Attribute>
+  </Attributes>
+  <Attributes Category="urn:oasis:names:tc:xacml:3.0:attribute-category:environment" />
 </Request>'
 ```
 

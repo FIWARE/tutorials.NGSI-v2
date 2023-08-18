@@ -860,7 +860,6 @@ To leave the Postgres client and leave interactive mode, run the following:
 
 You will then return to the command-line.
 
-
 ## ElasticSearch - Persisting Context Data into a Database
 
 To persist historic context data into an alternative database such as **ElasticSearch**, we will need an additional
@@ -1150,33 +1149,32 @@ curl -X GET 'localhost:9200/_sql?format=json' \
             "type": "datetime"
         }
     ],
-    "rows":  [
-    [
-      "TimeInstant",
-      "DateTime",
-      "2023-08-14T14:16:48.154Z",
-      "supportedProtocol",
-      "Text",
-      "[\"ul20\"]",
-      "Motion:001",
-      "Motion",
-      "2023-08-14T14:16:48.154Z"
-    ],
-    [
-      "TimeInstant",
-      "DateTime",
-      "2023-08-14T14:16:48.154Z",
-      "function",
-      "Text",
-      "[\"sensing\"]",
-      "Motion:001",
-      "Motion",
-      "2023-08-14T14:16:48.154Z"
+    "rows": [
+        [
+            "TimeInstant",
+            "DateTime",
+            "2023-08-14T14:16:48.154Z",
+            "supportedProtocol",
+            "Text",
+            "[\"ul20\"]",
+            "Motion:001",
+            "Motion",
+            "2023-08-14T14:16:48.154Z"
+        ],
+        [
+            "TimeInstant",
+            "DateTime",
+            "2023-08-14T14:16:48.154Z",
+            "function",
+            "Text",
+            "[\"sensing\"]",
+            "Motion:001",
+            "Motion",
+            "2023-08-14T14:16:48.154Z"
+        ]
     ]
-  ]
 }
 ```
-
 
 ## MySQL - Persisting Context Data into a Database
 
@@ -1710,7 +1708,6 @@ same for each database. The response will be **201 - Created**.
 ## Multi-Agent - Reading Persisted Data
 
 To read persisted data from the attached databases, please refer to the previous sections of this tutorial.
-
 
 <script>
 function formatDate(date) {

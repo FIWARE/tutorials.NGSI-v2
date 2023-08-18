@@ -1229,7 +1229,6 @@ The final result can be seen below:
 
 ![](https://fiware.github.io/tutorials.Time-Series-Data/img/grafana-result.png)
 
-
 <script>
     function isoDate(){
         const date = new Date();
