@@ -31,7 +31,7 @@ authenticate users. OIDC was created to solve OAuth 2.0 authentication issue. Ei
 that identifies the user avoiding exposing the username and password. Particularly, OIDC generates a Json Web Token
 (JWT) that applications can intrinsically validate and obtain user information directly from itself.
 
-## :arrow_forward: Video: What is OpenID Connect?
+## Video: What is OpenID Connect?
 
 [![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=Kb56GzQ2pSk 'OpenID connect')
 
