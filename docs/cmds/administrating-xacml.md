@@ -281,7 +281,7 @@ curl -X PATCH \
 
 ---
 
-#### 17 Request
+#### 18 Request
 
 ```bash
 curl -X POST \
@@ -317,6 +317,6 @@ curl -X POST \
 </Request>'
 ```
 
-[**(Click to RETURN)**](../administrating-xacml.md#18-Request)
+[**(Click to RETURN)**](../administrating-xacml.md#18-request)
 
 ---
