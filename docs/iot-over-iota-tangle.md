@@ -316,7 +316,7 @@ repository:
 
 > :information_source: **Note:** If you want to clean up and start over again you can do so with the following command:
 >
-> ```bash
+> ```
 > ./services stop
 > ```
 
