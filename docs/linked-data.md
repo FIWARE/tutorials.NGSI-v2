@@ -527,7 +527,7 @@ NGSI-LD and is used to filter the response. The Accept HTTP header is needed to 
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -H 'Accept: application/ld+json' \
-  -d 'type=https://uri.fiware.org/ns/dataModels%23Building'
+  -d 'type=https%3A%2F%2Furi.fiware.org%2Fns%2Fdata-models%23Building'
 ```
 
 #### Response:
@@ -575,7 +575,7 @@ be displayed.
                 "coordinates": [13.3986, 52.5547]
             }
         },
-        "@context": "https://uri.etsi.org/ngsi-lv1/ngsi-ld-core-context.jsonld"
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
     },
     {
         "id": "urn:ngsi-ld:Building:store002",
@@ -608,7 +608,7 @@ be displayed.
                 "coordinates": [13.3903, 52.5075]
             }
         },
-        "@context": "https://uri.etsi.org/ngsi-lv1/ngsi-ld-core-context.jsonld"
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
     }
 ]
 ```
