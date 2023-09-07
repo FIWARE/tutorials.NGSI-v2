@@ -400,7 +400,9 @@ request all building entities without supplying a known context.
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-  -d 'type=https://uri.fiware.org/ns/datamodels%23Building&options=keyValues'
+  -H 'Accept: application/ld+json' \
+  -d 'type=https%3A%2F%2Furi.fiware.org%2Fns%2Fdata-models%23Building'
+  -d 'options=keyValues'
 ```
 
 #### Response:
