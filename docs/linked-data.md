@@ -751,7 +751,7 @@ the `q` parameter - if a string has spaces in it, it can be URL encoded and held
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=name==%22Checkpoint%20Markt%22' \
@@ -809,7 +809,7 @@ done using the `q` parameter, comma separating the acceptable values.
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=category==%22commercial%22,%22office%22 \
@@ -871,7 +871,7 @@ Filtering can be done using the `q` parameter - sub-attributes are annotated usi
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=address[addressLocality]==%22Kreuzberg%22' \
@@ -917,7 +917,7 @@ This supersedes the `mq` parameter from NGSI v2.
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/json' \
     -d 'type=Building' \
     -d 'q=address.verified==true' \
@@ -981,7 +981,7 @@ If another attribute is to be used, an additional `geoproperty` parameter is req
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-  -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/json"'
+  -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/json"' \
   -H 'Accept: application/json' \
   -d 'type=Building' \
   -d 'geometry=Point' \
