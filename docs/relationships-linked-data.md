@@ -401,7 +401,7 @@ request all building entities without supplying a known context.
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -H 'Accept: application/ld+json' \
-  -d 'type=https%3A%2F%2Furi.fiware.org%2Fns%2Fdata-models%23Building'
+  -d 'type=https%3A%2F%2Furi.fiware.org%2Fns%2Fdata-models%23Building' \
   -d 'options=keyValues'
 ```
 
@@ -990,7 +990,7 @@ The query `q==orderedProduct="urn:ngsi-ld:Product:001"` is used to filter the en
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/' \
-  -d 'type=StockOrder'
+  -d 'type=StockOrder' \
   -d 'q=orderedProduct==%22urn:ngsi-ld:Product:001%22' \
   -d 'attrs=requestedFor' \
   -d 'options=keyValues' \
@@ -1014,7 +1014,7 @@ The response returns an array of `requestedFor` attributes in the response.
 
 ### Find all products sold in a store
 
-The query below returns an array of stores in which a given product is sold.
+The query below returns an array of produts sold in a given store.
 
 The query `q==requestedFor="urn:ngsi-ld:Building:store001"` is used to filter the entities.
 
