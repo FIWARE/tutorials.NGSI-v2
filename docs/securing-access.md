@@ -303,7 +303,7 @@ echo -n tutorial-dckr-site-0000-xpresswebapp:tutorial-dckr-site-0000-clientsecre
 ```
 
 ```
-dHV0b3JpYWwtZGNrci1zaXRlLTAwMDAteHByZXNzd2ViYXBwOnR1dG9yaWFsLWRja3Itc2l0ZS0wMDAwLWNsaWVudHNlY3JldAo=
+dHV0b3JpYWwtZGNrci1zaXRlLTAwMDAteHByZXNzd2ViYXBwOnR1dG9yaWFsLWRja3Itc2l0ZS0wMDAwLWNsaWVudHNlY3JldAo==
 ```
 
 All four major grant flows can be demonstrated within the tutorial application, the actual flow to pick will depend on
