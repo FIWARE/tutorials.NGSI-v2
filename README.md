@@ -17,6 +17,28 @@ directly or programmatically.
 
 🇯🇵 このチュートリアルは[日本語](https://fiware-tutorials.letsfiware.jp/)でもご覧いただけます。<br/>
 
+
+<br/>
+
+> [!NOTE]
+> **Should I use NGSI-v2 or NGSI-LD?**
+>
+> FIWARE offers two flavours of the NGSI interfaces:
+>
+>
+> - **NGSI-v2** offers JSON based interoperability used in individual Smart Systems
+> - **NGSI-LD** offers JSON-LD based interoperability used for Federations and Data Spaces
+>
+> NGSI-v2 is ideal for creating individual applications offering interoperable interfaces for web services
+> or IoT devices. It is easier to understand than NGSI-LD and does not require a JSON-LD `@context`
+>
+> However, NGSI-LD and Linked Data is necessary when creating a data space or introducing a system of
+> systems aproach, and in situations requiring  interoperability across apps and organisations.
+>
+> More information about NGSI-LD can be found [here](https://ngsi-ld-tutorials.readthedocs.io)
+
+
+
 <h3>Data models</h3>
 
 The following NGSI-v2 and NGSI-LD Data models are used within the tutorials:
