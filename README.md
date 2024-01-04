@@ -60,6 +60,12 @@ git submodule update --init --recursive
 
 ### Docker and Docker Compose <img src="https://www.docker.com/favicon.ico" align="left"  height="30" width="30">
 
+The NGSI-v2 tutorials are designed to run under any Unix environment, the tested configuration and
+[GitPod](https://github.com/gitpod-io/gitpod) environment is currently based on Ubuntu 22.04.2 LTS. However, there may
+be some minor issues when running the tutorials directly on Windows machines or Apple M1 Silicon `amd64` systems, and
+the following [Virtual Box set-up](docs/virtual-box.md) or [WSL set-up](docs/wsl.md) can be used when facing issues.
+
+
 Each tutorial runs all components using [Docker](https://www.docker.com). **Docker** is a container technology which
 allows to different components isolated into their respective environments.
 
@@ -94,11 +100,6 @@ FIWARE Postman collections can be downloaded directly from the
 [Gitpod](https://github.com/gitpod-io/gitpod) is an open-source Kubernetes application for ready-to-code cloud
 development environments that spins up an automated dev environment for each task, in the cloud. It enables you to run
 the tutorials in a cloud development environment directly from your browser or your Desktop IDE.
-
-### Cygwin for Windows <img src="https://www.cygwin.com/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
-
-The tutorials start up their services using a simple Bash script. When working locally, Windows users should download
-[cygwin](http://www.cygwin.com/) to provide a command-line functionality similar to a Linux distribution on Windows.
 
 ### Apache Maven <img src="https://maven.apache.org/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
