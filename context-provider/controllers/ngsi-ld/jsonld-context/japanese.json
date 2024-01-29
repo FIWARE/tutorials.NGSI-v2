@@ -1,25 +1,46 @@
 {
   "@context": {
 
-    "core": "https://uri.etsi.org/ngsi-ld/",  
+    "core": "https://uri.etsi.org/ngsi-ld/",
+    "geojson": "https://purl.org/geojson/vocab#",
+    "schema": "https://schema.org/",
+    "fiware": "https://uri.fiware.org/ns/data-models#",
+    "openstreetmap": "https://wiki.openstreetmap.org/wiki/Tag:building%3D",
+
     "値": "core:hasValue",
+    "語彙": {
+      "@id": "core:hasVocab",
+      "@type": "@vocab"
+    },
+    
+    
     "オブジェクト": "core:hasObject",
     "座標": "core:coordinates",
     "場所": "core:location",
-    "名前": "core:name",
+    "名前": "schema:name",
+    "グロッサリープロパティ": "core:VocabularyProperty",
     "プロパティ": "core:Property",
     "リレーションシップ": "core:Relationship",
     "ジオプロパティ": "core:GeoProperty",
+    "場": "geojson:Point",
     "タイプ": "@type",
     "識別子": "@id",
+     
+    "座標": {
+      "@container": "@list",
+      "@id": "geojson:coordinates"
+    },
     
-    
-    "コマーシャル": "commercial",
-    "オフィス": "office",
-    "インダストリアル": "industrial",
-    "リテール": "retail",
-    "レジデンシャル": "residential",
-    "住所": "core:default-context/住所",
+  
+    "ビル": "fiware:Building",
+    "カテゴリー": "fiware:category",
+    "コマーシャル": "https://wiki.openstreetmap.org/wiki/Tag:building%3Dcommercial",
+    "オフィス": "https://wiki.openstreetmap.org/wiki/Tag:building%3Doffice",
+    "インダストリアル": "https://wiki.openstreetmap.org/wiki/Tag:building%3Dindustrial",
+    "リテール": "https://wiki.openstreetmap.org/wiki/Tag:building%3D:retail",
+    "レジデンシャル": "https://wiki.openstreetmap.org/wiki/Tag:building%3Dresidential",
+
+    "住所": "schema:address",
     "種類": "core:default-context/種類",
     "検証済み": "core:default-context/検証済み",
     "家具": "core:default-context/家具",

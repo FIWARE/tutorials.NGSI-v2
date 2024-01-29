@@ -38,12 +38,16 @@ function translateRequest(req, res) {
             // Having received a response, the payload is expanded using
             // the core context - this forces all attribute ids to be
             // URIs
+            
+            delete cbResponse['@context'];
+            debug('received: ' + JSON.stringify(cbResponse))
             cbResponse['@context'] = coreContext;
             const expanded = await jsonld.expand(cbResponse);
             // The payload is then compacted using the "japanese" context
             // This maps the URIs to short attribute names.
             const compacted = await jsonld.compact(expanded, japaneseContext);
             delete compacted['@context'];
+            debug('compacted: ' + JSON.stringify(compacted))            
             return res.send(compacted);
         })
         .catch(function (err) {

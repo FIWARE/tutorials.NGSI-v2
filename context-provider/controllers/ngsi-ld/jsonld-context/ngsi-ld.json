@@ -1,158 +1,312 @@
 {
-    "@context": {
-      "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",    
-      "id": "@id",
-      "type": "@type",
-      "value": "https://uri.etsi.org/ngsi-ld/hasValue",
-      "object": {
-        "@id": "https://uri.etsi.org/ngsi-ld/hasObject",
-        "@type":"@id"
-      },
-      "Property": "https://uri.etsi.org/ngsi-ld/Property",
-      "Relationship": "https://uri.etsi.org/ngsi-ld/Relationship",
-      "DateTime": "https://uri.etsi.org/ngsi-ld/DateTime",
-      "Date": "https://uri.etsi.org/ngsi-ld/Date",
-      "Time": "https://uri.etsi.org/ngsi-ld/Time",
-      "createdAt": {
-        "@id": "https://uri.etsi.org/ngsi-ld/createdAt",
-        "@type": "DateTime"
-      },
-      "modifiedAt": {
-        "@id": "https://uri.etsi.org/ngsi-ld/modifiedAt",
-        "@type": "DateTime"
-      },
-      "observedAt": {
-        "@id": "https://uri.etsi.org/ngsi-ld/observedAt",
-        "@type": "DateTime"
-      },
-      "datasetId": {
-        "@id": "https://uri.etsi.org/ngsi-ld/datasetId",
-        "@type": "@id"
-      },
-      "instanceId": {
-        "@id": "https://uri.etsi.org/ngsi-ld/instanceId",
-        "@type": "@id"
-      },
-      "unitCode": "https://uri.etsi.org/ngsi-ld/unitCode",
-      "location": "https://uri.etsi.org/ngsi-ld/location",
-      "observationSpace": "https://uri.etsi.org/ngsi-ld/observationSpace",
-      "operationSpace": "https://uri.etsi.org/ngsi-ld/operationSpace",
-      "GeoProperty": "https://uri.etsi.org/ngsi-ld/GeoProperty",
-      "TemporalProperty": "https://uri.etsi.org/ngsi-ld/TemporalProperty",
-      "ContextSourceRegistration": "https://uri.etsi.org/ngsi-ld/ContextSourceRegistration",
-      "Subscription": "https://uri.etsi.org/ngsi-ld/Subscription", 
-      "Notification": "https://uri.etsi.org/ngsi-ld/Notification",
-      "ContextSourceNotification": "https://uri.etsi.org/ngsi-ld/ContextSourceNotification",
-      "title": "https://uri.etsi.org/ngsi-ld/title",
-      "detail": "https://uri.etsi.org/ngsi-ld/detail",
-      "idPattern": "https://uri.etsi.org/ngsi-ld/idPattern",
-      "name": "https://uri.etsi.org/ngsi-ld/name",
-      "description": "https://uri.etsi.org/ngsi-ld/description",
-      "information": "https://uri.etsi.org/ngsi-ld/information",
-      "observationInterval": "https://uri.etsi.org/ngsi-ld/observationInterval",
-      "managementInterval": "https://uri.etsi.org/ngsi-ld/managementInterval",
-      "expires": {
-        "@id": "https://uri.etsi.org/ngsi-ld/expires",
-        "@type": "DateTime"
-      },
-      "endpoint": "https://uri.etsi.org/ngsi-ld/endpoint",
-      "entities": "https://uri.etsi.org/ngsi-ld/entities",
-      "properties": {
-        "@id": "https://uri.etsi.org/ngsi-ld/properties",
-        "@type": "@vocab"
-      },
-      "relationships": {
-        "@id": "https://uri.etsi.org/ngsi-ld/relationships",
-        "@type": "@vocab"
-      },
-      "start": {
-        "@id": "https://uri.etsi.org/ngsi-ld/start",
-        "@type": "DateTime"
-      },
-      "end": {
-        "@id": "https://uri.etsi.org/ngsi-ld/end",
-        "@type": "DateTime"
-      },
-      "watchedAttributes":{
-        "@id": "https://uri.etsi.org/ngsi-ld/watchedAttributes",
-        "@type": "@vocab"
-      },
-      "timeInterval": "https://uri.etsi.org/ngsi-ld/timeInterval",
-      "q": "https://uri.etsi.org/ngsi-ld/q",
-      "geoQ": "https://uri.etsi.org/ngsi-ld/geoQ",
-      "csf": "https://uri.etsi.org/ngsi-ld/csf",
-      "isActive": "https://uri.etsi.org/ngsi-ld/isActive",
-      "notification": "https://uri.etsi.org/ngsi-ld/notification",
-      "status": "https://uri.etsi.org/ngsi-ld/status",
-      "throttling": "https://uri.etsi.org/ngsi-ld/throttling",
-      "temporalQ": "https://uri.etsi.org/ngsi-ld/temporalQ",
-      "geometry": "https://uri.etsi.org/ngsi-ld/geometry",
-      "coordinates": "https://uri.etsi.org/ngsi-ld/coordinates",
-      "georel": "https://uri.etsi.org/ngsi-ld/georel",
-      "geoproperty": "https://uri.etsi.org/ngsi-ld/geoproperty",
-      "attributes": {
-        "@id": "https://uri.etsi.org/ngsi-ld/attributes",
-        "@type": "@vocab"
-      },
-      "format": "https://uri.etsi.org/ngsi-ld/format",
-      "timesSent": "https://uri.etsi.org/ngsi-ld/timesSent",
-      "lastNotification":{
-        "@id": "https://uri.etsi.org/ngsi-ld/lastNotification",
-        "@type": "DateTime"
-      },
-      "lastFailure":{
-        "@id": "https://uri.etsi.org/ngsi-ld/lastFailure ",
-        "@type": "DateTime"
-      },
-      "lastSuccess":{
-        "@id": "https://uri.etsi.org/ngsi-ld/lastSuccess",
-        "@type": "DateTime"
-      },
-      "uri": "https://uri.etsi.org/ngsi-ld/uri",
-      "accept": "https://uri.etsi.org/ngsi-ld/accept",
-      "success": {
-        "@id": "https://uri.etsi.org/ngsi-ld/success",
-        "@type": "@id"
-      },
-      "errors": "https://uri.etsi.org/ngsi-ld/errors",
-      "error": "https://uri.etsi.org/ngsi-ld/error",
-      "entityId": {
-        "@id": "https://uri.etsi.org/ngsi-ld/entityId",
-        "@type": "@id"
-      },
-      "updated": "https://uri.etsi.org/ngsi-ld/updated",
-      "unchanged": "https://uri.etsi.org/ngsi-ld/unchanged",
-      "attributeName": "https://uri.etsi.org/ngsi-ld/attributeName",
-      "reason": "https://uri.etsi.org/ngsi-ld/reason",
-      "timerel": "https://uri.etsi.org/ngsi-ld/timerel",
-      "time": {
-        "@id": "https://uri.etsi.org/ngsi-ld/time",
-        "@type": "DateTime"
-      },
-      "endTime": {
-        "@id": "https://uri.etsi.org/ngsi-ld/endTime",
-        "@type": "DateTime"
-      },
-      "timeproperty": "https://uri.etsi.org/ngsi-ld/timeproperty",
-      "subscriptionId": {
-        "@id": "https://uri.etsi.org/ngsi-ld/subscriptionId",
-        "@type": "@id"
-      },
-      "notifiedAt":{
-        "@id": "https://uri.etsi.org/ngsi-ld/notifiedAt",
-        "@type": "DateTime"
-      },
-      "data": "https://uri.etsi.org/ngsi-ld/data",
-      "triggerReason": "https://uri.etsi.org/ngsi-ld/triggerReason",
-      "values":{
-          "@id": "https://uri.etsi.org/ngsi-ld/hasValues",
-          "@container": "@list"
-      },
-      "objects":{
-          "@id": "https://uri.etsi.org/ngsi-ld/hasObjects",
-	      "@type": "@id",
-	      "@container": "@list"
-      },
-      "@vocab": "https://uri.etsi.org/ngsi-ld/default-context/"
-    }
+  "@context": {
+    "ngsi-ld": "https://uri.etsi.org/ngsi-ld/",
+    "geojson": "https://purl.org/geojson/vocab#",
+    "id": "@id",
+    "type": "@type",
+    "Attribute": "ngsi-ld:Attribute",
+    "AttributeList": "ngsi-ld:AttributeList",
+    "ContextSourceNotification": "ngsi-ld:ContextSourceNotification",
+    "ContextSourceRegistration": "ngsi-ld:ContextSourceRegistration",
+    "Date": "ngsi-ld:Date",
+    "DateTime": "ngsi-ld:DateTime",
+    "EntityType": "ngsi-ld:EntityType",
+    "EntityTypeInfo": "ngsi-ld:EntityTypeInfo",
+    "EntityTypeList": "ngsi-ld:EntityTypeList",
+    "Feature": "geojson:Feature",
+    "FeatureCollection": "geojson:FeatureCollection",
+    "GeoProperty": "ngsi-ld:GeoProperty",
+    "GeometryCollection": "geojson:GeometryCollection",
+    "LineString": "geojson:LineString",
+    "LanguageProperty": "ngsi-ld:LanguageProperty",
+    "MultiLineString": "geojson:MultiLineString",
+    "MultiPoint": "geojson:MultiPoint",
+    "MultiPolygon": "geojson:MultiPolygon",
+    "Notification": "ngsi-ld:Notification",
+    "Point": "geojson:Point",
+    "Polygon": "geojson:Polygon",
+    "Property": "ngsi-ld:Property",
+    "Relationship": "ngsi-ld:Relationship",
+    "Subscription": "ngsi-ld:Subscription",
+    "TemporalProperty": "ngsi-ld:TemporalProperty",
+    "Time": "ngsi-ld:Time",
+    "VocabularyProperty": "ngsi-ld:VocabularyProperty",
+    "accept": "ngsi-ld:accept",
+    "attributeCount": "ngsi-ld:attributeCount",
+    "attributeDetails": "ngsi-ld:attributeDetails",
+    "attributeList": {
+      "@id": "ngsi-ld:attributeList",
+      "@type": "@vocab"
+    },
+    "attributeName": {
+      "@id": "ngsi-ld:attributeName",
+      "@type": "@vocab"
+    },
+    "attributeNames": {
+      "@id": "ngsi-ld:attributeNames",
+      "@type": "@vocab"
+    },
+    "attributeTypes": {
+      "@id": "ngsi-ld:attributeTypes",
+      "@type": "@vocab"
+    },
+    "attributes": {
+      "@id": "ngsi-ld:attributes",
+      "@type": "@vocab"
+    },
+    "attrs": "ngsi-ld:attrs",
+    "avg": {
+      "@id": "ngsi-ld:avg",
+      "@container": "@list"
+    },
+    "bbox": {
+      "@container": "@list",
+      "@id": "geojson:bbox"
+    },
+    "cacheDuration": "ngsi-ld:cacheDuration",
+    "contextSourceInfo": "ngsi-ld:contextSourceInfo",
+    "cooldown": "ngsi-ld:cooldown",
+    "coordinates": {
+      "@container": "@list",
+      "@id": "geojson:coordinates"
+    },
+    "createdAt": {
+      "@id": "ngsi-ld:createdAt",
+      "@type": "DateTime"
+    },
+    "csf": "ngsi-ld:csf",
+    "data": "ngsi-ld:data",
+    "dataset": {
+      "@id": "ngsi-ld:hasDataset",
+      "@container": "@index"
+    },
+    "datasetId": {
+      "@id": "ngsi-ld:datasetId",
+      "@type": "@id"
+    },
+    "deletedAt": {
+      "@id": "ngsi-ld:deletedAt",
+      "@type": "DateTime"
+    },
+    "description": "http://purl.org/dc/terms/description",
+    "detail": "ngsi-ld:detail",
+    "distinctCount": {
+      "@id": "ngsi-ld:distinctCount",
+      "@container": "@list"
+    },
+    "endAt": {
+      "@id": "ngsi-ld:endAt",
+      "@type": "DateTime"
+    },
+    "endTimeAt": {
+      "@id": "ngsi-ld:endTimeAt",
+      "@type": "DateTime"
+    },
+    "endpoint": "ngsi-ld:endpoint",
+    "entities": "ngsi-ld:entities",
+    "entityCount": "ngsi-ld:entityCount",
+    "entityId": {
+      "@id": "ngsi-ld:entityId",
+      "@type": "@id"
+    },
+    "error": "ngsi-ld:error",
+    "errors": "ngsi-ld:errors",
+    "expiresAt": {
+      "@id": "ngsi-ld:expiresAt",
+      "@type": "DateTime"
+    },
+    "features": {
+      "@container": "@set",
+      "@id": "geojson:features"
+    },
+    "format": "ngsi-ld:format",
+    "geoQ": "ngsi-ld:geoQ",
+    "geometry": "geojson:geometry",
+    "geoproperty": "ngsi-ld:geoproperty",
+    "georel": "ngsi-ld:georel",
+    "idPattern": "ngsi-ld:idPattern",
+    "information": "ngsi-ld:information",
+    "instanceId": {
+      "@id": "ngsi-ld:instanceId",
+      "@type": "@id"
+    },
+    "isActive": "ngsi-ld:isActive",
+    "key": "ngsi-ld:hasKey",
+    "lang": "ngsi-ld:lang",
+    "languageMap": {
+      "@id": "ngsi-ld:hasLanguageMap",
+      "@container": "@language"
+    },
+    "languageMaps": {
+      "@id": "ngsi-ld:hasLanguageMaps",
+      "@container": "@list"
+    },
+    "lastFailure": {
+      "@id": "ngsi-ld:lastFailure",
+      "@type": "DateTime"
+    },
+    "lastNotification": {
+      "@id": "ngsi-ld:lastNotification",
+      "@type": "DateTime"
+    },
+    "lastSuccess": {
+      "@id": "ngsi-ld:lastSuccess",
+      "@type": "DateTime"
+    },
+    "localOnly": "ngsi-ld:localOnly",
+    "location": "ngsi-ld:location",
+    "management": "ngsi-ld:management",
+    "managementInterval": "ngsi-ld:managementInterval",
+    "max": {
+      "@id": "ngsi-ld:max",
+      "@container": "@list"
+    },
+    "min": {
+      "@id": "ngsi-ld:min",
+      "@container": "@list"
+    },
+    "mode": "ngsi-ld:mode",
+    "modifiedAt": {
+      "@id": "ngsi-ld:modifiedAt",
+      "@type": "DateTime"
+    },
+    "notification": "ngsi-ld:notification",
+    "notificationTrigger": "ngsi-ld:notificationTrigger",
+    "notifiedAt": {
+      "@id": "ngsi-ld:notifiedAt",
+      "@type": "DateTime"
+    },
+    "notifierInfo": "ngsi-ld:notifierInfo",
+    "notUpdated": "ngsi-ld:notUpdated",
+    "object": {
+      "@id": "ngsi-ld:hasObject",
+      "@type": "@id"
+    },
+    "objects": {
+      "@id": "ngsi-ld:hasObjects",
+      "@container": "@list"
+    },
+    "observationInterval": "ngsi-ld:observationInterval",
+    "observationSpace": "ngsi-ld:observationSpace",
+    "observedAt": {
+      "@id": "ngsi-ld:observedAt",
+      "@type": "DateTime"
+    },
+    "operationSpace": "ngsi-ld:operationSpace",
+    "operations": "ngsi-ld:operations",
+    "previousLanguageMap": {
+      "@id": "ngsi-ld:hasPreviousLanguageMap",
+      "@container": "@language"
+    },
+    "previousObject": {
+      "@id": "ngsi-ld:hasPreviousObject",
+      "@type": "@id"
+    },
+    "previousValue": "ngsi-ld:hasPreviousValue",
+    "previousVocab": {
+      "@id": "ngsi-ld:hasPreviousVocab",
+      "@type": "@vocab"
+    },
+    "properties": "geojson:properties",
+    "propertyNames": {
+      "@id": "ngsi-ld:propertyNames",
+      "@type": "@vocab"
+    },
+    "q": "ngsi-ld:q",
+    "reason": "ngsi-ld:reason",
+    "receiverInfo": "ngsi-ld:receiverInfo",
+    "refreshRate": "ngsi-ld:refreshRate",
+    "registrationId": "ngsi-ld:registrationId",
+    "registrationName": "ngsi-ld:registrationName",
+    "relationshipNames": {
+      "@id": "ngsi-ld:relationshipNames",
+      "@type": "@vocab"
+    },
+    "scope": "ngsi-ld:scope",
+    "scopeQ": "ngsi-ld:scopeQ",
+    "showChanges": "ngsi-ld:showChanges",
+    "startAt": {
+      "@id": "ngsi-ld:startAt",
+      "@type": "DateTime"
+    },
+    "status": "ngsi-ld:status",
+    "stddev": {
+      "@id": "ngsi-ld:stddev",
+      "@container": "@list"
+    },
+    "subscriptionId": {
+      "@id": "ngsi-ld:subscriptionId",
+      "@type": "@id"
+    },
+    "subscriptionName": "ngsi-ld:subscriptionName",
+    "success": {
+      "@id": "ngsi-ld:success",
+      "@type": "@id"
+    },
+    "sum": {
+      "@id": "ngsi-ld:sum",
+      "@container": "@list"
+    },
+    "sumsq": {
+      "@id": "ngsi-ld:sumsq",
+      "@container": "@list"
+    },
+    "sysAttrs": "ngsi-ld:sysAttrs",
+    "temporalQ": "ngsi-ld:temporalQ",
+    "tenant": {
+      "@id": "ngsi-ld:tenant",
+      "@type": "@id"
+    },
+    "throttling": "ngsi-ld:throttling",
+    "timeAt": {
+      "@id": "ngsi-ld:timeAt",
+      "@type": "DateTime"
+    },
+    "timeInterval": "ngsi-ld:timeInterval",
+    "timeout": "ngsi-ld:timeout",
+    "timeproperty": "ngsi-ld:timeproperty",
+    "timerel": "ngsi-ld:timerel",
+    "timesFailed": "ngsi-ld:timesFailed",
+    "timesSent": "ngsi-ld:timesSent",
+    "title": "http://purl.org/dc/terms/title",
+    "totalCount": {
+      "@id": "ngsi-ld:totalCount",
+      "@container": "@list"
+    },
+    "triggerReason": "ngsi-ld:triggerReason",
+    "typeList": {
+      "@id": "ngsi-ld:typeList",
+      "@type": "@vocab"
+    },
+    "typeName": {
+      "@id": "ngsi-ld:typeName",
+      "@type": "@vocab"
+    },
+    "typeNames": {
+      "@id": "ngsi-ld:typeNames",
+      "@type": "@vocab"
+    },
+    "unchanged": "ngsi-ld:unchanged",
+    "unitCode": "ngsi-ld:unitCode",
+    "updated": "ngsi-ld:updated",
+    "uri": "ngsi-ld:uri",
+    "value": "ngsi-ld:hasValue",
+    "values": {
+      "@id": "ngsi-ld:hasValues",
+      "@container": "@list"
+    },
+    "vocab": {
+      "@id": "ngsi-ld:hasVocab",
+      "@type": "@vocab"
+    },
+    "vocabs": {
+      "@id": "ngsi-ld:hasVocabs",
+      "@container": "@list"
+    },
+    "watchedAttributes": {
+      "@id": "ngsi-ld:watchedAttributes",
+      "@type": "@vocab"
+    },
+    "@vocab": "https://uri.etsi.org/ngsi-ld/default-context/"
+  }
 }
