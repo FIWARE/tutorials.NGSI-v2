@@ -23,8 +23,8 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 >
 > ― Malcolm Gladwell, The Tipping Point
 
-The introduction to FIWARE [Getting Started tutorial](getting-started.md) introduced the
-[NGSI v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) interface that is commonly used to create and
+The introduction to FIWARE [Getting Started tutorial](getting-started.md) introduced
+the [NGSI v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) interface that is commonly used to create and
 manipulate context data entities. An evolution of that interface has created a supplementary specification called
 [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
 as a mechanism to enhance context data entities through adding the concept of **linked data**. This tutorial will
@@ -43,7 +43,7 @@ Whilst humans are able to understand relationship discoverability and how links 
 difficult, and require a well-defined protocol to be able to traverse from one data element to another held in a
 separate location.
 
-Creating a system of readable links for computers requires the use of a well-defined data format
+Creating a system of readable links for computers requires the use of a well defined data format
 ([JSON-LD](http://json-ld.org/)) and assignation of unique IDs
 ([URLs or URNs](https://stackoverflow.com/questions/4913343/what-is-the-difference-between-uri-url-and-urn)) for both
 data entities and the relationships between entities so that semantic meaning can be programmatically retrieved from the
@@ -51,7 +51,7 @@ data itself.
 
 Properly defined linked data can be used to help answer big data questions, and the data relationships can be traversed
 to answer questions like _"Which products are currently available on the shelves of Store X and what prices are they
-sold at?"_.
+sold at?"_
 
 ### Video: What is Linked Data?
 
@@ -88,7 +88,7 @@ has been conducted under the ETSI ISG CIM initiative and the updated specificati
 [NGSI-LD](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.07.01_60/gs_cim009v010701p.pdf). The main constructs
 of NGSI-LD are: _Entity_, _Property_ and _Relationship_. NGSI-LD Entities (instances) can be the subject of Properties
 or Relationships. In terms of the traditional NGSI v2 data model, Properties can be seen as the combination of an
-attribute and its value. Relationships allow establishing associations between instances using linked data.
+attribute and its value. Relationships allow to establish associations between instances using linked data.
 
 ### NGSI v2 Data Model
 
@@ -123,7 +123,7 @@ a [Building](https://github.com/smart-data-models/dataModel.Building).
 
 _Entities_ can have _properties_ and _relationships_. Ideally the name of each _property_ should also be a well-defined
 URI which corresponds to a common concept found across the web (e.g. `http://schema.org/address` is a common URI for the
-physical address of an item). The _property_ will also have a value which will reflect the state of that property (e.g
+physical address of an item). The _property_ will also have a value which will reflect the state of that property (e.g.
 `name="Checkpoint Markt"`). Finally a property may itself have further properties (a.k.a. _properties-of-properties_)
 which reflect further information about the property itself. Properties and relationships may in turn have a linked
 embedded structure (of _properties-of-properties_ or _properties-of-relationships or relationships-of-properties_ or
@@ -131,24 +131,24 @@ _relationships-of-relationships_ etc.) which lead to the following:
 
 An NGSI LD Data Entity (e.g. a supermarket):
 
--   Has an `id` which must be unique. For example `urn:ngsi-ld:Building:store001`.
--   Has `type` which should be a fully qualified URI of a well-defined data model. For example
-    `https://uri.fiware.org/ns/dataModels#Building`. Authors can also use type names, as shorthand strings for types,
+-   Has an `id` which must be unique. For example `urn:ngsi-ld:Building:store001`,
+-   Has `type` which should be a fully qualified URI of a well defined data model. For example
+    `https://uri.fiware.org/ns/dataModels#Building`. Authors can also use type names, as short hand strings for types,
     mapped to fully qualified URIs through the JSON-LD `@context`.
 -   Has _property_ of the entity, for example, an `address` attribute which holds the address of the store. This can be
     expanded into `http://schema.org/address`, which is known as a fully qualified name
     ([FQN](https://en.wikipedia.org/wiki/Fully_qualified_name)).
 -   The `address`, like any _property_ will have a _value_ corresponding to the _property_ `address` (e.g. _Bornholmer
-    Straße 65, 10439 Prenzlauer Berg, Berlin_.
+    Straße 65, 10439 Prenzlauer Berg, Berlin_
 -   Has a _property-of-a-property_ of the entity, for example a `verified` field for the `address`.
 -   Has a _relationship_ of the entity, for example, a `managedBy` field where the relationship `managedBy` corresponds
-    to another data entity : `urn:ngsi-ld:Person:bob-the-manager`.
+    to another data entity : `urn:ngsi-ld:Person:bob-the-manager`
 -   The relationship `managedBy`, may itself have a _property-of-a-relationship_ (e.g. `since`), this holds the date Bob
-    started working the store.
+    started working the store
 -   The relationship `managedBy`, may itself have a _relationship-of-a-relationship_ (e.g. `subordinateTo`), this holds
     the URN of the area manager above Bob in the hierarchy.
 
-As you can see the knowledge graph is well-defined and can be expanded indefinitely.
+As you can see the knowledge graph is well defined and can be expanded indefinitely.
 
 Relationships will be dealt with in more detail in a subsequent tutorial.
 
@@ -163,8 +163,8 @@ Currently, the Orion Context Broker relies on open source [MongoDB](https://www.
 persistence of the context data it holds. Therefore, the architecture will consist of two elements:
 
 -   The [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json).
--   The underlying [MongoDB](https://www.mongodb.com/) database:
+    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
+-   The underlying [MongoDB](https://www.mongodb.com/) database :
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
         registrations.
 
@@ -220,15 +220,15 @@ The only notable difference to the introductory tutorials is that the required i
 ## Start Up
 
 All services can be initialised from the command-line by running the
-[services](https://github.com/FIWARE/tutorials.Linked-Data/blob/master/services) Bash script provided within the
+[services](https://github.com/FIWARE/tutorials.Linked-Data/blob/NGSI-v2/services) Bash script provided within the
 repository. Please clone the repository and create the necessary images by running the commands as shown:
 
 ```bash
-#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Linked-Data.git
 cd tutorials.Linked-Data
+git checkout NGSI-v2
 
-./services start
+./services orion|scorpio
 ```
 
 This command will also import seed data from the previous [Store Finder tutorial](getting-started.md) on startup.
@@ -250,7 +250,7 @@ NGSI-LD linked data entities rather than NGSI v2.
 
 As usual, you can check if the Orion Context Broker is running by making an HTTP request to the exposed port:
 
-#### 1 Request:
+#### 1️⃣ Request:
 
 ```bash
 curl -X GET \
@@ -292,59 +292,60 @@ When creating linked data entities, it is important to use common data models. T
 from multiple sources and remove ambiguity when comparing data coming from different sources.
 
 Creating linked data using fully qualified names throughout would be painful, as each attribute would need to be a URI,
-so JSON-LD introduces the idea of an `@context` attribute which can hold pointers to context definitions. To add a
-FIWARE [Building](https://github.com/smart-data-models/dataModel.Building) data entity, the following `@context` would
-be required:
+so JSON-LD introduces the idea of an `@context` attribute which can hold pointers to context definitions. To add a Smart
+Data [Building](https://github.com/smart-data-models/dataModel.Building) data entity, the following `@context` would be
+required
 
 ```json
 {
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     ...  other data attributes
-    "@context": [
-        "https://smartdatamodels.org/context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
-    ]
+    "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld"
+
 }
 ```
 
 ### Core Context
 
 [https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld)
-refers to the Core `@context` of NGSI-LD, this defines element such as `id` and `type` which are common to all NGSI
+refers to the Core `@context` of NGSI-LD, this defines terms such as `id` and `type` which are common to all NGSI
 entities, as well as defining terms such as `Property` and `Relationship`. The core context is so fundamental to
 NGSI-LD, that it is added by default to any `@context` sent to a request.
 
 ### Smart Data Models
 
-[https://smartdatamodels.org/context.jsonld](https://smartdatamodels.org/context.jsonld) refers to the definition of
-standard data models supplied by the Smart Data Models project. Adding this to the `@context` will load the definitions
-of all the [data models](https://smartdatamodels.org/) defined by the FIWARE Foundation in collaboration with other
-organizations such as [GSMA](https://www.gsma.com/) and [TM Forum](https://www.tmforum.org/). A summary of the FQNs
-related to **Building** can be seen below:
+[https://smart-data-models.github.io/dataModel.Building/context.jsonld](https://schema.lab.fiware.org/ld/context) refers to a User `@context` - a definition of
+a standard data models. Adding this to the `@context` will load a common definition of a **Building**
+[data model](https://smartdatamodels.org/) defined by the FIWARE Foundation in collaboration with other organizations
+such as GSMA or TM Forum. A summary of the FQNs related to **Building** can be seen below:
 
 ```json
 {
     "@context": {
-        "Building": "https://uri.fiware.org/ns/dataModels#Building",
-...
-        "address": "http://schema.org/address",
-        "category": "https://uri.fiware.org/ns/dataModels#category",
-        "location": "http://uri.etsi.org/ngsi-ld/location",
-...
+        "Building": "https://smartdatamodels.org/dataModel.Building/Building",
+        ... etc
+
+        "address": "https://smartdatamodels.org/address",
+        "addressCountry": "https://smartdatamodels.org/addressCountry",
+        "addressLocality": "https://smartdatamodels.org/addressLocality",
+        "addressRegion": "https://smartdatamodels.org/addressRegion",
+        "category": "https://smartdatamodels.org/dataModel.Building/category",
+        "name": "https://smartdatamodels.org/name",
+        ...etc
     }
 }
 ```
 
 If we include this context definition, it means that we will be able to use short names for `Building`, `address`,
-`location` for our entities, but computers will also be able to read the FQNs when comparing with other sources.
+`name` for our entities, but computers will also be able to read the FQNs when comparing with other sources.
 
 #### Context terms are IRIs not URLs
 
 It should be noted that According to the [JSON-LD Spec](https://www.w3.org/TR/json-ld/#the-context) : _"a context is
 used to map terms to IRIs."_ - An IRI (Internationalized Resource Identifier) is not necessarily a URL - see
-[here](https://fusion.cs.uni-jena.de/fusion/blog/2016/11/18/iri-uri-url-urn-and-their-differences/), and therefore it is
-not unexpected if elements such as `https://uri.etsi.org/ngsi-ld/name` do not actually resolve to a web page. However,
+[here](https://fusion.cs.uni-jena.de/fusion/blog/2016/11/18/iri-uri-url-urn-and-their-differences/) and therefore it is
+not unexpected if elements such as `https://smartdatamodels.org/name` do not actually resolve to a web page. However
 many IRIs within JSON-LD `@context` files, such as `http://schema.org/address` do indeed return web pages with more
 information about themselves.
 
@@ -366,7 +367,7 @@ If you take the NGSI-LD [Core @context](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-
 
 You can see that any unresolved short-name for an attribute will be mapped onto the default context i.e.:
 
--   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`.
+-   Unknown attribute `xxx` => `https://uri.etsi.org/ngsi-ld/default-context/xxx`
 
 And unsurprisingly these default-context IRIs don't exist as valid web pages either.
 
@@ -374,18 +375,18 @@ To create a valid **Building** data entity in the context broker, make a POST re
 `http://localhost:1026/ngsi-ld/v1/entities` endpoint as shown below. It is essential that the appropriate
 `Content-Type: application/ld+json` is also used, so that the data entity is recognized as Linked data.
 
-#### 2 Request:
+#### 2️⃣ Request:
 
 ```bash
 curl -iX POST \
-  http://localhost:1026/ngsi-ld/v1/entities \
+  'http://localhost:1026/ngsi-ld/v1/entities' \
   -H 'Content-Type: application/ld+json' \
   -d '{
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "category": {
-        "type": "Property",
-        "value": ["commercial"]
+        "type": "VocabularyProperty",
+        "vocab": "commercial"
     },
     "address": {
         "type": "Property",
@@ -412,24 +413,26 @@ curl -iX POST \
         "value": "Bösebrücke Einkauf"
     },
     "@context": [
-        "https://smartdatamodels.org/context.jsonld",
+        "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
     ]
 }'
 ```
 
-The first request will take some time, as the context broker must navigate and load all the files mentioned in the
+The first request will take some time, as the context broker must navigate and load all of the files mentioned in the
 `@context`.
 
-> **Note**: if `https://smartdatamodels.org/context.jsonld` is unavailable for some reason the request will fail
+> [!NOTE]
+>  if `https://smart-data-models.github.io/dataModel.Building/context.jsonld` is unavailable for some reason the request will
+> fail
 >
 > For a working production system it is essential that the `@context` files are always available to ensure third parties
 > can read the context. High availability infrastructure has not been considered for this tutorial to keep the
 > architecture simple.
 
-#### 3 Request:
+#### 3️⃣ Request:
 
-Each subsequent entity must have a unique `id` for the given `type`:
+Each subsequent entity must have a unique `id` for the given `type`
 
 ```bash
 curl -iX POST \
@@ -439,8 +442,8 @@ curl -iX POST \
     "id": "urn:ngsi-ld:Building:store002",
     "type": "Building",
     "category": {
-        "type": "Property",
-        "value": ["commercial"]
+        "type": "VocabularyProperty",
+        "vocab": "commercial"
     },
     "address": {
         "type": "Property",
@@ -467,7 +470,7 @@ curl -iX POST \
         "value": "Checkpoint Markt"
     },
     "@context": [
-        "https://smartdatamodels.org/context.jsonld",
+        "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
     ]
 }'
@@ -477,21 +480,23 @@ curl -iX POST \
 
 The attributes `id` and `type` should be familiar to anyone who has used NGSI v2, and these have not changed. As
 mentioned above, the type should refer to an included data model, in this case `Building` is being used as a short name
-for the included URN `https://uri.fiware.org/ns/dataModels#Building`. Thereafter, each _property_ is defined as a JSON
+for the included URN `https://uri.fiware.org/ns/dataModels#Building`. Thereafter each _property_ is defined as a JSON
 element containing two attributes, a `type` and a `value`.
 
 The `type` of a _property_ attribute must be one of the following:
 
 -   `"GeoProperty"`: `"http://uri.etsi.org/ngsi-ld/GeoProperty"` for locations. Locations should be specified as
     Longitude-Latitude pairs in [GeoJSON format](https://tools.ietf.org/html/rfc7946). The preferred name for the
-    primary location attribute is `location`.
+    primary location attribute is `location`
+-   `"VocabularyProperty"` holds enumerated values and is a mapping of a URI to a value within the user'`@context`
+-   `"LanguageProperty"` holds a set of internationalized strings.
 -   `"Property"`: `"http://uri.etsi.org/ngsi-ld/Property"` - for everything else.
--   `"Property"` should also be used for all time-based values, but the property `value` should be Date, Time or
-    DateTime strings encoded in the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) - e.g.
-    `YYYY-MM-DDThh:mm:ssZ`.
+-   For time-based values, `"Property"` shall be used as well, but the property value should be Date, Time or DateTime
+    strings encoded in the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) - e.g. `YYYY-MM-DDThh:mm:ssZ`
 
-> **Note:** that for simplicity, this data entity has no relationships defined. Relationships must be given the
-> `type="Relationship`. Relationships will be discussed in a subsequent tutorial.
+> [!NOTE]
+> Note that for simplicity, this data entity has no relationships defined. Relationships must be given the
+> `type=Relationship` or one of its defined subtypes. Relationships will be discussed in a subsequent tutorial.
 
 ### Defining Properties-of-Properties within the NGSI-LD entity definition
 
@@ -521,13 +526,13 @@ short names.
 This example returns the data of all `Building` entities within the context data The `type` parameter is mandatory for
 NGSI-LD and is used to filter the response. The Accept HTTP header is needed to retrieve JSON-LD content.
 
-#### 4 Request:
+#### 4️⃣ Request:
 
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
   -H 'Accept: application/ld+json' \
-  -d 'type=https%3A%2F%2Furi.fiware.org%2Fns%2Fdata-models%23Building'
+  -d 'type=https%3A%2F%2Fsmartdatamodels.org%2FdataModel.Building%2FBuilding'
 ```
 
 #### Response:
@@ -535,19 +540,25 @@ curl -G -X GET \
 The response returns the Core `@context` by default (`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`) and
 all attributes are expanded whenever possible.
 
--   `id`, `type`, `location` and `name` are defined in the core context and are not expanded.
--   `address` has been mapped to `http://schema.org/address`.
--   `category` has been mapped to `https://uri.fiware.org/ns/dataModels#category`.
+-   `id`, `type` and `location` are defined in the core context and are not expanded.
+-   `address` has been mapped to `http://smartdatamodels.org/address`
+-   `name` has been mapped to `http://smartdatamodels.org/name`
+-   `category` has been mapped to `https://smartdatamodels.org/dataModel.Building/category`
 
-Note that if an attribute has not been associated to an FQN when the entity was created, the short name will **always**
-be displayed.
+Note that if an attribute has not been not associated to an FQN when the entity was created, the short name will
+**always** be displayed - `verified` and `commercial` are examples of this since they were missing from the supplied user `@context` when inserting the context data.
 
 ```json
 [
     {
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
-        "type": "https://uri.fiware.org/ns/dataModels#Building",
-        "http://schema.org/address": {
+        "type": "https://smartdatamodels.org/dataModel.Building/Building",
+        "https://smartdatamodels.org/dataModel.Building/category": {
+            "type": "VocabularyProperty",
+            "vocab": "commercial"
+        },
+        "https://smartdatamodels.org/address": {
             "type": "Property",
             "value": {
                 "streetAddress": "Bornholmer Straße 65",
@@ -560,68 +571,69 @@ be displayed.
                 "value": true
             }
         },
-        "name": {
-            "type": "Property",
-            "value": "Bösebrücke Einkauf"
-        },
-        "https://uri.fiware.org/ns/dataModels#category": {
-            "type": "Property",
-            "value": ["commercial"]
-        },
         "location": {
             "type": "GeoProperty",
             "value": {
                 "type": "Point",
-                "coordinates": [13.3986, 52.5547]
+                "coordinates": [
+                    13.3986,
+                    52.5547
+                ]
             }
         },
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+        "https://smartdatamodels.org/name": {
+            "type": "Property",
+            "value": "Bösebrücke Einkauf"
+        }
     },
     {
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
-        "type": "https://uri.fiware.org/ns/dataModels#Building",
-        "http://schema.org/address": {
+        "type": "https://smartdatamodels.org/dataModel.Building/Building",
+        "https://smartdatamodels.org/dataModel.Building/category": {
+            "type": "VocabularyProperty",
+            "vocab": "commercial"
+        },
+        "https://smartdatamodels.org/address": {
             "type": "Property",
             "value": {
-                "streetAddress": "Friedrichstraße 44",
-                "addressRegion": "Berlin",
-                "addressLocality": "Kreuzberg",
-                "postalCode": "10969"
+                "https://smartdatamodels.org/streetAddress": "Friedrichstraße 44",
+                "https://smartdatamodels.org/addressRegion": "Berlin",
+                "https://smartdatamodels.org/addressLocality": "Kreuzberg",
+                "https://smartdatamodels.org/postalCode": "10969"
             },
             "verified": {
                 "type": "Property",
                 "value": true
             }
         },
-        "name": {
-            "type": "Property",
-            "value": "Checkpoint Markt"
-        },
-        "https://uri.fiware.org/ns/dataModels#category": {
-            "type": "Property",
-            "value": ["commercial"]
-        },
         "location": {
             "type": "GeoProperty",
             "value": {
                 "type": "Point",
-                "coordinates": [13.3903, 52.5075]
+                "coordinates": [
+                    13.3903,
+                    52.5075
+                ]
             }
         },
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+        "https://smartdatamodels.org/name": {
+            "type": "Property",
+            "value": "Checkpoint Markt"
+        }
     }
 ]
 ```
 
 ### Obtain entity data by ID
 
-This example returns the data of `urn:ngsi-ld:Building:store001`.
+This example returns the data of `urn:ngsi-ld:Building:store001`
 
-#### 5 Request:
+#### 5️⃣ Request:
 
 ```bash
 curl -G -X GET \
-  -H 'Accept: application/ld+json' \
+   -H 'Accept: application/ld+json' \
    'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001'
 ```
 
@@ -632,37 +644,26 @@ all attributes are expanded whenever possible.
 
 ```json
 {
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
-    "type": "https://uri.fiware.org/ns/dataModels#Building",
-    "http://schema.org/address": {
-        "type": "Property",
-        "value": {
-            "streetAddress": "Bornholmer Straße 65",
-            "addressRegion": "Berlin",
-            "addressLocality": "Prenzlauer Berg",
-            "postalCode": "10439"
-        },
-        "verified": {
-            "type": "Property",
-            "value": true
-        }
+    "type": "https://smartdatamodels.org/dataModel.Building/Building",
+    "https://smartdatamodels.org/dataModel.Building/category": {
+        "vocab": "commercial"
     },
-    "name": {
-        "type": "Property",
-        "value": "Bösebrücke Einkauf"
-    },
-    "https://uri.fiware.org/ns/dataModels#category": {
-        "type": "Property",
-        "value": ["commercial"]
+    "https://smartdatamodels.org/address": {
+        "streetAddress": "Bornholmer Straße 65",
+        "addressRegion": "Berlin",
+        "addressLocality": "Prenzlauer Berg",
+        "postalCode": "10439"
     },
     "location": {
-        "type": "GeoProperty",
-        "value": {
-            "type": "Point",
-            "coordinates": [13.3986, 52.5547]
-        }
+        "type": "Point",
+        "coordinates": [
+            13.3986,
+            52.5547
+        ]
     },
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+    "https://smartdatamodels.org/name": "Bösebrücke Einkauf"
 }
 ```
 
@@ -674,22 +675,21 @@ data. Use of the `type` parameter limits the response to `Building` entities onl
 parameter reduces the response down to standard JSON-LD.
 
 A [`Link` header](https://www.w3.org/wiki/LinkHeader) must be supplied to associate the short form `type="Building"`
-with the FQN `https://uri.fiware.org/ns/dataModels#Building`. The full link header syntax can be seen below:
+with the FQN `https://uri.fiware.org/ns/data-models/Building`. The full link header syntax can be seen below:
 
 ```text
-Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json
+Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json
 ```
 
 The standard HTTP `Link` header allows metadata (in this case the `@context`) to be passed in without actually touching
 the resource in question. In the case of NGSI-LD, the metadata is a file in `application/ld+json` format.
 
-#### 6 Request:
+#### 6️⃣ Request:
 
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
-    'http://localhost:1026/ngsi-ld/v1/entities' \
+    -H 'Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'options=keyValues'
@@ -704,6 +704,7 @@ used as the `@context` returned in the response.
 ```json
 [
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "Building",
         "address": {
@@ -713,14 +714,16 @@ used as the `@context` returned in the response.
             "postalCode": "10439"
         },
         "name": "Bösebrücke Einkauf",
-        "category": ["commercial"],
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3986, 52.5547]
-        },
-        "@context": "https://smartdatamodels.org/context.jsonld"
+        }
     },
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "Building",
         "address": {
@@ -730,12 +733,13 @@ used as the `@context` returned in the response.
             "postalCode": "10969"
         },
         "name": "Checkpoint Markt",
-        "category": ["commercial"],
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
-        },
-        "@context": "https://smartdatamodels.org/context.jsonld"
+        }
     }
 ]
 ```
@@ -746,12 +750,12 @@ This example returns all `Building` entities with the `name` attribute _Checkpoi
 the `q` parameter - if a string has spaces in it, it can be URL encoded and held within double quote characters `"` =
 `%22`.
 
-#### 7 Request:
+#### 7️⃣  Request:
 
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+    -H 'Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
     -d 'q=name==%22Checkpoint%20Markt%22' \
@@ -760,18 +764,7 @@ curl -G -X GET \
 
 #### Response:
 
-The `Link` header `https://smartdatamodels.org/context.jsonld` holds an array of `@context` as shown:
-
-```json
-{
-    "@context": [
-        "https://smartdatamodels.org/context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
-    ]
-}
-```
-
-and therefore includes the FIWARE Building model.
+The `Link` header `https://smart-data-models.github.io/dataModel.Building/context.jsonld` includes the FIWARE Building model.
 
 This means that use of the `Link` header and the `options=keyValues` parameter reduces the response to short form
 JSON-LD as shown:
@@ -779,6 +772,7 @@ JSON-LD as shown:
 ```json
 [
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "Building",
         "address": {
@@ -788,32 +782,40 @@ JSON-LD as shown:
             "postalCode": "10969"
         },
         "name": "Checkpoint Markt",
-        "category": ["commercial"],
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
-        },
-        "@context": "https://smartdatamodels.org/context.jsonld"
+        }
     }
 ]
 ```
 
 ### Filter context data by comparing the values of an attribute in an Array
 
-Within the standard `Building` model, the `category` attribute refers to an array of strings. This example returns all
+Within the standard `Building` model, the `category` attribute refers to an array of enumerated strings. This example returns all
 `Building` entities with a `category` attribute which contains either `commercial` or `office` strings. Filtering can be
 done using the `q` parameter, comma separating the acceptable values.
 
-#### 8 Request:
+> [!NOTE]
+>
+> `category` has been defined as a **VocabularyProperty**, which would usually mean that the `vocab`
+> value should be a URI defined in the `@context`. The `expandValues` hint indicates that URI
+> expansion is required for the `category` attribute when querying the context data.
+
+#### 8️⃣  Request:
 
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+    -H 'Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
-    -d 'q=category==%22commercial%22,%22office%22 \
-    -d 'options=keyValues'
+    -d 'q=category==%22commercial%22,%22office%22' \
+    -d 'options=keyValues' \
+    -d 'expandValues=category'
 ```
 
 #### Response:
@@ -823,6 +825,7 @@ The response is returned in JSON-LD format with short form attribute names:
 ```json
 [
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "Building",
         "address": {
@@ -832,14 +835,16 @@ The response is returned in JSON-LD format with short form attribute names:
             "postalCode": "10439"
         },
         "name": "Bösebrücke Einkauf",
-        "category": ["commercial"],
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3986, 52.5547]
-        },
-        "@context": "https://smartdatamodels.org/context.jsonld"
+        }
     },
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "Building",
         "address": {
@@ -849,12 +854,13 @@ The response is returned in JSON-LD format with short form attribute names:
             "postalCode": "10969"
         },
         "name": "Checkpoint Markt",
-        "category": ["commercial"],
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
-        },
-        "@context": "https://smartdatamodels.org/context.jsonld"
+        }
     }
 ]
 ```
@@ -866,15 +872,15 @@ This example returns all stores found in the Kreuzberg District.
 Filtering can be done using the `q` parameter - sub-attributes are annotated using the bracket syntax e.g.
 `q=address[addressLocality]=="Kreuzberg"`. This differs from NGSI v2 where dot syntax was used.
 
-#### 9 Request:
+#### 9️⃣ Request:
 
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+    -H 'Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/ld+json' \
     -d 'type=Building' \
-    -d 'q=address[addressLocality]==%22Kreuzberg%22' \
+    -d 'q=address%5BaddressLocality%5D==%22Kreuzberg%22' \
     -d 'options=keyValues'
 ```
 
@@ -885,6 +891,7 @@ Use of the `Link` header and the `options=keyValues` parameter reduces the respo
 ```json
 [
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "Building",
         "address": {
@@ -894,12 +901,13 @@ Use of the `Link` header and the `options=keyValues` parameter reduces the respo
             "postalCode": "10969"
         },
         "name": "Checkpoint Markt",
-        "category": ["commercial"],
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
-        },
-        "@context": "https://smartdatamodels.org/context.jsonld"
+        }
     }
 ]
 ```
@@ -907,17 +915,17 @@ Use of the `Link` header and the `options=keyValues` parameter reduces the respo
 ### Filter context data by querying metadata
 
 This example returns the data of all `Building` entities with a verified address. The `verified` attribute is an example
-of a _Property-of-a-Property_.
+of a _Property-of-a-Property_
 
 Metadata queries (i.e. Properties of Properties) are annotated using the dot syntax e.g. `q=address.verified==true`.
 This supersedes the `mq` parameter from NGSI v2.
 
-#### 10 Request:
+#### 1️⃣0️⃣ Request:
 
 ```bash
 curl -G -X GET \
     'http://localhost:1026/ngsi-ld/v1/entities' \
-    -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+    -H 'Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
     -H 'Accept: application/json' \
     -d 'type=Building' \
     -d 'q=address.verified==true' \
@@ -926,12 +934,13 @@ curl -G -X GET \
 
 #### Response:
 
-Because of the use of the `options=keyValues`, together with the Accept HTTP header (`application/json`), the response
-consists of **JSON only** without an `@context` or attribute `type` and `metadata` elements.
+Because of the use of the `options=keyValues` together with the Accept HTTP header (`application/json`), the response
+consists of JSON only without the attribute `type` and `metadata` elements.
 
 ```json
 [
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "Building",
         "address": {
@@ -940,13 +949,17 @@ consists of **JSON only** without an `@context` or attribute `type` and `metadat
             "addressLocality": "Prenzlauer Berg",
             "postalCode": "10439"
         },
+        "name": "Bösebrücke Einkauf",
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3986, 52.5547]
-        },
-        "name": "Bösebrücke Einkauf"
+        }
     },
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "Building",
         "address": {
@@ -955,11 +968,14 @@ consists of **JSON only** without an `@context` or attribute `type` and `metadat
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
+        "name": "Checkpoint Markt",
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
-        },
-        "name": "Checkpoint Markt"
+        }
     }
 ]
 ```
@@ -976,28 +992,29 @@ required in NGSI v2.
 Note that by default the geo-query will be applied to the `location` attribute, as this is default specified in NGSI-LD.
 If another attribute is to be used, an additional `geoproperty` parameter is required.
 
-#### 11 Request:
+#### 1️⃣1️⃣ Request:
 
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities' \
-  -H 'Link: <https://smartdatamodels.org/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/json"' \
+  -H 'Link: <https://smart-data-models.github.io/dataModel.Building/context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
   -H 'Accept: application/json' \
   -d 'type=Building' \
   -d 'geometry=Point' \
-  -d 'coordinates=[13.3777,52.5162]' \
-  -d 'georel=near;maxDistance==2000' \
+  -d 'coordinates=%5B13.3777,52.5162%5D' \
+  -d 'georel=near%3BmaxDistance==2000' \
   -d 'options=keyValues'
 ```
 
 #### Response:
 
 Because of the use of the `options=keyValues` together with the Accept HTTP header (`application/json`), the response
-consists of **JSON only** without an `@context` or attribute `type` and `metadata` elements.
+consists of JSON only without the attribute `type` and `metadata` elements.
 
 ```json
 [
     {
+        "@context": "https://smart-data-models.github.io/dataModel.Building/context.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "Building",
         "address": {
@@ -1006,11 +1023,14 @@ consists of **JSON only** without an `@context` or attribute `type` and `metadat
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
+        "name": "Checkpoint Markt",
+        "category": {
+            "vocab" :"commercial"
+        },
         "location": {
             "type": "Point",
             "coordinates": [13.3903, 52.5075]
-        },
-        "name": "Checkpoint Markt"
+        }
     }
 ]
 ```
