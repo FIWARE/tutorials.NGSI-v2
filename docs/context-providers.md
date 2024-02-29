@@ -156,7 +156,7 @@ the Twitter Search API and two dummy data context providers - a static data prov
 data) and a random data context provider (which will change every time it is invoked).
 
 More information about the proxy endpoints can be found
-[here](https://github.com/FIWARE/tutorials.Step-by-Step/tree/master/context-provider)
+[here](https://github.com/FIWARE/tutorials.NGSI-v2/tree/master/context-provider)
 
 -   In order to access the Open Weather Map API, you will need to sign up for a key at `https://openweathermap.org/api`
 -   In order to access the Twitter Search API, you will have to create an app in Twitter via

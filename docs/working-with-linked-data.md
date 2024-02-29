@@ -80,7 +80,7 @@ please keep this in mind and substitute Node.js with your own programming langua
 ## Stock Management Frontend
 
 All the code Node.js Express for the demo can be found within the `ngsi-ld` folder within the GitHub repository.
-[Stock Management example](https://github.com/FIWARE/tutorials.Step-by-Step/tree/master/context-provider). The
+[Stock Management example](https://github.com/FIWARE/tutorials.NGSI-v2/tree/master/context-provider). The
 application runs on the following URLs:
 
 -   `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001`
