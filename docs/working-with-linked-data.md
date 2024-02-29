@@ -171,7 +171,7 @@ git clone https://github.com/FIWARE/tutorials.Working-with-Linked-Data.git
 cd tutorials.Working-with-Linked-Data
 git checkout NGSI-v2
 
-./services orion
+./services orion|scorpio|stellio
 ```
 
 > **Note:** If you want to clean up and start over again you can do so with the following command:
