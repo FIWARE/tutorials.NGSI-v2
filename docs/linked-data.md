@@ -228,7 +228,7 @@ git clone https://github.com/FIWARE/tutorials.Linked-Data.git
 cd tutorials.Linked-Data
 git checkout NGSI-v2
 
-./services orion|scorpio
+./services orion|scorpio|stellio
 ```
 
 This command will also import seed data from the previous [Store Finder tutorial](getting-started.md) on startup.

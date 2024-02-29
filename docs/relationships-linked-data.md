@@ -365,7 +365,7 @@ within the repository. Please clone the repository and create the necessary imag
 git clone https://github.com/FIWARE/tutorials.Relationships-Linked-Data.git
 cd tutorials.Relationships-Linked-Data
 
-./services start
+./services orion|scorpio|stellio
 ```
 
 > **Note:** If you want to clean up and start over again you can do so with the following command:
