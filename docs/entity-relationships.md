@@ -290,7 +290,7 @@ curl -iX POST \
 ```
 
 In both cases we have encoded each entity `id` according to the NGSI-LD
-[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.07.01_60/gs_cim009v010701p.pdf) - the proposal
+[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_cim009v010801p.pdf) - the proposal
 is that each `id` is a URN follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every
 `id` in the system will be unique.
 

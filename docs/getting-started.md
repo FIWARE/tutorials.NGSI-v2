@@ -305,7 +305,7 @@ In this case we only have one entity type - **Store**
 #### Entity IDs should be a URN following NGSI-LD guidelines
 
 NGSI-LD has recently been published as a full ETSI
-[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.07.01_60/gs_cim009v010701p.pdf), the proposal is
+[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_cim009v010801p.pdf), the proposal is
 that each `id` is a URN follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every
 `id` in the system will be unique
 
