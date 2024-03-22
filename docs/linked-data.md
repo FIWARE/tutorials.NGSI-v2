@@ -515,6 +515,18 @@ attribute. a `verified` flag indicates whether the address has been confirmed. T
 `unitCode` which should be used to hold the UN/CEFACT
 [Common Codes](http://wiki.goodrelations-vocabulary.org/Documentation/UN/CEFACT_Common_Codes) for Units of Measurement.
 
+
+> A `valueType` _property-of-a-property_ can be used to describe the **Datatype** of an attribute.
+>
+> -  For Native JSON Properties, the `valueType` can align with a well-known **Datatype** schema, such as [schema.org](https://schema.org/DataType)  or
+>    [XML Schema](https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/) - typically values such as: `Time`, `Boolean`, `DateTime`, `Number`,
+>    `Text`, `Date`, `Float`, `Integer` etc.
+> -  For other JSON Objects, where possible use a datatype from an existing ontology - for example `PostalAddress` aligns with `https://schema.org/PostalAddress`.
+>
+> When using `valueType` , the mapping of the given short name value to a full URI should be placed in the User `@context`
+>
+
+
 ## Querying Context Data
 
 A consuming application can now request context data by making NGSI-LD HTTP requests to the Orion Context Broker. The
