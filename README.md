@@ -84,7 +84,7 @@ docker-compose -v
 docker version
 ```
 
-Please ensure that you are using Docker version 20.10 or higher and Docker Compose 1.29 or higher and upgrade if
+Please ensure that you are using Docker version 24.0.x or higher and Docker Compose 2.24.x or higher and upgrade if
 necessary.
 
 ### Postman <img src="./docs/img/postman.png" align="left"  height="25" width="25">

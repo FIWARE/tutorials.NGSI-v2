@@ -339,7 +339,7 @@ The response will look similar to the following:
 
 ```json
 {
-    "libVersion": "2.24.0",
+    "libVersion": "2.24.x",
     "port": "4041",
     "baseRoot": "/",
     "version": "1.24.0"
