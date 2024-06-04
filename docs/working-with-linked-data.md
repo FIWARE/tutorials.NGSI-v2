@@ -80,8 +80,8 @@ please keep this in mind and substitute Node.js with your own programming langua
 ## Stock Management Frontend
 
 All the code Node.js Express for the demo can be found within the `ngsi-ld` folder within the GitHub repository.
-[Stock Management example](https://github.com/FIWARE/tutorials.NGSI-v2/tree/master/context-provider). The
-application runs on the following URLs:
+[Stock Management example](https://github.com/FIWARE/tutorials.NGSI-v2/tree/master/context-provider). The application
+runs on the following URLs:
 
 -   `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001`
 -   `http://localhost:3000/app/store/urn:ngsi-ld:Building:store002`
@@ -108,7 +108,8 @@ Therefore, the architecture will consist of three elements:
 
 -   The [Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
     [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
--   An HTTP **Web-Server** which offers static `@context` files defining the context entities within the system for both English and Japanese Users.
+-   An HTTP **Web-Server** which offers static `@context` files defining the context entities within the system for both
+    English and Japanese Users.
 -   The underlying [MongoDB](https://www.mongodb.com/) database :
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
         registrations
@@ -199,8 +200,7 @@ The code under discussion can be found within the `ngsi-ld/store` controller in 
 As usual, the code for HTTP access can be split out from the business logic of the Supermarket application itself. The
 lower level calls have been placed into a library file, which simplifies the codebase. This needs to be included in the
 header of the file as shown. Some constants are also required - for the Supermarket data, the `LinkHeader` is used to
-define location of the data models JSON-LD context (which) as
-`http://context/ngsi-context.jsonld`.
+define location of the data models JSON-LD context (which) as `http://context/ngsi-context.jsonld`.
 
 ```javascript
 const ngsiLD = require('../../lib/ngsi-ld');
@@ -286,7 +286,7 @@ And the response from the broker is:
     "type": "Building",
     "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"],
     "category": {
-         "vocab": "commercial"
+        "vocab": "commercial"
     },
     "address": {
         "streetAddress": "Bornholmer Straße 65",
@@ -628,17 +628,19 @@ As a demonstration of this, imagine we which to incorporate context data entitie
 using a different schema. Rather than using `name`, `category`, `location` etc, our Japanese context provider is using
 data attributes based on Kanji characters.
 
-The English user NGSI-LD `@context` defines that `name` = `https://schema.org/name`, similarly for a Japanese user we can define `名前` =
-`https://schema.org/name` and introduce alternate mappings for attribute names and enumerated values.
+The English user NGSI-LD `@context` defines that `name` = `https://schema.org/name`, similarly for a Japanese user we
+can define `名前` = `https://schema.org/name` and introduce alternate mappings for attribute names and enumerated
+values.
 
 Provided that two systems can agree upon a **common** system of unique URIs for data interchange, they are free to
 locally re-interpret those values within their own domain.
 
 ### Creating an Entity using an Alternate Schema
 
-An alternative Japanese JSON-LD `@context` file has been created and published to a web server. Within the docker network, the file can be
-found here: [`http://context/japanese-user-context.jsonld`](./data-models/japanese-user-context.jsonld). Alternate data mappings can be
-found for all attribute names used within the tutorials.
+An alternative Japanese JSON-LD `@context` file has been created and published to a web server. Within the docker
+network, the file can be found here:
+[`http://context/japanese-user-context.jsonld`](./data-models/japanese-user-context.jsonld). Alternate data mappings can
+be found for all attribute names used within the tutorials.
 
 > **Note**: For comparision the standard tutorial JSON-LD `@context` file can be found here:
 > `https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld`
@@ -692,8 +694,10 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/' \
 
 And the response is an HTTP 201 status code with no data.
 
-Note that in this example the name and address have been supplied as simple strings - JSON-LD does support a  **LanguageProperty** `@lang`
-definition to allow for internationalization, but this is an advanced topic which will not be discussed here. Note that the `category`/ `カテゴリー` has been defined using a **VocabularyProperty**, so that the enumerated value  `commercial`/ `"コマーシャル` can also be amended via the `@context`.
+Note that in this example the name and address have been supplied as simple strings - JSON-LD does support a
+**LanguageProperty** `@lang` definition to allow for internationalization, but this is an advanced topic which will not
+be discussed here. Note that the `category`/ `カテゴリー` has been defined using a **VocabularyProperty**, so that the
+enumerated value `commercial`/ `"コマーシャル` can also be amended via the `@context`.
 
 ### Reading an Entity using the default schema
 
@@ -702,8 +706,8 @@ different attribute short names, the Japanese JSON-LD `@context` file agrees wit
 the full URIs used for a **Building** entity - effectively it is using the same data model.
 
 Therefore it is possible to request the new **Building** (created using the Japanese data model) and have it return
-using the short names specified in the standard English User JSON-LD `@context`, this is done by supplying the `Link` header
-is pointing to the tutorial JSON-LD `@context` file.
+using the short names specified in the standard English User JSON-LD `@context`, this is done by supplying the `Link`
+header is pointing to the tutorial JSON-LD `@context` file.
 
 #### 2️⃣ Request:
 
@@ -773,8 +777,7 @@ curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:s
 
 The response is mixed - it uses attribute names and enumerations defined in `japanese-context.jsonld` with some
 exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always applied after the contexts received in the
-`Link` header. Since `location` is a reserved attribute name, it is always supplied using the default core
-context.
+`Link` header. Since `location` is a reserved attribute name, it is always supplied using the default core context.
 
 ```json
 {
@@ -782,9 +785,7 @@ context.
     "type": "ビル",
     "カテゴリー": {
         "type": "VocabularyProperty",
-        "vocab": [
-            "コマーシャル"
-        ]
+        "vocab": ["コマーシャル"]
     },
     "住所": {
         "type": "Property",
@@ -803,10 +804,7 @@ context.
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [
-                13.4447,
-                52.5031
-            ]
+            "coordinates": [13.4447, 52.5031]
         }
     },
     "名前": {
@@ -815,11 +813,7 @@ context.
     },
     "家具": {
         "type": "Relationship",
-        "object": [
-            "urn:ngsi-ld:Shelf:unit006",
-            "urn:ngsi-ld:Shelf:unit007",
-            "urn:ngsi-ld:Shelf:unit008"
-        ]
+        "object": ["urn:ngsi-ld:Shelf:unit006", "urn:ngsi-ld:Shelf:unit007", "urn:ngsi-ld:Shelf:unit008"]
     }
 }
 ```
@@ -891,10 +885,7 @@ payload before sending data to the context broker.
     "名前": "Yuusui-en",
     "場所": {
         "タイプ": "場",
-        "座標": [
-            13.5646,
-            52.5435
-        ]
+        "座標": [13.5646, 52.5435]
     },
     "カテゴリー": {
         "語彙": "コマーシャル"
@@ -902,9 +893,9 @@ payload before sending data to the context broker.
 }
 ```
 
-
-It is worth noting that the subattributes of `address` / `住所"` were left undefined by the `@context` files and therefore have remained unconverted. Both  `address` and `住所"` are mapped to the same URI `http://schema.org/address`, it would have been possible to
-include additional mappings for the subattributes using the schema.org ontology as shown:
+It is worth noting that the subattributes of `address` / `住所"` were left undefined by the `@context` files and
+therefore have remained unconverted. Both `address` and `住所"` are mapped to the same URI `http://schema.org/address`,
+it would have been possible to include additional mappings for the subattributes using the schema.org ontology as shown:
 
 ```json
 {
@@ -915,7 +906,6 @@ include additional mappings for the subattributes using the schema.org ontology 
         "streetAddress": "http://schema.org/streetAddress"
     }
 }
-
 ```
 
 and their equivalents in Japanese:
@@ -929,7 +919,6 @@ and their equivalents in Japanese:
         "住所": "http://schema.org/streetAddress"
     }
 }
-
 ```
 
 #### Video: JSON-LD Compaction & Expansion

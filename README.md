@@ -21,6 +21,7 @@ directly or programmatically.
 <br/>
 
 > [!NOTE]
+>
 > **Should I use NGSI-v2 or NGSI-LD?**
 >
 > FIWARE offers two flavours of the NGSI interfaces:
@@ -36,8 +37,6 @@ directly or programmatically.
 > systems aproach, and in situations requiring  interoperability across apps and organisations.
 >
 > More information about NGSI-LD can be found [here](https://ngsi-ld-tutorials.readthedocs.io)
-
-
 
 <h3>Data models</h3>
 
@@ -107,6 +106,12 @@ the tutorials in a cloud development environment directly from your browser or y
 the concept of a project object model (POM), Maven can manage a project's build, reporting and documentation from a
 central piece of information. Maven can be used to define and download our dependencies and to build and package Java or
 Scala code into a JAR file.
+
+### Windows Subsystem for Linux
+
+We will start up our services using a simple bash script. Windows users should download the
+[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) to provide a command-line
+functionality similar to a Linux distribution on Windows.
 
 ## Tutorials List [<img src="https://img.shields.io/badge/NGSI-v2-5dc0cf.svg" width="90"  align="left" />]("https://fiware-ges.github.io/orion/api/v2/stable/)
 

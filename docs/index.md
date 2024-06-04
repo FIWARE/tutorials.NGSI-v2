@@ -23,7 +23,8 @@ demonstrate the correct use of individual FIWARE components and shows the flow o
 Solution either by connecting to a series of dummy IoT devices or manipulating the context directly or programmatically.
 
 <!--- GLOBAL SUMMIT BANNER AD -->
-<a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit24.png" width="240" height="70" /></a> 
+
+<a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit24.png" width="240" height="70" /></a>
 
 <!--- GLOBAL SUMMIT BANNER AD
 <a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit23.png" width="240" height="70" /></a>  <a href="https://www.eventbrite.com/e/fiware-on-site-training-tickets-591474775977"><img src="https://fiware.github.io//catalogue/img/Training23.png" width="240" height="70" /></a>
@@ -101,8 +102,8 @@ FIWARE Postman collections can be downloaded directly from the
 
 [Gitpod](https://github.com/gitpod-io/gitpod) is an open-source Kubernetes application for ready-to-code cloud
 development environments that spins up an automated dev environment for each task, in the cloud. It enables you to run
-the tutorials in a cloud development environment directly from your browser or your Desktop IDE.
-The default environment is based on Ubuntu and includes Java `11.0.16`  and Maven `3.8.6`.
+the tutorials in a cloud development environment directly from your browser or your Desktop IDE. The default environment
+is based on Ubuntu and includes Java `11.0.16` and Maven `3.8.6`.
 
 ### Apache Maven <img src="https://maven.apache.org/favicon.ico" align="left"  height="30" width="30" style="border-right-style:solid; border-right-width:10px; border-color:transparent; background: transparent">
 
@@ -115,7 +116,14 @@ Scala code into a JAR file. Apache Maven `3.8.6` or higher is recommended.
 
 [jq](https://jqlang.github.io/jq/) is a lightweight and flexible command-line JSON processor which can be used to format
 the JSON responses received from the context broker and other FIWARE components. More information about how to use jq
-can be found [here](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq). `jq-1.6` is recommended.
+can be found [here](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq). `jq-1.6` is
+recommended.
+
+### Windows Subsystem for Linux
+
+We will start up our services using a simple bash script. Windows users should download the
+[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) to provide a command-line
+functionality similar to a Linux distribution on Windows.
 
 ## Data models
 

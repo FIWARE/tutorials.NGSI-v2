@@ -23,8 +23,8 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 >
 > ― Malcolm Gladwell, The Tipping Point
 
-The introduction to FIWARE [Getting Started tutorial](getting-started.md) introduced
-the [NGSI v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) interface that is commonly used to create and
+The introduction to FIWARE [Getting Started tutorial](getting-started.md) introduced the
+[NGSI v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) interface that is commonly used to create and
 manipulate context data entities. An evolution of that interface has created a supplementary specification called
 [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
 as a mechanism to enhance context data entities through adding the concept of **linked data**. This tutorial will
@@ -315,10 +315,11 @@ NGSI-LD, that it is added by default to any `@context` sent to a request.
 
 ### Smart Data Models
 
-[https://smart-data-models.github.io/dataModel.Building/context.jsonld](https://schema.lab.fiware.org/ld/context) refers to a User `@context` - a definition of
-a standard data models. Adding this to the `@context` will load a common definition of a **Building**
-[data model](https://smartdatamodels.org/) defined by the FIWARE Foundation in collaboration with other organizations
-such as GSMA or TM Forum. A summary of the FQNs related to **Building** can be seen below:
+[https://smart-data-models.github.io/dataModel.Building/context.jsonld](https://schema.lab.fiware.org/ld/context) refers
+to a User `@context` - a definition of a standard data models. Adding this to the `@context` will load a common
+definition of a **Building** [data model](https://smartdatamodels.org/) defined by the FIWARE Foundation in
+collaboration with other organizations such as GSMA or TM Forum. A summary of the FQNs related to **Building** can be
+seen below:
 
 ```json
 {
@@ -423,8 +424,9 @@ The first request will take some time, as the context broker must navigate and l
 `@context`.
 
 > [!NOTE]
->  if `https://smart-data-models.github.io/dataModel.Building/context.jsonld` is unavailable for some reason the request will
-> fail
+>
+> if `https://smart-data-models.github.io/dataModel.Building/context.jsonld` is unavailable for some reason the request
+> will fail
 >
 > For a working production system it is essential that the `@context` files are always available to ensure third parties
 > can read the context. High availability infrastructure has not been considered for this tutorial to keep the
@@ -495,6 +497,7 @@ The `type` of a _property_ attribute must be one of the following:
     strings encoded in the [ISO 8601 format](https://en.wikipedia.org/wiki/ISO_8601) - e.g. `YYYY-MM-DDThh:mm:ssZ`
 
 > [!NOTE]
+>
 > Note that for simplicity, this data entity has no relationships defined. Relationships must be given the
 > `type=Relationship` or one of its defined subtypes. Relationships will be discussed in a subsequent tutorial.
 
@@ -515,17 +518,16 @@ attribute. a `verified` flag indicates whether the address has been confirmed. T
 `unitCode` which should be used to hold the UN/CEFACT
 [Common Codes](http://wiki.goodrelations-vocabulary.org/Documentation/UN/CEFACT_Common_Codes) for Units of Measurement.
 
-
 > A `valueType` _property-of-a-property_ can be used to describe the **Datatype** of an attribute.
 >
-> -  For Native JSON Properties, the `valueType` can align with a well-known **Datatype** schema, such as [schema.org](https://schema.org/DataType)  or
->    [XML Schema](https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/) - typically values such as: `Time`, `Boolean`, `DateTime`, `Number`,
->    `Text`, `Date`, `Float`, `Integer` etc.
-> -  For other JSON Objects, where possible use a datatype from an existing ontology - for example `PostalAddress` aligns with `https://schema.org/PostalAddress`.
+> -   For Native JSON Properties, the `valueType` can align with a well-known **Datatype** schema, such as
+>     [schema.org](https://schema.org/DataType) or [XML Schema](https://www.w3.org/TR/2004/REC-xmlschema-2-20041028/) -
+>     typically values such as: `Time`, `Boolean`, `DateTime`, `Number`, `Text`, `Date`, `Float`, `Integer` etc.
+> -   For other JSON Objects, where possible use a datatype from an existing ontology - for example `PostalAddress`
+>     aligns with `https://schema.org/PostalAddress`.
 >
-> When using `valueType` , the mapping of the given short name value to a full URI should be placed in the User `@context`
->
-
+> When using `valueType` , the mapping of the given short name value to a full URI should be placed in the User
+> `@context`
 
 ## Querying Context Data
 
@@ -549,8 +551,8 @@ curl -G -X GET \
 
 #### Response:
 
-The response returns the Core `@context` by default (`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`) and
-all attributes are expanded whenever possible.
+The response returns the Core `@context` by default (`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`)
+and all attributes are expanded whenever possible.
 
 -   `id`, `type` and `location` are defined in the core context and are not expanded.
 -   `address` has been mapped to `http://smartdatamodels.org/address`
@@ -558,7 +560,8 @@ all attributes are expanded whenever possible.
 -   `category` has been mapped to `https://smartdatamodels.org/dataModel.Building/category`
 
 Note that if an attribute has not been not associated to an FQN when the entity was created, the short name will
-**always** be displayed - `verified` and `commercial` are examples of this since they were missing from the supplied user `@context` when inserting the context data.
+**always** be displayed - `verified` and `commercial` are examples of this since they were missing from the supplied
+user `@context` when inserting the context data.
 
 ```json
 [
@@ -587,10 +590,7 @@ Note that if an attribute has not been not associated to an FQN when the entity 
             "type": "GeoProperty",
             "value": {
                 "type": "Point",
-                "coordinates": [
-                    13.3986,
-                    52.5547
-                ]
+                "coordinates": [13.3986, 52.5547]
             }
         },
         "https://smartdatamodels.org/name": {
@@ -623,10 +623,7 @@ Note that if an attribute has not been not associated to an FQN when the entity 
             "type": "GeoProperty",
             "value": {
                 "type": "Point",
-                "coordinates": [
-                    13.3903,
-                    52.5075
-                ]
+                "coordinates": [13.3903, 52.5075]
             }
         },
         "https://smartdatamodels.org/name": {
@@ -651,8 +648,8 @@ curl -G -X GET \
 
 #### Response:
 
-The response returns the Core `@context` by default (`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`) and
-all attributes are expanded whenever possible.
+The response returns the Core `@context` by default (`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`)
+and all attributes are expanded whenever possible.
 
 ```json
 {
@@ -670,10 +667,7 @@ all attributes are expanded whenever possible.
     },
     "location": {
         "type": "Point",
-        "coordinates": [
-            13.3986,
-            52.5547
-        ]
+        "coordinates": [13.3986, 52.5547]
     },
     "https://smartdatamodels.org/name": "Bösebrücke Einkauf"
 }
@@ -727,7 +721,7 @@ used as the `@context` returned in the response.
         },
         "name": "Bösebrücke Einkauf",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -746,7 +740,7 @@ used as the `@context` returned in the response.
         },
         "name": "Checkpoint Markt",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -762,7 +756,7 @@ This example returns all `Building` entities with the `name` attribute _Checkpoi
 the `q` parameter - if a string has spaces in it, it can be URL encoded and held within double quote characters `"` =
 `%22`.
 
-#### 7️⃣  Request:
+#### 7️⃣ Request:
 
 ```bash
 curl -G -X GET \
@@ -776,7 +770,8 @@ curl -G -X GET \
 
 #### Response:
 
-The `Link` header `https://smart-data-models.github.io/dataModel.Building/context.jsonld` includes the FIWARE Building model.
+The `Link` header `https://smart-data-models.github.io/dataModel.Building/context.jsonld` includes the FIWARE Building
+model.
 
 This means that use of the `Link` header and the `options=keyValues` parameter reduces the response to short form
 JSON-LD as shown:
@@ -795,7 +790,7 @@ JSON-LD as shown:
         },
         "name": "Checkpoint Markt",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -807,17 +802,17 @@ JSON-LD as shown:
 
 ### Filter context data by comparing the values of an attribute in an Array
 
-Within the standard `Building` model, the `category` attribute refers to an array of enumerated strings. This example returns all
-`Building` entities with a `category` attribute which contains either `commercial` or `office` strings. Filtering can be
-done using the `q` parameter, comma separating the acceptable values.
+Within the standard `Building` model, the `category` attribute refers to an array of enumerated strings. This example
+returns all `Building` entities with a `category` attribute which contains either `commercial` or `office` strings.
+Filtering can be done using the `q` parameter, comma separating the acceptable values.
 
 > [!NOTE]
->
-> `category` has been defined as a **VocabularyProperty**, which would usually mean that the `vocab`
-> value should be a URI defined in the `@context`. The `expandValues` hint indicates that URI
-> expansion is required for the `category` attribute when querying the context data.
 
-#### 8️⃣  Request:
+> `category` has been defined as a **VocabularyProperty**, which would usually mean that the `vocab` value should be a
+> URI defined in the `@context`. The `expandValues` hint indicates that URI expansion is required for the `category`
+> attribute when querying the context data.
+
+#### 8️⃣ Request:
 
 ```bash
 curl -G -X GET \
@@ -848,7 +843,7 @@ The response is returned in JSON-LD format with short form attribute names:
         },
         "name": "Bösebrücke Einkauf",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -867,7 +862,7 @@ The response is returned in JSON-LD format with short form attribute names:
         },
         "name": "Checkpoint Markt",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -914,7 +909,7 @@ Use of the `Link` header and the `options=keyValues` parameter reduces the respo
         },
         "name": "Checkpoint Markt",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -963,7 +958,7 @@ consists of JSON only without the attribute `type` and `metadata` elements.
         },
         "name": "Bösebrücke Einkauf",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -982,7 +977,7 @@ consists of JSON only without the attribute `type` and `metadata` elements.
         },
         "name": "Checkpoint Markt",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",
@@ -1037,7 +1032,7 @@ consists of JSON only without the attribute `type` and `metadata` elements.
         },
         "name": "Checkpoint Markt",
         "category": {
-            "vocab" :"commercial"
+            "vocab": "commercial"
         },
         "location": {
             "type": "Point",

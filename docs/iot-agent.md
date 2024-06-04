@@ -843,10 +843,9 @@ Once the commands have been registered it will be possible to ring the **Bell**,
 switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending UltraLight 2.0
 requests directly the IoT devices as we did in the [previous tutorial](iot-sensors.md).
 
-> **Note:** If the device is provisioned, but no data concerning the Entity is present in the context broker yet, the invocation must
-> include the `type` of the Entity to succeed. However if the Entity `type` is already known
-> to the broker, this hint
-> is not necessary. This is because the registration is matched on both `id` and `type`.
+> **Note:** If the device is provisioned, but no data concerning the Entity is present in the context broker yet, the
+> invocation must include the `type` of the Entity to succeed. However if the Entity `type` is already known to the
+> broker, this hint is not necessary. This is because the registration is matched on both `id` and `type`.
 
 ### Ringing the Bell
 
