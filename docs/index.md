@@ -24,11 +24,8 @@ Solution either by connecting to a series of dummy IoT devices or manipulating t
 
 <!--- GLOBAL SUMMIT BANNER AD -->
 
-<a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit24.png" width="240" height="70" /></a>
+<a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit24.png" width="240" height="70" /></a> <a href="https://www.eventbrite.de/e/fiware-tech-training-naples-tickets-920143322447"><img src="https://fiware.github.io//catalogue/img/Training24.png" width="240" height="70" /></a> 
 
-<!--- GLOBAL SUMMIT BANNER AD
-<a href="https://www.fiware.org/global-summit/"><img src="https://fiware.github.io//catalogue/img/Summit23.png" width="240" height="70" /></a>  <a href="https://www.eventbrite.com/e/fiware-on-site-training-tickets-591474775977"><img src="https://fiware.github.io//catalogue/img/Training23.png" width="240" height="70" /></a>
---->
 
 <blockquote>
 <h3>Should I use NGSI-v2 or NGSI-LD?</h3>
