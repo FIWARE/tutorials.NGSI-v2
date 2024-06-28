@@ -407,6 +407,7 @@ curl -X POST \
       "device_id": "bell001",
       "entity_name": "urn:ngsi-ld:Bell:001",
       "entity_type": "Bell",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "transport":   "MQTT",
       "static_attributes": [
           {"name": "refStore", "type": "Relationship","value": "urn:ngsi-ld:Store:001"}

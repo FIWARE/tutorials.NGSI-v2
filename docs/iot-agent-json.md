@@ -630,6 +630,7 @@ curl -iX POST \
       "device_id": "bell001",
       "entity_name": "urn:ngsi-ld:Bell:001",
       "entity_type": "Bell",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "transport": "HTTP",
       "endpoint": "http://iot-sensors:3001/iot/bell001",
       "commands": [
@@ -729,6 +730,7 @@ curl -iX POST \
       "device_id": "door001",
       "entity_name": "urn:ngsi-ld:Door:001",
       "entity_type": "Door",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "transport": "HTTP",
       "endpoint": "http://iot-sensors:3001/iot/door001",
       "commands": [
@@ -767,6 +769,7 @@ curl -iX POST \
       "device_id": "lamp001",
       "entity_name": "urn:ngsi-ld:Lamp:001",
       "entity_type": "Lamp",
+      "apikey": "4jggokgpepnvsb2uv4s40d59ov",
       "transport": "HTTP",
       "endpoint": "http://iot-sensors:3001/iot/lamp001",
       "commands": [

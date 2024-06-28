@@ -88,7 +88,7 @@ orion:
         - '1026'
     ports:
         - '1026:1026'
-    command: -dbhost mongo-db -logLevel DEBUG
+    command: -dbURI mongodb://mongo-db -logLevel DEBUG
 ```
 
 ```yaml
