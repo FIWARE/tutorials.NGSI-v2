@@ -576,10 +576,10 @@ user `@context` when inserting the context data.
         "https://smartdatamodels.org/address": {
             "type": "Property",
             "value": {
-                "streetAddress": "Bornholmer Straße 65",
-                "addressRegion": "Berlin",
-                "addressLocality": "Prenzlauer Berg",
-                "postalCode": "10439"
+                "https://smartdatamodels.org/streetAddress": "Bornholmer Straße 65",
+                "https://smartdatamodels.org/addressRegion": "Berlin",
+                "https://smartdatamodels.org/addressLocality": "Prenzlauer Berg",
+                "https://smartdatamodels.org/postalCode": "10439"
             },
             "verified": {
                 "type": "Property",
@@ -660,10 +660,10 @@ and all attributes are expanded whenever possible.
         "vocab": "commercial"
     },
     "https://smartdatamodels.org/address": {
-        "streetAddress": "Bornholmer Straße 65",
-        "addressRegion": "Berlin",
-        "addressLocality": "Prenzlauer Berg",
-        "postalCode": "10439"
+        "https://smartdatamodels.org/streetAddress": "Bornholmer Straße 65",
+        "https://smartdatamodels.org/addressRegion": "Berlin",
+        "https://smartdatamodels.org/addressLocality": "Prenzlauer Berg",
+        "https://smartdatamodels.org/postalCode": "10439"
     },
     "location": {
         "type": "Point",
