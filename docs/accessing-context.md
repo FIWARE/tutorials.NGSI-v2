@@ -225,6 +225,7 @@ clone the repository and create the necessary images by running the commands as 
 ```bash
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Accessing-Context.git
+git checkout NGSI-v2
 cd tutorials.Accessing-Context
 
 ./services create; ./services start;
