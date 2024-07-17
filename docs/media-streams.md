@@ -144,6 +144,7 @@ To start the installation, do the following:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Media-Streams.git
 cd tutorials.Media-Streams
+git checkout NGSI-v2
 git submodule update --init --recursive
 
 ./services create

@@ -375,6 +375,7 @@ To start the installation, do the following:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.XACML-Access-Rules.git
 cd tutorials.XACML-Access-Rules
+git checkout NGSI-v2
 
 ./services create
 ```

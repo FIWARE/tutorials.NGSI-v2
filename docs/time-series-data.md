@@ -150,6 +150,7 @@ the repository and create the necessary images by running the commands as shown:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Time-Series-Data.git
 cd tutorials.Time-Series-Data
+git checkout NGSI-v2
 
 ./services create
 ```

@@ -106,6 +106,7 @@ and create the necessary images by running the commands as shown:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Getting-Started.git
 cd tutorials.Getting-Started
+git checkout NGSI-v2
 
 export $(cat .env | grep "#" -v)
 docker compose up -d

@@ -113,6 +113,7 @@ within the repository. Please clone the repository and create the necessary imag
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations.git
 cd tutorials.LD-Subscriptions-Registrations
+git checkout NGSI-v2
 
 ./services orion|scorpio|stellio
 ```

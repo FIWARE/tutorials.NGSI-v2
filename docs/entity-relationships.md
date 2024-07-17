@@ -125,6 +125,7 @@ the repository. Please clone the repository and create the necessary images by r
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Entity-Relationships.git
 cd tutorials.Entity-Relationships
+git checkout NGSI-v2
 
 ./services start
 ```

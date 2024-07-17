@@ -205,6 +205,7 @@ To start the installation, do the following:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Securing-Access.git
 cd tutorials.Securing-Access
+git checkout NGSI-v2
 
 ./services create
 ```

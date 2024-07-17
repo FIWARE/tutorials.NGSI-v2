@@ -299,6 +299,7 @@ repository and create the necessary images by running the commands as shown:
 #!/bin/bash
 git clone https://github.com/FIWARE/tutorials.IoT-Agent-JSON.git
 cd tutorials.IoT-Agent
+git checkout NGSI-v2
 
 ./services create
 ```
