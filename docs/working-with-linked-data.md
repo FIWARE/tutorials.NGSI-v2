@@ -281,10 +281,8 @@ And the response from the broker is:
 
 ```json
 {
-    "@context": "http://context/ngsi-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
-    "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"],
     "category": {
         "vocab": "commercial"
     },
@@ -296,9 +294,17 @@ And the response from the broker is:
     },
     "location": {
         "type": "Point",
-        "coordinates": [13.3986, 52.5547]
+        "coordinates": [
+            13.3986,
+            52.5547
+        ]
     },
-    "name": "Bösebrücke Einkauf"
+    "name": "Bösebrücke Einkauf",
+    "furniture": [
+        "urn:ngsi-ld:Shelf:unit001",
+        "urn:ngsi-ld:Shelf:unit002",
+        "urn:ngsi-ld:Shelf:unit003"
+    ]
 }
 ```
 
