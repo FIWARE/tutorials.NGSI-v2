@@ -174,7 +174,7 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
       "accept": "application/json"
     }
   },
-   "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
+   "@context": "http://context/user-context.jsonld"
 }'
 ```
 
