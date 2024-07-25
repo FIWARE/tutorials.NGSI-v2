@@ -217,7 +217,8 @@ actions continue to be mapped to the same HTTP verbs as before. Adding the `Acce
 #### 3 Request:
 
 ```bash
-curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/subscriptions/'
+curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/subscriptions/'  \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -236,7 +237,7 @@ the payloads offered by the two subscriptions will be discussed below.
 ```json
 [
     {
-        "id": "urn:ngsi-ld:Subscription:5e62405ee232da3a07b5fa7f",
+        "id": "urn:ngsi-ld:subscription:6388b9a6-4a82-11ef-b848-0242ac120105",
         "type": "Subscription",
         "description": "Notify me of low stock in Store 001",
         "entities": [
@@ -244,38 +245,58 @@ the payloads offered by the two subscriptions will be discussed below.
                 "type": "Shelf"
             }
         ],
-        "watchedAttributes": ["numberOfItems"],
-        "q": "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems<10;https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn==%22urn:ngsi-ld:Building:store001%22",
+        "watchedAttributes": [
+            "numberOfItems"
+        ],
+        "q": "numberOfItems<10;locatedIn==%22urn:ngsi-ld:Building:store001%22",
+        "status": "active",
+        "isActive": true,
         "notification": {
-            "attributes": ["numberOfItems", "stocks", "locatedIn"],
+            "attributes": [
+                "numberOfItems",
+                "stocks",
+                "locatedIn"
+            ],
             "format": "keyValues",
             "endpoint": {
                 "uri": "http://tutorial:3000/subscription/low-stock-store001",
                 "accept": "application/json"
-            }
+            },
+            "status": "ok"
         },
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
+        "origin": "cache",
+        "jsonldContext": "http://context/user-context.jsonld"
     },
     {
-        "id": "urn:ngsi-ld:Subscription:5e624063e232da3a07b5fa80",
+        "id": "urn:ngsi-ld:subscription:68fa2d2a-4a82-11ef-828d-0242ac120105",
         "type": "Subscription",
-        "description": "Notify me of low stock in Store 002",
+        "description": "LD Notify me of low stock in Store 002",
         "entities": [
             {
                 "type": "Shelf"
             }
         ],
-        "watchedAttributes": ["numberOfItems"],
-        "q": "https://fiware.github.io/tutorials.Step-by-Step/schema/numberOfItems<10;https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn==%22urn:ngsi-ld:Building:store002%22",
+        "watchedAttributes": [
+            "numberOfItems"
+        ],
+        "q": "numberOfItems<10;locatedIn==%22urn:ngsi-ld:Building:store002%22",
+        "status": "active",
+        "isActive": true,
         "notification": {
-            "attributes": ["numberOfItems", "stocks", "locatedIn"],
-            "format": "keyValues",
+            "attributes": [
+                "numberOfItems",
+                "stocks",
+                "locatedIn"
+            ],
+            "format": "normalized",
             "endpoint": {
                 "uri": "http://tutorial:3000/subscription/low-stock-store002",
-                "accept": "application/json"
-            }
+                "accept": "application/ld+json"
+            },
+            "status": "ok"
         },
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
+        "origin": "cache",
+        "jsonldContext": "http://context/user-context.jsonld"
     }
 ]
 ```
