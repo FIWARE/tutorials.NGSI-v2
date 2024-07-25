@@ -360,10 +360,13 @@ And the response from the broker is:
 
 ```json
 {
-    "@context": "https://context/ngsi-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
-    "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"]
+    "furniture": [
+        "urn:ngsi-ld:Shelf:unit001",
+        "urn:ngsi-ld:Shelf:unit002",
+        "urn:ngsi-ld:Shelf:unit003"
+    ]
 }
 ```
 
@@ -419,21 +422,18 @@ further.
 ```json
 [
     {
-        "@context": "http://context/ngsi-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
         "numberOfItems": 15,
         "stocks": "urn:ngsi-ld:Product:001"
     },
     {
-        "@context": "http://context/ngsi-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
         "numberOfItems": 15,
         "stocks": "urn:ngsi-ld:Product:003"
     },
     {
-        "@context": "http://context/ngsi-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit003",
         "type": "Shelf",
         "numberOfItems": 15,
@@ -548,41 +548,24 @@ And the response from the broker is the following with nine shelves:
 
 ```json
 [
-  {
-    "id": "urn:ngsi-ld:Shelf:unit001",
-    "type": "Shelf",
-    "locatedIn": "urn:ngsi-ld:Building:store001",
-    "maxCapacity": 50,
-    "numberOfItems": 15,
-    "stocks": "urn:ngsi-ld:Product:001",
-    "name": "Corner Unit",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        13.398611,
-        52.554699
-      ]
+    {
+        "id": "urn:ngsi-ld:Shelf:unit001",
+        "type": "Shelf",
+        "location": {
+            "type": "Point",
+            "coordinates": [
+                13.398611,
+                52.554699
+            ]
+        },
+        "maxCapacity": 50,
+        "numberOfItems": 15,
+        "name": "Corner Unit",
+        "stocks": "urn:ngsi-ld:Product:001",
+        "locatedIn": "urn:ngsi-ld:Building:store001"
     }
-  },
-  {
-    "id": "urn:ngsi-ld:Shelf:unit002",
-    "type": "Shelf",
-    "locatedIn": "urn:ngsi-ld:Building:store001",
-    "maxCapacity": 100,
-    "numberOfItems": 15,
-    "stocks": "urn:ngsi-ld:Product:003",
-    "name": "Wall Unit 1",
-    "location": {
-      "type": "Point",
-      "coordinates": [
-        13.398722,
-        52.554664
-      ]
-    }
-  },
 
-  ... etc.
-
+    ...etc
 ]
 ```
 
@@ -737,9 +720,12 @@ also returns the standard enumeration for **Building** `category`.
 
 ```json
 {
-    "@context": "http://context/ngsi-context.jsonld",
     "id": "urn:ngsi-ld:Building:store005",
     "type": "Building",
+    "category": {
+        "type": "VocabularyProperty",
+        "vocab":  "commercial"
+    },
     "address": {
         "type": "Property",
         "value": {
@@ -751,10 +737,18 @@ also returns the standard enumeration for **Building** `category`.
     },
     "location": {
         "type": "GeoProperty",
-        "value": { "type": "Point", "coordinates": [13.5646, 52.5435] }
+        "value": {
+            "type": "Point",
+            "coordinates": [
+                13.5646,
+                52.5435
+            ]
+        }
     },
-    "name": { "type": "Property", "value": "Yuusui-en" },
-    "category": { "type": "VocabularyProperty", "vocab": "commercial" }
+    "name": {
+        "type": "Property",
+        "value": "Yuusui-en"
+    }
 }
 ```
 
@@ -776,7 +770,7 @@ supplied in the `Link` header.
 ```console
 curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store003' \
 -H 'Content-Type: application/json' \
--H 'Link: <http://context/japanese-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+-H 'Link: <http://context/japanese-user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -791,7 +785,7 @@ exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always appli
     "type": "ビル",
     "カテゴリー": {
         "type": "VocabularyProperty",
-        "vocab": ["コマーシャル"]
+        "vocab": "コマーシャル"
     },
     "住所": {
         "type": "Property",
@@ -810,7 +804,10 @@ exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always appli
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [13.4447, 52.5031]
+            "coordinates": [
+                13.4447,
+                52.5031
+            ]
         }
     },
     "名前": {
@@ -819,7 +816,11 @@ exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always appli
     },
     "家具": {
         "type": "Relationship",
-        "object": ["urn:ngsi-ld:Shelf:unit006", "urn:ngsi-ld:Shelf:unit007", "urn:ngsi-ld:Shelf:unit008"]
+        "object": [
+            "urn:ngsi-ld:Shelf:unit006",
+            "urn:ngsi-ld:Shelf:unit007",
+            "urn:ngsi-ld:Shelf:unit008"
+        ]
     }
 }
 ```
@@ -883,17 +884,30 @@ payload before sending data to the context broker.
     "識別子": "urn:ngsi-ld:Building:store005",
     "タイプ": "ビル",
     "住所": {
-        "addressLocality": "Marzahn",
-        "addressRegion": "Berlin",
-        "postalCode": "12685",
-        "streetAddress": "Eisenacher Straße 98"
+        "タイプ": "プロパティ",
+        "値": {
+            "addressLocality": "Marzahn",
+            "addressRegion": "Berlin",
+            "postalCode": "12685",
+            "streetAddress": "Eisenacher Straße 98"
+        }
     },
-    "名前": "Yuusui-en",
+    "名前": {
+        "タイプ": "プロパティ",
+        "値": "Yuusui-en"
+    },
     "場所": {
-        "タイプ": "場",
-        "座標": [13.5646, 52.5435]
+        "タイプ": "ジオプロパティ",
+        "値": {
+            "タイプ": "場",
+            "座標": [
+                13.5646,
+                52.5435
+            ]
+        }
     },
     "カテゴリー": {
+        "タイプ": "グロッサリープロパティ",
         "語彙": "コマーシャル"
     }
 }
