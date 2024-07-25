@@ -190,7 +190,7 @@ notification request and that the payload will consist of the expanded entities.
 ```bash
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
 -H 'Content-Type: application/json' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 --data-raw '{
   "description": "LD Notify me of low stock in Store 002",
   "type": "Subscription",
@@ -451,7 +451,7 @@ match the expected **NGSI-v2** attribute names.
 ```bash
 curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
 -H 'Content-Type: application/json' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 --data-raw ' {
     "type": "ContextSourceRegistration",
     "information": [
@@ -470,7 +470,7 @@ curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
     "contextSourceInfo":[
         {
             "key": "jsonldContext",
-            "value": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
+            "value": "http://context/user-context.jsonld"
         }
     ],
     "mode": "exclusive",
@@ -495,7 +495,7 @@ endpoint, along with an appropriate JSON-LD context in the `Link` header and the
 ```bash
 curl -G -iX GET 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
 -H 'Accept: application/ld+json' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -d 'type=Building'
 ```
 
@@ -507,29 +507,39 @@ returned, along with the `@context`.
 ```json
 [
     {
-        "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
-        "id": "urn:ngsi-ld:ContextSourceRegistration:5e6242179c26be5aef9991d4",
+        "@context": [
+            "http://context/user-context.jsonld",
+            "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+        ],
         "type": "ContextSourceRegistration",
-        "endpoint": "http://tutorial:3000/static/tweets",
+        "id": "urn:ngsi-ld:ContextSourceRegistration:f7f5864a-4a83-11ef-950e-0242ac120105",
         "information": [
             {
                 "entities": [
                     {
-                        "id": "urn:ngsi-ld:Building:store001",
-                        "type": "Building"
+                        "type": "Building",
+                        "id": "urn:ngsi-ld:Building:store001"
                     }
                 ],
-                "propertyNames": ["tweets"]
+                "propertyNames": [
+                    "tweets"
+                ]
             }
         ],
         "contextSourceInfo": [
             {
                 "key": "jsonldContext",
-                "value": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
+                "value": "http://context/user-context.jsonld"
             }
         ],
         "mode": "exclusive",
-        "operations": ["updateOps", "retrieveOps"]
+        "operations": [
+            "updateOps",
+            "retrieveOps"
+        ],
+        "endpoint": "http://tutorial:3000/static/tweets",
+        "status": "active",
+        "origin": "cache"
     }
 ]
 ```
@@ -545,7 +555,7 @@ existing entity held within the context broker.
 
 ```bash
 curl -iX GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/json'
 ```
 
@@ -560,7 +570,6 @@ The response now holds an additional `tweets` Property, which returns the values
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "furniture": {
@@ -635,7 +644,7 @@ The same request is made by the context broker itself when querying for register
 
 ```bash
 curl -L -X GET 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?attrs=tweets' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/ld+json'
 ```
 
@@ -646,7 +655,10 @@ the response resembles any standard NGSI-LD request.
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "@context": [
+        "http://context/user-context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+    ],
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": {
@@ -673,7 +685,7 @@ For a read-write interface it is also possible to amend context data by making a
 
 ```bash
 curl -L -X PATCH 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/json' \
 --data-raw '{
   "tweets": {
@@ -694,7 +706,7 @@ If the registered attribute is requested from the context broker, it returns the
 
 ```bash
 curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?attrs=tweets&options=keyValues' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
 #### Response:
@@ -703,7 +715,10 @@ This alters the response to match the values updated in the previous PATCH reque
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "@context": [
+        "http://context/user-context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+    ],
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": [
@@ -738,7 +753,7 @@ In this case however a request to PATCH `ngsi-ld/v1/entities/<entity-id>` will b
 
 ```bash
 curl -L -X PATCH 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs/tweets' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/json' \
 --data-raw '{
   "type": "Property",
@@ -755,7 +770,7 @@ The result of the previous operation can be seen by retrieving the whole entity 
 
 ```bash
 curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?attrs=tweets&options=keyValues' \
--H 'Link: <https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
+-H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"' \
 -H 'Content-Type: application/json'
 ```
 
@@ -766,7 +781,10 @@ and then forwarded to the context provider endpoint.
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld",
+    "@context": [
+        "http://context/user-context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+    ],
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": ["This must be Thursday", "I never could get the hang of Thursdays."]
