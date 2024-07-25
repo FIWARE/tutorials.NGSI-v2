@@ -715,10 +715,6 @@ This alters the response to match the values updated in the previous PATCH reque
 
 ```json
 {
-    "@context": [
-        "http://context/user-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
-    ],
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": [
@@ -781,10 +777,6 @@ and then forwarded to the context provider endpoint.
 
 ```json
 {
-    "@context": [
-        "http://context/user-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
-    ],
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": ["This must be Thursday", "I never could get the hang of Thursdays."]
