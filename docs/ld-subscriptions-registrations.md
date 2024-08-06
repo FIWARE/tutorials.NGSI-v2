@@ -1,18 +1,25 @@
 [![FIWARE Core Context Management](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/core.svg)](https://github.com/FIWARE/catalogue/blob/master/core/README.md)
-[![NGSI LD](https://img.shields.io/badge/NGSI-LD-d6604d.svg)](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_cim009v010801p.pdf)
-[![JSON](https://img.shields.io/badge/JSON--LD-1.1-f06f38.svg)](https://w3c.github.io/json-ld-syntax/)
+[![NGSI LD](https://img.shields.io/badge/NGSI-LD-d6604d.svg)](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.02_60/gs_cim009v010402p.pdf)
+[![JSON LD](https://img.shields.io/badge/JSON--LD-1.1-f06f38.svg)](https://w3c.github.io/json-ld-syntax/)
 
-**Description:** This tutorial discusses the usage of subscriptions and registrations within NGSI-LD and highlights the
-similarities and differences between the equivalent NGSI-v2 and NGSI-LD operations. The tutorial is an analogue of the
-original context-provider and subscriptions tutorials but uses API calls from the **NGSI-LD** interface throughout.
+**Description:** This tutorial discusses the usage of subscriptions and registrations within NGSI-LD and highlights the similarities and
+differences between the equivalent NGSI-v2 and NGSI-LD operations. The tutorial is an analogue of the original
+context-provider and subscriptions tutorials but uses API calls from the **NGSI-LD** interface throughout.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
-[Postman documentation](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/).
+[Postman documentation](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/)
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/2c53b7c2bce9fd7b7b47)
-[![Run in GitPod](https://fiware.github.io/tutorials.NGSI-LD/img/gitpod.png)](https://gitpod.io/#https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations/tree/NGSI-v2)
+[![Open in Gitpod](https://gitpod.io/button/open-in-gitpod.svg)](https://gitpod.io/#https://github.com/FIWARE/tutorials.LD-Subscriptions-Registrations/tree/NGSI-v2)
 
 <hr class="core"/>
+
+> **NOTE**
+>
+> This tutorial is designed for **NGSI-v2** developers looking to switch or upgrade systems to **NGSI-LD**, if you are
+> building a linked data system from scratch or you are not already familiar with **NGSI-v2** then it is recommmended
+> that you look directly at the [NGSI-LD developers tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
+
 
 # Understanding Linked Data Subscriptions and Registrations
 
@@ -30,18 +37,18 @@ broker that additional context information is available from another source.
 
 Both of these operations require that the receiving component fully understands the requests it receives, and is capable
 of creating and interpreting the resultant payloads. The differences here between NGSI-v2 and NGSI-LD operations is
-small, but there has been a minor amendment to facilitate the incorporation of linked data concepts, and therefore, the
+small, but there has been a minor amendment to facilite the incorporation of linked data concepts, and therefore the
 contract between the various components has changed to include minor updates.
 
 <h3>Entities within a stock management system</h3>
 
 The relationship between our Linked Data entities is defined as shown, in addition to the existing data, the `tweets`
 attribute will be supplied by a _Context Provider_. In all other respects this model remains the same as the
-[previous tutorial](working-with-linked-data.md) :
+[previous tutorial](https://github.com/FIWARE/tutorials.Working-with-Linked-Data/) :
 
 ![](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/img/entities.png)
 
-<h3>Stock Management frontend</h3>
+## Stock Management frontend
 
 The simple Node.js Express application has updated to use NGSI-LD in the previous
 [tutorial](working-with-linked-data.md). We will use the monitor page to watch the status of recent requests, and two
@@ -74,25 +81,25 @@ FIWARE component.
 
 Currently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the context data it holds. To request context data from external sources, a simple Context Provider NGSI
-proxy has also been added. To visualize and interact with the Context we will add a simple Express application.
+proxy has also been added. To visualize and interact with the Context we will add a simple Express application
 
 Therefore, the architecture will consist of four elements:
 
 -   The [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests using
-    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json).
--   The underlying [MongoDB](https://www.mongodb.com/) database:
+    [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json)
+-   The underlying [MongoDB](https://www.mongodb.com/) database :
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
-        registrations.
+        registrations
 -   The **Context Provider NGSI** proxy which will:
-    -   Receive requests using.
+    -   receive requests using
         [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json#/)
-    -   Make requests to publicly available data sources using their own APIs in a proprietary format.
-    -   Return context data back to the Orion Context Broker in
+    -   makes requests to publicly available data sources using their own APIs in a proprietary format
+    -   returns context data back to the Orion Context Broker in
         [NGSI-LD](https://forge.etsi.org/swagger/ui/?url=https://forge.etsi.org/rep/NGSI-LD/NGSI-LD/raw/master/spec/updated/generated/full_api.json#/)
         format.
 -   The **Stock Management Frontend** which will:
-    -   Display store information.
-    -   Show which products can be bought at each store.
+    -   Display store information
+    -   Show which products can be bought at each store
     -   Allow users to "buy" products and reduce the stock count.
 
 Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run
@@ -135,27 +142,27 @@ Goto `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001` to display 
 ### Create a Subscription (Store 1) - Low Stock
 
 NGSI-LD subscriptions can be set up using the `/ngsi-ld/v1/subscriptions/` endpoint and in a similar manner to the
-NGSI-v2 `/v2/subscriptions` endpoint. The payload body is slightly different, however. Firstly the linked data
-`@context` must be present either as an attribute or in the `Link` header. If the `@context` is placed in the body the
+NGSI-v2 `/v2/subscriptions` endpoint. The payload body is slightly different however. Firstly the linked data `@context`
+must be present either as an attribute or in the `Link` header. If the `@context` is placed in the body the
 `Context-Type` header must state that the payload is `application/ld+json` - i.e. Linked Data plus JSON. The supplied
 `@context` will also be used when making notifications as part of the notification request.
 
 The `type` of the NGSI-LD subscription request is always `type=Subscription`. The structure of the subscription has
 changed. When setting up a subscription, there is no longer a separate `subject` section to the payload, entities to
-watch and trigger conditions are now set at the same level as the `description` of the subscription:
+watch and trigger conditions are now set at the same level as the `description` of the subscription.
 
--   `condition.attrs` has been moved up a level and renamed to `watchedAttributes`.
--   `condition.expression` has been moved up a level and renamed to `q`.
+-   `condition.attrs` has been moved up a level and renamed to `watchedAttributes`
+-   `condition.expression` has been moved up a level and renamed to `q`
 
 The `notification` section of the body states that once the conditions of the subscription have been met, a POST request
 containing all affected Shelf entities will be sent to the URL `http://tutorial:3000/subscription/low-stock-store001`.
 It is now possible to amend the notification payload by requesting `notification.format=keyValues` and remove the
 `@context` from the notification body by stating `notification.endpoint.accept=application/json`. The `@context` is not
-lost, it is merely passed as a `Link` header. In summary, all the flags within a subscription work in the same manner as
-a GET request to the context broker itself. If no flags are set, a full NGSI-LD response including the `@context` is
+lost, it is merely passed as a `Link` header. In summary, all of the flags within a subscription work in the same manner
+as a GET request to the context broker itself. If no flags are set, a full NGSI-LD response including the `@context` is
 returned by default, and the payload can be reduced and amended by adding in further restrictions.
 
-#### 1 Request:
+#### 1️⃣ Request:
 
 ```bash
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
@@ -185,7 +192,7 @@ This second request fires notifications to a different endpoint (URL
 `notification.endpoint.accept=application/ld+json` will ensure that the `@context` is passed in the body of the
 notification request and that the payload will consist of the expanded entities.
 
-#### 2 Request:
+#### 2️⃣ Request:
 
 ```bash
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
@@ -214,10 +221,10 @@ Subscription details can be read by making a GET request to the `/ngsi-ld/v1/sub
 actions continue to be mapped to the same HTTP verbs as before. Adding the `Accept: application/json` will remove the
 `@context` element from the response body.
 
-#### 3 Request:
+#### 3️⃣ Request:
 
 ```bash
-curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/subscriptions/'  \
+curl -L -X GET 'http://localhost:1026/ngsi-ld/v1/subscriptions/' \
 -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
@@ -264,7 +271,6 @@ the payloads offered by the two subscriptions will be discussed below.
             },
             "status": "ok"
         },
-        "origin": "cache",
         "jsonldContext": "http://context/user-context.jsonld"
     },
     {
@@ -295,8 +301,7 @@ the payloads offered by the two subscriptions will be discussed below.
             },
             "status": "ok"
         },
-        "origin": "cache",
-        "jsonldContext": "http://context/user-context.jsonld"
+        "jsonldContext": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
     }
 ]
 ```
@@ -328,7 +333,7 @@ monitor.
 ![low-stock-ld](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/img/low-stock-monitor-ld.png)
 
 The second subscription has been set up to pass the full normalized NGSI-LD payload along with the `@context`. This has
-been achieved by using the `format=normalized` attribute within the subscription itself, as well as setting
+been achieved by using the using the `format=normalized` attribute within the subscription itself, as well as setting
 `endpoint.accept=application/ld+json`, so that the `@context` is also passed with each entity.
 
 ## Using Registrations with NGSI-LD
@@ -367,6 +372,18 @@ data is obtained from the external registered sources.
 
 -   A **redirect** Context Source Registration also specifies that the registered context data is held in a location
     external to the Context Broker, but potentially multiple distinct redirect registrations can apply at the same time.
+
+> **NOTE**
+>
+> Broadly speaking, the default mode of registration in NGSI-v2 can be said to be the equivalent of an **exclusive**
+> registration in NGSI-LD. Examples of the other NGSI-LD registration modes used in NGSI-LD data spacesa and
+> _systems-of-systems_ can be found in a separate,
+> [dedicated tutorial](https://github.com/FIWARE/tutorials.Context-Providers/tree/NGSI-LD).
+>
+> The **inclusive**, **auxiliary**, and **redirect** modes of NGSI-LD registration have no direct equivalent in NGSI-v2.
+> However, it remains possible to attach NGSI-v2 data sources into an NGSI-LD data space using a proxy serving a fixed
+> `@context` - this is described in more detail in a
+> [separate tutorial](https://github.com/FIWARE/tutorials.Linked-Data/tree/NGSI-LD)
 
 ### Accepted Operations
 
@@ -416,12 +433,12 @@ retrieved remotely and this is nonsensical. If such a situation is requested, th
 
 Also, a simple registration for an entity will be rejected if an entity already exists within the context broker, and a
 partial registration for an entity attribute will be rejected if the attribute exists within the context broker (or is
-already subject to a partial registration). The latter may be overcome with the use of the `datasetId`.
+already subject to a partial registration). The latter may be ovecome with the use of the `datasetId`.
 
-Internally the [X-Forwarded-For](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/X-Forwarded-For) header is
+Internally the [Via](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Via) header is
 used to avoid circular dependencies where **context broker A** registers an entity with **context broker B** which
 registers an entity with **context broker C** which registers an entity with **context broker A** again. The
-`X-Forwarded-For` Header is removed prior to responding to a client, however.
+`Via` Header is removed prior to responding to a client however.
 
 With normal operation, the NGSI-LD response does not expose whether data collated from multiple sources is held directly
 within the context broker or whether the information has been retrieved externally. It is only when an error occurs
@@ -446,7 +463,7 @@ The body of the request is similar to the **NGSI-v2** equivalent with the follow
 special key which fires a JSON-LD expansion/compaction operation to ensure that the attribute names within the request
 match the expected **NGSI-v2** attribute names.
 
-#### 4 Request:
+#### 4️⃣ Request:
 
 ```bash
 curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
@@ -490,7 +507,7 @@ curl -iX POST 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
 Retrieving the registration details can be made by sending a GET request to the `/ngsi-ld/v1/csourceRegistrations/`
 endpoint, along with an appropriate JSON-LD context in the `Link` header and the type of entity to filter.
 
-#### 5 Request:
+#### 5️⃣ Request:
 
 ```bash
 curl -G -iX GET 'http://localhost:1026/ngsi-ld/v1/csourceRegistrations/' \
@@ -507,23 +524,19 @@ returned, along with the `@context`.
 ```json
 [
     {
-        "@context": [
-            "http://context/user-context.jsonld",
-            "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
-        ],
+        "@context": "http://context/user-context.jsonld",
+        "id": "urn:ngsi-ld:ContextSourceRegistration:5e6242179c26be5aef9991d4",
         "type": "ContextSourceRegistration",
-        "id": "urn:ngsi-ld:ContextSourceRegistration:f7f5864a-4a83-11ef-950e-0242ac120105",
+        "endpoint": "http://tutorial:3000/static/tweets",
         "information": [
             {
                 "entities": [
                     {
-                        "type": "Building",
-                        "id": "urn:ngsi-ld:Building:store001"
+                        "id": "urn:ngsi-ld:Building:store001",
+                        "type": "Building"
                     }
                 ],
-                "propertyNames": [
-                    "tweets"
-                ]
+                "properties": "tweets"
             }
         ],
         "contextSourceInfo": [
@@ -533,13 +546,7 @@ returned, along with the `@context`.
             }
         ],
         "mode": "exclusive",
-        "operations": [
-            "updateOps",
-            "retrieveOps"
-        ],
-        "endpoint": "http://tutorial:3000/static/tweets",
-        "status": "active",
-        "origin": "cache"
+        "operations": ["updateOps", "retrieveOps"]
     }
 ]
 ```
@@ -551,7 +558,7 @@ returned when an requested entity is requested. For simple registrations, a requ
 proxied to the registered `endpoint`, for partial registrations the `properties` and `relationships` are added to the
 existing entity held within the context broker.
 
-#### 6 Request:
+#### 6️⃣ Request:
 
 ```bash
 curl -iX GET 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001' \
@@ -570,6 +577,7 @@ The response now holds an additional `tweets` Property, which returns the values
 
 ```json
 {
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "furniture": {
@@ -640,7 +648,7 @@ in this case a request is merely returning the full `tweets` attribute.
 
 The same request is made by the context broker itself when querying for registered attributes:
 
-#### 7 Request:
+#### 7️⃣ Request:
 
 ```bash
 curl -L -X GET 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001?attrs=tweets' \
@@ -655,10 +663,7 @@ the response resembles any standard NGSI-LD request.
 
 ```json
 {
-    "@context": [
-        "http://context/user-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
-    ],
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": {
@@ -669,7 +674,7 @@ the response resembles any standard NGSI-LD request.
             "You can sleep under it beneath the stars which shine so redly on the desert world of Kakrafoon;",
             "Use it to sail a mini raft down the slow heavy river Moth;",
             "Wet it for use in hand-to-hand-combat;",
-            "Wrap it round your head to ward off noxious fumes or to avoid the gaze of the Ravenous Bugblatter Beast of Traal  (a mindboggingly stupid animal, it assumes that if you can’t see it, it can’t see you – daft as a bush, but very, very ravenous);",
+            "Wrap it round your head to ward off noxious fumes or to avoid the gaze of the Ravenous Bugblatter Beast of Traal (a mindboggingly stupid animal, it assumes that if you can’t see it, it can’t see you – daft as a bush, but very, very ravenous);",
             "You can wave your towel in emergencies as a distress signal, and of course dry yourself off with it if it still seems to be clean enough."
         ]
     }
@@ -681,7 +686,7 @@ the response resembles any standard NGSI-LD request.
 For a read-write interface it is also possible to amend context data by making a PATCH request to the relevant
 `ngsi-ld/v1/entities/<entity-id>/attrs` endpoint.
 
-#### 8 Request:
+#### 8️⃣ Request:
 
 ```bash
 curl -L -X PATCH 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
@@ -699,7 +704,7 @@ curl -L -X PATCH 'http://localhost:3000/static/tweets/ngsi-ld/v1/entities/urn:ng
 }'
 ```
 
-#### 9 Request:
+#### 9️⃣ Request:
 
 If the registered attribute is requested from the context broker, it returns the _updated_ values obtained from
 `http://tutorial:3000/static/tweets/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001` - i.e. the forwarding endpoint.
@@ -715,6 +720,7 @@ This alters the response to match the values updated in the previous PATCH reque
 
 ```json
 {
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": [
@@ -736,7 +742,7 @@ The context broker is therefore able to return a complete holistic picture of th
 
 ### Forwarded Update
 
-#### 10 Request:
+#### 1️⃣0️⃣ Request:
 
 A PATCH request to the context broker ( either `ngsi-ld/v1/entities/<entity-id>/` or
 `ngsi-ld/v1/entities/<entity-id>/attrs`) will be forwarded to the registered context provider if a registration is
@@ -760,7 +766,7 @@ curl -L -X PATCH 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building
 } '
 ```
 
-#### 11 Request:
+#### 1️⃣1️⃣ Request:
 
 The result of the previous operation can be seen by retrieving the whole entity using a GET request.
 
@@ -777,6 +783,7 @@ and then forwarded to the context provider endpoint.
 
 ```json
 {
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
     "tweets": ["This must be Thursday", "I never could get the hang of Thursdays."]
