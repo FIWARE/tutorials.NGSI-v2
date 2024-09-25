@@ -431,7 +431,9 @@ The response returns all the existing **Building** entities, with the attributes
             "addressLocality": "Prenzlauer Berg",
             "postalCode": "10439"
         },
-        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "https://uri.fiware.org/ns/data-models#category": {
+            "vocab": "https://wiki.openstreetmap.org/wiki/Tag:building%3Dcommercial"
+        },
         "location": {
             "type": "Point", "coordinates": [13.3986, 52.5547]
         }
@@ -447,7 +449,9 @@ The response returns all the existing **Building** entities, with the attributes
             "addressLocality": "Kreuzberg",
             "postalCode": "10969"
         },
-        "https://uri.fiware.org/ns/datamodels#category": ["commercial"],
+        "https://uri.fiware.org/ns/data-models#category": {
+            "vocab": "https://wiki.openstreetmap.org/wiki/Tag:building%3Dcommercial"
+        },
         "location": {
             "type": "Point", "coordinates": [13.3903, 52.5075]
         }
