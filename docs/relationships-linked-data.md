@@ -496,7 +496,6 @@ However since the full context has been supplied in the `Link` header, the short
 ```json
 [
     {
-        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Product:001",
         "type": "Product",
         "name": "Apples",
@@ -504,7 +503,6 @@ However since the full context has been supplied in the `Link` header, the short
         "size": "S"
     },
     {
-        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Product:002",
         "type": "Product",
         "name": "Bananas",
@@ -548,7 +546,6 @@ Once again the short names are returned.
 ```json
 [
     {
-        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit001",
         "type": "Shelf",
         "name": "Corner Unit",
@@ -558,7 +555,6 @@ Once again the short names are returned.
         }
     },
     {
-        "@context": "http://context/user-context.jsonld",
         "id": "urn:ngsi-ld:Shelf:unit002",
         "type": "Shelf",
         "name": "Wall Unit 1",
@@ -602,7 +598,7 @@ The short names have been returned since the `@context` has been supplied in the
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "name": "Corner Unit",
@@ -656,15 +652,14 @@ Note that the relationship is currently unidirectional. **Shelf** ➡ **Building
 #### 5 Request:
 
 ```bash
-curl -X POST \
+curl -iX POST \
   http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/attrs \
   -H 'Content-Type: application/ld+json' \
-  -H 'fiware-servicepath: /' \
   -d '{
     "numberOfItems": {"type": "Property","value": 50},
     "stocks": {
       "type": "Relationship",
-        "object": "urn:ngsi-ld:Product:001"
+      "object": "urn:ngsi-ld:Product:001"
     },
     "locatedIn" : {
       "type": "Relationship", "object": "urn:ngsi-ld:Building:store001",
@@ -713,22 +708,22 @@ passed in the previous request.
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
-    "name": {
+    "http://schema.org/name": {
         "type": "Property",
         "value": "Corner Unit"
     },
     "https://fiware.github.io/tutorials.Step-by-Step/schema/locatedIn": {
         "type": "Relationship",
         "object": "urn:ngsi-ld:Building:store001",
-        "installedBy": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/installedBy": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Person:employee001"
         },
-        "requestedBy": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/requestedBy": {
             "type": "Relationship",
             "object": "urn:ngsi-ld:Person:bob-the-manager"
         },
-        "statusOfWork": {
+        "https://fiware.github.io/tutorials.Step-by-Step/schema/statusOfWork": {
             "type": "Property",
             "value": "completed"
         }
@@ -839,7 +834,7 @@ curl -G -X GET \
 
 ```json
 {
-    "@context": "https://fiware.github.io/tutorials.Step-by-Step/datamodels-context.jsonld",
+    "@context": "http://context/user-context.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
