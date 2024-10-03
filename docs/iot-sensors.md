@@ -177,8 +177,8 @@ Once again the `i` and `k` parameters are mandatory.
 #### Device Monitor
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will eventually be attached to
-the context broker. The state of each device can be seen on the UltraLight device monitor web page found at:
-`http://localhost:3000/device/monitor`
+the context broker. The state of each device can be seen on the UltraLight device monitor web page found at
+[`http://localhost:3000/device/monitor`](http://localhost:3000/device/monitor).
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-Sensors/img/device-monitor.png)
 
@@ -285,7 +285,7 @@ of dummy devices using Ultralight 2.0 syntax
 
 <h4>Device Monitor</h4>
 
-The device monitor can be found at: `http://localhost:3000/device/monitor`
+The device monitor can be found at [`http://localhost:3000/device/monitor`](http://localhost:3000/device/monitor).
 
 Within this tutorial you will be playing the role of the missing IoT Agent component, making Southbound commands to the
 attached IoT devices and receiving Northbound measurements as the environment changes within the store. All the commands
