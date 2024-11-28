@@ -137,6 +137,10 @@ git checkout NGSI-v2
 
 ## Using Subscriptions with NGSI-LD
 
+> [!NOTE]
+>
+> A full tutorial on NGSI-LD subscriptions can be found within the [NGSI-LD tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
+
 Goto `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001` to display and interact with the Supermarket data.
 
 ### Create a Subscription (Store 1) - Low Stock

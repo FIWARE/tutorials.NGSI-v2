@@ -708,7 +708,7 @@ passed in the previous request.
     "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
-    "http://schema.org/name": {
+    "https://schema.org/name": {
         "type": "Property",
         "value": "Corner Unit"
     },
@@ -827,6 +827,7 @@ curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Shelf:unit001/' \
   -d 'attrs=locatedIn' \
   -d 'options=keyValues' \
+  -H 'Accept: application/ld+json' \
   -H 'Link: <http://context/user-context.jsonld>; rel="http://www.w3.org/ns/json-ld#context"; type="application/ld+json"'
 ```
 
@@ -834,7 +835,10 @@ curl -G -X GET \
 
 ```json
 {
-    "@context": "http://context/user-context.jsonld",
+     "@context": [
+        "http://context/user-context.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
+    ],
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
     "locatedIn": "urn:ngsi-ld:Building:store001"
@@ -885,18 +889,13 @@ This is the reciprocal relationship to the `locatedIn` attribute on **Shelf**:
 curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:Building:store001/attrs' \
 -H 'Content-Type: application/ld+json' \
 --data-raw '{
-    "furniture": [
-        {
-            "type": "Relationship",
-            "datasetId": "urn:ngsi-ld:Relationship:1",
-            "object": "urn:ngsi-ld:Shelf:001"
-        },
-        {
-            "type": "Relationship",
-            "datasetId": "urn:ngsi-ld:Relationship:2",
-            "object": "urn:ngsi-ld:Shelf:002"
-        }
-    ],
+    "furniture": {
+        "type": "Relationship",
+        "object": [
+            "urn:ngsi-ld:Shelf:001",
+            "urn:ngsi-ld:Shelf:002"
+        ]
+    },
     "@context": "http://context/user-context.jsonld"
 }'
 ```
@@ -943,7 +942,7 @@ The **StockOrder** is created as a standard NGSI-LD data entity.
 
 ```bash
 curl -X POST \
-  http://localhost:1026/ngsi-ld/v1/entities/ \
+  'http://localhost:1026/ngsi-ld/v1/entities/' \
   -H 'Content-Type: application/ld+json' \
   -d '{
   "id": "urn:ngsi-ld:StockOrder:001",
@@ -1056,6 +1055,7 @@ adding the appropriate URN.
 ```bash
 curl -G -X GET \
   'http://localhost:1026/ngsi-ld/v1/entities/urn:ngsi-ld:StockOrder:001' \
+  -H 'Accept: application/ld+json' \
   -d 'options=keyValues'
 ```
 
