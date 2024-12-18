@@ -305,7 +305,7 @@ the payloads offered by the two subscriptions will be discussed below.
             },
             "status": "ok"
         },
-        "jsonldContext": "https://fiware.github.io/tutorials.Step-by-Step/tutorials-context.jsonld"
+        "jsonldContext": "http://context/user-context.jsonld"
     }
 ]
 ```
