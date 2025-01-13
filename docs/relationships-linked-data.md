@@ -421,7 +421,7 @@ The response returns all the existing **Building** entities, with the attributes
 ```json
 [
     {
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld",
         "id": "urn:ngsi-ld:Building:store001",
         "type": "https://uri.fiware.org/ns/datamodels#Building",
         "https://schema.org/name": "Bösebrücke Einkauf",
@@ -439,7 +439,7 @@ The response returns all the existing **Building** entities, with the attributes
         }
     },
     {
-        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
+        "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld",
         "id": "urn:ngsi-ld:Building:store002",
         "type": "https://uri.fiware.org/ns/datamodels#Building",
         "https://schema.org/name": "Checkpoint Markt",
@@ -469,7 +469,7 @@ According to the [defined data model](https://fiware.github.io/tutorials.Step-by
 -   The `category` attribute has the FQN `https://uri.fiware.org/ns/datamodels#category`.
 
 `type`, `name` and `location` are defined in the NGSI-LD Core Context:
-[`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld).
+[`https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld`](https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld).
 The other attributes are defined using the Tutorial's own Context:
 [`http://context/user-context.jsonld`](https://github.com/FIWARE/tutorials.Relationships-Linked-Data/blob/NGSI-v2/data-models/user-context.jsonld).
 Both `category` and `address` are _common_ attributes the definitions of which are brought in from the FIWARE data
@@ -678,7 +678,7 @@ curl -iX POST \
     },
     "@context": [
     "http://context/user-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld"
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld"
     ]
 }'
 ```
@@ -705,7 +705,7 @@ passed in the previous request.
 
 ```json
 {
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld",
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/Shelf",
     "https://schema.org/name": {
@@ -837,7 +837,7 @@ curl -G -X GET \
 {
      "@context": [
         "http://context/user-context.jsonld",
-        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
+        "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld",
     ],
     "id": "urn:ngsi-ld:Shelf:unit001",
     "type": "Shelf",
@@ -1065,7 +1065,7 @@ The response returns the fully expanded entity.
 
 ```json
 {
-    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.6.jsonld",
+    "@context": "https://uri.etsi.org/ngsi-ld/v1/ngsi-ld-core-context-v1.8.jsonld",
     "id": "urn:ngsi-ld:StockOrder:001",
     "type": "https://fiware.github.io/tutorials.Step-by-Step/schema/StockOrder",
     "https://fiware.github.io/tutorials.Step-by-Step/schema/orderDate": {

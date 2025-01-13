@@ -219,7 +219,7 @@ defined `type` and a `value` attribute.
 > -   For GeoProperties, define the position using [GeoJSON](https://geojson.org/) and use the attribute type:
 >     `"type": "geo:json"`
 > -   Use of [NGSI-LD](https://ngsi-ld-tutorials.readthedocs.io/) Property sub-classes such `LanguageProperty`,
->     `VocabularyProperty`, `JsonProperty` and `ListProperty` can be useful if it is enviaged that an NGSI-v2 system is
+>     `VocabProperty`, `JsonProperty` and `ListProperty` can be useful if it is enviaged that an NGSI-v2 system is
 >     expected to later connect with NGSI-LD systems for Federations and Data Spaces
 > -   By convention `"type": "Relationship"` is used for [Relationships](entity-relationships.md)
 

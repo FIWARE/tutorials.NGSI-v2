@@ -198,4 +198,4 @@ Full instructions can be found within the [documentation](https://fiware-tutoria
 
 ## License
 
-[MIT](LICENSE) © 2018-2024 FIWARE Foundation e.V.
+[MIT](LICENSE) © 2018-2025 FIWARE Foundation e.V.

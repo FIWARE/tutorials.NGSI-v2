@@ -18,7 +18,7 @@
     "座標": "core:coordinates",
     "場所": "core:location",
     "名前": "schema:name",
-    "グロッサリープロパティ": "core:VocabularyProperty",
+    "グロッサリープロパティ": "core:VocabProperty",
     "プロパティ": "core:Property",
     "リレーションシップ": "core:Relationship",
     "ジオプロパティ": "core:GeoProperty",

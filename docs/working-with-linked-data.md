@@ -653,7 +653,7 @@ curl -L -X POST 'http://localhost:1026/ngsi-ld/v1/entities/' \
     "id": "urn:ngsi-ld:Building:store005",
     "type": "ビル",
     "カテゴリー": {
-        "type": "VocabularyProperty",
+        "type": "VocabProperty",
         "vocab": ["コマーシャル"]
     },
     "住所": {
@@ -684,7 +684,7 @@ And the response is an HTTP 201 status code with no data.
 
 Note that in this example the name and address have been supplied as simple strings - JSON-LD does support a
 **LanguageProperty** `@lang` definition to allow for internationalization, but this is an advanced topic which will not
-be discussed here. Note that the `category`/ `カテゴリー` has been defined using a **VocabularyProperty**, so that the
+be discussed here. Note that the `category`/ `カテゴリー` has been defined using a **VocabProperty**, so that the
 enumerated value `commercial`/ `"コマーシャル` can also be amended via the `@context`.
 
 ### Reading an Entity using the default schema
@@ -722,7 +722,7 @@ also returns the standard enumeration for **Building** `category`.
     "id": "urn:ngsi-ld:Building:store005",
     "type": "Building",
     "category": {
-        "type": "VocabularyProperty",
+        "type": "VocabProperty",
         "vocab":  "commercial"
     },
     "address": {
@@ -783,7 +783,7 @@ exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always appli
     "id": "urn:ngsi-ld:Building:store003",
     "type": "ビル",
     "カテゴリー": {
-        "type": "VocabularyProperty",
+        "type": "VocabProperty",
         "vocab": "コマーシャル"
     },
     "住所": {

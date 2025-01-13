@@ -30,7 +30,7 @@
     "Subscription": "ngsi-ld:Subscription",
     "TemporalProperty": "ngsi-ld:TemporalProperty",
     "Time": "ngsi-ld:Time",
-    "VocabularyProperty": "ngsi-ld:VocabularyProperty",
+    "VocabProperty": "ngsi-ld:VocabProperty",
     "accept": "ngsi-ld:accept",
     "attributeCount": "ngsi-ld:attributeCount",
     "attributeDetails": "ngsi-ld:attributeDetails",

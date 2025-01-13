@@ -169,7 +169,7 @@ All Keys and Secrets must be passed in using Environment variables. The followin
 
 ## License
 
-MIT © 2018-2023 FIWARE Foundation e.V.
+MIT © 2018-2025 FIWARE Foundation e.V.
 
 See the LICENSE file in the root of this project for license details.
 
