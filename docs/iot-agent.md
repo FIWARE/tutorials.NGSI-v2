@@ -483,6 +483,7 @@ curl -iX POST \
      "device_id":   "motion001",
      "entity_name": "urn:ngsi-ld:Motion:001",
      "entity_type": "Motion",
+     "apikey": "4jggokgpepnvsb2uv4s40d59ov",
      "timezone":    "Europe/Berlin",
      "attributes": [
        { "object_id": "c", "name": "count", "type": "Integer" }
@@ -651,7 +652,6 @@ curl -L -X POST 'http://localhost:4041/iot/devices' \
 -H 'fiware-service: openiot' \
 -H 'fiware-servicepath: /' \
 -H 'Content-Type: application/json' \
--H 'Cookie: _csrf=MAPTGFPcoPnewsGCWklHi4Mq' \
 --data-raw '{
   "devices": [
     {
