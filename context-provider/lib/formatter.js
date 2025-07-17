@@ -88,6 +88,7 @@ function formatAsV2Response(req, inputData, attributeValueCallback) {
 // Formatting function for an NGSI v1 response to a context query.
 //
 function formatAsV1Response(req, inputData, attributeValueCallback) {
+    console.log(req.params.mapping)
     const mappedAttributes = parseMapping(req.params.mapping);
 
     const ngsiV1Response = {

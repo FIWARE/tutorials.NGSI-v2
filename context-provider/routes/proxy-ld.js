@@ -70,11 +70,18 @@ function noOp(req, res) {
 }
 
 
-router.get('/catfacts/:type/:mapping/ngsi-ld/v1/entities', CatFactsNGSIProxy.getAsNgsiLD, true);
-router.get('/random/:type/:mapping/ngsi-ld/v1/entities', RandomNGSIProxy.getAsNgsiLD, true);
-router.get('/static/:type/:mapping/ngsi-ld/v1/entities', StaticNGSIProxy.getAsNgsiLD, true);
-router.get('/twitter/:type/:mapping/:queryString/ngsi-ld/v1/entities', TwitterNGSIProxy.getAsNgsiLD, true);
-router.get('/weather/:type/:mapping/:queryString/ngsi-ld/v1/entities', WeatherNGSIProxy.getAsNgsiLD, true);
+router.get('/catfacts/tweets/ngsi-ld/v1/entities', tweetDefaults, (req, res) => {
+    req.params.id = req.query.ids || '12345'
+    CatFactsNGSIProxy.getAsNgsiLD(req, res, true);
+}); 
+router.get('/random/tweets/ngsi-ld/v1/entities', tweetDefaults, (req, res) => {
+    req.params.id = req.query.ids || '12345'
+    RandomNGSIProxy.getAsNgsiLD(req, res, true);
+}); 
+router.get('/static/tweets/ngsi-ld/v1/entities', tweetDefaults, (req, res) => {
+    req.params.id = req.query.ids || '12345'
+    StaticNGSIProxy.getAsNgsiLD(req, res, true);
+});
 
 
 
