@@ -101,7 +101,7 @@ function getAsNGSIv2(req, res) {
 //
 // The /ngsi-ld/v1/entities/:id endpoint responds with data in the NGSI-LD format
 //
-function getAsNgsiLD(req, res, asArray = false) {
+function getAsNgsiLD(req, res, next, asArray = false) {
     monitor('/ngsi-ld/v1/entities', 'Data requested from Cat Facts API', req.body);
     makeCatFactsRequest()
         .then((result) => {

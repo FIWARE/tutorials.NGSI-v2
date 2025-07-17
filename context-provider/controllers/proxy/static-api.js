@@ -78,7 +78,7 @@ function getAsNGSIv2(req, res) {
 //
 // The /ngsi-ld/v1/entities/:id endpoint responds with data in the NGSI-LD format
 //
-function getAsNgsiLD(req, res, asArray = false) {
+function getAsNgsiLD(req, res, next, asArray = false) {
     const response = Formatter.formatAsLDResponse(req, null, (name, type) => {
         return staticValues[type.toLowerCase()];
     });

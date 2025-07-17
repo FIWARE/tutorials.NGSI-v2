@@ -61,7 +61,7 @@ function getAsNGSIv2(req, res) {
 //
 // The /ngsi-ld/v1/entities/:id endpoint responds with data in the NGSI-LD format
 //
-function getAsNgsiLD(req, res, asArray = false) {
+function getAsNgsiLD(req, res, next, asArray = false) {
     monitor('/ngsi-ld/v1/entities', 'Data requested from Random API', req.body);
     res.set('Content-Type', 'application/ld+json');
     const response = Formatter.formatAsLDResponse(req, null, (name, type) => {

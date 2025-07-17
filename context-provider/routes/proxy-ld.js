@@ -69,22 +69,6 @@ function noOp(req, res) {
     res.send();
 }
 
-
-router.get('/catfacts/tweets/ngsi-ld/v1/entities', tweetDefaults, (req, res) => {
-    req.params.id = req.query.id || '12345'
-    CatFactsNGSIProxy.getAsNgsiLD(req, res, true);
-}); 
-router.get('/random/tweets/ngsi-ld/v1/entities', tweetDefaults, (req, res) => {
-    req.params.id = req.query.id || '12345'
-    RandomNGSIProxy.getAsNgsiLD(req, res, true);
-}); 
-router.get('/static/tweets/ngsi-ld/v1/entities', tweetDefaults, (req, res) => {
-    req.params.id = req.query.id || '12345'
-    StaticNGSIProxy.getAsNgsiLD(req, res, true);
-});
-
-
-
 router.get('/catfacts/:type/:mapping/ngsi-ld/v1/entities/:id', CatFactsNGSIProxy.getAsNgsiLD);
 router.get('/random/:type/:mapping/ngsi-ld/v1/entities/:id', RandomNGSIProxy.getAsNgsiLD);
 router.get('/static/:type/:mapping/ngsi-ld/v1/entities/:id', StaticNGSIProxy.getAsNgsiLD);
@@ -143,6 +127,23 @@ router.get('/static/weatherConditions/ngsi-ld/v1/entities/:id', weatherDefaults,
 router.get('/weather/weatherConditions/ngsi-ld/v1/entities/:id', weatherDefaults, WeatherNGSIProxy.getAsNgsiLD);
 
 // Convenience endpoints for tweets readings
+
+
+
+router.get('/catfacts/tweets/ngsi-ld/v1/entities/', tweetDefaults, (req, res, next) => {
+    req.params.id = req.query.id || '12345'
+    CatFactsNGSIProxy.getAsNgsiLD(req, res, next, true);
+}); 
+router.get('/random/tweets/ngsi-ld/v1/entities/', tweetDefaults, (req, res, next) => {
+    req.params.id = req.query.id || '12345'
+    RandomNGSIProxy.getAsNgsiLD(req, res, next, true);
+}); 
+router.get('/static/tweets/ngsi-ld/v1/entities/', tweetDefaults, (req, res, next) => {
+    req.params.id = req.query.id || '12345'
+    StaticNGSIProxy.getAsNgsiLD(req, res, next, true);
+});
+
+
 router.get('/random/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, RandomNGSIProxy.getAsNgsiLD);
 
 router.get('/static/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, StaticNGSIProxy.getAsNgsiLD);
@@ -150,6 +151,11 @@ router.get('/static/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, StaticNGSIPr
 router.get('/twitter/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, TwitterNGSIProxy.getAsNgsiLD);
 
 router.get('/catfacts/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, CatFactsNGSIProxy.getAsNgsiLD);
+
+
+
+
+
 
 // Not Supported Endpoints
 
