@@ -101,7 +101,7 @@ function getAsNGSIv2(req, res) {
 //
 // The /ngsi-ld/v1/entities/:id endpoint responds with data in the NGSI-LD format
 //
-function getAsNgsiLD(req, res) {
+function getAsNgsiLD(req, res, asArray = false) {
     monitor('/ngsi-ld/v1/entities', 'Data requested from OpenWeatherMap API', req.body);
     makeWeatherRequest(req.params.queryString)
         .then((result) => {
@@ -121,7 +121,7 @@ function getAsNgsiLD(req, res) {
             } else {
                 res.set('Content-Type', 'application/ld+json');
             }
-            res.send(response);
+            res.send(asArray ? [response] :response);
         })
         .catch((err) => {
             debug(err);

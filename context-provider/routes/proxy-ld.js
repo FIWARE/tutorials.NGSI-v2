@@ -69,6 +69,15 @@ function noOp(req, res) {
     res.send();
 }
 
+
+router.get('/catfacts/:type/:mapping/ngsi-ld/v1/entities', CatFactsNGSIProxy.getAsNgsiLD, true);
+router.get('/random/:type/:mapping/ngsi-ld/v1/entities', RandomNGSIProxy.getAsNgsiLD, true);
+router.get('/static/:type/:mapping/ngsi-ld/v1/entities', StaticNGSIProxy.getAsNgsiLD, true);
+router.get('/twitter/:type/:mapping/:queryString/ngsi-ld/v1/entities', TwitterNGSIProxy.getAsNgsiLD, true);
+router.get('/weather/:type/:mapping/:queryString/ngsi-ld/v1/entities', WeatherNGSIProxy.getAsNgsiLD, true);
+
+
+
 router.get('/catfacts/:type/:mapping/ngsi-ld/v1/entities/:id', CatFactsNGSIProxy.getAsNgsiLD);
 router.get('/random/:type/:mapping/ngsi-ld/v1/entities/:id', RandomNGSIProxy.getAsNgsiLD);
 router.get('/static/:type/:mapping/ngsi-ld/v1/entities/:id', StaticNGSIProxy.getAsNgsiLD);
