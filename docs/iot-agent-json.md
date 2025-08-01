@@ -459,7 +459,7 @@ however it has been included here for completeness.
 ### Provisioning a Sensor
 
 It is common good practice to use URNs following the NGSI-LD
-[specification](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.08.01_60/gs_cim009v010801p.pdf) when creating
+[specification](https://cim.etsi.org/NGSI-LD/official/0--1.html) when creating
 entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
 defined by provisioning a device individually.
 
