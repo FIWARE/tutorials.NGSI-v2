@@ -13,7 +13,7 @@ architectures.
 
 Additional materials covering how to develop and create your own widgets will be the subject of a later tutorial.
 
-[![Run in GitPod](https://fiware.github.io/tutorials.NGSI-LD/img/gitpod.png)](https://gitpod.io/#https://github.com/FIWARE/tutorials.Application-Mashup/tree/NGSI-v2)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=FIWARE/tutorials.Application-Mashup&ref=NGSI-v2)
 
 <hr class="processing"/>
 

@@ -14,7 +14,7 @@ commands where necessary, and is also available as
 [Postman documentation](https://fiware.github.io/tutorials.IoT-over-IOTA/)
 
 [![Run in Postman](https://run.pstmn.io/button.svg)](https://app.getpostman.com/run-collection/513743-68eeeb6f-30c7-4300-ae6d-a41813e13155?action=collection%2Ffork&collection-url=entityId%3D513743-68eeeb6f-30c7-4300-ae6d-a41813e13155%26entityType%3Dcollection%26workspaceId%3Db6e7fcf4-ff0c-47cb-ada4-e222ddeee5ac)
-[![Run in GitPod](https://fiware.github.io/tutorials.NGSI-LD/img/gitpod.png)](https://gitpod.io/#https://github.com/FIWARE/tutorials.IoT-over-IOTA/tree/NGSI-v2)
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?repo=FIWARE/tutorials.IoT-over-IOTA&ref=NGSI-v2)
 
 <hr class="iotagents"/>
 
