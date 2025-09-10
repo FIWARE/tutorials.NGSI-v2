@@ -57,6 +57,8 @@ cd tutorials.NGSI-v2/
 git submodule update --init --recursive
 ```
 
+[![Open in GitHub Codespaces](https://github.com/codespaces/badge.svg)](https://github.com/codespaces/new?template_repository=FIWARE/tutorials.NGSI-v2)
+
 ### Docker and Docker Compose <img src="https://www.docker.com/favicon.ico" align="left"  height="30" width="30">
 
 The NGSI-v2 tutorials are designed to run under any Unix environment, the tested configuration and
