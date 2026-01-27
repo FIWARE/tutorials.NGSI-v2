@@ -1,4 +1,4 @@
-[![FIWARE Security](https://nexus.lab.fiware.org/repository/raw/public/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
+[![FIWARE Security](https://fiware.github.io/catalogue/badges/chapters/security.svg)](https://github.com/FIWARE/catalogue/blob/master/security/README.md)
 [![OpenID 1.0](https://img.shields.io/badge/OpenID-1.0-ff7059.svg)](https://openid.net/specs/openid-connect-core-1_0.html)
 
 **Description:** This tutorial complements the previous [Securing Access tutorial](securing-access.md). This tutorial
