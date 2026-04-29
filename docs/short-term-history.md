@@ -3,7 +3,7 @@
 
 **Description:** This tutorial is an introduction to [FIWARE STH-Comet](https://fiware-sth-comet.readthedocs.io/) - a
 generic enabler which is used to retrieve trend data from a MongoDB database. The tutorial activates the IoT sensors
-connected in the [previous tutorial](iot-agent-json.md) and persists measurements from those sensors into a database and
+connected in the [previous tutorial](iot-agent.md) and persists measurements from those sensors into a database and
 retrieves time-based aggregations of that data.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
@@ -79,7 +79,7 @@ web page found at: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`
 
 ## Architecture
 
-This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent-json.md). It
+This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent.md). It
 will use three or four FIWARE components depending on the configuration of the system: the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), the
 [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/),

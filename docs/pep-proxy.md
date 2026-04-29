@@ -1402,7 +1402,7 @@ Once a trusted service group has been created, a device can be provisioned in th
 
 ```bash
 curl -iX POST \
-  'http://localhost:4041/iot/jsonevices' \
+  'http://localhost:4041/iot/devices' \
   -H 'Content-Type: application/json' \
   -H 'fiware-service: openiot' \
   -H 'fiware-servicepath: /' \
