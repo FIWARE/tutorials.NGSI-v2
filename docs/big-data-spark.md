@@ -50,7 +50,7 @@ which is processing a continuous stream of context-data events.
 
 This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent.md). It will
 make use of three FIWARE components - the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), the
-[IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/), and the
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/), and the
 [Cosmos Orion Spark Connector](https://fiware-cosmos-spark.readthedocs.io/en/latest/) for connecting Orion to an
 [Apache Spark cluster](https://spark.apache.org/docs/latest/cluster-overview.html). The Spark cluster itself will
 consist of a single **Cluster Manager** _master_ to coordinate execution and some **Worker Nodes** _worker_ to execute
@@ -65,9 +65,9 @@ Therefore, the overall architecture will consist of the following elements:
 -   Two **FIWARE Generic Enablers** as independent microservices:
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
         using [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
-    -   The FIWARE [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will
-        receive northbound measurements from the dummy IoT devices in
-        [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+    -   The FIWARE [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) which will receive
+        northbound measurements from the dummy IoT devices in
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         format and convert them to [NGSI](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests for the
         context broker to alter the state of the context entities.
 -   An [Apache Spark cluster](https://spark.apache.org/docs/latest/cluster-overview.html) consisting of a single
@@ -81,7 +81,7 @@ Therefore, the overall architecture will consist of the following elements:
     -   Used by the **IoT Agent** to hold device information such as device URLs and Keys.
 -   Three **Context Providers**:
     -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
-        [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         protocol running over HTTP.
     -   The **Stock Management Frontend** is not used in this tutorial. It does the following:
         -   Display store information and allow users to interact with the dummy IoT devices.

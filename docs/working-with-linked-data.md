@@ -5,9 +5,9 @@
 This tutorial teaches FIWARE users how to architect and design a system based on **linked data** and to alter linked
 data context programmatically. The tutorial extends the knowledge gained from the equivalent
 [NGSI-v2 tutorial](accessing-context.md) and enables a user understand how to write code in an
-[NGSI-LD](https://cim.etsi.org/NGSI-LD/official/front-page.html) capable
-[Node.js](https://nodejs.org/) [Express](https://expressjs.com/) application in order to retrieve and alter context
-data. This removes the need to use the command-line to invoke cUrl commands.
+[NGSI-LD](https://cim.etsi.org/NGSI-LD/official/front-page.html) capable [Node.js](https://nodejs.org/)
+[Express](https://expressjs.com/) application in order to retrieve and alter context data. This removes the need to use
+the command-line to invoke cUrl commands.
 
 The tutorial is mainly concerned with discussing code written in Node.js, however some results can be checked by making
 [cUrl](https://ec.haxx.se/) commands.
@@ -294,17 +294,10 @@ And the response from the broker is:
     },
     "location": {
         "type": "Point",
-        "coordinates": [
-            13.3986,
-            52.5547
-        ]
+        "coordinates": [13.3986, 52.5547]
     },
     "name": "Bösebrücke Einkauf",
-    "furniture": [
-        "urn:ngsi-ld:Shelf:unit001",
-        "urn:ngsi-ld:Shelf:unit002",
-        "urn:ngsi-ld:Shelf:unit003"
-    ]
+    "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"]
 }
 ```
 
@@ -362,11 +355,7 @@ And the response from the broker is:
 {
     "id": "urn:ngsi-ld:Building:store001",
     "type": "Building",
-    "furniture": [
-        "urn:ngsi-ld:Shelf:unit001",
-        "urn:ngsi-ld:Shelf:unit002",
-        "urn:ngsi-ld:Shelf:unit003"
-    ]
+    "furniture": ["urn:ngsi-ld:Shelf:unit001", "urn:ngsi-ld:Shelf:unit002", "urn:ngsi-ld:Shelf:unit003"]
 }
 ```
 
@@ -723,7 +712,7 @@ also returns the standard enumeration for **Building** `category`.
     "type": "Building",
     "category": {
         "type": "VocabProperty",
-        "vocab":  "commercial"
+        "vocab": "commercial"
     },
     "address": {
         "type": "Property",
@@ -738,10 +727,7 @@ also returns the standard enumeration for **Building** `category`.
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [
-                13.5646,
-                52.5435
-            ]
+            "coordinates": [13.5646, 52.5435]
         }
     },
     "name": {
@@ -803,10 +789,7 @@ exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always appli
         "type": "GeoProperty",
         "value": {
             "type": "Point",
-            "coordinates": [
-                13.4447,
-                52.5031
-            ]
+            "coordinates": [13.4447, 52.5031]
         }
     },
     "名前": {
@@ -815,11 +798,7 @@ exceptions. NGSI-LD **is not** JSON-LD, in that the core context is always appli
     },
     "家具": {
         "type": "Relationship",
-        "object": [
-            "urn:ngsi-ld:Shelf:unit006",
-            "urn:ngsi-ld:Shelf:unit007",
-            "urn:ngsi-ld:Shelf:unit008"
-        ]
+        "object": ["urn:ngsi-ld:Shelf:unit006", "urn:ngsi-ld:Shelf:unit007", "urn:ngsi-ld:Shelf:unit008"]
     }
 }
 ```
@@ -899,10 +878,7 @@ payload before sending data to the context broker.
         "タイプ": "ジオプロパティ",
         "値": {
             "タイプ": "場",
-            "座標": [
-                13.5646,
-                52.5435
-            ]
+            "座標": [13.5646, 52.5435]
         }
     },
     "カテゴリー": {

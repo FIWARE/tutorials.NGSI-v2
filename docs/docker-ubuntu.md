@@ -6,7 +6,7 @@
 > This is because the default Docker package associated with Ubuntu can be
 > [outdated](https://askubuntu.com/questions/151283/why-dont-the-ubuntu-repositories-have-the-latest-versions-of-software)
 > and will install an obsolete Docker version leading to issues with `docker` and `docker-compose` versions. Check you
-> are using Docker version 24.0.x or higher and Docker Compose 2.24.x  or higher and upgrade if necessary.
+> are using Docker version 24.0.x or higher and Docker Compose 2.24.x or higher and upgrade if necessary.
 
 Further details can be found under: `https://docs.docker.com/engine/install/ubuntu/#set-up-the-repository`
 

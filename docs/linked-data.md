@@ -85,10 +85,10 @@ Click on the image above to watch a video describing the basic concepts behind J
 **NGSI-LD** is an evolution of the **NGSI v2** information model, which has been modified to improve support for linked
 data (entity relationships), property graphs and semantics (exploiting the capabilities offered by JSON-LD). This work
 has been conducted under the ETSI ISG CIM initiative and the updated specification has been branded as
-[NGSI-LD](https://cim.etsi.org/NGSI-LD/official/front-page.html). The main constructs
-of NGSI-LD are: _Entity_, _Property_ and _Relationship_. NGSI-LD Entities (instances) can be the subject of Properties
-or Relationships. In terms of the traditional NGSI v2 data model, Properties can be seen as the combination of an
-attribute and its value. Relationships allow to establish associations between instances using linked data.
+[NGSI-LD](https://cim.etsi.org/NGSI-LD/official/front-page.html). The main constructs of NGSI-LD are: _Entity_,
+_Property_ and _Relationship_. NGSI-LD Entities (instances) can be the subject of Properties or Relationships. In terms
+of the traditional NGSI v2 data model, Properties can be seen as the combination of an attribute and its value.
+Relationships allow to establish associations between instances using linked data.
 
 ### NGSI v2 Data Model
 
@@ -818,8 +818,8 @@ Filtering can be done using the `q` parameter, comma separating the acceptable v
 
 > [!NOTE]
 
-> `category` has been defined as a **VocabProperty**, which would usually mean that the `vocab` value should be a
-> URI defined in the `@context`. The `expandValues` hint indicates that URI expansion is required for the `category`
+> `category` has been defined as a **VocabProperty**, which would usually mean that the `vocab` value should be a URI
+> defined in the `@context`. The `expandValues` hint indicates that URI expansion is required for the `category`
 > attribute when querying the context data.
 
 #### 8️⃣ Request:
@@ -966,7 +966,7 @@ consists of JSON only without the attribute `type` and `metadata` elements.
 ```json
 [
     {
-       "id": "urn:ngsi-ld:Building:store001",
+        "id": "urn:ngsi-ld:Building:store001",
         "type": "Building",
         "address": {
             "streetAddress": "Bornholmer Straße 65",

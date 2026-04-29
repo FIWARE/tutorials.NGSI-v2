@@ -19,7 +19,7 @@ in debug mode add `DEBUG=tutorial:*`
 -   `NGSI_LD_PREFIX=` - Whether to use full URNs for devices
 -   `SECURE_ENDPOINTS=true` - Enable Keyrock as PDP - default is `false`
 
-## Dummy Ultralight Devices
+## Dummy JSON Devices
 
 -   `IOTA_HTTP_HOST=iot-agent` - The URL of the IoT Agent
 -   `IOTA_HTTP_PORT=7896` - Port used by the dummy IoT devices to commuicate with the IoT Agent

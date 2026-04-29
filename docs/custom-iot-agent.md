@@ -5,7 +5,7 @@
 **Description:** This tutorial a wires up the dummy IoT devices which are responding using a custom
 [XML](https://www.w3.org/TR/xml11/) message format. A **custom IoT Agent** is created based on the IoT Agent Node.js
 [library](https://iotagent-node-lib.readthedocs.io/en/latest/) and the framework found in the
-[IoT Agent for Ultralight](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 devices so that measurements can be read and commands can be sent using
 [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests sent to the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/).
@@ -38,10 +38,10 @@ The process for creating your own IoT Agent is relatively simple. It is best ach
 which uses the required data transport and rewriting/amending the payload processing code to handle the payloads in
 question.
 
-For the purpose of this tutorial we will amend code from the existing Ultralight IoT Agent to process a similar custom
+For the purpose of this tutorial we will amend code from the existing JSON IoT Agent to process a similar custom
 XML format. A direct comparison of the two IoT Agents can be seen below:
 
-| IoT Agent for Ultralight                                            | IoT Agent for XML                                                                                            | Protocol's Area of Concern |
+| IoT Agent for JSON                                            | IoT Agent for XML                                                                                            | Protocol's Area of Concern |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------- |
 | Sample Measure `c\1`                                                | Sample Measure <br/>`<measure device="lamp002" key="xxx">`<br/>&nbsp;&nbsp;`<c value="1"/>`<br/>`</measure>` | Message Payload            |
 | Sample Command `Robot1@turn\left=30`                                | Sample Command <br/>`<turn device="Robot1">`<br/>&nbsp;&nbsp;`<left>30</left>`<br/>`</turn>`                 | Message Payload            |
@@ -67,7 +67,7 @@ lower-level CoAP transport used by the devices.
 ## The teaching goal of this tutorial
 
 The aim of this tutorial is to improve developer understanding of how to create their own custom IoT Agents, a series of
-simple modifications has been made to the code of the Ultralight IoT Agent demonstrating how to make changes. The
+simple modifications has been made to the code of the JSON IoT Agent demonstrating how to make changes. The
 tutorial consists of a walkthrough of the relevant code and a series of HTTP requests to connect the new IoT Agent. The
 code can be found within the current
 [GitHub Repository](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/master/iot-agent)
@@ -176,7 +176,7 @@ The other `tutorial` container configuration values described in the YAML file a
 
 The code for the custom XML IoT Agent can be found within the
 [GitHub Repository](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/master/iot-agent) associated to this
-tutorial. It is a copy of the 1.12.0 version of the IoT Agent for Ultralight, lightly modified as described below. The
+tutorial. It is a copy of the 1.12.0 version of the IoT Agent for JSON, lightly modified as described below. The
 associated [Dockerfile](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/blob/master/iot-agent/Dockerfile) merely
 copies the code into an appropriate location within a Docker container running Node.js. This allows the component to be
 instantiated using a `docker-compose.yaml` file. The necessary configuration can be seen below:
@@ -363,7 +363,7 @@ Where the `<measure>` holds the relevant device ID and API key.
 </measure>
 ```
 
-This syntax differs from the Ultralight IoT Agent where the device ID and API key are sent as URL parameters.
+This syntax differs from the JSON IoT Agent where the device ID and API key are sent as URL parameters.
 
 <h3>Reading XML - Analysing the Code</h3>
 
@@ -426,9 +426,9 @@ not hold sufficient information.
 ### Provisioning a Sensor
 
 It is common good practice to use URNs following the NGSI-LD
-[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html) when creating
-entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
-defined by provisioning a device individually.
+[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html) when creating entities. Furthermore, it is easier
+to understand meaningful names when defining data attributes. These mappings can be defined by provisioning a device
+individually.
 
 Three types of measurement attributes can be provisioned:
 
@@ -468,7 +468,7 @@ curl -iX POST \
 ```
 
 As expected the HTTP command to **provision a device** does not change based on the underlying payload or transport
-protocol since we are using the same HTTP transport as the original Ultralight IoT Agent. `internal_atttributes` can be
+protocol since we are using the same HTTP transport as the original JSON IoT Agent. `internal_atttributes` can be
 used to supply additional information for the custom IoT Agent if necessary. In the request we are associating the
 device `motion001` with the URN `urn:ngsi-ld:Motion:001` and mapping the device reading `c` with the context attribute
 `count` (which is defined as an `Integer`) A `refStore` is defined as a `static_attribute`, placing the device within
@@ -489,7 +489,7 @@ curl -L -X POST 'http://localhost:7896/iot/xml' \
 
 <h3>Reading Measures - Analysing the Code</h3>
 
-Both the payload and the `Content-Type` have been updated. The dummy devices made a similar Ultralight request in the
+Both the payload and the `Content-Type` have been updated. The dummy devices made a similar JSON request in the
 previous tutorials when the door was unlocked, you will have seen the state of each motion sensor changing and a
 Northbound request will be logged in the device monitor.
 
@@ -617,7 +617,7 @@ Agent the provisioning of commands fulfills the following implied contract:
 
 1.  The custom IoT Agent is making a registration for an attribute
 2.  The custom IoT Agent each request for updating context (on the `/v2/op/update` endpoint)
-3.  A decision is made how to handle the request - for both the Custom IoT Agent and the Ultralight Agent this follows
+3.  A decision is made how to handle the request - for both the Custom IoT Agent and the JSON Agent this follows
     the paradigm of setting a `<command>State` attribute, amending and forwarding the request on a `/cmd` endpoint to
     the device (or alternatively to a middleware responsible for the device).
 
@@ -710,7 +710,7 @@ function createCommandPayload(device, command, attributes) {
 }
 ```
 
-This is an amendment from the Ultralight protocol where the `@` and `|` symbol is generated for Ultralight devices.
+This is an amendment from the JSON protocol where the `@` and `|` symbol is generated for JSON devices.
 
 However, creating a payload is only half the job, it must be sent to the device and understood, so communications must
 be completed using a well-defined communications handshake. So after generating the payload the `sendXMLCommandHTTP()`

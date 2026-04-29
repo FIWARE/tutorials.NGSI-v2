@@ -26,25 +26,25 @@ As defined previously, an IoT Agent is a component that lets a group of devices 
 Context Broker using their own native protocols. Every IoT Agent is defined for a single payload format, although they
 may be able to use multiple disparate transports for that payload.
 
-We have already encountered the Ultralight IoT Agent, which communicates using a simple bar (`|`) separated list of
+We have already encountered the JSON IoT Agent, which communicates using a simple bar (`|`) separated list of
 key-value pairs. This payload is a simple, terse but relatively obscure communication mechanism - by far the commonest
 messaging payload used on the Internet is the so-called JavaScript Object Notation or JSON which will be familiar to any
 software developer.
 
-JSON is slightly more verbose than Ultralight, but the cost of sending larger messages is offset by the familiarity of
+JSON is slightly more verbose than JSON, but the cost of sending larger messages is offset by the familiarity of
 the syntax. A separate
 [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 has been created specifically to cope with messages sent in this format, since a large number of common devices are able
 to be programmed to send messages in JSON and many software libraries exist to parse the data.
 
-There is no practical difference between communicating using a JSON payload and communicating using the Ultralight plain
+There is no practical difference between communicating using a JSON payload and communicating using the JSON plain
 text payload - provided that the basis of that communication - in other words the fundamental protocol defining how the
 messages are passed between the components remains the same. Obviously the parsing of JSON payloads within the IoT
 Agent - the conversion of messages from JSON to NGSI and vice-versa will be unique to the JSON IoT Agent.
 
 A direct comparison of the two IoT Agents can be seen below:
 
-| IoT Agent for Ultralight                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern |
+| IoT Agent for JSON                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------------------- |
 | Sample Measure <code>c&vert;1</code>                                | Sample Measure `{"count": "1"}`                                     | Message Payload            |
 | Sample Command <code>Robot1@turn&vert;left</code>                   | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload            |
@@ -55,7 +55,7 @@ A direct comparison of the two IoT Agents can be seen below:
 | HTTP commands posted to a well-known URL - response is in the reply | HTTP commands posted to a well-known URL - response is in the reply | Communications Handshake   |
 | MQTT devices are identified by the path of the topic `/XXX/YYY`     | MQTT devices are identified by the path of the topic `/XXX/YYY`     | Device Identification      |
 | MQTT commands posted to the `cmd` topic                             | MQTT commands posted to the `cmd` topic                             | Communications Handshake   |
-| MQTT command responses posted to the `cmdexe` topic                 | MQTT command responses posted to the `cmdexe` topic                          | Communications Handshake   |
+| MQTT command responses posted to the `cmdexe` topic                 | MQTT command responses posted to the `cmdexe` topic                 | Communications Handshake   |
 
 As can be seen, the message payload differs entirely between the two IoT Agents, but much of the rest of the protocol
 remains the same.
@@ -446,7 +446,7 @@ GET or POST requests to:
 http://iot-agent:7896/iot/json?i=<device_id>&k=4jggokgpepnvsb2uv4s40d59ov
 ```
 
-Which is very similar syntax to the Ultralight IoT Agent - only the path has changed. This allows multiple IoT Agents to
+Which is very similar syntax to the JSON IoT Agent - only the path has changed. This allows multiple IoT Agents to
 listen at different locations.
 
 When a measurement from an IoT device is received on the resource URL it needs to be interpreted and passed to the
@@ -459,9 +459,9 @@ however it has been included here for completeness.
 ### Provisioning a Sensor
 
 It is common good practice to use URNs following the NGSI-LD
-[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html) when creating
-entities. Furthermore, it is easier to understand meaningful names when defining data attributes. These mappings can be
-defined by provisioning a device individually.
+[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html) when creating entities. Furthermore, it is easier
+to understand meaningful names when defining data attributes. These mappings can be defined by provisioning a device
+individually.
 
 Three types of measurement attributes can be provisioned:
 
@@ -537,7 +537,7 @@ curl -iX POST \
   -d '{"c": "1"}'
 ```
 
-Both the payload and the `Content-Type` have been updated. The dummy devices made a similar Ultralight request in the
+Both the payload and the `Content-Type` have been updated. The dummy devices made a similar JSON request in the
 previous tutorials when the door was unlocked, you will have seen the state of each motion sensor changing and a
 Northbound request will be logged in the device monitor.
 
@@ -711,7 +711,7 @@ command can be seen in the value of the `ring_info` attribute.
 
 ### Provisioning a Smart Door
 
-Because the underlying Ultralight and JSON protocols are so similar, actuators and devices are provisioned using the
+Because the underlying JSON and JSON protocols are so similar, actuators and devices are provisioned using the
 same attributes as the data the IoT Agent needs to know to communicate with the device remains the same, and the payload
 parsing NGSI to JSON is delegated to the IoT Agent itself. Provisioning a device which offers both commands and
 measurements is merely a matter of making an HTTP POST request with both `attributes` and `command` attributes in the

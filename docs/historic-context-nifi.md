@@ -44,7 +44,7 @@ A summary of the differences can be seen below:
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context
 broker. Details of the architecture and protocol used can be found in the [IoT Sensors tutorial](iot-sensors.md). The
-state of each device can be seen on the UltraLight device monitor web page found at
+state of each device can be seen on the JSON device monitor web page found at
 `http://localhost:3000/device/monitor`.
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.Historic-Context-NIFI/img/device-monitor.png)
@@ -57,7 +57,7 @@ state of each device can be seen on the UltraLight device monitor web page found
 
 This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent.md). It will
 make use of three FIWARE components - the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), the
-[IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) and introduce the
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) and introduce the
 [Draco Generic Enabler](https://fiware-draco.readthedocs.io/en/latest/) for persisting context data to a database.
 Additional databases are now involved - both the Orion Context Broker and the IoT Agent rely on
 [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold, and we will be
@@ -68,9 +68,9 @@ Therefore, the overall architecture will consist of the following elements:
 -   Three **FIWARE Generic Enablers**:
     -   The FIWARE [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) which will receive requests
         using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2).
-    -   The FIWARE [IoT Agent for Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/) which will
-        receive northbound measurements from the dummy IoT devices in
-        [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+    -   The FIWARE [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) which will receive
+        northbound measurements from the dummy IoT devices in
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         format and convert them to [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) requests for the
         context broker to alter the state of the context entities.
     -   FIWARE [Draco](https://fiware-draco.readthedocs.io/en/latest/) which will subscribe to context changes and
@@ -91,7 +91,7 @@ Therefore, the overall architecture will consist of the following elements:
         -   Show which products can be bought at each store.
         -   Allow users to "buy" products and reduce the stock count.
     -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
-        [Ultralight 2.0](https://fiware-iotagent-ul.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
         protocol running over HTTP.
     -   The **Context Provider NGSI** proxy is not used in this tutorial. It does the following:
         -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2);
@@ -468,7 +468,7 @@ show dbs
 
 ```
 admin          0.000GB
-iotagentul     0.000GB
+iotagentjson     0.000GB
 local          0.000GB
 orion          0.000GB
 orion-openiot  0.000GB
@@ -482,7 +482,7 @@ databases created by the FIWARE platform. The Orion Context Broker has created t
 -   The Store entities were created without defining a `fiware-service` and therefore are held within the `orion`
     database, whereas the IoT device entities were created using the `openiot` `fiware-service` header and are held
     separately. The IoT Agent was initialized to hold the IoT sensor data in a separate **MongoDB** database called
-    `iotagentul`.
+    `iotagentjson`.
 
 As a result of the subscription of Draco to Orion Context Broker, a new database has been created called `sth_openiot`.
 The default value for a **Mongo DB** database holding historic context consists of the `sth_` prefix followed by the

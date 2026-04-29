@@ -2,9 +2,9 @@
 [![NGSI LD](https://img.shields.io/badge/NGSI-LD-d6604d.svg)](https://www.etsi.org/deliver/etsi_gs/CIM/001_099/009/01.04.02_60/gs_cim009v010402p.pdf)
 [![JSON LD](https://img.shields.io/badge/JSON--LD-1.1-f06f38.svg)](https://w3c.github.io/json-ld-syntax/)
 
-**Description:** This tutorial discusses the usage of subscriptions and registrations within NGSI-LD and highlights the similarities and
-differences between the equivalent NGSI-v2 and NGSI-LD operations. The tutorial is an analogue of the original
-context-provider and subscriptions tutorials but uses API calls from the **NGSI-LD** interface throughout.
+**Description:** This tutorial discusses the usage of subscriptions and registrations within NGSI-LD and highlights the
+similarities and differences between the equivalent NGSI-v2 and NGSI-LD operations. The tutorial is an analogue of the
+original context-provider and subscriptions tutorials but uses API calls from the **NGSI-LD** interface throughout.
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
 [Postman documentation](https://fiware.github.io/tutorials.LD-Subscriptions-Registrations/)
@@ -19,7 +19,6 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 > This tutorial is designed for **NGSI-v2** developers looking to switch or upgrade systems to **NGSI-LD**, if you are
 > building a linked data system from scratch or you are not already familiar with **NGSI-v2** then it is recommmended
 > that you look directly at the [NGSI-LD developers tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
-
 
 # Understanding Linked Data Subscriptions and Registrations
 
@@ -139,7 +138,8 @@ git checkout NGSI-v2
 
 > [!NOTE]
 >
-> A full tutorial on NGSI-LD subscriptions can be found within the [NGSI-LD tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
+> A full tutorial on NGSI-LD subscriptions can be found within the
+> [NGSI-LD tutorial](https://ngsi-ld-tutorials.readthedocs.io/) documentation.
 
 Goto `http://localhost:3000/app/store/urn:ngsi-ld:Building:store001` to display and interact with the Supermarket data.
 
@@ -256,18 +256,12 @@ the payloads offered by the two subscriptions will be discussed below.
                 "type": "Shelf"
             }
         ],
-        "watchedAttributes": [
-            "numberOfItems"
-        ],
+        "watchedAttributes": ["numberOfItems"],
         "q": "numberOfItems<10;locatedIn==%22urn:ngsi-ld:Building:store001%22",
         "status": "active",
         "isActive": true,
         "notification": {
-            "attributes": [
-                "numberOfItems",
-                "stocks",
-                "locatedIn"
-            ],
+            "attributes": ["numberOfItems", "stocks", "locatedIn"],
             "format": "keyValues",
             "endpoint": {
                 "uri": "http://tutorial:3000/subscription/low-stock-store001",
@@ -286,18 +280,12 @@ the payloads offered by the two subscriptions will be discussed below.
                 "type": "Shelf"
             }
         ],
-        "watchedAttributes": [
-            "numberOfItems"
-        ],
+        "watchedAttributes": ["numberOfItems"],
         "q": "numberOfItems<10;locatedIn==%22urn:ngsi-ld:Building:store002%22",
         "status": "active",
         "isActive": true,
         "notification": {
-            "attributes": [
-                "numberOfItems",
-                "stocks",
-                "locatedIn"
-            ],
+            "attributes": ["numberOfItems", "stocks", "locatedIn"],
             "format": "normalized",
             "endpoint": {
                 "uri": "http://tutorial:3000/subscription/low-stock-store002",
@@ -439,10 +427,10 @@ Also, a simple registration for an entity will be rejected if an entity already 
 partial registration for an entity attribute will be rejected if the attribute exists within the context broker (or is
 already subject to a partial registration). The latter may be ovecome with the use of the `datasetId`.
 
-Internally the [Via](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Via) header is
-used to avoid circular dependencies where **context broker A** registers an entity with **context broker B** which
-registers an entity with **context broker C** which registers an entity with **context broker A** again. The
-`Via` Header is removed prior to responding to a client however.
+Internally the [Via](https://developer.mozilla.org/en-US/docs/Web/HTTP/Headers/Via) header is used to avoid circular
+dependencies where **context broker A** registers an entity with **context broker B** which registers an entity with
+**context broker C** which registers an entity with **context broker A** again. The `Via` Header is removed prior to
+responding to a client however.
 
 With normal operation, the NGSI-LD response does not expose whether data collated from multiple sources is held directly
 within the context broker or whether the information has been retrieved externally. It is only when an error occurs

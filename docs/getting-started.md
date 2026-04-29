@@ -321,9 +321,8 @@ In this case we only have one entity type - **Store**
 #### Entity IDs should be a URN following NGSI-LD guidelines
 
 NGSI-LD has recently been published as a full ETSI
-[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html), the proposal is
-that each `id` is a URN follows a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every
-`id` in the system will be unique
+[specification](https://cim.etsi.org/NGSI-LD/official/front-page.html), the proposal is that each `id` is a URN follows
+a standard format: `urn:ngsi-ld:<entity-type>:<entity-id>`. This will mean that every `id` in the system will be unique
 
 #### Data type names should reuse schema.org data types where possible
 

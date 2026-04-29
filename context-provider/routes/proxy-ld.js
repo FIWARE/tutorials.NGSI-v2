@@ -128,21 +128,18 @@ router.get('/weather/weatherConditions/ngsi-ld/v1/entities/:id', weatherDefaults
 
 // Convenience endpoints for tweets readings
 
-
-
 router.get('/catfacts/tweets/ngsi-ld/v1/entities/', tweetDefaults, (req, res, next) => {
-    req.params.id = req.query.id || '12345'
+    req.params.id = req.query.id || '12345';
     CatFactsNGSIProxy.getAsNgsiLD(req, res, next, true);
-}); 
+});
 router.get('/random/tweets/ngsi-ld/v1/entities/', tweetDefaults, (req, res, next) => {
-    req.params.id = req.query.id || '12345'
+    req.params.id = req.query.id || '12345';
     RandomNGSIProxy.getAsNgsiLD(req, res, next, true);
-}); 
+});
 router.get('/static/tweets/ngsi-ld/v1/entities/', tweetDefaults, (req, res, next) => {
-    req.params.id = req.query.id || '12345'
+    req.params.id = req.query.id || '12345';
     StaticNGSIProxy.getAsNgsiLD(req, res, next, true);
 });
-
 
 router.get('/random/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, RandomNGSIProxy.getAsNgsiLD);
 
@@ -151,11 +148,6 @@ router.get('/static/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, StaticNGSIPr
 router.get('/twitter/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, TwitterNGSIProxy.getAsNgsiLD);
 
 router.get('/catfacts/tweets/ngsi-ld/v1/entities/:id', tweetDefaults, CatFactsNGSIProxy.getAsNgsiLD);
-
-
-
-
-
 
 // Not Supported Endpoints
 
