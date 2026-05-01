@@ -3,11 +3,11 @@
 [![JSON](https://img.shields.io/badge/Payload-JSON-27ae60.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 
 **Description:** This tutorial extends the connection of IoT devices connecting to FIWARE to use alternate transport.
-The [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-IoT Agent created in the [previous tutorial](iot-agent.md) is reconfigured to communicate with a set of dummy IoT
-devices which transfer secure messages over the [IOTA Tangle](https://www.iota.org/get-started/what-is-iota). An
-additional gateway component is added to the architecture of the previous [MQTT tutorial](iot-agent.md) to allow for
-secure indelible transactions across a distributed ledger network.
+The [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT
+Agent created in the [previous tutorial](iot-agent.md) is reconfigured to communicate with a set of dummy IoT devices
+which transfer secure messages over the [IOTA Tangle](https://www.iota.org/get-started/what-is-iota). An additional
+gateway component is added to the architecture of the previous [MQTT tutorial](iot-agent.md) to allow for secure
+indelible transactions across a distributed ledger network.
 
 The tutorial is mainly concerned with the architecture of the custom components, but uses [cUrl](https://ec.haxx.se/)
 commands where necessary, and is also available as
@@ -54,8 +54,8 @@ reading will be placed in a transaction object and attached to the IOTA Tangle, 
 is immutable. It obviously takes time for all nodes to agree that a transaction hs occurred, and therefore all
 communication should be considered as asynchronous.
 
-The IoT Agent for JSON currently offers three standard transport mechanisms - HTTP, MQTT and AMPQ. Whereas it
-would be possible to create a new binding directly for IOTA, in this case, it makes more sense to re-use the existing
+The IoT Agent for JSON currently offers three standard transport mechanisms - HTTP, MQTT and AMPQ. Whereas it would be
+possible to create a new binding directly for IOTA, in this case, it makes more sense to re-use the existing
 asynchronous MQTT binding and extend using a gateway solution where a separate microservice deals with the IOTA
 messages. IoT Agents based on gateway solutions already exist for [OPC-UA](https://iotagent-opcua.readthedocs.io/) and
 [LoRaWAN](https://fiware-lorawan.readthedocs.io/). In the case of the IoT Agent for OPC-UA for example, in its
@@ -65,9 +65,9 @@ messages into NGSI format. With the Gateway solution described in this tutorial 
 as a message bus, so we can provision our IoT devices as MQTT devices and intercept the relevant MQTT topics to
 transform the data into IOTA Tangle transactions to talk to IOTA Tangle enabled devices. The payload of each message
 continues to use the existing
-[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-syntax, and therefore we can continue to use the same FIWARE generic enabler to connect the devices. It is merely the
-underlying **transport** which has been customized in this scenario.
+[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) syntax, and
+therefore we can continue to use the same FIWARE generic enabler to connect the devices. It is merely the underlying
+**transport** which has been customized in this scenario.
 
 <h4>Mosquitto MQTT Broker</h4>
 
@@ -89,10 +89,10 @@ seen on the JSON device monitor web page found at: `http://localhost:3000/device
 
 This application builds on the components created in [previous tutorials](iot-agent.md). It will make use of two FIWARE
 components - the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) and the
-[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/). Usage of the Orion Context Broker
-is sufficient for an application to qualify as _“Powered by FIWARE”_. Both the Orion Context Broker and the IoT Agent
-rely on open source [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold. We
-will also be using the dummy IoT devices created in the [previous tutorial](iot-agent.md) Additionally we will add an
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/). Usage of the Orion Context Broker is
+sufficient for an application to qualify as _“Powered by FIWARE”_. Both the Orion Context Broker and the IoT Agent rely
+on open source [MongoDB](https://www.mongodb.com/) technology to keep persistence of the information they hold. We will
+also be using the dummy IoT devices created in the [previous tutorial](iot-agent.md) Additionally we will add an
 instance of the [Mosquitto](https://mosquitto.org/) MQTT broker which is open source and available under the EPL/EDL and
 create a custom **MQTT-IOTA Gateway** to enable us to persist commands to the IOTA Tangle and to subscribe to topics to
 receive measurements and command acknowledgements when they occur.
@@ -104,8 +104,8 @@ Therefore, the overall architecture will consist of the following elements:
 -   The FIWARE [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) which will:
     -   receive southbound requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert
         them to
-        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-        MQTT topics for the MQTT Broker
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) MQTT
+        topics for the MQTT Broker
     -   listen to the **MQTT Broker** on registered topics to send measurements northbound
 -   The [Mosquitto](https://mosquitto.org/) **MQTT Broker** which acts as a central communication point, passing MQTT
     topics between the **IoT Agent** and IoT devices as necessary.
@@ -114,8 +114,7 @@ Therefore, the overall architecture will consist of the following elements:
         registrations
     -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
 -   A webserver acting as set of [dummy IoT devices](https://github.com/FIWARE/tutorials.IoT-Sensors/tree/NGSI-v2) using
-    the
-    [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
+    the [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
     protocol running over the IOTA Tangle.
 -   An MQTT-IOTA gateway which persists MQTT topic messages to the tangle and vice-vera.
 
@@ -183,27 +182,27 @@ tutorial:
 The `tutorial` container is listening on two ports:
 
 -   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
--   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without
-    being part of the same network.
+-   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without being
+    part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
-| Key                     | Value                               | Description                                                                                                                                |
-| ----------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ |
-| DEBUG                   | `tutorial:*`                        | Debug flag used for logging                                                                                                                |
-| WEB_APP_PORT            | `3000`                              | Port used by web-app which displays the dummy device data                                                                                  |
-| DUMMY_DEVICES_PORT      | `3001`                              | Port used by the dummy IoT devices to receive commands                                                                                     |
+| Key                     | Value                               | Description                                                                                                                          |
+| ----------------------- | ----------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------ |
+| DEBUG                   | `tutorial:*`                        | Debug flag used for logging                                                                                                          |
+| WEB_APP_PORT            | `3000`                              | Port used by web-app which displays the dummy device data                                                                            |
+| DUMMY_DEVICES_PORT      | `3001`                              | Port used by the dummy IoT devices to receive commands                                                                               |
 | DUMMY_DEVICES_API_KEYS  | `4jggokgpepnvsb2uv4s40d59ov`        | List of security key used for JSON interactions - used to ensure the integrity of interactions between the devices and the IoT Agent |
-| DUMMY_DEVICES_TRANSPORT | `IOTA`                              | The transport protocol used by the dummy IoT devices                                                                                       |
-| IOTA_NODE               | `https://chrysalis-nodes.iota.cafe` | Starting IOTA node for the Gateway to connect to                                                                                           |
-| IOTA_MESSAGE_INDEX      | `fiware`                            | Message index used to persist the data devices                                                                                             |
+| DUMMY_DEVICES_TRANSPORT | `IOTA`                              | The transport protocol used by the dummy IoT devices                                                                                 |
+| IOTA_NODE               | `https://chrysalis-nodes.iota.cafe` | Starting IOTA node for the Gateway to connect to                                                                                     |
+| IOTA_MESSAGE_INDEX      | `fiware`                            | Message index used to persist the data devices                                                                                       |
 
 The other `tutorial` container configuration values described in the YAML file are not used in this tutorial.
 
 <h3>IoT Agent for JSON Configuration</h3>
 
-The [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) can be instantiated within a
-Docker container. An official Docker image is available from [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/)
+The [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) can be instantiated within a Docker
+container. An official Docker image is available from [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/)
 tagged `fiware/iotagent-json`. The necessary configuration can be seen below:
 
 ```yaml
@@ -253,7 +252,7 @@ The `iot-agent` container is driven by environment variables as shown:
 | IOTA_LOG_LEVEL       | `DEBUG`                 | The log level of the IoT Agent                                                                                                                        |
 | IOTA_TIMESTAMP       | `true`                  | Whether to supply timestamp information with each measurement received from attached devices                                                          |
 | IOTA_CB_NGSI_VERSION | `v2`                    | Whether to supply use NGSI v2 when sending updates for active attributes                                                                              |
-| IOTA_AUTOCAST        | `true`                  | Ensure JSON number values are read as numbers not strings                                                                                       |
+| IOTA_AUTOCAST        | `true`                  | Ensure JSON number values are read as numbers not strings                                                                                             |
 | IOTA_MONGO_HOST      | `context-db`            | The hostname of mongoDB - used for holding device information                                                                                         |
 | IOTA_MONGO_PORT      | `27017`                 | The port mongoDB is listening on                                                                                                                      |
 | IOTA_MONGO_DB        | `iotagentul`            | The name of the database used in mongoDB                                                                                                              |
@@ -503,8 +502,8 @@ curl -L -X PATCH 'http://localhost:1026/v2/entities/urn:ngsi-ld:Bell:001/attrs' 
 }'
 ```
 
-The NGSI request is transformed into an MQTT message (with an JSON payload) which is received by the MQTT-IOTA
-Gateway - this message is then persisted to the IOTA Tangle as shown:
+The NGSI request is transformed into an MQTT message (with an JSON payload) which is received by the MQTT-IOTA Gateway -
+this message is then persisted to the IOTA Tangle as shown:
 
 #### 1st terminal - Gateway Result:
 
@@ -838,8 +837,8 @@ const queue = async.queue((data, callback) => {
 
 ### IOTA Tangle Device measure - Sample Code
 
-Measures are dealt with in a similar manner. The payload is created in JSON syntax (including a timestamp) and
-pushed to a queue. The queue sends the measure to the IOTA Tangle and reschedules any failures.
+Measures are dealt with in a similar manner. The payload is created in JSON syntax (including a timestamp) and pushed to
+a queue. The queue sends the measure to the IOTA Tangle and reschedules any failures.
 
 ```javascript
 function sendAsIOTA(deviceId, state) {

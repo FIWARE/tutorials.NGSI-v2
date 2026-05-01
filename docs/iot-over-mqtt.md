@@ -3,9 +3,9 @@
 [![JSON](https://img.shields.io/badge/Payload-JSON-27ae60.svg)](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 
 **Description:** This tutorial uses introduces the use of the MQTT protocol across IoT devices connecting to FIWARE. The
-[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT
-Agent created in the [previous tutorial](iot-agent.md) is reconfigured to communicate with a set of dummy IoT devices
-using MQTT via a [Mosquitto](https://mosquitto.org/) message broker
+[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) IoT Agent
+created in the [previous tutorial](iot-agent.md) is reconfigured to communicate with a set of dummy IoT devices using
+MQTT via a [Mosquitto](https://mosquitto.org/) message broker
 
 The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also available as
 [Postman documentation](https://fiware.github.io/tutorials.IoT-Agent/)
@@ -48,9 +48,9 @@ A summary of the differences between the two transport protocols can be seen bel
 | Higher Power Requirement                                                            | Low Power Requirement                                                                         |
 
 The JSON IoT Agent will only send or interpret messages using the
-[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-syntax, however it can be used to send and receive messages over multiple **transport** mechanisms. Therefore, we are
-able to use the same FIWARE generic enabler to connect to a wider range of IoT devices.
+[JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) syntax,
+however it can be used to send and receive messages over multiple **transport** mechanisms. Therefore, we are able to
+use the same FIWARE generic enabler to connect to a wider range of IoT devices.
 
 <h4>Mosquitto MQTT Broker</h4>
 
@@ -61,8 +61,7 @@ tutorial. It is available licensed under EPL/EDL. More information can be found 
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context
 broker. Details of the architecture and protocol used can be found in the [IoT Sensors tutorial](iot-sensors.md) The
-state of each device can be seen on the JSON device monitor web page found at:
-`http://localhost:3000/device/monitor`
+state of each device can be seen on the JSON device monitor web page found at: `http://localhost:3000/device/monitor`
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.IoT-over-MQTT/img/device-monitor.png)
 
@@ -74,9 +73,9 @@ state of each device can be seen on the JSON device monitor web page found at:
 
 This application builds on the components created in [previous tutorials](iot-agent.md). It will make use of two FIWARE
 components - the [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/) and the
-[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/). Usage of the Orion Context Broker
-(with proper context data flowing through it) is sufficient for an application to qualify as _“Powered by FIWARE”_. Both
-the Orion Context Broker and the IoT Agent rely on open source [MongoDB](https://www.mongodb.com/) technology to keep
+[IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/). Usage of the Orion Context Broker (with
+proper context data flowing through it) is sufficient for an application to qualify as _“Powered by FIWARE”_. Both the
+Orion Context Broker and the IoT Agent rely on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the information they hold. We will also be using the dummy IoT devices created in the
 [previous tutorial](iot-agent.md) Additionally we will add an instance of the [Mosquitto](https://mosquitto.org/) MQTT
 broker which is open source and available under the EPL/EDL.
@@ -88,8 +87,8 @@ Therefore, the overall architecture will consist of the following elements:
 -   The FIWARE [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) which will:
     -   receive southbound requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2) and convert
         them to
-        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-        MQTT topics for the MQTT Broker
+        [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) MQTT
+        topics for the MQTT Broker
     -   listen to the **MQTT Broker** on registered topics to send measurements northbound
 -   The [Mosquitto](https://mosquitto.org/) **MQTT Broker** which acts as a central communication point, passing MQTT
     topics between the **IoT Agent** and IoT devices as necessary.
@@ -98,8 +97,8 @@ Therefore, the overall architecture will consist of the following elements:
         registrations
     -   Used by the **IoT Agent** to hold device information such as device URLs and Keys
 -   A webserver acting as set of [dummy IoT devices](iot-sensors.md) using the
-    [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
-    protocol running over MQTT.
+    [JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual) protocol
+    running over MQTT.
 -   The **Context Provider NGSI** proxy is not used in this tutorial. It does the following:
     -   receive requests using [NGSI-v2](https://fiware.github.io/specifications/OpenAPI/ngsiv2)
     -   makes requests to publicly available data sources using their own APIs in a proprietary format
@@ -172,25 +171,25 @@ tutorial:
 The `tutorial` container is listening on two ports:
 
 -   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
--   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without
-    being part of the same network.
+-   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without being
+    part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 
-| Key                     | Value                        | Description                                                                                                                               |
-| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
-| DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                               |
-| WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                                 |
-| DUMMY_DEVICES_PORT      | `3001`                       | Port used by the dummy IoT devices to receive commands                                                                                    |
+| Key                     | Value                        | Description                                                                                                                         |
+| ----------------------- | ---------------------------- | ----------------------------------------------------------------------------------------------------------------------------------- |
+| DEBUG                   | `tutorial:*`                 | Debug flag used for logging                                                                                                         |
+| WEB_APP_PORT            | `3000`                       | Port used by web-app which displays the dummy device data                                                                           |
+| DUMMY_DEVICES_PORT      | `3001`                       | Port used by the dummy IoT devices to receive commands                                                                              |
 | DUMMY_DEVICES_API_KEY   | `4jggokgpepnvsb2uv4s40d59ov` | Random security key used for JSON interactions - used to ensure the integrity of interactions between the devices and the IoT Agent |
-| DUMMY_DEVICES_TRANSPORT | `MQTT`                       | The transport protocol used by the dummy IoT devices                                                                                      |
+| DUMMY_DEVICES_TRANSPORT | `MQTT`                       | The transport protocol used by the dummy IoT devices                                                                                |
 
 The other `tutorial` container configuration values described in the YAML file are not used in this tutorial.
 
 <h3>IoT Agent for JSON Configuration</h3>
 
-The [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) can be instantiated within a
-Docker container. An official Docker image is available from [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/)
+The [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/) can be instantiated within a Docker
+container. An official Docker image is available from [Docker Hub](https://hub.docker.com/r/fiware/iotagent-json/)
 tagged `fiware/iotagent-json`. The necessary configuration can be seen below:
 
 ```yaml
@@ -240,7 +239,7 @@ The `iot-agent` container is driven by environment variables as shown:
 | IOTA_LOG_LEVEL       | `DEBUG`                 | The log level of the IoT Agent                                                                                                                        |
 | IOTA_TIMESTAMP       | `true`                  | Whether to supply timestamp information with each measurement received from attached devices                                                          |
 | IOTA_CB_NGSI_VERSION | `v2`                    | Whether to supply use NGSI v2 when sending updates for active attributes                                                                              |
-| IOTA_AUTOCAST        | `true`                  | Ensure JSON number values are read as numbers not strings                                                                                       |
+| IOTA_AUTOCAST        | `true`                  | Ensure JSON number values are read as numbers not strings                                                                                             |
 | IOTA_MONGO_HOST      | `context-db`            | The hostname of mongoDB - used for holding device information                                                                                         |
 | IOTA_MONGO_PORT      | `27017`                 | The port mongoDB is listening on                                                                                                                      |
 | IOTA_MONGO_DB        | `iotagentul`            | The name of the database used in mongoDB                                                                                                              |
@@ -841,8 +840,8 @@ available. In other words the IoT Agent registered itself as a [Context Provider
 attributes.
 
 Once the commands have been registered it will be possible to ring the **Bell**, open and close the **Smart Door** and
-switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending JSON
-requests directly the IoT devices as we did in the [previous tutorial](iot-sensors.md)
+switch the **Smart Lamp** on and off by sending requests to the Orion Context Broker, rather than sending JSON requests
+directly the IoT devices as we did in the [previous tutorial](iot-sensors.md)
 
 All the communications leaving and arriving at the North port of the IoT Agent use the standard NGSI syntax. The
 transport protocol used between the IoT devices and the IoT Agent is irrelevant to this layer of communication.

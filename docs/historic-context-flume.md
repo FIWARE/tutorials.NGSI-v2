@@ -54,8 +54,7 @@ notifications must be set up to only pass the minimal data required as necessary
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context
 broker. Details of the architecture and protocol used can be found in the [IoT Sensors tutorial](iot-sensors.md). The
-state of each device can be seen on the JSON device monitor web page found at:
-`http://localhost:3000/device/monitor`
+state of each device can be seen on the JSON device monitor web page found at: `http://localhost:3000/device/monitor`
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.Historic-Context-Flume/img/device-monitor.png)
 

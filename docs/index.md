@@ -152,8 +152,8 @@ from the context broker to alter the state of real-world objects themselves.
 
 &nbsp; 201. [Introduction to IoT Sensors](iot-sensors.md)<br/> &nbsp; 202.
 [Provisioning an IoT Agent](iot-agent.md)<br/> &nbsp; 203. [IoT over MQTT](iot-over-mqtt.md)<br/> &nbsp; 204.
-[Using an alternative IoT Agent](iot-agent.md)<br/> &nbsp; 205.
-[Creating a Custom IoT Agent](custom-iot-agent.md)<br/> &nbsp; 206. [IoT over IOTA Tangle](iot-over-iota-tangle.md)<br/>
+[Using an alternative IoT Agent](iot-agent.md)<br/> &nbsp; 205. [Creating a Custom IoT Agent](custom-iot-agent.md)<br/>
+&nbsp; 206. [IoT over IOTA Tangle](iot-over-iota-tangle.md)<br/>
 
 <!-- &nbsp; 250. [Introduction to Fast-RTPS and Micro-RTPS](fast-rtps-micro-rtps.md)<br/> -->
 

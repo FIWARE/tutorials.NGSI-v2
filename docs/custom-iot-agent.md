@@ -38,10 +38,10 @@ The process for creating your own IoT Agent is relatively simple. It is best ach
 which uses the required data transport and rewriting/amending the payload processing code to handle the payloads in
 question.
 
-For the purpose of this tutorial we will amend code from the existing JSON IoT Agent to process a similar custom
-XML format. A direct comparison of the two IoT Agents can be seen below:
+For the purpose of this tutorial we will amend code from the existing JSON IoT Agent to process a similar custom XML
+format. A direct comparison of the two IoT Agents can be seen below:
 
-| IoT Agent for JSON                                            | IoT Agent for XML                                                                                            | Protocol's Area of Concern |
+| IoT Agent for JSON                                                  | IoT Agent for XML                                                                                            | Protocol's Area of Concern |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------ | -------------------------- |
 | Sample Measure `c\1`                                                | Sample Measure <br/>`<measure device="lamp002" key="xxx">`<br/>&nbsp;&nbsp;`<c value="1"/>`<br/>`</measure>` | Message Payload            |
 | Sample Command `Robot1@turn\left=30`                                | Sample Command <br/>`<turn device="Robot1">`<br/>&nbsp;&nbsp;`<left>30</left>`<br/>`</turn>`                 | Message Payload            |
@@ -67,9 +67,9 @@ lower-level CoAP transport used by the devices.
 ## The teaching goal of this tutorial
 
 The aim of this tutorial is to improve developer understanding of how to create their own custom IoT Agents, a series of
-simple modifications has been made to the code of the JSON IoT Agent demonstrating how to make changes. The
-tutorial consists of a walkthrough of the relevant code and a series of HTTP requests to connect the new IoT Agent. The
-code can be found within the current
+simple modifications has been made to the code of the JSON IoT Agent demonstrating how to make changes. The tutorial
+consists of a walkthrough of the relevant code and a series of HTTP requests to connect the new IoT Agent. The code can
+be found within the current
 [GitHub Repository](https://github.com/FIWARE/tutorials.Custom-IoT-Agent/tree/master/iot-agent)
 
 ## Reusing Common Functionality
@@ -468,11 +468,11 @@ curl -iX POST \
 ```
 
 As expected the HTTP command to **provision a device** does not change based on the underlying payload or transport
-protocol since we are using the same HTTP transport as the original JSON IoT Agent. `internal_atttributes` can be
-used to supply additional information for the custom IoT Agent if necessary. In the request we are associating the
-device `motion001` with the URN `urn:ngsi-ld:Motion:001` and mapping the device reading `c` with the context attribute
-`count` (which is defined as an `Integer`) A `refStore` is defined as a `static_attribute`, placing the device within
-**Store** `urn:ngsi-ld:Store:001`
+protocol since we are using the same HTTP transport as the original JSON IoT Agent. `internal_atttributes` can be used
+to supply additional information for the custom IoT Agent if necessary. In the request we are associating the device
+`motion001` with the URN `urn:ngsi-ld:Motion:001` and mapping the device reading `c` with the context attribute `count`
+(which is defined as an `Integer`) A `refStore` is defined as a `static_attribute`, placing the device within **Store**
+`urn:ngsi-ld:Store:001`
 
 You can simulate a dummy IoT device measurement coming from the **Motion Sensor** device `motion001`, by making the
 following XML request
@@ -489,9 +489,9 @@ curl -L -X POST 'http://localhost:7896/iot/xml' \
 
 <h3>Reading Measures - Analysing the Code</h3>
 
-Both the payload and the `Content-Type` have been updated. The dummy devices made a similar JSON request in the
-previous tutorials when the door was unlocked, you will have seen the state of each motion sensor changing and a
-Northbound request will be logged in the device monitor.
+Both the payload and the `Content-Type` have been updated. The dummy devices made a similar JSON request in the previous
+tutorials when the door was unlocked, you will have seen the state of each motion sensor changing and a Northbound
+request will be logged in the device monitor.
 
 Now the IoT Agent is connected, the service group has defined the resource upon which the IoT Agent is listening
 (`iot/xml`) and the API key used to authenticate the request (`4jggokgpepnvsb2uv4s40d59ov`) is found in the body. Since
@@ -617,9 +617,9 @@ Agent the provisioning of commands fulfills the following implied contract:
 
 1.  The custom IoT Agent is making a registration for an attribute
 2.  The custom IoT Agent each request for updating context (on the `/v2/op/update` endpoint)
-3.  A decision is made how to handle the request - for both the Custom IoT Agent and the JSON Agent this follows
-    the paradigm of setting a `<command>State` attribute, amending and forwarding the request on a `/cmd` endpoint to
-    the device (or alternatively to a middleware responsible for the device).
+3.  A decision is made how to handle the request - for both the Custom IoT Agent and the JSON Agent this follows the
+    paradigm of setting a `<command>State` attribute, amending and forwarding the request on a `/cmd` endpoint to the
+    device (or alternatively to a middleware responsible for the device).
 
 The first two items - listening to context changes from the context broker follow the well-defined NGSI syntax and
 therefore are common to all IoT Agents. However, the third item - what to do to prepare the message for ongoing

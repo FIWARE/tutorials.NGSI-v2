@@ -18,6 +18,10 @@ making [cUrl](https://ec.haxx.se/) commands.
 
 # Accessing the Context Data
 
+> "Ask and it shall be given you; seek, and ye shall find."
+>
+> — Matthew 7:7
+
 For a typical smart solution you will be retrieving context data from diverse sources (such as a CRM system, social
 networks, mobile apps or IoT sensors for example) and then analyzing the context programmatically to make appropriate
 business logic decisions. For example in the stock management demo, the application will need to ensure that the prices

@@ -17,13 +17,9 @@ available.
 
 # Securing Access
 
-> "When a person or party approaches your post, you should challenge them at a distance that is sufficient for you to
-> react if they turn out to have hostile intentions. You should say in a firm voice, loud enough to be easily heard,
-> _"Halt! Who goes there?"_ (or _"Who is there?"_). Once the person answers, you should then say _"Advance to be
-> recognized."_ ... If you have identified the person or persons approaching, permit them to pass. If you are not
-> satisfied with that person's identification, you must detain the person and call the petty officer of the watch."
+> "Keep your friends close, but your bourbon closer."
 >
-> — 11th General Order of the US Marine Corps
+> — Unknown
 
 In order to secure access to application resources, it is necessary to know two things. Firstly, who is making the
 request and secondly is the requestor permitted to access the resource? The FIWARE **Keyrock** generic enabler uses
@@ -171,8 +167,8 @@ tutorial:
 The `tutorial` container is listening on two ports:
 
 -   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
--   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without
-    being part of the same network.
+-   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without being
+    part of the same network.
 
 The `tutorial` container is driven by environment variables as shown:
 

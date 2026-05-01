@@ -16,9 +16,9 @@ relevant to authenticating other services are described in detail.
 
 # Securing Microservices with a PEP Proxy
 
-> "Oh, it's quite simple. If you are a friend, you speak the password, and the doors will open."
+> "Too many cooks spoil the broth."
 >
-> — Gandalf (The Fellowship of the Ring by J.R.R Tolkein)
+> — Proverb
 
 The [previous tutorial](securing-access.md) demonstrated that it is possible to Permit or Deny access to resources based
 on an authenticated user identifying themselves within an application. It was simply a matter of the code following a
@@ -1146,15 +1146,15 @@ as shown in all previous tutorials, all traffic is forwarded to `iot-agent-proxy
 `tutorial` container settings have been described in previous tutorials, the `DUMMY_DEVICES_USER` and
 `DUMMY_DEVICES_PASSWORD` are new additions.
 
-| Key                     | Value                                             | Description                                                                                                                        |
-| ----------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------- |
-| IOTA_HTTP_HOST          | `iot-agent-proxy`                                 | The hostname of the Wilma PEP Proxy protecting the IoT Agent for JSON                                                              |
-| IOTA_HTTP_PORT          | `7896`                                            | The port that the Wilma PEP Proxy protecting the IoT Agent is listening on                                                         |
-| DUMMY_DEVICES_PORT      | `3001`                                            | Port used by the dummy IoT devices to receive commands                                                                             |
-| DUMMY_DEVICES_TRANSPORT | `HTTP`                                            | Default transport used by dummy Io devices                                                                                         |
+| Key                     | Value                                             | Description                                                                                                                  |
+| ----------------------- | ------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
+| IOTA_HTTP_HOST          | `iot-agent-proxy`                                 | The hostname of the Wilma PEP Proxy protecting the IoT Agent for JSON                                                        |
+| IOTA_HTTP_PORT          | `7896`                                            | The port that the Wilma PEP Proxy protecting the IoT Agent is listening on                                                   |
+| DUMMY_DEVICES_PORT      | `3001`                                            | Port used by the dummy IoT devices to receive commands                                                                       |
+| DUMMY_DEVICES_TRANSPORT | `HTTP`                                            | Default transport used by dummy Io devices                                                                                   |
 | DUMMY_DEVICES_API_KEY   | `4jggokgpepnvsb2uv4s40d59ov`                      | Random security key used for JSON interactions - ensures the integrity of interactions between the devices and the IoT Agent |
-| DUMMY_DEVICES_USER      | `iot_sensor_00000000-0000-0000-0000-000000000000` | Username assigned to the device(s) in **Keyrock**                                                                                  |
-| DUMMY_DEVICES_PASSWORD  | `test`                                            | Password assigned to the device(s) in **Keyrock**                                                                                  |
+| DUMMY_DEVICES_USER      | `iot_sensor_00000000-0000-0000-0000-000000000000` | Username assigned to the device(s) in **Keyrock**                                                                            |
+| DUMMY_DEVICES_PASSWORD  | `test`                                            | Password assigned to the device(s) in **Keyrock**                                                                            |
 
 The `DUMMY_DEVICES_USER` and `DUMMY_DEVICES_PASSWORD` would usually be obtained by adding new entries to the application
 in **Keyrock**, however, in this tutorial, they have been predefined by populating the **MySQL** database with data on

@@ -17,9 +17,9 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Real-time Processing and Big Data Analysis using Apache Spark
 
-> "You have to find what sparks a light in you so that you in your own way can illuminate the world."
+> "Cooking is like love. It should be entered into with abandonment or not at all."
 >
-> — Oprah Winfrey
+> — Harriet van Horne
 
 Smart solutions based on FIWARE are architecturally designed around microservices. They are therefore are designed to
 scale-up from simple applications (such as the Supermarket tutorial) through to city-wide installations base on a large

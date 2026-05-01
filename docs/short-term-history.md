@@ -79,8 +79,8 @@ web page found at: `http://localhost:3000/device/history/urn:ngsi-ld:Store:001`
 
 ## Architecture
 
-This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent.md). It
-will use three or four FIWARE components depending on the configuration of the system: the
+This application builds on the components and dummy IoT devices created in [previous tutorials](iot-agent.md). It will
+use three or four FIWARE components depending on the configuration of the system: the
 [Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/), the
 [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/),
 [STH-Comet](https://fiware-cygnus.readthedocs.io/en/latest/) and

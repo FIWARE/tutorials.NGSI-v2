@@ -18,33 +18,33 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Why are multiple IoT Agents needed?
 
-> "Ils en conclurent que la syntaxe est une fantaisie et la grammaire une illusion."
+> "Everything in food is science. The only thing that isn't is the love."
 >
-> — Gustave Flaubert (Bouvard and Pecuchet)
+> — Alton Brown
 
 As defined previously, an IoT Agent is a component that lets a group of devices send their data to and be managed from a
 Context Broker using their own native protocols. Every IoT Agent is defined for a single payload format, although they
 may be able to use multiple disparate transports for that payload.
 
-We have already encountered the JSON IoT Agent, which communicates using a simple bar (`|`) separated list of
-key-value pairs. This payload is a simple, terse but relatively obscure communication mechanism - by far the commonest
-messaging payload used on the Internet is the so-called JavaScript Object Notation or JSON which will be familiar to any
-software developer.
+We have already encountered the JSON IoT Agent, which communicates using a simple bar (`|`) separated list of key-value
+pairs. This payload is a simple, terse but relatively obscure communication mechanism - by far the commonest messaging
+payload used on the Internet is the so-called JavaScript Object Notation or JSON which will be familiar to any software
+developer.
 
-JSON is slightly more verbose than JSON, but the cost of sending larger messages is offset by the familiarity of
-the syntax. A separate
+JSON is slightly more verbose than JSON, but the cost of sending larger messages is offset by the familiarity of the
+syntax. A separate
 [IoT Agent for JSON](https://fiware-iotagent-json.readthedocs.io/en/latest/usermanual/index.html#user-programmers-manual)
 has been created specifically to cope with messages sent in this format, since a large number of common devices are able
 to be programmed to send messages in JSON and many software libraries exist to parse the data.
 
-There is no practical difference between communicating using a JSON payload and communicating using the JSON plain
-text payload - provided that the basis of that communication - in other words the fundamental protocol defining how the
+There is no practical difference between communicating using a JSON payload and communicating using the JSON plain text
+payload - provided that the basis of that communication - in other words the fundamental protocol defining how the
 messages are passed between the components remains the same. Obviously the parsing of JSON payloads within the IoT
 Agent - the conversion of messages from JSON to NGSI and vice-versa will be unique to the JSON IoT Agent.
 
 A direct comparison of the two IoT Agents can be seen below:
 
-| IoT Agent for JSON                                            | IoT Agent for JSON                                                  | Protocol's Area of Concern |
+| IoT Agent for JSON                                                  | IoT Agent for JSON                                                  | Protocol's Area of Concern |
 | ------------------------------------------------------------------- | ------------------------------------------------------------------- | -------------------------- |
 | Sample Measure <code>c&vert;1</code>                                | Sample Measure `{"count": "1"}`                                     | Message Payload            |
 | Sample Command <code>Robot1@turn&vert;left</code>                   | Sample Command `{"Robot1": {"turn": "left"}}`                       | Message Payload            |
@@ -537,9 +537,9 @@ curl -iX POST \
   -d '{"c": "1"}'
 ```
 
-Both the payload and the `Content-Type` have been updated. The dummy devices made a similar JSON request in the
-previous tutorials when the door was unlocked, you will have seen the state of each motion sensor changing and a
-Northbound request will be logged in the device monitor.
+Both the payload and the `Content-Type` have been updated. The dummy devices made a similar JSON request in the previous
+tutorials when the door was unlocked, you will have seen the state of each motion sensor changing and a Northbound
+request will be logged in the device monitor.
 
 Now the IoT Agent is connected, the service group has defined the resource upon which the IoT Agent is listening
 (`iot/json`) and the API key used to authenticate the request (`4jggokgpepnvsb2uv4s40d59ov`). Since both of these are
@@ -711,8 +711,8 @@ command can be seen in the value of the `ring_info` attribute.
 
 ### Provisioning a Smart Door
 
-Because the underlying JSON and JSON protocols are so similar, actuators and devices are provisioned using the
-same attributes as the data the IoT Agent needs to know to communicate with the device remains the same, and the payload
+Because the underlying JSON and JSON protocols are so similar, actuators and devices are provisioned using the same
+attributes as the data the IoT Agent needs to know to communicate with the device remains the same, and the payload
 parsing NGSI to JSON is delegated to the IoT Agent itself. Provisioning a device which offers both commands and
 measurements is merely a matter of making an HTTP POST request with both `attributes` and `command` attributes in the
 body of the request.

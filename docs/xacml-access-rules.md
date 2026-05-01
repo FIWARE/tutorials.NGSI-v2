@@ -353,8 +353,8 @@ tutorial:
 The `tutorial` container is listening on two ports:
 
 -   Port `3000` is exposed, so we can see the web page displaying the Dummy IoT devices.
--   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without
-    being part of the same network.
+-   Port `3001` is exposed purely for tutorial access - so that cUrl or Postman can make JSON commands without being
+    part of the same network.
 
 The `tutorial` container is now secured by **Authzforce**, and is driven by environment variables as shown:
 

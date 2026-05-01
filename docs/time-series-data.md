@@ -18,9 +18,9 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Persisting and Querying Time Series Data (CrateDB)
 
-> "Forever is composed of nows."
+> "Age is something that doesn't matter, unless you are a cheese."."
 >
-> — Emily Dickinson
+> — Luis Buñuel
 
 Previous tutorials have shown how to persist historic context data into a range of databases such as **MySQL** and
 **PostgreSQL**. using [Apache Flume](historic-context-flume.md) and [Apache NIFI](historic-context-nifi.md) Furthermore,
@@ -77,8 +77,7 @@ available licensed under the Apache License 2.0. More information can be found a
 
 For the purpose of this tutorial, a series of dummy IoT devices have been created, which will be attached to the context
 broker. Details of the architecture and protocol used can be found in the [IoT Sensors tutorial](iot-sensors.md). The
-state of each device can be seen on the JSON device monitor web page found at:
-`http://localhost:3000/device/monitor`
+state of each device can be seen on the JSON device monitor web page found at: `http://localhost:3000/device/monitor`
 
 ![FIWARE Monitor](https://fiware.github.io/tutorials.Time-Series-Data/img/device-monitor.png)
 

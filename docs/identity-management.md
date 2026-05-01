@@ -23,14 +23,13 @@ commands used to access the **Keyrock** REST API -
 
 # Identity Management
 
-> "If one meets a powerful person — ask them five questions: ‘What power have you got? Where did you get it from? In
-> whose interests do you exercise it? To whom are you accountable? And how can we get rid of you?’"
+> "First, we eat. Then, we do everything else."
 >
-> — Anthony Wedgwood Benn (The Five Essential Questions of Democracy)
+> — M.F.K. Fisher
 
 In computer security terminology, Identity management is the security and business discipline that "enables the right
-individuals to access the right resources at the right times and for the right reasons". It addresses the need to ensure
-appropriate access to resources across disparate systems.
+individuals to access the right resources at the right times and for the right reasons".<sup>[1](#footnote1)</sup> It
+addresses the need to ensure appropriate access to resources across disparate systems.
 
 The FIWARE framework consists of a series of separate components, and the security chapter aims to implement the common
 needs of these components regarding who (or what) gets to access which resources within the system, but before access to
@@ -47,21 +46,21 @@ identity and the surrounding technologies such as passwords and network protocol
 The following common objects are found with the **Keyrock** Identity Management database:
 
 -   **User** - Any signed up user able to identify themselves with an eMail and password. Users can be assigned rights
-    individually or as a group.
--   **Application** - Any securable FIWARE application consisting of a series of microservices.
+    individually or as a group
+-   **Application** - Any securable FIWARE application consisting of a series of microservices
 -   **Organization** - A group of users who can be assigned a series of rights. Altering the rights of the organization
-    effects the access of all users of that organization.
+    effects the access of all users of that organization
 -   **OrganizationRole** - Users can either be members or admins of an organization - Admins are able to add and remove
     users from their organization, members merely gain the roles and permissions of an organization. This allows each
-    organization to be responsible for their members and removes the need for a super-admin to administer all rights.
+    organization to be responsible for their members and removes the need for a super-admin to administer all rights
 -   **Role** - A role is a descriptive bucket for a set of permissions. A role can be assigned to either a single user
-    or an organization. A signed-in user gains all the permissions from all of their own roles plus all the roles
-    associated to their organization.
--   **Permission** - An ability to do something on a resource within the system.
+    or an organization. A signed-in user gains all the permissions from all of their own roles plus all of the roles
+    associated to their organization
+-   **Permission** - An ability to do something on a resource within the system
 
-Additionally, two further non-human application objects can be secured within a FIWARE application:
+Additionally two further non-human application objects can be secured within a FIWARE application:
 
--   **IoTAgent** - a proxy between IoT Sensors and the Context Broker.
+-   **IoTAgent** - a proxy between IoT Sensors and the Context Broker
 -   **PEPProxy** - a middleware for use between generic enablers challenging the rights of a user.
 
 The relationship between the objects can be seen below - the entities marked in red are used directly within this
@@ -73,15 +72,36 @@ tutorial:
 
 [![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=dHyVTan6bUY 'Introduction')
 
-Click on the image above to watch an introductory video
+Click on the image above to see an introductory video
 
----
+# Prerequisites
 
-## Architecture
+## Docker
+
+To keep things simple both components will be run using [Docker](https://www.docker.com). **Docker** is a container
+technology which allows to different components isolated into their respective environments.
+
+-   To install Docker on Windows follow the instructions [here](https://docs.docker.com/docker-for-windows/)
+-   To install Docker on Mac follow the instructions [here](https://docs.docker.com/docker-for-mac/)
+-   To install Docker on Linux follow the instructions [here](https://docs.docker.com/install/)
+
+**Docker Compose** is a tool for defining and running multi-container Docker applications. A
+[YAML file](https://raw.githubusercontent.com/Fiware/tutorials.Entity-Relationships/master/docker-compose.yml) is used
+configure the required services for the application. This means all container services can be brought up in a single
+command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux users
+will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
+
+## WSL
+
+We will start up our services using a simple bash script. Windows users should download the
+[Windows Subsystem for Linux](https://learn.microsoft.com/en-us/windows/wsl/install) to provide a command-line
+functionality similar to a Linux distribution on Windows.
+
+# Architecture
 
 This introduction will only make use of one FIWARE component - the
 [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) Identity Management Generic Enabler. Usage of **Keyrock** alone
-is insufficient for an application to qualify as _“Powered by FIWARE”_. Additionally, will be persisting user data in a
+is insufficient for an application to qualify as _“Powered by FIWARE”_. Additionally will be persisting user data in a
 **MySQL** database.
 
 The overall architecture will consist of the following elements:
@@ -90,14 +110,14 @@ The overall architecture will consist of the following elements:
 
     -   FIWARE [Keyrock](https://fiware-idm.readthedocs.io/en/latest/) offer a complement Identity Management System
         including:
-        -   An OAuth2 authentication system for Applications and Users.
-        -   A site graphical frontend for Identity Management Administration.
-        -   An equivalent REST API for Identity Management via HTTP requests.
+        -   An authentication system for Applications and Users
+        -   A site graphical frontend for Identity Management Administration
+        -   An equivalent REST API for Identity Management via HTTP requests
 
 -   One [MySQL](https://www.mysql.com/) database :
-    -   Used to persist user identities, applications, roles and permissions.
+    -   Used to persist user identities, applications, roles and permissions
 
-Since all interactions between the services are initiated by HTTP requests, the services can be containerized and run
+Since all interactions between the elements are initiated by HTTP requests, the entities can be containerized and run
 from exposed ports.
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/architecture.png)
@@ -115,15 +135,15 @@ keyrock:
         - mysql-db
     ports:
         - '3005:3005'
-        - '3443:3443'
+        - '${KEYROCK_HTTPS_PORT}:${KEYROCK_HTTPS_PORT}' # localhost:3443
     environment:
-        - DATABASE_HOST=mysql-db
+        - IDM_DB_HOST=mysql-db
         - IDM_DB_PASS_FILE=/run/secrets/my_secret_data
         - IDM_DB_USER=root
         - IDM_HOST=http://localhost:3005
         - IDM_PORT=3005
         - IDM_HTTPS_ENABLED=true
-        - IDM_HTTPS_PORT=3443
+        - IDM_HTTPS_PORT=${KEYROCK_HTTPS_PORT}
         - IDM_ADMIN_USER=admin
         - IDM_ADMIN_EMAIL=admin@test.com
         - IDM_ADMIN_PASS=1234
@@ -134,20 +154,22 @@ keyrock:
 The `idm` container is a web application server listening on two ports:
 
 -   Port `3005` has been exposed for HTTP traffic so we can display the web page and interact with the REST API.
--   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API.
+-   Port `3443` has been exposed for secure HTTPS traffic for the site and REST API
 
-> **Note** HTTPS should be used throughout for any secured application, but to do this properly, **Keyrock** requires a
-> trusted SSL certificate - the default certificate is self-certified and available for testing purposes. The
-> certificates can be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
+> [!NOTE]
+>
+> HTTPS should be used throughout for any secured application, but to do this properly, **Keyrock** requires a trusted
+> SSL certificate - the default certificate is self-certified and available for testing purposes. The certificates can
+> be overridden by attaching a volume to replace the files under `/opt/fiware-idm/certs`.
 >
 > In a production environment, all access should occur over HTTPS, to avoid sending any sensitive information using
-> plain-text. Alternatively HTTP can be used within a private network behind a configured HTTPS Reverse Proxy.
+> plain-text. Alternatively HTTP can be used within a private network behind a configured HTTPS Reverse Proxy
 >
 > The port `3005` offering the HTTP protocol is being exposed for demonstration purposes only and to simplify the
 > interactions within this tutorial - you may also use HTTPS on port `3443` with certain caveats.
 >
-> If you want to use HTTPS to access the REST API when you are using Postman, ensure that SSL certificate verification
-> is OFF. If you want to use HTTPS to access the web front-end, please accept any security warnings issued.
+> If you want to use HTTPS to access the REST API when you are using Postman, ensure that SSL certificate verfication is
+> OFF. If you want to use HTTPS to access the web front-end, please accept any security warnings issued.
 
 The `idm` container is driven by environment variables as shown:
 
@@ -160,8 +182,10 @@ The `idm` container is driven by environment variables as shown:
 | IDM_HTTPS_ENABLED | `true`                  | Whether to offer HTTPS Support - this will use the self-signed certs unless overridden                                       |
 | IDM_HTTPS_PORT    | `3443`                  | Port used by the **Keyrock** App Server for HTTP traffic this has been altered from the default 443                          |
 
-> **Note** that this example has secured the MySQL password using **Docker Secrets** By using `IDM_DB_PASS` with the
-> `_FILE` suffix and referring to a secrets file location. This avoids exposing the password as an `ENV` variable in
+> [!NOTE]
+>
+> that this example has secured the MySQL password using **Docker Secrets** By using `IDM_DB_PASS` with the `_FILE`
+> suffix and referring to a secrets file location. This avoids exposing the password as an `ENV` variable in
 > plain-text - either in the `Dockerfile` Image or as an injected variable which could be read using `docker inspect`.
 >
 > The following list of variables (where used) should be set via secrets with the `_FILE` suffix in a Production System:
@@ -202,21 +226,20 @@ mysql-db:
 The `mysql-db` container is listening on a single port:
 
 -   Port `3306` is the default port for a MySQL server. It has been exposed so you can also run other database tools to
-    display data if you wish.
+    display data if you wish
 
 The `mysql-db` container is driven by environment variables as shown:
 
 | Key                 | Value. | Description                                                                                                                                                                                           |
 | ------------------- | ------ | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| MYSQL_ROOT_PASSWORD | `123`. | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)                                                                                             |
+| MYSQL_ROOT_PASSWORD | `123`  | specifies a password that is set for the MySQL `root` account - secured by **Docker Secrets** (see below)                                                                                             |
 | MYSQL_ROOT_HOST     | `root` | By default, MySQL creates the `root'@'localhost` account. This account can only be connected to from inside the container. Setting this environment variable allows root connections from other hosts |
 
-## Start Up
+# Start Up
 
 To start the installation, do the following:
 
-```bash
-#!/bin/bash
+```console
 git clone https://github.com/FIWARE/tutorials.Identity-Management.git
 cd tutorials.Identity-Management
 git checkout NGSI-v2
@@ -224,30 +247,38 @@ git checkout NGSI-v2
 ./services create
 ```
 
-> **Note** The initial creation of Docker images can take up to three minutes
+> [!NOTE]
+>
+> The initial creation of Docker images can take up to three minutes
 
 Thereafter, all services can be initialized from the command-line by running the
-[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/master/services) Bash script provided within the
-repository:
+[services](https://github.com/FIWARE/tutorials.Identity-Management/blob/NGSI-v2/services) Bash script provided within
+the repository:
 
-```bash
-./services start
+```console
+./services <command>
 ```
 
-> **Note:** If you want to clean up and start over again you can do so with the following command:
+Where `<command>` will vary depending upon the exercise we wish to activate.
+
+> [!NOTE]
 >
-> `./services stop`
+> If you want to clean up and start over again you can do so with the following command:
+>
+> ```console
+> ./services stop
+> ```
 
 <h3>Reading directly from the Keyrock MySQL Database</h3>
 
 All Identify Management records and relationships are held within the attached MySQL database. This can be accessed by
 entering the running Docker container as shown:
 
-```bash
+```console
 docker exec -it db-mysql bash
 ```
 
-```bash
+```console
 mysql -u <user> -p<password> idm
 ```
 
@@ -260,46 +291,42 @@ SQL commands can then be entered from the command-line. e.g.:
 select id, username, email, password from user;
 ```
 
-The **Keyrock** MySQL database deals with all aspects of application security including storing users, passwords, etc.;
+The **Keyrock** MySQL database deals with all aspects of application security including storing users, password etc;
 defining access rights and dealing with OAuth2 authorization protocols. The complete database relationship diagram can
-be found [here](https://fiware.github.io/tutorials.Identity-Management/img/keyrock-db.png).
+be found [here](https://fiware.github.io/tutorials.Identity-Management/img/keyrock-db.png)
 
 <h3>UUIDs within Keyrock</h3>
 
 All IDs and tokens within **Keyrock** are subject to change. The following values will need to be amended when querying
 for records. Record IDs use Universally Unique Identifiers - UUIDs.
 
-| Key                    | Description                                                                                                                        | Sample Value                                            |
-| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------- |
-| `keyrock`              | URL for the location of the **Keyrock** service                                                                                    | `localhost:3005` for HTTP or `localhost:3443` for HTTPS |
-| `X-Auth-token`         | Token received in the Header when logging in as a user - in other words _"Who am I?"_                                              | `51f2e380-c959-4dee-a0af-380f730137c3`                  |
-| `X-Subject-token`      | Token added to requests to define _"Who do I want to inquire about?"_ - This can also be a repeat the `X-Auth-token` defined above | `51f2e380-c959-4dee-a0af-380f730137c3`                  |
-| `user-id`              | ID of an existing user, found with the `user` table                                                                                | `96154659-cb3b-4d2d-afef-18d6aec0518e`                  |
-| `organization-id`      | ID of an existing organization, found with the `organization` table                                                                | `e424ed98-c966-46e3-b161-a165fd31bc01`                  |
-| `organization-role-id` | type of role a user has within an organization either `owner` or `member`                                                          | `member`                                                |
+| Key                    | Description                                                                                                                        | Sample Value                                          |
+| ---------------------- | ---------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------- |
+| `keyrock`              | URL for the location of the **Keyrock** service                                                                                    | `localhost:3005` for HTTP, `localhost:3443` for HTTPS |
+| `X-Auth-token`         | Token received in the Header when logging in as a user - in other words _"Who am I?"_                                              | `51f2e380-c959-4dee-a0af-380f730137c3`                |
+| `X-Subject-token`      | Token added to requests to define _"Who do I want to inquire about?"_ - This can also be a repeat the `X-Auth-token` defined above | `51f2e380-c959-4dee-a0af-380f730137c3`                |
+| `user-id`              | ID of an existing user, found with the `user` table                                                                                | `96154659-cb3b-4d2d-afef-18d6aec0518e`                |
+| `organization-id`      | ID of an existing organization, found with the `organization` table                                                                | `e424ed98-c966-46e3-b161-a165fd31bc01`                |
+| `organization-role-id` | type of role a user has within an organization either `owner` or `member`                                                          | `member`                                              |
 
 Tokens are designed to expire after a set period. If the `X-Auth-token` value you are using has expired, log-in again to
 obtain a new token.
-
----
-
-## Authentication
 
 <h3>Video : Creating User Accounts with the Keyrock GUI</h3>
 
 [![](https://fiware.github.io/tutorials.Step-by-Step/img/video-logo.png)](https://www.youtube.com/watch?v=dtKsjGbJ7Xc 'Creating User Accounts')
 
-Click on the image above to watch a video demonstrating how to create users with the **Keyrock** GUI.
+Click on the image above to see a video demonstrating how to create users with the **Keyrock** GUI
 
-## Logging in to Keyrock
+## Logging In
 
 The Log-in Screen allows an existing user to identify themselves and obtain a token for further operations. It is the
 initial start-up screen of the **Keyrock** GUI - `http://localhost:3005/idm` (or `https://localhost:3443/idm` and accept
-the warnings).
+the warnings)
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/log-in.png)
 
-Enter a username and password to enter the **Keyrock** application. The default super-user has the values
+Enter a username and password to enter the **Keyrock** application. The default super-admin user has the values
 `admin@test.com` and `1234`.
 
 ### Create Token with Password
@@ -307,9 +334,9 @@ Enter a username and password to enter the **Keyrock** application. The default 
 The following example logs in using the super-admin user - it is the equivalent of using the log-in screen of the GUI.
 The URL `https://localhost:3443/v1/auth/tokens` should also work in a secure system.
 
-#### 1 Request:
+#### 1️⃣ Request:
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
   -H 'Content-Type: application/json' \
@@ -321,17 +348,10 @@ curl -iX POST \
 
 #### Response:
 
-> **Tip:** Use [jq](https://www.digitalocean.com/community/tutorials/how-to-transform-json-data-with-jq) to format the
-> JSON responses in this tutorial. Pipe the result by appending
->
-> ```
-> | jq '.'
-> ```
-
 The response header returns an `X-Subject-token` which identifies who has logged on the application. This token is
 required in all subsequent requests to gain access
 
-```text
+```
 HTTP/1.1 201 Created
 X-Subject-Token: d848eb12-889f-433b-9811-6a4fbf0b86ca
 Content-Type: application/json; charset=utf-8
@@ -364,9 +384,9 @@ above, both variables should be set to `d848eb12-889f-433b-9811-6a4fbf0b86ca` - 
 with the token `{{X-Auth-token}}` is enquiring about the user holding the token `{{X-Subject-token}}`_ - in this case we
 only have one user within the **Keyrock** application, and that user is enquiring about himself.
 
-#### 2 Request:
+#### 2️⃣ Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/auth/tokens' \
   -H 'Content-Type: application/json' \
@@ -376,7 +396,7 @@ curl -X GET \
 
 #### Response:
 
-The response will return the details of the associated user:
+The response will return the details of the associated user
 
 ```json
 {
@@ -396,16 +416,16 @@ The response will return the details of the associated user:
 
 ### Refresh Token
 
-Tokens are time limited - it is no longer possible to gain access once a token has expired. However, it is possible to
+Tokens are time limited - it is no longer possible to gain access once a token has expired. However it is possible to
 refresh a token for a newer one prior to expiry.
 
 Most applications use this endpoint to avoid timing out a user whilst they are interacting with the application.
 
-The `token` value, `d848eb12-889f-433b-9811-6a4fbf0b86ca` was acquired when the user logged on for the first time.
+The `token` value, `d848eb12-889f-433b-9811-6a4fbf0b86ca` was acquired when the user logged on for the first time
 
-#### 3 Request:
+#### 3️⃣ Request:
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/auth/tokens' \
   -H 'Content-Type: application/json' \
@@ -416,9 +436,9 @@ curl -iX POST \
 
 #### Response:
 
-A new token is returned in the `X-Subject-Token` header:
+A new token is returned in the `X-Subject-Token` header
 
-```text
+```
 HTTP/1.1 201 Created
 X-Subject-Token: a5b83d68-ebad-4514-9d3a-dd892f6e6174
 Content-Type: application/json; charset=utf-8
@@ -441,9 +461,9 @@ Connection: keep-alive
 }
 ```
 
-## Administrating User Accounts
+# Administrating User Accounts
 
-Users accounts are at the heart of any identity management system. The essential fields of every account hold a unique
+User accounts are at the heart of any identity management system. The essential fields of every account hold a unique
 username and email address to identify the user, along with a password for authentication. The other optional fields add
 more information about the user such as a user website, description or avatar.
 
@@ -452,9 +472,9 @@ assign them to relevant organizations within the system.
 
 <h3>Dramatis Personae</h3>
 
-The following people legitimately have accounts within the Application:
+The following people legitimately have accounts within the Application
 
--   Alice, she will be the Administrator of the **Keyrock** Application.
+-   Alice, she will be the Administrator of the **Keyrock** Application
 -   Bob, the Regional Manager of the supermarket chain - he has several store managers under him:
     -   Manager1
     -   Manager2
@@ -466,11 +486,11 @@ The following people legitimately have accounts within the Application:
 
 #### GUI
 
-Users are able to sign up for themselves using the GUI. The only requirement is an email address and a password.
+Users are able to sign-up for themselves using the GUI. The only requirement is an email address and a password.
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/sign-up.png)
 
-Once an account is created, the user is emailed to confirm their existence and activate their account.
+Once an account is created, the user is sent an eMail to confirm their existence and activate their account.
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/email.png)
 
@@ -479,8 +499,10 @@ Once an account is created, the user is emailed to confirm their existence and a
 The REST API is also able to create and amend users without their own interaction - this could be useful for bulk CRUD
 actions for example.
 
-> **Note** - an eMail server must be configured to send out invites properly, otherwise the invitation may be deleted as
-> spam. For testing purposes, it is easier to update the users table directly: `update user set enabled = 1;`
+> [!NOTE]
+>
+> An eMail server must be configured to send out invites properly, otherwise the invitation may be deleted as spam. For
+> testing purposes, it is easier to update the users table directly: `update user set enabled = 1;`
 
 All the CRUD actions for Users require an `X-Auth-token` header from a previously logged in administrative user to be
 able to read or modify other user accounts. The standard CRUD actions are assigned to the appropriate HTTP verbs (POST,
@@ -491,9 +513,9 @@ GET, PATCH and DELETE) under the `/v1/users` endpoint.
 To create a new user, send a POST request to the `/v1/users` endpoint containing the `username`,`email` and `password`
 along with the `X-Auth-token` header from a previously logged in administrative user.
 
-#### 4 Request:
+#### 4️⃣ Request:
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -509,9 +531,9 @@ curl -iX POST \
 
 #### Response:
 
-The response returns the details of the created user:
+The response returns the details of the created user
 
-```json
+```
 {
     "user": {
         "id": "3b3a5ad5-afd3-4baa-a538-25c7fe7cbf6a",
@@ -536,9 +558,9 @@ update user set admin = 1 where username='alice';
 Additional users can be added by making repeated POST requests.
 
 For example to create additional accounts for Bob, the Regional Manager, Charlie, the Head of Security and their direct
-reports:
+reports
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -552,7 +574,7 @@ curl -iX POST \
 }'
 ```
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -566,7 +588,7 @@ curl -iX POST \
 }'
 ```
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -580,7 +602,7 @@ curl -iX POST \
 }'
 ```
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -594,7 +616,7 @@ curl -iX POST \
 }'
 ```
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -608,7 +630,7 @@ curl -iX POST \
 }'
 ```
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -627,11 +649,9 @@ curl -iX POST \
 Making a GET request to a resource under the `/v1/users/{{user-id}}` endpoint will return the user listed under that ID.
 The `X-Auth-token` must be supplied in the headers.
 
-#### 5 Request:
+#### 5️⃣ Request:
 
-To request
-
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/users/{{user-id}}' \
   -H 'Content-Type: application/json' \
@@ -663,11 +683,11 @@ The response contains basic details of the account in question:
 
 Obtaining a complete list of all users is a super-admin permission requiring the `X-Auth-token` - most users will only
 be permitted to return users within their own organization. Listing users can be done by making a GET request to the
-`/v1/users` endpoint:
+`/v1/users` endpoint
 
-#### 6 Request:
+#### 6️⃣ Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/users' \
   -H 'Content-Type: application/json' \
@@ -675,8 +695,6 @@ curl -X GET \
 ```
 
 #### Response:
-
-The response contains basic details of all accounts:
 
 ```json
 {
@@ -711,9 +729,9 @@ The response contains basic details of all accounts:
 Within the GUI, users can be updated from the settings page. This can also be done from the command-line by making PATCH
 request to `/v1/users/<user-id>` endpoint when the user ID is known. The `X-Auth-token` header must also be set.
 
-#### 7 Request:
+#### 7️⃣ Request:
 
-```bash
+```console
 curl -iX PATCH \
   'http://localhost:3005/v1/users/{{user-id}}' \
   -H 'Content-Type: application/json' \
@@ -750,9 +768,9 @@ Within the GUI, users can delete their account from the settings page, selecting
 again a super-admin user can do this from the command-line by sending a DELETE request to the `/v1/users/{{user-id}}`
 endpoint. The `X-Auth-token` header must also be set.
 
-#### 8 Request:
+#### 8️⃣ Request:
 
-```bash
+```console
 curl -iX DELETE \
   'http://localhost:3005/v1/users/{{user-id}}' \
   -H 'Content-Type: application/json' \
@@ -761,10 +779,10 @@ curl -iX DELETE \
 
 ---
 
-## Grouping User Accounts under Organizations
+# Grouping User Accounts under Organizations
 
 For any identity management system of a reasonable size, it is useful to be able to assign roles to groups of users,
-rather than setting them up individually. Since user administration is a time-consuming business, it is also necessary
+rather than setting them up individually. Since user administration is a time consuming business, it is also necessary
 to be able to delegate the responsibility of managing these group of users down to other accounts with a lower level of
 access.
 
@@ -780,9 +798,9 @@ Manager would be made the owner of the _management_ organization and could add a
 ownership role in the _security_ organization and add additional store detectives to that organization.
 
 Note that Bob does not have the rights to alter the membership list of the _security_ organization and Charlie does not
-have the rights to alter the membership list of the _management_ organization. Furthermore, neither Bob nor Charlie
-would be able to alter the permissions of the application themselves, merely add and remove existing user accounts to
-the organization they control.
+have the rights to alter the membership list of the _management_ organization. Furthermore neither Bob nor Charlie would
+be able to alter the permissions of the application themselves, merely add and remove existing user accounts to the
+organization they control.
 
 Creating an application and setting-up the permissions is not covered here as it is the subject of the next tutorial.
 
@@ -802,11 +820,11 @@ the `/v1/organizations` endpoint.
 ### Create an Organization
 
 To create a new organization, send a POST request to the `/v1/organizations` endpoint containing the `name` and
-`description` along with the `X-Auth-token` header from a previously logged-in user.
+`description` along with the `X-Auth-token` header from a previously logged in user.
 
-#### 9 Request:
+#### 9️⃣ Request:
 
-```bash
+```console
 curl -iX POST \
   'http://localhost:3005/v1/organizations' \
   -H 'Content-Type: application/json' \
@@ -841,9 +859,9 @@ Making a GET request to a resource under the `/v1/organizations/{{organization-i
 organization listed under that ID. The `X-Auth-token` must be supplied in the headers as only permitted organizations
 will be shown.
 
-#### 10 Request:
+#### 1️⃣0️⃣ Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
   -H 'Content-Type: application/json' \
@@ -868,13 +886,13 @@ The response returns the details of the organization.
 
 ### List all Organizations
 
-Obtaining a complete list of all organizations is a super-admin permission requiring the `X-Auth-token` - most users
-will only be permitted to return users within their own organization. Listing users can be done by making a GET request
-to the `/v1/organizations` endpoint.
+Obtaining a complete list of all users is a super-admin permission requiring the `X-Auth-token` - most users will only
+be permitted to return users within their own organization. Listing users can be done by making a GET request to the
+`/v1/organizations` endpoint
 
-#### 11 Request:
+#### 1️⃣1️⃣ Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/organizations' \
   -H 'Content-Type: application/json' \
@@ -917,9 +935,9 @@ The response returns the details of the visible organizations.
 To amend the details of an existing organization, a PATCH request is send to the `/v1/organizations/{{organization-id}}`
 endpoint.
 
-#### 12 Request:
+#### 1️⃣2️⃣ Request:
 
-```bash
+```console
 curl -iX PATCH \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
   -H 'Content-Type: application/json' \
@@ -927,7 +945,7 @@ curl -iX PATCH \
   -d '{
     "organization": {
         "name": "FIWARE Security",
-        "description": "The FIWARE Foundation is the legal independent body promoting, augmenting open-source FIWARE technologies",
+        "description": "The FIWARE Foundation is the ...",
         "website": "https://fiware.org"
     }
 }'
@@ -935,13 +953,13 @@ curl -iX PATCH \
 
 #### Response:
 
-The response contains a list of the fields which have been amended:
+The response contains a list of the fields which have been amended.
 
 ```json
 {
     "values_updated": {
         "name": "FIWARE Security",
-        "description": "The FIWARE Foundation is the legal independent body promoting, augmenting open-source FIWARE technologies",
+        "description": "The FIWARE Foundation is the ...",
         "website": "https://fiware.org"
     }
 }
@@ -949,19 +967,19 @@ The response contains a list of the fields which have been amended:
 
 ### Delete an Organization
 
-#### 13 Request:
+#### 1️⃣3️⃣ Request:
 
-```bash
+```console
 curl -iX DELETE \
   'http://localhost:3005/v1/organizations/{{organization-id}}' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
 
-## Administrating Users within an Organization
+## Users within an Organization
 
 Users within an Organization are assigned to one of types - `owner` or `member`. The members of an organization inherit
-all the roles and permissions assigned to the organization itself. In addition, owners of an organization are able to
+all of the roles and permissions assigned to the organization itself. In addition, owners of an organization are able to
 add and remove other members and owners.
 
 ### Add a User as a Member of an Organization
@@ -974,9 +992,9 @@ button:
 To add a user as a member of an organization, an owner must make a PUT request as shown, including the
 `<organization-id>` and `<user-id>` in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### 14 Request:
+#### 1️⃣4️⃣ Request:
 
-```bash
+```console
 curl -iX PUT \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
@@ -985,7 +1003,7 @@ curl -iX PUT \
 
 #### Response:
 
-The response lists the user's current role within the organization (i.e. `member`):
+The response lists the user's current role within the organization (i.e. `member`)
 
 ```json
 {
@@ -1002,9 +1020,9 @@ The response lists the user's current role within the organization (i.e. `member
 An owner can also create new owners by making a PUT request as shown, including the `<organization-id>` and `<user-id>`
 in the URL path and identifying themselves using an `X-Auth-Token` in the header.
 
-#### 15 Request:
+#### 1️⃣5️⃣ Request:
 
-```bash
+```console
 curl -iX PUT \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/owner' \
   -H 'Content-Type: application/json' \
@@ -1013,7 +1031,7 @@ curl -iX PUT \
 
 #### Response:
 
-The response lists the user's current role within the organization (i.e. `owner`):
+The response lists the user's current role within the organization (i.e. `owner`)
 
 ```json
 {
@@ -1031,12 +1049,12 @@ To list the users of an organization using the GUI, just click on the existing o
 
 ![](https://fiware.github.io/tutorials.Identity-Management/img/org-with-users.png)
 
-Listing users within an organization is an `owner` or super-admin permission requiring the `X-Auth-token` Listing users
+Listing users within an organization is an `owner` or super-admin permission requiring the `X-Auth-token`. Listing users
 can be done by making a GET request to the `/v1/organizations/{{organization-id}}/users` endpoint.
 
-#### 16 Request:
+#### 1️⃣6️⃣ Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users' \
   -H 'Content-Type: application/json' \
@@ -1069,9 +1087,9 @@ The response contains the users list.
 To find the role of a user within an organization, send a GET request to the
 `/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles` endpoint.
 
-#### 17 Request:
+#### 1️⃣7️⃣ Request:
 
-```bash
+```console
 curl -X GET \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles' \
   -H 'Content-Type: application/json' \
@@ -1080,7 +1098,7 @@ curl -X GET \
 
 #### Response:
 
-The response returns the role of the given `<user-id>`:
+The response returns the role of the given `<user-id>`
 
 ```json
 {
@@ -1094,15 +1112,33 @@ The response returns the role of the given `<user-id>`:
 
 ### Remove a User from an Organization
 
-Owners and Super-Admins can remove a user from an organization by making a delete request.
+Owners and Super-Admins can remove a user from and organization by making a delete request.
 
-> **Note:** This request only removes users who are "members", not those who are "owners".
+#### 1️⃣8️⃣ Request:
 
-#### 18 Request:
-
-```bash
+```console
 curl -X DELETE \
   'http://localhost:3005/v1/organizations/{{organization-id}}/users/{{user-id}}/organization_roles/member' \
   -H 'Content-Type: application/json' \
   -H 'X-Auth-token: {{X-Auth-token}}'
 ```
+
+# Next Steps
+
+Want to learn how to add more complexity to your application by adding advanced features? You can find out by reading
+the other [tutorials in this series](https://fiware-tutorials.rtfd.io)
+
+---
+
+## License
+
+[MIT](LICENSE) © 2018-2025 FIWARE Foundation e.V.
+
+---
+
+### Footnotes
+
+<a name="footnote1"></a>
+
+-   [Garnter: Identity Management](http://www.gartner.com/it-glossary/identity-and-access-management-iam/) - definition
+    of Identity Management
