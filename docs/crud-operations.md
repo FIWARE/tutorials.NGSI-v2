@@ -114,7 +114,6 @@ All services can be initialised from the command-line by running the bash script
 clone the repository and create the necessary images by running the commands as shown below:
 
 ```bash
-#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.CRUD-Operations.git
 cd tutorials.CRUD-Operations
 git checkout NGSI-v2
@@ -122,8 +121,7 @@ git checkout NGSI-v2
 ./services start
 ```
 
-This command will also import seed data from the previous
-[Store Finder tutorial](https://github.com/FIWARE/tutorials.Entity-Relationships) on startup.
+This command will also import seed data from the previous [Store Finder tutorial](entity-relationships.md) on startup.
 
 > **Note:** If you want to clean up and start over again you can do so with the following command:
 >

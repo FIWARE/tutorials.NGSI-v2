@@ -15,6 +15,11 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 # Understanding Entities and Relationships
 
+> "It is not the amount of knowledge that makes a brain. It is not even the distribution of knowledge. It is the
+> interconnectedness."
+>
+> ― James Gleick, The Information: A History, a Theory, a Flood
+
 Within the FIWARE platform, the context of an entity represents the state of a physical or conceptual object which
 exists in the real world.
 
@@ -56,8 +61,8 @@ change its price, stock could be sold and the shelf count of stock could be redu
 ## Architecture
 
 This application will only make use of one FIWARE component - the
-[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/). Usage of the Orion Context Broker (with proper
-context data flowing through it) is sufficient for an application to qualify as _“Powered by FIWARE”_.
+[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/). Usage of the Orion Context Broker is sufficient
+for an application to qualify as _”Powered by FIWARE”_.
 
 Currently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the context data it holds. Therefore, the architecture will consist of two elements:
@@ -68,7 +73,7 @@ persistence of the context data it holds. Therefore, the architecture will consi
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
         registrations
 
-Since all interactions between the two services are initiated by HTTP requests, the services can be containerized and
+Since all interactions between the two elements are initiated by HTTP requests, the entities can be containerized and
 run from exposed ports.
 
 ![](https://fiware.github.io/tutorials.Entity-Relationships/img/architecture.png)
@@ -105,7 +110,7 @@ mongo-db:
 ```
 
 Both containers are residing on the same network - the Orion Context Broker is listening on Port `1026` and MongoDB is
-listening on the default port `27071`. Both containers are also exposing the same ports externally - this is purely for
+listening on the default port `27017`. Both containers are also exposing the same ports externally - this is purely for
 the tutorial access - so that cUrl or Postman can access them without being part of the same network. The command-line
 initialization should be self-explanatory.
 
@@ -122,7 +127,6 @@ All services can be initialised from the command-line by running the
 the repository. Please clone the repository and create the necessary images by running the commands as shown:
 
 ```bash
-#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Entity-Relationships.git
 cd tutorials.Entity-Relationships
 git checkout NGSI-v2

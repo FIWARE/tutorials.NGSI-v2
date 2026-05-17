@@ -182,7 +182,6 @@ All services can be initialised from the command-line by running the bash script
 clone the repository and create the necessary images by running the commands as shown:
 
 ```bash
-#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Context-Providers.git
 cd tutorials.Context-Providers
 git checkout NGSI-v2
@@ -576,7 +575,7 @@ apply:
 This example registers the Random Data Context Provider with the Orion Context Broker.
 
 The body of the request states that: _"The URL_ `http://context-provider:3000/random/weatherConditions` _is capable of
-providing_ `relativeHumidity` and `temperature` _data for the entity called_ `id=urn:ngsi-ld:Store:001`._"_
+providing_ `relativeHumidity` _data for the entity called_ `id=urn:ngsi-ld:Store:001`._"_
 
 The values are **never** held within Orion, it is always requested on demand from the registered context provider. Orion
 merely holds the registration information about which context providers can offer context data.
@@ -605,7 +604,6 @@ curl -iX POST \
       }
     ],
     "attrs": [
-      "temperature",
       "relativeHumidity"
     ]
   },
@@ -679,7 +677,7 @@ curl -G -X GET \
     },
     "relativeHumidity": {
         "type": "Number",
-        "value": "58",
+        "value": 27,
         "metadata": {}
     }
 }
@@ -697,7 +695,7 @@ curl -X GET \
 #### Response:
 
 ```text
-58
+27
 ```
 
 ### Read a registered Context Provider

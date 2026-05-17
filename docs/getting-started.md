@@ -13,13 +13,23 @@ The tutorial uses [cUrl](https://ec.haxx.se/) commands throughout, but is also a
 
 <hr class="core"/>
 
-# Getting Started with NGSI-v2
+# Introduction to NGSI-v2
+
+> "Begin at the beginning," the King said, very gravely, "and go on till you come to the end: then stop."
+>
+> — Lewis Carroll, Alice in Wonderland
+
+**NGSI-v2** is a JSON-based interoperability interface for use in individual Smart Systems. It is ideal for creating
+individual applications offering interoperable interfaces for web services or IoT devices. It is easier to understand
+than NGSI-LD and does not require a [JSON-LD `@context`](https://www.w3.org/TR/json-ld11/#the-context).
+
+---
 
 ## Architecture
 
 Our demo application will only make use of one FIWARE component - the
-[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/). Usage of the Orion Context Broker (with proper
-context data flowing through it) is sufficient for an application to qualify as _“Powered by FIWARE”_.
+[Orion Context Broker](https://fiware-orion.readthedocs.io/en/latest/). Usage of the Orion Context Broker is sufficient
+for an application to qualify as _”Powered by FIWARE”_.
 
 Currently, the Orion Context Broker relies on open source [MongoDB](https://www.mongodb.com/) technology to keep
 persistence of the context data it holds. Therefore, the architecture will consist of two elements:
@@ -30,7 +40,7 @@ persistence of the context data it holds. Therefore, the architecture will consi
     -   Used by the Orion Context Broker to hold context data information such as data entities, subscriptions and
         registrations
 
-Since all interactions between the two services are initiated by HTTP requests, the services can be containerized and
+Since all interactions between the two elements are initiated by HTTP requests, the entities can be containerized and
 run from exposed ports.
 
 ![](https://fiware.github.io/tutorials.Getting-Started/img/architecture.png)
@@ -60,6 +70,16 @@ configure the required services for the application. This means all container se
 command. Docker Compose is installed by default as part of Docker for Windows and Docker for Mac, however Linux users
 will need to follow the instructions found [here](https://docs.docker.com/compose/install/)
 
+You can check your current **Docker** and **Docker Compose** versions using the following commands:
+
+```bash
+docker-compose -v
+docker version
+```
+
+Please ensure that you are using Docker version 24.0.x or higher and Docker Compose 2.24.x or higher and upgrade if
+necessary.
+
 ## Starting the containers
 
 ### Option 1) Using Docker commands directly
@@ -67,7 +87,7 @@ will need to follow the instructions found [here](https://docs.docker.com/compos
 First pull the necessary Docker images from Docker Hub and create a network for our containers to connect to:
 
 ```bash
-docker pull mongo:4.2
+docker pull mongo:4.4
 docker pull fiware/orion
 docker network create fiware_default
 ```
@@ -77,7 +97,7 @@ with the following command:
 
 ```bash
 docker run -d --name=mongo-db --network=fiware_default \
-  --expose=27017 mongo:4.2 --bind_ip_all
+  --expose=27017 mongo:4.4 --bind_ip_all
 ```
 
 The Orion Context Broker can be started and connected to the network with the following command:
@@ -99,23 +119,23 @@ docker run -d --name fiware-orion -h orion --network=fiware_default \
 
 ### Option 2) Using Docker Compose
 
-All services can be initialised from the command-line using the `docker compose` command. Please clone the repository
-and create the necessary images by running the commands as shown:
+All services can be initialised from the command-line using the `docker-compose` command or the newer `docker compose`
+command (without the hyphen `-` )found in [Compose V2](https://docs.docker.com/compose/cli-command/). Please clone the
+repository and create the necessary images by running the commands as shown:
 
 ```bash
-#!/bin/bash
 git clone https://github.com/FIWARE/tutorials.Getting-Started.git
 cd tutorials.Getting-Started
 git checkout NGSI-v2
 
 export $(cat .env | grep "#" -v)
-docker compose up -d
+docker compose -p fiware up -d
 ```
 
 > **Note:** If you want to clean up and start again you can do so with the following command:
 >
 > ```
-> docker compose down
+> docker compose -p fiware down
 > ```
 
 ## Creating your first "Powered by FIWARE" app
@@ -612,7 +632,8 @@ curl -G -X GET \
   -d 'type=Store' \
   -d 'georel=near;maxDistance:1500' \
   -d 'geometry=point' \
-  -d 'coords=52.5162,13.3777'
+  -d 'coords=52.5162,13.3777' \
+  -d 'options=keyValues'
 ```
 
 #### Response:
